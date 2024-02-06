@@ -79,7 +79,7 @@ Route::post('/check-email', [AuthenticationController::class, 'checkEmail'])->na
 
 Route::get('/user-profile', [UserController::class, 'showProfile'])->name('userProfile');
 
-Route::get('/resend-otp', [AuthenticationController::class, 'resendOTP'])->name('resend-otp');
+Route::post('/resend-otp', [AuthenticationController::class, 'resendOTP'])->name('resend-otp');
 
 
 

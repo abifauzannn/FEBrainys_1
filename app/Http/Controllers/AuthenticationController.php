@@ -41,6 +41,7 @@ class AuthenticationController extends Controller
         ]);
 
         $responseData = $response->json();
+        dd($responseData);
 
         if ($response->successful() && $responseData['status'] === 'success') {
             // Verifikasi OTP berhasil, simpan token dalam sesi

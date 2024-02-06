@@ -66,7 +66,7 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            let totalSeconds = 0 * 60; // 2 menit
+            let totalSeconds = 2 * 60; // 2 menit
             let minutes, seconds;
 
             function updateCountdown() {

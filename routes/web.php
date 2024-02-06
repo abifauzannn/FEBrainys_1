@@ -63,6 +63,8 @@ Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashb
 
 Route::get('/generate', [SyllabusController::class, 'syllabus'])->name('syllabus');
 Route::post('/generate', [SyllabusController::class, 'generateSyllabus'])->name('syllabusPost');
+Route::post('/export-word', [SyllabusController::class, 'exportToWord'])->name('export-word');
+
 
 Route::post('/register', [AuthenticationController::class, 'register'])->name('registerPost');
 Route::get('/register', [AuthenticationController::class, 'showSignupForm'])->name('showSignupForm');

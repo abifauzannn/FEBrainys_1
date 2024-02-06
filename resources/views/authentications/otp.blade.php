@@ -52,13 +52,17 @@
                 <form action="{{ route('resend-otp') }}" method="POST">
                     @csrf
                     <input type="hidden" name="email" value="{{ $email }}">
-                    <p class="text-black text-base font-normal font-['Inter'] leading-[30px] mr-2">Kirim
-                        ulang kode OTP
-                    </p>
-                    <div id="countdown" class="text-blue-600 text-base font-normal font-['Inter'] leading-[30px]">2:00</div>
-                    <button type="submit" id="resendBtn" class="hidden text-blue-700">
-                        Kirim Kode
-                    </button>
+                    <div class="inline-flex">
+                        <p class="text-black text-base font-normal font-['Inter'] leading-[30px] mr-2">Kirim
+                            ulang kode OTP
+                        </p>
+                        <div id="countdown" class="text-blue-600 text-base font-normal font-['Inter'] leading-[30px]">2:00</div>
+                        <button type="submit" id="resendBtn" class="hidden text-blue-700">
+                            Kirim Kode
+                        </button>
+                    </div>
+
+
                 </form>
             </div>
         </div>

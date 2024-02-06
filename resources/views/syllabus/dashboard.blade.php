@@ -28,6 +28,7 @@
                 </div>
             </div>
         @endif
+
         <div class="w-full h-[134px] mb-[32px]">
             <div class="bg-gray-900 py-4 px-4 md:py-7 md:px-[51px] gap-3 rounded-2xl">
                 <div class=" text-white text-2xl md:text-[32px] font-bold font-['Inter'] leading-[49.99px]">Selamat
@@ -42,7 +43,7 @@
 
 
 
-        <div class="flex justify-between">
+        <div class="flex flex-col sm:flex-row sm:justify-between">
             <a href="/generate">
                 <div
                     class="w-full md:w-[370px]  p-4 rounded-lg shadow border border-gray-300 flex-col justify-start items-start gap-2 inline-flex mr-6 mb-2">

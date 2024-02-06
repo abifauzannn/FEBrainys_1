@@ -22,7 +22,7 @@
 
 
         <div class="w-[1170px] h-[60px] flex-col justify-start items-start gap-2 inline-flex">
-            <div class="text-gray-900 text-2xl font-semibold font-['Inter'] leading-[30px]">Template Silabus</div>
+            <div class="text-gray-900 text-2xl font-semibold font-['Inter'] leading-[30px]">Template Modul Ajar</div>
             <div class="w-[549px] text-gray-500 text-sm font-normal font-['Inter'] leading-snug">Lorem ipsum dolor sit
                 amet, consectetur adipiscing elit. Cras ultrices lectus sem.</div>
         </div>
@@ -99,292 +99,198 @@
                 <div class="h-[91px] flex-col justify-start items-start gap-[3px] flex">
                     <div class="w-[788px] text-gray-500 text-sm font-normal font-['Inter'] leading-snug">
                         @isset($data)
-                            <!-- Display the generated syllabus -->
-                            <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-                                <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                                    <thead class="text-xs text-gray-700 uppercase dark:text-gray-400">
+
+
+                            <div class="overflow-x-auto">
+                                <table class="w-full">
+                                    <thead class=" bg-slate-50">
                                         <tr>
-                                            <th scope="col" class="px-6 py-3 bg-gray-50 dark:bg-gray-800 text-lg"
-                                                colspan="2">
-                                                Informasi Umum
-                                            </th>
+                                            <th class="px-6 py-3 text-left text-sm font-bold text-gray-800 uppercase"
+                                                colspan="2">Informasi Umum</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        <tr class="border-b border-gray-200 dark:border-gray-700">
-                                            <th scope="row"
-                                                class="px-6 py-4 text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800 font-bold">
-                                                Penyusun
-                                            </th>
-                                            <td class="px-6 py-4">
-                                                {{ $data['informasi_umum']['penyusun'] }}
-                                            </td>
-                                        </tr>
-                                        <tr class="border-b border-gray-200 dark:border-gray-700">
-                                            <th scope="row"
-                                                class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">
-                                                Instansi
-                                            </th>
-                                            <td class="px-6 py-4">
-                                                {{ $data['informasi_umum']['instansi'] }}
-                                            </td>
-                                        </tr>
-                                        <tr class="border-b border-gray-200 dark:border-gray-700">
-                                            <th scope="row"
-                                                class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">
-                                                Tahun Penyusunan
-                                            </th>
-                                            <td class="px-6 py-4">
-                                                {{ $data['informasi_umum']['tahun_penyusunan'] }}
-                                            </td>
-                                        </tr>
-                                        <tr class="border-b border-gray-200 dark:border-gray-700">
-                                            <th scope="row"
-                                                class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">
-                                                Jenjang Sekolah
-                                            </th>
-                                            <td class="px-6 py-4">
-                                                {{ $data['informasi_umum']['jenjang_sekolah'] }}
-                                            </td>
-                                        </tr>
-                                        <tr class="border-b border-gray-200 dark:border-gray-700">
-                                            <th scope="row"
-                                                class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">
-                                                Mata Pelajaran
-                                            </th>
-                                            <td class="px-6 py-4">
-                                                {{ $data['informasi_umum']['mata_pelajaran'] }}
-                                            </td>
-                                        </tr>
-                                        <tr class="border-b border-gray-200 dark:border-gray-700">
-                                            <th scope="row"
-                                                class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">
-                                                Fase Kelas
-                                            </th>
-                                            <td class="px-6 py-4">
-                                                {{ $data['informasi_umum']['fase_kelas'] }}
-                                            </td>
-                                        </tr>
-                                        <tr class="border-b border-gray-200 dark:border-gray-700">
-                                            <th scope="row"
-                                                class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">
-                                                Topik
-                                            </th>
-                                            <td class="px-6 py-4">
-                                                {{ $data['informasi_umum']['topik'] }}
-                                            </td>
-                                        </tr>
-                                        <tr class="border-b border-gray-200 dark:border-gray-700">
-                                            <th scope="row"
-                                                class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">
-                                                Alokasi Waktu
-                                            </th>
-                                            <td class="px-6 py-4">
-                                                {{ $data['informasi_umum']['alokasi_waktu'] }}
-                                            </td>
-                                        </tr>
-                                        <tr class="border-b border-gray-200 dark:border-gray-700">
-                                            <th scope="row"
-                                                class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">
-                                                Kompetensi Awal
-                                            </th>
-                                            <td class="px-6 py-4">
-                                                {{ $data['informasi_umum']['kompetensi_awal'] }}
-                                            </td>
-                                        </tr>
+                                    <tbody class="divide-y divide-gray-200">
+                                        @foreach ($data['informasi_umum'] as $key => $value)
+                                            <tr class="">
+                                                <td
+                                                    class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200 font-semibold  bg-slate-50">
+                                                    {{ str_replace(' ', ' ', ucwords(str_replace('_', ' ', $key))) }}</td>
+                                                <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">
+                                                    {{ $value }}</td>
+                                            </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
 
-                            <div class="relative overflow-x-auto shadow-md sm:rounded-lg mt-5">
-                                <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                                    <thead class="text-xs text-gray-700 uppercase dark:text-gray-400">
+
+                            <div class="overflow-x-auto">
+                                <table class="w-full mt-5">
+                                    <thead class="bg-slate-50">
                                         <tr>
-                                            <th scope="col" class="px-6 py-3 bg-gray-50 dark:bg-gray-800 text-lg"
-                                                colspan="2">
-                                                Sarana dan Prasarana
-                                            </th>
+                                            <th class="px-6 py-3 text-left text-sm font-bold text-gray-800 uppercase"
+                                                colspan="2">Sarana dan Prasarana</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        <tr class="border-b border-gray-200 dark:border-gray-700">
-                                            <th scope="row"
-                                                class="px-6 py-4 text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800 font-bold">
-                                                Sumber Belajar
-                                            </th>
-                                            <td class="px-6 py-4">
-                                                {{ $data['sarana_dan_prasarana']['sumber_belajar'] }}
-                                            </td>
-                                        </tr>
-                                        <tr class="border-b border-gray-200 dark:border-gray-700">
-                                            <th scope="row"
-                                                class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">
-                                                Lembar Kerja Peserta Didik
-                                            </th>
-                                            <td class="px-6 py-4">
-                                                {{ $data['sarana_dan_prasarana']['lembar_kerja_peserta_didik'] }}
-                                            </td>
-                                        </tr>
+                                    <tbody class="divide-y divide-gray-200">
+                                        @foreach ($data['sarana_dan_prasarana'] as $key => $value)
+                                            <tr>
+                                                <td
+                                                    class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200 font-semibold bg-slate-50">
+                                                    {{ str_replace(' ', ' ', ucwords(str_replace('_', ' ', $key))) }}</td>
+                                                <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">
+                                                    {{ $value }}</td>
+                                            </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
 
-                            <div class="relative overflow-x-auto shadow-md sm:rounded-lg mt-5">
-                                <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                                    <thead class="text-xs text-gray-700 uppercase dark:text-gray-400">
+                            <div class="overflow-x-auto">
+                                <table class="w-full mt-5">
+                                    <thead class="bg-slate-50">
                                         <tr>
-                                            <th scope="col" class="px-6 py-3 bg-gray-50 dark:bg-gray-800 text-lg"
-                                                colspan="2">
-                                                Komponen Pembelajaran
-                                            </th>
+                                            <th class="px-6 py-3 text-left text-sm font-bold text-gray-800 uppercase"
+                                                colspan="2">Komponen Pembelajaran</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        <tr class="border-b border-gray-200 dark:border-gray-700">
-                                            <th scope="row"
-                                                class="px-6 py-4 text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800 font-bold">
-                                                Perlengkapan Peserta Didik
-                                            </th>
-                                            <td class="px-6 py-4">
-                                                @foreach ($data['komponen_pembelajaran']['perlengkapan_peserta_didik'] as $key => $item)
-                                                    <ul>{{ $key + 1 }}. {{ $item }}</ul>
-                                                @endforeach
-                                            </td>
-                                        </tr>
-                                        <tr class="border-b border-gray-200 dark:border-gray-700">
-                                            <th scope="row"
-                                                class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">
-                                                Perlengkapan Guru
-                                            </th>
-                                            <td class="px-6 py-4">
-                                                @foreach ($data['komponen_pembelajaran']['perlengkapan_guru'] as $key => $item)
-                                                    <ul>{{ $key + 1 }}. {{ $item }}</ul>
-                                                @endforeach
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-
-                            <div class="relative overflow-x-auto shadow-md sm:rounded-lg mt-5">
-                                <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                                    <thead class="text-xs text-gray-700 uppercase dark:text-gray-400">
-                                        <tr>
-                                            <th scope="col" class="px-6 py-3 bg-gray-50 dark:bg-gray-800 text-lg"
-                                                colspan="2">
-                                                Tujuan Kegiatan Pembelajaran
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr class="border-b border-gray-200 dark:border-gray-700">
-                                            <th scope="row"
-                                                class="px-6 py-4 text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800 font-bold">
-                                                Pembelajaran Bab
-                                            </th>
-                                            <td class="px-6 py-4">
-                                                {{ $data['tujuan_kegiatan_pembelajaran']['tujuan_pembelajaran_bab'] }}
-                                            </td>
-                                        </tr>
-                                        <tr class="border-b border-gray-200 dark:border-gray-700">
-                                            <th scope="row"
-                                                class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">
-                                                Tujuan Pembelajaran Topik
-                                            </th>
-                                            <td class="px-6 py-4">
-                                                @foreach ($data['tujuan_kegiatan_pembelajaran']['tujuan_pembelajaran_topik'] as $key => $item)
-                                                    <ul>{{ $key + 1 }}. {{ $item }}</ul>
-                                                @endforeach
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-
-                            <div class="relative overflow-x-auto shadow-md sm:rounded-lg mt-5">
-                                <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                                    <thead class="text-xs text-gray-700 uppercase dark:text-gray-400">
-                                        <tr>
-                                            <th scope="col" class="px-6 py-3 bg-gray-50 dark:bg-gray-800 text-lg"
-                                                colspan="2">
-                                                Pemahaman Bermakna
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr class="border-b border-gray-200 dark:border-gray-700">
-                                            <th scope="row"
-                                                class="px-6 py-4 text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800 font-bold">
-                                                Topik
-                                            </th>
-                                            <td class="px-6 py-4">
-                                                {{ $data['pemahaman_bermakna']['topik'] }}
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-
-                            <div class="relative overflow-x-auto shadow-md sm:rounded-lg mt-5">
-                                <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                                    <thead class="text-xs text-gray-700 uppercase dark:text-gray-400">
-                                        <tr>
-                                            <th scope="col" class="px-6 py-3 bg-gray-50 dark:bg-gray-800 text-lg" colspan="7">
-                                                Kompetensi Dasar
-                                            </th>
-                                        </tr>
-                                        <tr>
-                                            <th scope="col" class="px-6 py-3 bg-gray-50 dark:bg-gray-800 text-sm">
-                                                Nama Kompetensi Dasar
-                                            </th>
-                                            <th scope="col" class="px-6 py-3 bg-gray-50 dark:bg-gray-800 text-sm">
-                                                Materi
-                                            </th>
-                                            <th scope="col" class="px-6 py-3 bg-gray-50 dark:bg-gray-800 text-sm">
-                                                Indikator
-                                            </th>
-                                            <th scope="col" class="px-6 py-3 bg-gray-50 dark:bg-gray-800 text-sm">
-                                                Nilai Karakter
-                                            </th>
-                                            <th scope="col" class="px-6 py-3 bg-gray-50 dark:bg-gray-800 text-sm">
-                                                Kegiatan Pembelajaran
-                                            </th>
-                                            <th scope="col" class="px-6 py-3 bg-gray-50 dark:bg-gray-800 text-sm">
-                                                Alokasi Waktu
-                                            </th>
-                                            <th scope="col" class="px-6 py-3 bg-gray-50 dark:bg-gray-800 text-sm">
-                                                Penilaian
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($data['kompetensi_dasar'] as $kompetensi)
-                                            @foreach ($kompetensi['materi_pembelajaran'] as $materi)
-                                                <tr class="border-b border-gray-200 dark:border-gray-700">
-                                                    <td class="px-6 py-4">
-                                                        {{ $kompetensi['nama_kompetensi_dasar'] }}
-                                                    </td>
-                                                    <td class="px-6 py-4">
-                                                        {{ $materi['materi'] }}
-                                                    </td>
-                                                    <td class="px-6 py-4">
-                                                        {{ $materi['indikator'] }}
-                                                    </td>
-                                                    <td class="px-6 py-4">
-                                                        {{ $materi['nilai_karakter'] }}
-                                                    </td>
-                                                    <td class="px-6 py-4">
-                                                        {{ $materi['kegiatan_pembelajaran'] }}
-                                                    </td>
-                                                    <td class="px-6 py-4">
-                                                        {{ $materi['alokasi_waktu'] }}
-                                                    </td>
-                                                    <td class="px-6 py-4">
-                                                        @foreach ($materi['penilaian'] as $penilaian)
-                                                            <div>
-                                                                Jenis: {{ $penilaian['jenis'] }} - Bobot: {{ $penilaian['bobot'] }}
-                                                            </div>
+                                    <tbody class="divide-y divide-gray-200">
+                                        @foreach ($data['komponen_pembelajaran'] as $key => $value)
+                                            <tr>
+                                                <td
+                                                    class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200 font-semibold bg-slate-50">
+                                                    {{ str_replace(' ', ' ', ucwords(str_replace('_', ' ', $key))) }}</td>
+                                                <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">
+                                                    <ul>
+                                                        @foreach ($value as $item)
+                                                            <li>{{ $loop->iteration }}. {{ $item }}</li>
                                                         @endforeach
+                                                    </ul>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="overflow-x-auto">
+                                <table class="w-full mt-5">
+                                    <thead class="bg-slate-50">
+                                        <tr>
+                                            <th class="px-6 py-3 text-left text-sm font-bold text-gray-800 uppercase"
+                                                colspan="2">Tujuan Kegiatan Pembelajaran</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-gray-200">
+                                        @foreach ($data['tujuan_kegiatan_pembelajaran'] as $key => $value)
+                                            <tr>
+                                                <td
+                                                    class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200 font-semibold bg-slate-50">
+                                                    {{ str_replace('_', ' ', ucwords(str_replace('_', ' ', $key))) }}</td>
+                                                <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">
+                                                    @if (is_array($value))
+                                                        <ul>
+                                                            @foreach ($value as $item)
+                                                                <li>{{ $loop->iteration }}. {{ $item }}</li>
+                                                            @endforeach
+                                                        </ul>
+                                                    @else
+                                                        {{ $value }}
+                                                    @endif
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="overflow-x-auto">
+                                <table class="w-full mt-5">
+                                    <thead class="bg-slate-50">
+                                        <tr>
+                                            <th class="px-6 py-3 text-left text-sm font-bold text-gray-800 uppercase"
+                                                colspan="2">Pemahaman Bermakna</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-gray-200">
+                                        @foreach ($data['sarana_dan_prasarana'] as $key => $value)
+                                            <tr>
+                                                <td
+                                                    class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200 font-semibold bg-slate-50">
+                                                    {{ str_replace(' ', ' ', ucwords(str_replace('_', ' ', $key))) }}</td>
+                                                <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">
+                                                    {{ $value }}</td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="overflow-x-auto">
+                                <table class="w-full mt-5">
+                                    <thead class="bg-slate-50">
+                                        <tr>
+                                            <th class="px-6 py-3 text-left text-sm font-bold text-gray-800 uppercase"
+                                                colspan="2">Pertanyaan Pemantik</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-gray-200">
+                                        @foreach ($data['pertanyaan_pemantik'] as $index => $pertanyaan)
+                                            <tr>
+                                                <td
+                                                    class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200 font-semibold bg-slate-50">
+                                                    Pertanyaan {{ $index + 1 }}</td>
+                                                <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">
+                                                    {{ $pertanyaan }}</td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="overflow-x-auto">
+                                <table class="w-full mt-5">
+                                    <thead class="bg-slate-50">
+                                        <tr>
+                                            <th class="px-6 py-3 text-left text-sm font-bold text-gray-800 uppercase">
+                                                Kompetensi Dasar</th>
+                                            <th class="px-6 py-3 text-left text-sm font-bold text-gray-800 uppercase">Materi
+                                                Pembelajaran</th>
+                                            <th class="px-6 py-3 text-left text-sm font-bold text-gray-800 uppercase">Indikator
+                                            </th>
+                                            <th class="px-6 py-3 text-left text-sm font-bold text-gray-800 uppercase">Nilai
+                                                Karakter</th>
+                                            <th class="px-6 py-3 text-left text-sm font-bold text-gray-800 uppercase">Kegiatan
+                                                Pembelajaran</th>
+                                            <th class="px-6 py-3 text-left text-sm font-bold text-gray-800 uppercase">Alokasi
+                                                Waktu</th>
+                                            <th class="px-6 py-3 text-left text-sm font-bold text-gray-800 uppercase">Penilaian
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-gray-200">
+                                        @foreach ($data['kompetensi_dasar'] as $kompetensi_dasar)
+                                            @foreach ($kompetensi_dasar['materi_pembelajaran'] as $materi_pembelajaran)
+                                                <tr>
+                                                    <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">
+                                                        {{ $kompetensi_dasar['nama_kompetensi_dasar'] }}</td>
+                                                    <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">
+                                                        {{ $materi_pembelajaran['materi'] }}</td>
+                                                    <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">
+                                                        {{ $materi_pembelajaran['indikator'] }}</td>
+                                                    <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">
+                                                        {{ $materi_pembelajaran['nilai_karakter'] }}</td>
+                                                    <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">
+                                                        {{ $materi_pembelajaran['kegiatan_pembelajaran'] }}</td>
+                                                    <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">
+                                                        {{ $materi_pembelajaran['alokasi_waktu'] }}</td>
+                                                    <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">
+                                                        <ul>
+                                                            @foreach ($materi_pembelajaran['penilaian'] as $penilaian)
+                                                                <li>{{ $penilaian['jenis'] }} ({{ $penilaian['bobot'] }}%)
+                                                                </li>
+                                                            @endforeach
+                                                        </ul>
                                                     </td>
                                                 </tr>
                                             @endforeach
@@ -392,10 +298,22 @@
                                     </tbody>
                                 </table>
                             </div>
+                            <div class="fixed bottom-0 right-0 mb-8 mr-8">
+                                <form action="{{ route('export-word') }}" method="post">
+                                    @csrf
+                                    <input type="hidden" name="generate_id" value="{{ $generateId }}">
+                                    <button type="submit" class="flex items-center bg-green-600 px-6 py-3 rounded-lg text-white">
+                                        <img src="{{ URL('images/download.svg') }}" alt="" class="w-6 h-6 mr-2">
+                                        <span class="text-base font-medium">Export to Word</span>
+                                    </button>
+                                </form>
+                            </div>
                         @endisset
                     </div>
                 </div>
             </div>
+
+
 
         </div>
     </div>

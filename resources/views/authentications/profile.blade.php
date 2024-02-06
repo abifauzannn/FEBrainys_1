@@ -10,7 +10,7 @@
         <img src="{{ URL('images/user.svg') }}" alt="" class="">
         <div class="text-gray-900 text-4xl font-bold font-['Inter'] leading-[48px] mt-4 mb-4 sm">Lengkapi Profile</div>
         <div class="text-center text-gray-900 text-base font-medium font-['Inter'] leading-normal mb-12">Silakan
-            lengkapi profile anda terlebih dahulu </div>
+            lengkapi profile anda terlebih dahulu </div>    
         <form action="{{ route('complete.profile') }}" method="post">
             @csrf
             <div class="mb-4">

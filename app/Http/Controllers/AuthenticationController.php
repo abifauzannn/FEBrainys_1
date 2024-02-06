@@ -26,11 +26,13 @@ class AuthenticationController extends Controller
         return view('authentications.profile');
     }
 
-    public function showEmailVerify(){
+    public function showEmailVerify()
+    {
         return view('authentications.emailVerify');
     }
 
-    public function showChangePassword(){
+    public function showChangePassword()
+    {
         return view('authentications.changePassword');
     }
 
@@ -41,17 +43,19 @@ class AuthenticationController extends Controller
         ]);
 
         $responseData = $response->json();
-        dd($responseData);
+        // dd($responseData);
 
         if ($response->successful() && $responseData['status'] === 'success') {
             // Verifikasi OTP berhasil, simpan token dalam sesi
-            $accessToken = $responseData['data']['token'];
-            session(['access_token' => $accessToken]);
+            // $accessToken = $responseData['data']['token'];
+            // session(['access_token' => $accessToken]);
 
-            dd($responseData);
+            // dd($responseData);
 
             // Redirect ke halaman melengkapi profil
-            return redirect()->route('profileForm');
+            $email = $request->input('email');
+            $otp = $responseData['data']['otp'];
+            return redirect()->route('verify.otp', compact('email', 'otp'));
         } else {
             $errorMessage = isset($responseData['message']) ? $responseData['message'] : 'OTP verification failed. Please try again.';
             dd($responseData);
@@ -63,56 +67,56 @@ class AuthenticationController extends Controller
 
 
     public function checkEmail(Request $request)
-{
-    // Ambil email pengguna yang sedang login dari sesi
-    $loggedInUserEmail = Session::get('user.email');
+    {
+        // Ambil email pengguna yang sedang login dari sesi
+        $loggedInUserEmail = Session::get('user.email');
 
-    // Ambil email yang dimasukkan dari permintaan
-    $inputEmail = $request->input('email');
+        // Ambil email yang dimasukkan dari permintaan
+        $inputEmail = $request->input('email');
 
-    // Bandingkan email yang dimasukkan dengan email pengguna yang sedang login
-    if ($inputEmail === $loggedInUserEmail) {
-        // Redirect ke halaman change password jika email sesuai
-        return redirect()->route('change-password');
-    } else {
-        return response()->json(['valid' => false, 'message' => 'Email does not match the logged-in user.'], 400);
-    }
-}
-
-public function changePassword(Request $request)
-{
-    $apiUrl = 'https://be.brainys.oasys.id/api/change-password';
-
-    // Ambil token dari sesi Laravel
-    $accessToken = Session::get('access_token');
-
-    // Buat permintaan ke endpoint change-password
-    $response = Http::withHeaders([
-        'Authorization' => 'Bearer ' . $accessToken,
-    ])->post($apiUrl, [
-        'current_password' => $request->input('current_password'),
-        'new_password' => $request->input('new_password'),
-        'new_password_confirmation' => $request->input('new_password_confirmation'),
-    ]);
-
-    // Periksa keberhasilan permintaan
-    if ($response->successful() && $response->json()['status'] === 'success') {
-        $successMessage = $response->json()['message'] ?? 'Password changed successfully.';
-        return redirect()->route('dashboard')->with('success', $successMessage);
-    } else {
-        // Tampilkan respons JSON apabila terjadi kesalahan
-        $responseData = $response->json();
-
-        // Tangani kesalahan ganti password
-        if (isset($responseData['message']) && $responseData['message'] === 'Current password tidak sesuai.') {
-            $errorMessage = 'Current password tidak sesuai.';
+        // Bandingkan email yang dimasukkan dengan email pengguna yang sedang login
+        if ($inputEmail === $loggedInUserEmail) {
+            // Redirect ke halaman change password jika email sesuai
+            return redirect()->route('change-password');
         } else {
-            $errorMessage = $responseData['message'] ?? 'Failed to change password.';
+            return response()->json(['valid' => false, 'message' => 'Email does not match the logged-in user.'], 400);
         }
-
-        return back()->withErrors(['error' => $errorMessage]);
     }
-}
+
+    public function changePassword(Request $request)
+    {
+        $apiUrl = 'https://be.brainys.oasys.id/api/change-password';
+
+        // Ambil token dari sesi Laravel
+        $accessToken = Session::get('access_token');
+
+        // Buat permintaan ke endpoint change-password
+        $response = Http::withHeaders([
+            'Authorization' => 'Bearer ' . $accessToken,
+        ])->post($apiUrl, [
+            'current_password' => $request->input('current_password'),
+            'new_password' => $request->input('new_password'),
+            'new_password_confirmation' => $request->input('new_password_confirmation'),
+        ]);
+
+        // Periksa keberhasilan permintaan
+        if ($response->successful() && $response->json()['status'] === 'success') {
+            $successMessage = $response->json()['message'] ?? 'Password changed successfully.';
+            return redirect()->route('dashboard')->with('success', $successMessage);
+        } else {
+            // Tampilkan respons JSON apabila terjadi kesalahan
+            $responseData = $response->json();
+
+            // Tangani kesalahan ganti password
+            if (isset($responseData['message']) && $responseData['message'] === 'Current password tidak sesuai.') {
+                $errorMessage = 'Current password tidak sesuai.';
+            } else {
+                $errorMessage = $responseData['message'] ?? 'Failed to change password.';
+            }
+
+            return back()->withErrors(['error' => $errorMessage]);
+        }
+    }
 
 
 
@@ -293,12 +297,11 @@ public function changePassword(Request $request)
             session(['access_token' => $result['token'], 'user' => $profileData['data']]);
 
             // Redirect ke halaman dashboard atau halaman setelah login
-            if($profileData['data']['name'] == null || $profileData['data']['profession'] == null || $profileData['data']['school_name'] == null ){
+            if ($profileData['data']['name'] == null || $profileData['data']['profession'] == null || $profileData['data']['school_name'] == null) {
                 return redirect()->route('profileForm');
             } else {
                 return redirect()->route('dashboard');
             }
-
         } else {
             // Jika status bukan success, menangani kasus lain atau menampilkan pesan kesalahan dari server
             $errorMessage = isset($result['message']) ? $result['message'] : 'Login failed. Please check your credentials.';

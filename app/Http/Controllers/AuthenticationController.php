@@ -36,28 +36,25 @@ class AuthenticationController extends Controller
 
     public function resendOTP(Request $request)
     {
-        $apiUrl = 'https://be.brainys.oasys.id/api/resend-otp';
-
-        // Validasi atau logika lainnya
-
-        // Buat permintaan ke endpoint resend-otp
-        $response = Http::post($apiUrl, [
+        $response = Http::post('https://be.brainys.oasys.id/api/resend-otp', [
             'email' => $request->input('email'),
-
         ]);
 
-        dd($response);
+        $responseData = $response->json();
 
-        // Periksa keberhasilan permintaan
-        if ($response->successful()) {
-            $responseData = $response->json();
-            $successMessage = $responseData['message'] ?? 'Kode OTP berhasil dikirim ulang.';
-            dd($response->json());
-            return redirect()->back()->with('success', $successMessage);
+        if ($response->successful() && $responseData['status'] === 'success') {
+            // Verifikasi OTP berhasil, simpan token dalam sesi
+            $accessToken = $responseData['data']['token'];
+            session(['access_token' => $accessToken]);
+
+            dd($responseData);
+
+            // Redirect ke halaman melengkapi profil
+            return redirect()->route('profileForm');
         } else {
-            $errorMessage = $response->json()['message'] ?? 'Gagal mengirim ulang kode OTP.';
-            dd($response->json()); // Tampilkan JSON jika gagal
-            return redirect()->back()->withErrors(['error' => $errorMessage]);
+            $errorMessage = isset($responseData['message']) ? $responseData['message'] : 'OTP verification failed. Please try again.';
+            dd($responseData);
+            return back()->withErrors(['error' => $errorMessage]);
         }
     }
 

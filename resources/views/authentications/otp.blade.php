@@ -44,8 +44,13 @@
                 </div>
 
                 <div class="flex justify-center mt-8">
-                   <a href="{{ route('resend-otp') }}" class="text-black text-base font-normal font-['Inter'] leading-[30px] mr-2">Kirim ulang kode OTP
-                    </a>
+                    <form action="{{ route('resend-otp') }}" method="POST">
+                        @csrf
+                        <input type="hidden" name="email" value="{{ $email }}">
+                        <button type="submit" class="text-black text-base font-normal font-['Inter'] leading-[30px] mr-2">Kirim ulang kode OTP
+                        </button>
+                    </form>
+
                     <div id="countdown" class="text-blue-600 text-base font-normal font-['Inter'] leading-[30px]">2:00</div>
                     <button id="resendBtn" class="hidden text-blue-400">Kirim
                         kODE</button>

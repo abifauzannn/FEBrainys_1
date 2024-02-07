@@ -85,6 +85,20 @@
                         <div class="text-center text-white text-base font-medium font-['Inter'] leading-normal">Buat
                             Syllabus</div>
                     </button>
+
+                    <button id="loadingButton" disabled type="button"
+                        class="h-12 px-6 bg-blue-600 rounded-lg justify-center items-center gap-2.5 inline-flex"
+                        style="display: none;">
+                        <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg"
+                            fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
+                                stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor"
+                                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 4.418 3.582 8 8 8v-4zm10-1.874A6 6 0 1012 2.83v4.587a.944.944 0 00-.944.943h4.587A7.966 7.966 0 0114 12h4c0-3.313-2.54-6.036-5.786-6.371L14 5.415v-2.11l6.1 1.706">
+                            </path>
+                        </svg>
+                        <span class="text-white">Loading...</span>
+                    </button>
                 </div>
             </form>
         </div>
@@ -333,6 +347,35 @@
             var currentCount = textarea.value.length;
             characterCountElement.textContent = currentCount + '/50';
         }
+        document.addEventListener('DOMContentLoaded', function() {
+            const submitButton = document.getElementById('submitButton');
+            const loadingButton = document.getElementById('loadingButton');
+
+            submitButton.addEventListener('click', function() {
+                // Validasi input
+                var name = document.getElementById('name').value;
+                var subject = document.getElementById('subject').value;
+                var grade = document.getElementById('grade').value;
+                var notes = document.getElementById('notes').value;
+                var isValid = name.trim() !== '' && subject.trim() !== '' && grade.trim() !== '' && notes
+                    .trim() !== '';
+
+                if (isValid) {
+                    submitButton.style.display = 'none';
+                    loadingButton.style.display = 'inline-flex';
+
+                    // Optional: Set a timeout to simulate form submission
+                    setTimeout(function() {
+                        // Your form submission code here...
+                        // For example:
+                        // form.submit();
+                    }, 3000); // Adjust the timeout as needed (in milliseconds)
+                } else {
+                    // Tampilkan pesan bahwa ada kolom yang kosong
+                    alert('Silahkan lengkapi semua kolom sebelum melanjutkan.');
+                }
+            });
+        });
     </script>
 
 

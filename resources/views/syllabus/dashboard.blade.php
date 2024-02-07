@@ -38,11 +38,6 @@
             </div>
         </div>
 
-        <!-- Misalnya, menampilkan nama pengguna di dashboard -->
-
-
-
-
         <div class="flex flex-col sm:flex-row sm:justify-between">
             <a href="/generate">
                 <div
@@ -59,7 +54,8 @@
                     class="w-full md:w-[370px]  p-4 rounded-lg shadow border border-gray-300 flex-col justify-start items-start gap-2 inline-flex mr-6 mb-2">
                     <img src="{{ URL('images/book-open.png') }}" alt="" class="w-6 h-6 relative">
                     <div class=" text-gray-900 text-lg font-bold font-['Inter'] leading-normal">Templat Silabus (Soon)</div>
-                    <div class=" text-black text-xs font-normal font-['Inter'] leading-normal">Gunakan templat silabus merdeka belajar
+                    <div class=" text-black text-xs font-normal font-['Inter'] leading-normal">Gunakan templat silabus
+                        merdeka belajar
                     </div>
                 </div>
             </a>

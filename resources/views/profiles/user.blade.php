@@ -63,7 +63,7 @@
                 </div>
 
                 <div class="flex justify-end items-end mb-4">
-                    <a href="{{ route('emailVerify') }}" class="text-blue-600">Ganti Password</a>
+                    <a href="{{ route('emailVerifyChange') }}" class="text-blue-600">Ganti Password</a>
                 </div>
 
                 <div class="flex justify-center">

@@ -44,6 +44,71 @@ class AuthenticationController extends Controller
         return view('forgetPasswords.forgetPage');
     }
 
+    public function emailVerify(Request $request){
+        // Buat permintaan login ke API
+        $response = Http::post('https://be.brainys.oasys.id/api/forgot-password', [
+            'email' => $request->input('email'),
+        ]);
+
+        $responseData = $response->json();
+
+        // Periksa keberhasilan login
+        if ($response->successful() && $responseData['status'] === 'success') {
+            // Ambil token dari respons API
+            $accessToken = $responseData['reset_token'];
+
+            // Buat objek pengguna untuk menyimpan dalam sesi (tanpa database)
+            $email = $request->input('email');
+
+            // Simpan token dan objek pengguna di sesi Laravel
+            session(['access_token' => $accessToken, 'email' => $email]);
+
+            // Redirect ke halaman dashboard atau halaman setelah login
+            return redirect()->route('forgetPassword')->with('success', $responseData['message']);
+        } else {
+            // Tangani kesalahan login
+            return back()->with('error', $responseData['message']);
+        }
+        }
+
+
+
+    public function resetPassword(Request $request) {
+        // Buat permintaan reset password ke endpoint API
+        $response = Http::post('https://be.brainys.oasys.id/api/reset-password', [
+            'email' => session('email'),
+            'reset_token' =>  session('access_token'),
+            'new_password' => $request->input('new_password'),
+            'new_password_confirmation' => $request->input('new_password_confirmation')
+        ]);
+
+        // Periksa keberhasilan reset password
+        if ($response->successful()) {
+            // Password berhasil direset, hapus email dan token dari sesi
+            $request->session()->forget(['email', 'reset_token']);
+            $responseData = $response->json();
+
+            // Tampilkan pesan kesuksesan di halaman login
+            return redirect()->route('login')->with('success', $responseData['message']);
+        } else {
+             // Gagal mereset password, tangani kesalahan
+        $errorResponse = $response->json();
+
+        // Manipulasi pesan kesalahan yang diberikan oleh server
+        $errorMessage = $errorResponse['message'];
+        if (isset($errorResponse['data']) && isset($errorResponse['data']['new_password'])) {
+            // Jika ada pesan kesalahan khusus untuk field new_password, gunakan pesan tersebut
+            $errorMessage = $errorResponse['data']['new_password'][0];
+        }
+
+        // Tampilkan pesan kesalahan di halaman forget password
+        return redirect()->route('forgetPassword')->with('error', $errorMessage);
+        }
+    }
+
+
+
+
     public function resendOTP(Request $request)
     {
         $response = Http::post('https://be.brainys.oasys.id/api/resend-otp', [

@@ -72,10 +72,12 @@ Route::get('/register', [AuthenticationController::class, 'showSignupForm'])->na
 Route::get('/profile', [AuthenticationController::class, 'showProfileForm'])->name('profileForm');
 Route::post('/profile', [AuthenticationController::class, 'completeProfile'])->name('complete.profile');
 
-Route::get('/email-verify', [AuthenticationController::class, 'showEmailVerify'])->name('emailVerify');
+Route::get('/email-verify-change', [AuthenticationController::class, 'showEmailVerify'])->name('emailVerifyChange');
 
 Route::get('/email-forget-verify', [AuthenticationController::class, 'showEmailForget'])->name('emailForget');
+Route::post('/email-forget-verify', [AuthenticationController::class, 'emailVerify'])->name('emailVerify');
 Route::get('/forget-password', [AuthenticationController::class, 'showForgetPassword'])->name('forgetPassword');
+Route::post('/forget-password', [AuthenticationController::class, 'resetPassword'])->name('resetPassword');
 
 Route::get('/change-password', [AuthenticationController::class, 'showChangePassword'])->name('change-password');
 Route::post('/change-password', [AuthenticationController::class, 'changePassword'])->name('change-passwordPost');

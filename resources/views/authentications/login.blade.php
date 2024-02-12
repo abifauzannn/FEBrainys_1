@@ -67,15 +67,16 @@
                         </div>
                     @endif
 
+
                     <button type="submit"
-                        class="w-full h-12 px-6 py-3 bg-blue-600 rounded-[50px] justify-center items-center gap-2.5 inline-flex">
+                        class="w-full h-12 px-6 py-3 bg-blue-600 rounded-[50px] justify-center items-center gap-2.5 inline-flex hover:bg-blue-700">
                         <img src="{{ URL('images/arrow.svg') }}" alt="" class="w-[20px] h-[20px]">
                         <div class="text-center text-white text-base font-medium font-['Inter'] leading-normal">Login
                         </div>
                     </button>
 
                     <div class="flex justify-center mt-5 font-['Inter']">
-                        <a href="{{ route('emailForget') }}" class="font-bold text-blue-500">Lupa Password ?</a>
+                        <a href="{{ route('emailForget') }}" class="font-bold text-blue-500 hover:text-blue-700">Lupa Password ?</a>
                     </div>
                 </form>
             </div>
@@ -86,7 +87,7 @@
             </div>
 
             <button type="submit"
-                class="w-full h-12 inline-flex gap-[92px] pt-3 pb-[11px] bg-white rounded-[50px] shadow border border-neutral-200 mb-8">
+                class="w-full h-12 inline-flex gap-[92px] pt-3 pb-[11px] bg-white rounded-[50px] shadow border border-neutral-200 mb-8 hover:bg-slate-50">
                 <img src="{{ URL('images/google.svg') }}" alt="" class="w-[18px] h-[18px] ml-6">
                 <a href="{{ url('/login/google') }}"
                     class="text-black text-opacity-50 text-base font-medium font-['Roboto']">Sign in with Google</a>
@@ -95,7 +96,7 @@
             <div class="h-6 justify-center items-center gap-2 inline-flex">
                 <div class="text-center text-gray-900 text-base font-medium font-['Inter'] leading-normal">Belum punya
                     akun?</div>
-                <div class="text-center text-blue-600 text-base font-medium font-['Inter'] leading-normal"><a
+                <div class="text-center text-blue-600 text-base font-medium font-['Inter'] leading-normal hover:text-blue-700 hover:font-bold"><a
                         href="{{ route('showSignupForm') }}">Register</a>
                 </div>
             </div>

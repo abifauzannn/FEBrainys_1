@@ -37,7 +37,7 @@
         </div>
 
         <div class="w-full container mx-auto flex items-center justify-center mt-[51px] flex-col">
-            <form class="w-dull sm:w-[500px]" action="{{ route('checkEmail') }}" method="post">
+            <form class="w-dull sm:w-[500px]" action="{{ route('emailVerify') }}" method="post">
                 @csrf
                 <div class="mb-4">
                     <label for="email"
@@ -49,7 +49,7 @@
                 </div>
                 <div class="items-center flex justify-center py-4">
                     <button type="submit"
-                        class="w-[194px] h-12 px-6 py-3 bg-blue-600 rounded-sm justify-center    items-center gap-2.5 inline-flex">
+                        class="w-[194px] h-12 px-6 py-3 bg-blue-600 rounded-sm justify-center items-center gap-2.5 inline-flex hover:bg-blue-700">
                         <img src="{{ URL('images/check-circle.svg') }}" alt="" class="w-[20px] h-[20px]">
                         <div class="text-center text-white text-base font-medium font-['Inter'] leading-normal">Verifikasi
                             Email

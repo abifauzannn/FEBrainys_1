@@ -62,7 +62,7 @@
                     <input type="password" id="new_password" name="new_password"
                         class="w-full p-2 border rounded-md mt-[10px] text-gray-400 text-base font-normal font-['Inter'] leading-normal mr-5"
                         placeholder="Masukan Password Anda">
-                    <button id="togglePassword" type="button"
+                    <button id="seePassword" type="button"
                         class="absolute right-0 top-[48px] flex items-center mr-3 focus:outline-none">
                         <img src="{{ URL('images/group.svg') }}" alt="">
                     </button>
@@ -75,7 +75,7 @@
                     <input type="password" id="new_password_confirmation" name="new_password_confirmation"
                         class="w-full p-2 border rounded-md mt-[10px] text-gray-400 text-base font-normal font-['Inter'] leading-normal mr-5"
                         placeholder="Masukan Konfirmasi Password Anda">
-                    <button id="togglePassword" type="button"
+                    <button id="lihatPassword" type="button"
                         class="absolute right-0 top-[48px] flex items-center mr-3 focus:outline-none">
                         <img src="{{ URL('images/group.svg') }}" alt="">
                     </button>
@@ -83,10 +83,9 @@
 
                 <div class="items-center flex justify-center py-4">
                     <button type="submit"
-                        class="w-[179px] h-12 px-6 py-3 bg-blue-600 rounded-sm justify-center    items-center gap-2.5 inline-flex">
+                        class="w-auto  sm:w-[179px] h-12 px-6 py-3 bg-blue-600 rounded-sm justify-center items-center gap-2.5 inline-flex">
                         <img src="{{ URL('images/check-circle.svg') }}" alt="" class="w-[20px] h-[20px]">
-                        <div class="text-center text-white text-base font-medium font-['Inter'] leading-normal">Simpan
-                            Profil
+                        <div class="text-center text-white text-base font-medium font-['Inter'] leading-normal">Simpan Perubahan
                         </div>
                     </button>
                 </div>
@@ -100,12 +99,12 @@
             var type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
             passwordInput.setAttribute('type', type);
         });
-        document.getElementById('togglePassword').addEventListener('click', function() {
+        document.getElementById('seePassword').addEventListener('click', function() {
             var passwordInput = document.getElementById('new_password');
             var type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
             passwordInput.setAttribute('type', type);
         });
-        document.getElementById('togglePassword').addEventListener('click', function() {
+        document.getElementById('lihatPassword').addEventListener('click', function() {
             var passwordInput = document.getElementById('new_password_confirmation');
             var type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
             passwordInput.setAttribute('type', type);

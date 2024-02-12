@@ -36,6 +36,14 @@ class AuthenticationController extends Controller
         return view('authentications.changePassword');
     }
 
+    public function showEmailForget(){
+        return view('forgetPasswords.emailVerify');
+    }
+
+    public function showForgetPassword(){
+        return view('forgetPasswords.forgetPage');
+    }
+
     public function resendOTP(Request $request)
     {
         $response = Http::post('https://be.brainys.oasys.id/api/resend-otp', [

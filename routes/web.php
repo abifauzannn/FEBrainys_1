@@ -74,6 +74,9 @@ Route::post('/profile', [AuthenticationController::class, 'completeProfile'])->n
 
 Route::get('/email-verify', [AuthenticationController::class, 'showEmailVerify'])->name('emailVerify');
 
+Route::get('/email-forget-verify', [AuthenticationController::class, 'showEmailForget'])->name('emailForget');
+Route::get('/forget-password', [AuthenticationController::class, 'showForgetPassword'])->name('forgetPassword');
+
 Route::get('/change-password', [AuthenticationController::class, 'showChangePassword'])->name('change-password');
 Route::post('/change-password', [AuthenticationController::class, 'changePassword'])->name('change-passwordPost');
 

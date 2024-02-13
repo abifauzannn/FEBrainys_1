@@ -131,7 +131,7 @@ class AuthenticationController extends Controller
             return redirect()->route('verify.otp', compact('email', 'otp'));
         } else {
             $errorMessage = isset($responseData['message']) ? $responseData['message'] : 'OTP verification failed. Please try again.';
-            dd($responseData);
+
             return back()->withErrors(['error' => $errorMessage]);
         }
     }
@@ -288,8 +288,7 @@ class AuthenticationController extends Controller
                 return back()->withErrors(['password' => $responseData['data']['password'][0]]);
             }
 
-            $errorMessage = isset($responseData['message']) ? $responseData['message'] : 'Registration failed. Please try again.';
-            return back()->withErrors(['error' => $errorMessage]);
+            return back()->with('error', $responseData['message']);
         }
     }
 
@@ -376,11 +375,8 @@ class AuthenticationController extends Controller
                 return redirect()->route('dashboard');
             }
         } else {
-            // Jika status bukan success, menangani kasus lain atau menampilkan pesan kesalahan dari server
-            $errorMessage = isset($result['message']) ? $result['message'] : 'Login failed. Please check your credentials.';
-
             // Menggunakan withErrors untuk menyimpan pesan kesalahan dalam sesi
-            return redirect()->route('login')->withErrors(['error' => $errorMessage]);
+            return redirect()->route('login')->withErrors(['error' => $result['message']]);
         }
     }
 }

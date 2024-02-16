@@ -152,7 +152,7 @@ class AuthenticationController extends Controller
             // Redirect ke halaman change password jika email sesuai
             return redirect()->route('change-password');
         } else {
-            return response()->json(['valid' => false, 'message' => 'Email does not match the logged-in user.'], 400);
+            return back()->with(['error' => 'Email does not match the logged-in user.'], 400);
         }
     }
 
@@ -182,7 +182,7 @@ class AuthenticationController extends Controller
 
             // Tangani kesalahan ganti password
             if (isset($responseData['message']) && $responseData['message'] === 'Current password tidak sesuai.') {
-                $errorMessage = 'Current password tidak sesuai.';
+                $errorMessage = 'Password Saat ini tidak sesuai.';
             } else {
                 $errorMessage = $responseData['message'] ?? 'Failed to change password.';
             }

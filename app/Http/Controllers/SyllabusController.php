@@ -61,9 +61,12 @@ class SyllabusController extends Controller
                     return redirect('/generate')->with('error', 'Invalid API response format');
                 }
             } else {
-                // Handle error if needed
-                dd($responseData);
+                 // Handle error if needed
+            if(isset($responseData['status']) && $responseData['status'] === 'failed' && isset($responseData['message'])) {
+                return redirect('/generate')->with('error', $responseData['message']);
+            } else {
                 return redirect('/dashboard')->with('error', 'Failed to generate syllabus. Status code: ' . $statusCode);
+            }
             }
         } else {
             // Initial form display

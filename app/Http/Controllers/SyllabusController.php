@@ -62,8 +62,7 @@ class SyllabusController extends Controller
                 }
             } else {
                 // Handle error if needed
-                dd($responseData);
-                return redirect('/dashboard')->with('error', 'Failed to generate syllabus. Status code: ' . $statusCode);
+                return redirect('/dashboard')->with('error', [$responseData['message']]);
             }
         } else {
             // Initial form display

@@ -5,14 +5,6 @@
 @section('content')
     <x-nav></x-nav>
 
-
-
-    @if (Session::has('error'))
-        <div class="alert alert-danger">
-            {{ Session::get('error') }}
-        </div>
-    @endif
-
     <div class="container mx-auto px-[20px] sm:px-10 py-9">
         @if (session('success'))
             <div class="flex items-center p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400"

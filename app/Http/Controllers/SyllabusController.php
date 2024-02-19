@@ -62,7 +62,7 @@ class SyllabusController extends Controller
                 }
             } else {
                 // Handle error if needed
-                return redirect('/dashboard')->with('error', [$responseData['message']]);
+                return back()->with('error', [$responseData['message']]);
             }
         } else {
             // Initial form display

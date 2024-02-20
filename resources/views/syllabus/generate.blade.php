@@ -36,35 +36,61 @@
                 <div class="mb-4">
                     <label for="name" class="text-gray-900 text-base font-['Inter'] leading-normal font-semibold">Nama
                         Modul Ajar</label>
-                    <input type="text" name="name" id="name"
+                    <input type="text" name="name" id="name" data-tooltip-target="tooltip-light"
+                        data-tooltip-trigger="click" data-tooltip-placement="right"
                         class="w-full p-2 border rounded-md mt-[10px] placeholder:text-gray-400 text-base font-normal font-['Inter'] leading-normal"
                         placeholder="masukan nama modul ajar" required>
+                    <div id="tooltip-light" role="tooltip"
+                        class="mb-7 absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 tooltip">
+                        Contoh : Modul Ajar Bahasa Indonesia
+                        <div class="tooltip-arrow" data-popper-arrow></div>
+                    </div>
                 </div>
 
                 <div class="mb-4">
                     <label for="subject" class="text-gray-900 text-base font-['Inter'] leading-normal font-semibold">Mata
                         Pelajaran</label>
-                    <input type="text" name="subject" id="subject"
+                    <input type="text" name="subject" id="subject" data-tooltip-target="tooltip-subject"
+                        data-tooltip-trigger="click" data-tooltip-placement="right"
                         class="w-full p-2 border rounded-md mt-[10px] placeholder:text-gray-400 text-base font-normal font-['Inter'] leading-normal"
                         placeholder="masukan nama mata pelajaran" required>
+                    <div id="tooltip-subject" role="tooltip"
+                        class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 tooltip">
+                        Contoh : Bahasa Indonesia
+                        <div class="tooltip-arrow" data-popper-arrow></div>
+                    </div>
                 </div>
 
                 <!-- Input untuk Mata Pelajaran -->
                 <div class="mb-4">
                     <label for="grade"
                         class="text-gray-900 text-base font-semibold font-['Inter'] leading-normal">Kelas</label>
-                    <input type="number" id="grade" name="grade"
+                    <input type="number" id="grade" name="grade" data-tooltip-target="tooltip-grade"
+                        data-tooltip-trigger="click" data-tooltip-placement="right"
                         class="w-full p-2 border rounded-md mt-[10px] placeholder:text-gray-400 text-base font-normal font-['Inter'] leading-normal"
                         placeholder="masukan tingkat kelas" required>
+                    <div id="tooltip-grade" role="tooltip"
+                        class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 tooltip">
+                        Contoh : 10
+                        <div class="tooltip-arrow" data-popper-arrow></div>
+                    </div>
                 </div>
 
                 <div class="mb-4">
                     <label for="notes"
                         class="text-gray-900 text-base font-semibold font-['Inter'] leading-normal mb-[10px]">Deskripsi
                         Modul Ajar</label>
-                    <textarea id="notes" name="notes"
+                    <textarea id="notes" name="notes" data-tooltip-target="tooltip-notes" data-tooltip-placement="right"
+                        data-tooltip-trigger="click"
                         class="w-full p-2 border rounded-md mt-[10px] placeholder:text-gray-400 text-base font-normal font-['Inter'] leading-normal"
                         placeholder="Masukkan deskripsi poin Modul Ajar" maxlength="250" oninput="updateCharacterCount(this)" required></textarea>
+                    <div id="tooltip-notes" role="tooltip"
+                        class="max-w-xs absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 tooltip">
+                        Contoh : untuk memperkenalkan siswa kelas X pada keberagaman kebudayaan dan karya sastra Indonesia.
+                        Modul ini bertujuan untuk membantu siswa memahami nilai-nilai budaya, tradisi, dan kekayaan sastra
+                        Indonesia yang merupakan bagian integral dari identitas bangsa.
+                        <div class="tooltip-arrow" data-popper-arrow></div>
+                    </div>
                 </div>
                 <div class="flex justify-end -mt-2">
                     <div class="self-stretch justify-start items-end gap-5 inline-flex">
@@ -82,7 +108,7 @@
                         class="h-12 px-6 bg-blue-600 rounded-lg justify-center items-center gap-2.5 inline-flex">
                         <img src="{{ URL('images/glass.svg') }}" alt="" class="w-[20px] h-[20px]">
                         <div class="text-center text-white text-base font-medium font-['Inter'] leading-normal">Buat
-                            Syllabus</div>
+                            Modul</div>
                     </button>
 
                     <button id="loadingButton" disabled type="button"
@@ -96,7 +122,7 @@
                                 d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 4.418 3.582 8 8 8v-4zm10-1.874A6 6 0 1012 2.83v4.587a.944.944 0 00-.944.943h4.587A7.966 7.966 0 0114 12h4c0-3.313-2.54-6.036-5.786-6.371L14 5.415v-2.11l6.1 1.706">
                             </path>
                         </svg>
-                        <span class="text-white">Loading...</span>
+                        <span class="text-white">Sedang Proses</span>
                     </button>
                 </div>
             </form>
@@ -109,8 +135,8 @@
                 @if (session('error'))
                     <div class="flex items-center p-4 mb-4 text-sm text-red-800 border border-red-300 rounded-lg bg-red-50"
                         role="alert">
-                        <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                            fill="currentColor" viewBox="0 0 20 20">
+                        <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                             <path
                                 d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
                         </svg>
@@ -235,7 +261,7 @@
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-gray-200">
-                                @foreach ($data['sarana_dan_prasarana'] as $key => $value)
+                                @foreach ($data['pemahaman_bermakna'] as $key => $value)
                                     <tr>
                                         <td
                                             class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200 font-semibold bg-slate-50">

@@ -1,6 +1,6 @@
 @extends('layouts.template')
 
-@section('title', 'Sign Up')
+@section('title', 'Sign Up - Brainys')
 
 @section('content')
 
@@ -46,14 +46,14 @@
                 <label for="email"
                     class="text-gray-900 text-base font-medium font-['Inter'] leading-normal mb-[30px]">Email</label>
                 <input type="email" id="email" name="email"
-                    class="w-full p-2 border rounded-md mt-[10px] text-gray-400 text-base font-normal font-['Inter'] leading-normal"
+                    class="w-full p-2 border rounded-md mt-[10px] placeholder:text-gray-400 text-base font-normal font-['Inter'] leading-normal"
                     placeholder="email@contoh.com" required>
             </div>
             <div class="relative mb-4">
                 <label for="password"
-                    class="text-gray-900 text-base font-medium font-['Inter'] leading-normal mb-[30px]">Password:</label>
+                    class="text-gray-900 text-base font-medium font-['Inter'] leading-normal mb-[30px]">Password</label>
                 <input type="password" id="password" name="password"
-                    class="w-full p-2 border rounded-md mt-[10px] text-gray-400 text-base font-normal font-['Inter'] leading-normal"
+                    class="w-full p-2 border rounded-md mt-[10px] placeholder:text-gray-400 text-base font-normal font-['Inter'] leading-normal"
                     placeholder="Masukan Password Anda">
                 <button id="togglePassword" type="button"
                     class="absolute right-0 top-[48px] flex items-center mr-3 focus:outline-none">
@@ -61,19 +61,20 @@
                 </button>
             </div>
 
-            <div class="relative mb-4">
+            <div class="relative">
                 <label for="password_confirmation"
                     class="text-gray-900 text-base font-medium font-['Inter'] leading-normal mb-[30px]">Konfirmasi
                     Password</label>
                 <input type="password" id="password_confirmation" name="password_confirmation"
-                    class="w-full p-2 border rounded-md mt-[10px] text-gray-400 text-base font-normal font-['Inter'] leading-normal"
+                    class="w-full p-2 border rounded-md mt-[10px] placeholder:text-gray-400 text-base font-normal font-['Inter'] leading-normal"
                     placeholder="Masukan Konfirmasi Password Anda">
                 <button id="seePassword" type="button"
                     class="absolute right-0 top-[48px] flex items-center mr-3 focus:outline-none">
                     <img src="{{ URL('images/group.svg') }}" alt="">
                 </button>
             </div>
-            <div id="passwordMatchError" class="text-red-700"></div>
+
+            <div id="passwordMatchError" class="text-red-700 py-2 font-bold"></div>
 
             <button type="submit" id="submitButton"
                 class="w-full h-12 px-6 py-3 bg-blue-600 rounded-[50px] justify-center items-center gap-2.5 inline-flex">
@@ -100,22 +101,24 @@
                 <a href="{{ route('emailForget') }}" class="font-bold text-blue-500 hover:text-blue-700">Lupa Password ?</a>
             </div>
         </form>
-        <div class="relative flex py-[44px] items-center">
+        <div class="relative flex py-7 items-center">
             <div class="flex-grow border-t border-gray-400"></div>
-            <span class="flex-shrink mx-4 text-gray-400">Atau</span>
+            <span class="flex-shrink mx-2 text-gray-400">ATAU</span>
             <div class="flex-grow border-t border-gray-400"></div>
         </div>
+
         <button
-            class="w-full h-12 inline-flex gap-[92px] pt-3 pb-[11px] bg-white rounded-[50px] shadow border border-neutral-200 mb-8">
+            class="w-full h-12 gap-[80px] pt-3 pb-[11px] bg-white rounded-[50px] shadow border border-neutral-200 mb-8 flex hover:bg-slate-50">
             <img src="{{ URL('images/google.svg') }}" alt="" class="w-[18px] h-[18px] ml-6">
-            <div class="text-black text-opacity-50 text-base font-medium font-['Roboto']">Sign in with Google</div>
+            <div class="text-black text-opacity-50 text-base font-medium font-['Roboto']">Sign Up with Google</div>
         </button>
 
         <div class="h-6 justify-center items-center gap-2 inline-flex">
             <div class="text-center text-gray-900 text-base font-medium font-['Inter'] leading-normal">Sudah Punya
                 Akun?</div>
-            <div class="text-center text-blue-600 text-base font-medium font-['Inter'] leading-normal"><a
-                    href="/">Sign In</a>
+            <div
+                class="text-center text-blue-600 text-base font-medium font-['Inter'] leading-normal py-3 hover:text-blue-700 hover:font-bold">
+                <a href="/">Sign In</a>
             </div>
         </div>
     </div>

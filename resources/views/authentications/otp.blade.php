@@ -1,6 +1,6 @@
 @extends('layouts.template')
 
-@section('title', 'Verify OTP')
+@section('title', 'Verify OTP - Brainys')
 
 @section('content')
 
@@ -56,7 +56,8 @@
                         <p class="text-black text-base font-normal font-['Inter'] leading-[30px] mr-2">Kirim
                             ulang kode OTP
                         </p>
-                        <div id="countdown" class="text-blue-600 text-base font-normal font-['Inter'] leading-[30px]">2:00</div>
+                        <div id="countdown" class="text-blue-600 text-base font-normal font-['Inter'] leading-[30px]">2:00
+                        </div>
                         <button type="submit" id="resendBtn" class="hidden text-blue-700">
                             Kirim Kode
                         </button>

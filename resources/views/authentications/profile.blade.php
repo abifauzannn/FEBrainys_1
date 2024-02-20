@@ -1,6 +1,6 @@
 @extends('layouts.template')
 
-@section('title', 'Profile')
+@section('title', 'Profile - Brainys')
 
 @section('content')
 
@@ -64,7 +64,6 @@
     </div>
 
     <script>
-
         const submitButton = document.getElementById("konfirmasiButton");
         const loadingIndicator = document.getElementById("loadingButton");
         const buttonText = document.getElementById("buttonText");

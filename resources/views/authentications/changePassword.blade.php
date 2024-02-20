@@ -1,6 +1,6 @@
 @extends('layouts.template')
 
-@section('title', 'Change Password')
+@section('title', 'Change Password - Brainys')
 
 @section('content')
     <x-nav></x-nav>
@@ -49,7 +49,7 @@
                         class="text-gray-900 text-base font-medium font-['Inter'] leading-normal mb-[30px]">Password
                         Lama:</label>
                     <input type="password" id="current_password" name="current_password"
-                        class="w-full p-2 border rounded-md mt-[10px] text-gray-400 text-base font-normal font-['Inter'] leading-normal mr-5"
+                        class="w-full p-2 border rounded-md mt-[10px] placeholder:text-gray-400 text-base font-normal font-['Inter'] leading-normal mr-5"
                         placeholder="Masukan Password Anda">
                     <button id="togglePassword" type="button"
                         class="absolute right-0 top-[48px] flex items-center mr-3 focus:outline-none">
@@ -62,7 +62,7 @@
                         class="text-gray-900 text-base font-medium font-['Inter'] leading-normal mb-[30px]">Password
                         Baru:</label>
                     <input type="password" id="new_password" name="new_password"
-                        class="w-full p-2 border rounded-md mt-[10px] text-gray-400 text-base font-normal font-['Inter'] leading-normal mr-5"
+                        class="w-full p-2 border rounded-md mt-[10px] placeholder:text-gray-400 text-base font-normal font-['Inter'] leading-normal mr-5"
                         placeholder="Masukan Password Anda">
                     <button id="seePassword" type="button"
                         class="absolute right-0 top-[48px] flex items-center mr-3 focus:outline-none">
@@ -75,7 +75,7 @@
                         class="text-gray-900 text-base font-medium font-['Inter'] leading-normal mb-[30px]">Konfirmasi
                         Password Baru</label>
                     <input type="password" id="new_password_confirmation" name="new_password_confirmation"
-                        class="w-full p-2 border rounded-md mt-[10px] text-gray-400 text-base font-normal font-['Inter'] leading-normal mr-5"
+                        class="w-full p-2 border rounded-md mt-[10px] placeholder:text-gray-400 text-base font-normal font-['Inter'] leading-normal mr-5"
                         placeholder="Masukan Konfirmasi Password Anda">
                     <button id="lihatPassword" type="button"
                         class="absolute right-0 top-[48px] flex items-center mr-3 focus:outline-none">

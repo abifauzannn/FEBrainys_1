@@ -1,6 +1,6 @@
 @extends('layouts.template')
 
-@section('title', 'Change Password')
+@section('title', 'Email Verify - Brainys')
 
 @section('content')
     <x-nav></x-nav>
@@ -51,7 +51,7 @@
                         class="text-gray-900 text-base font-medium font-['Inter'] leading-normal mb-[30px]">Masukan
                         Email</label>
                     <input type="email" id="email" name="email"
-                        class="w-full p-2 border rounded-md mt-[10px] text-gray-400 text-base font-normal font-['Inter'] leading-normal mr-5"
+                        class="w-full p-2 border rounded-md mt-[10px] placeholder:text-gray-400 text-base font-normal font-['Inter'] leading-normal mr-5"
                         placeholder="email@contoh.com" value="{{ session('user')['email'] }}" required>
                 </div>
                 <div class="items-center flex justify-center py-4">
@@ -84,7 +84,6 @@
     </div>
 
     <script>
-
         const submitButton = document.getElementById("submitButton");
         const loadingIndicator = document.getElementById("loadingButton");
         const buttonText = document.getElementById("buttonText");
@@ -107,8 +106,6 @@
                 submitButton.classList.remove("hidden");
             }, 3000); // Waktu simulasi loading (dalam milidetik)
         });
-
-
     </script>
 
 @endsection

@@ -1,6 +1,6 @@
 @extends('layouts.template')
 
-@section('title', 'Generate Syllabus')
+@section('title', 'Templat Modul Ajar - Brainys')
 
 @section('content')
     <x-nav></x-nav>
@@ -21,9 +21,8 @@
         </a>
 
         <div class="w-full">
-            <div class="text-gray-900 text-2xl font-semibold leading-[30px]">Template Modul Ajar</div>
-            <div class="mt-2 text-gray-500 text-sm leading-snug">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Cras ultrices lectus sem.</div>
+            <div class="text-gray-900 text-2xl font-semibold font-['Inter']">Template Modul Ajar</div>
+            <div class="mt-2 text-gray-500 text-sm leading-snug">Gunakan templat modul ajar kurikulum merdeka</div>
         </div>
     </div>
 
@@ -36,41 +35,41 @@
 
                 <div class="mb-4">
                     <label for="name" class="text-gray-900 text-base font-['Inter'] leading-normal font-semibold">Nama
-                        Syllabus</label>
+                        Modul Ajar</label>
                     <input type="text" name="name" id="name"
-                        class="w-full p-2 border rounded-md mt-[10px] text-gray-400 text-base font-normal font-['Inter'] leading-normal"
-                        placeholder="Nama Silabus" required>
+                        class="w-full p-2 border rounded-md mt-[10px] placeholder:text-gray-400 text-base font-normal font-['Inter'] leading-normal"
+                        placeholder="masukan nama modul ajar" required>
                 </div>
 
                 <div class="mb-4">
                     <label for="subject" class="text-gray-900 text-base font-['Inter'] leading-normal font-semibold">Mata
                         Pelajaran</label>
                     <input type="text" name="subject" id="subject"
-                        class="w-full p-2 border rounded-md mt-[10px] text-gray-400 text-base font-normal font-['Inter'] leading-normal"
-                        placeholder="Nama Mata Pelajaran" required>
+                        class="w-full p-2 border rounded-md mt-[10px] placeholder:text-gray-400 text-base font-normal font-['Inter'] leading-normal"
+                        placeholder="masukan nama mata pelajaran" required>
                 </div>
 
                 <!-- Input untuk Mata Pelajaran -->
                 <div class="mb-4">
                     <label for="grade"
                         class="text-gray-900 text-base font-semibold font-['Inter'] leading-normal">Kelas</label>
-                    <input type="text" id="grade" name="grade"
-                        class="w-full p-2 border rounded-md mt-[10px] text-gray-400 text-base font-normal font-['Inter'] leading-normal"
-                        placeholder="Kelas" required>
+                    <input type="number" id="grade" name="grade"
+                        class="w-full p-2 border rounded-md mt-[10px] placeholder:text-gray-400 text-base font-normal font-['Inter'] leading-normal"
+                        placeholder="masukan tingkat kelas" required>
                 </div>
 
                 <div class="mb-4">
                     <label for="notes"
                         class="text-gray-900 text-base font-semibold font-['Inter'] leading-normal mb-[10px]">Deskripsi
-                        Silabus:</label>
+                        Modul Ajar</label>
                     <textarea id="notes" name="notes"
-                        class="w-full p-2 border rounded-md mt-[10px] text-gray-400 text-base font-normal font-['Inter'] leading-normal"
-                        placeholder="Masukkan deskripsi poin silabus" maxlength="50" oninput="updateCharacterCount(this)" required></textarea>
+                        class="w-full p-2 border rounded-md mt-[10px] placeholder:text-gray-400 text-base font-normal font-['Inter'] leading-normal"
+                        placeholder="Masukkan deskripsi poin Modul Ajar" maxlength="250" oninput="updateCharacterCount(this)" required></textarea>
                 </div>
                 <div class="flex justify-end -mt-2">
                     <div class="self-stretch justify-start items-end gap-5 inline-flex">
                         <div id="characterCount"
-                            class="text-left text-gray-500 text-sm font-normal font-inter leading-snug">0/50</div>
+                            class="text-left text-gray-500 text-sm font-normal font-inter leading-snug">0/250</div>
                     </div>
                 </div>
                 <div class="flex justify-between py-6 border-b">
@@ -362,7 +361,7 @@
         function updateCharacterCount(textarea) {
             var characterCountElement = document.getElementById('characterCount');
             var currentCount = textarea.value.length;
-            characterCountElement.textContent = currentCount + '/50';
+            characterCountElement.textContent = currentCount + '/250';
         }
         document.addEventListener('DOMContentLoaded', function() {
             const submitButton = document.getElementById('submitButton');

@@ -1,6 +1,6 @@
 @extends('layouts.template')
 
-@section('title', 'Email Verify')
+@section('title', 'Email Verify - Brainys')
 
 @section('content')
 
@@ -62,7 +62,7 @@
                         class="text-gray-900 text-base font-medium font-['Inter'] leading-normal mb-[30px]">Masukan
                         Email</label>
                     <input type="email" id="email" name="email"
-                        class="w-full p-2 border rounded-md mt-[10px] text-gray-400 text-base font-normal font-['Inter'] leading-normal mr-5"
+                        class="w-full p-2 border rounded-md mt-[10px] placeholder:text-gray-400 text-base font-normal font-['Inter'] leading-normal mr-5"
                         placeholder="email@contoh.com" required>
                 </div>
                 <div class="items-center flex justify-center py-4">

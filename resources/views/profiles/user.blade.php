@@ -1,6 +1,6 @@
 @extends('layouts.template')
 
-@section('title', 'User Profile')
+@section('title', 'User Profile - Brainys')
 
 @section('content')
     <x-nav></x-nav>
@@ -35,41 +35,60 @@
 
             <form class="w-full max-w-md">
                 <div class="mb-4">
-                    <label for="nama_lengkap" class="text-gray-900 text-base font-medium font-['Inter'] leading-normal mb-[30px]">Nama Lengkap</label>
-                    <input type="text" id="nama_lengkap" name="nama_lengkap" class="w-full p-2 border rounded-md mt-[10px] text-gray-400 text-base font-normal font-['Inter'] leading-normal" placeholder="Contoh: Budiman" value="{{ session('user')['name'] }}" required>
+                    <label for="nama_lengkap"
+                        class="text-gray-900 text-base font-medium font-['Inter'] leading-normal mb-[30px]">Nama
+                        Lengkap</label>
+                    <input type="text" id="nama_lengkap" name="nama_lengkap"
+                        class="w-full p-2 border rounded-md mt-[10px] placeholder:text-gray-400 text-base font-normal font-['Inter'] leading-normal"
+                        placeholder="Contoh: Budiman" value="{{ session('user')['name'] }}" required>
                 </div>
 
                 <div class="mb-4">
-                    <label for="profesi" class="text-gray-900 text-base font-medium font-['Inter'] leading-normal mb-[30px]">Profesi</label>
-                    <input type="text" id="profesi" name="profesi" class="w-full p-2 border rounded-md mt-[10px] text-gray-400 text-base font-normal font-['Inter'] leading-normal" placeholder="Guru" value="{{ session('user')['profession'] }}" required>
+                    <label for="profesi"
+                        class="text-gray-900 text-base font-medium font-['Inter'] leading-normal mb-[30px]">Profesi</label>
+                    <input type="text" id="profesi" name="profesi"
+                        class="w-full p-2 border rounded-md mt-[10px] placeholder:text-gray-400 text-base font-normal font-['Inter'] leading-normal"
+                        placeholder="Guru" value="{{ session('user')['profession'] }}" required>
                 </div>
 
                 <div class="mb-4">
-                    <label for="sekolah" class="text-gray-900 text-base font-medium font-['Inter'] leading-normal mb-[30px]">Sekolah</label>
-                    <input type="text" id="sekolah" name="sekolah" class="w-full p-2 border rounded-md mt-[10px] text-gray-400 text-base font-normal font-['Inter'] leading-normal" placeholder="SMPN 1 Bandung" value="{{ session('user')['school_name'] }}" required>
+                    <label for="sekolah"
+                        class="text-gray-900 text-base font-medium font-['Inter'] leading-normal mb-[30px]">Sekolah</label>
+                    <input type="text" id="sekolah" name="sekolah"
+                        class="w-full p-2 border rounded-md mt-[10px] placeholder:text-gray-400 text-base font-normal font-['Inter'] leading-normal"
+                        placeholder="SMPN 1 Bandung" value="{{ session('user')['school_name'] }}" required>
                 </div>
 
                 <div class="mb-4">
-                    <label for="email" class="text-gray-900 text-base font-medium font-['Inter'] leading-normal mb-[30px]">Email</label>
-                    <input type="email" id="email" name="email" class="w-full p-2 border rounded-md mt-[10px] text-gray-400 text-base font-normal font-['Inter'] leading-normal" placeholder="email@contoh.com" value="{{ session('user')['email'] }}" required>
+                    <label for="email"
+                        class="text-gray-900 text-base font-medium font-['Inter'] leading-normal mb-[30px]">Email</label>
+                    <input type="email" id="email" name="email"
+                        class="w-full p-2 border rounded-md mt-[10px] placeholder:text-gray-400 text-base font-normal font-['Inter'] leading-normal"
+                        placeholder="email@contoh.com" value="{{ session('user')['email'] }}" required>
                 </div>
 
                 <div class="relative mb-4">
-                    <label for="password" class="text-gray-900 text-base font-medium font-['Inter'] leading-normal mb-[30px]">Password:</label>
-                    <input type="password" id="password" name="password" class="w-full p-2 border rounded-md mt-[10px] text-gray-400 text-base font-normal font-['Inter'] leading-normal" placeholder="Masukkan Password Anda">
-                    <button id="togglePassword" type="button" class="absolute right-0 top-[48px] flex items-center mr-3 focus:outline-none">
+                    <label for="password"
+                        class="text-gray-900 text-base font-medium font-['Inter'] leading-normal mb-[30px]">Password:</label>
+                    <input type="password" id="password" name="password"
+                        class="w-full p-2 border rounded-md mt-[10px] placeholder:text-gray-400 text-base font-normal font-['Inter'] leading-normal"
+                        placeholder="Masukkan Password Anda">
+                    <button id="togglePassword" type="button"
+                        class="absolute right-0 top-[48px] flex items-center mr-3 focus:outline-none">
                         <img src="{{ URL('images/group.svg') }}" alt="">
                     </button>
                 </div>
 
                 <div class="flex justify-end items-end mb-4">
-                    <a href="{{ route('emailVerifyChange') }}" class="text-blue-600 hover:text-blue-700 hover:font-semibold">Ganti Password</a>
+                    <a href="{{ route('emailVerifyChange') }}"
+                        class="text-blue-600 hover:text-blue-700 font-semibold hover:font-bold">Ganti Password</a>
                 </div>
 
                 <div class="flex justify-center">
                     <button class="w-full h-12 px-6 bg-blue-600 rounded-sm justify-center items-center gap-2.5 inline-flex">
                         <img src="{{ URL('images/check-circle.svg') }}" alt="" class="w-[20px] h-[20px]">
-                        <span class="text-center text-white text-base font-medium font-['Inter'] leading-normal">Simpan Profil</span>
+                        <span class="text-center text-white text-base font-medium font-['Inter'] leading-normal">Simpan
+                            Profil</span>
                     </button>
                 </div>
             </form>

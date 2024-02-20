@@ -1,6 +1,6 @@
 @extends('layouts.template')
 
-@section('title', 'Log In Page')
+@section('title', 'Log In Page - Brainys')
 
 @section('content')
     <div class="container mx-auto flex items-center justify-center mt-10 sm:h-screen sm:mt-0 xl:gap-48 lg:gap-20">
@@ -20,7 +20,7 @@
                         <label for="email"
                             class="text-gray-900 text-base font-medium font-['Inter'] leading-normal mb-[30px]">Email</label>
                         <input type="email" id="email" name="email"
-                            class="w-full p-2 border rounded-md mt-[10px] text-gray-400 text-base font-normal font-['Inter'] leading-normal"
+                            class="w-full p-2 border rounded-md mt-[10px] placeholder:text-gray-400 text-base font-normal font-['Inter'] leading-normal"
                             placeholder="email@contoh.com" required>
                     </div>
 
@@ -28,7 +28,7 @@
                         <label for="password"
                             class="text-gray-900 text-base font-medium font-['Inter'] leading-normal mb-[30px]">Password:</label>
                         <input type="password" id="password" name="password"
-                            class="w-full p-2 border rounded-md mt-[10px] text-gray-400 text-base font-normal font-['Inter'] leading-normal"
+                            class="w-full p-2 border rounded-md mt-[10px] placeholder:text-gray-400 text-base font-normal font-['Inter'] leading-normal"
                             placeholder="masukan password anda">
                         <button id="togglePassword" type="button"
                             class="absolute right-0 top-[48px] flex items-center mr-3 focus:outline-none">
@@ -95,14 +95,14 @@
                     </div>
                 </form>
             </div>
-            <div class="relative flex py-[44px] items-center">
+            <div class="relative flex py-7 items-center">
                 <div class="flex-grow border-t border-gray-400"></div>
-                <span class="flex-shrink mx-4 text-gray-400">Atau</span>
+                <span class="flex-shrink mx-2 text-gray-400">ATAU</span>
                 <div class="flex-grow border-t border-gray-400"></div>
             </div>
 
             <button type="submit"
-                class="w-full h-12 inline-flex gap-[92px] pt-3 pb-[11px] bg-white rounded-[50px] shadow border border-neutral-200 mb-8 hover:bg-slate-50">
+                class="w-full h-12 inline-flex gap-[80px] pt-3 pb-[11px] bg-white rounded-[50px] shadow border border-neutral-200 mb-8 hover:bg-slate-50">
                 <img src="{{ URL('images/google.svg') }}" alt="" class="w-[18px] h-[18px] ml-6">
                 <a href="{{ url('/login/google') }}"
                     class="text-black text-opacity-50 text-base font-medium font-['Roboto']">Sign in with Google</a>
@@ -150,7 +150,5 @@
                 submitButton.classList.remove("hidden");
             }, 3000); // Waktu simulasi loading (dalam milidetik)
         });
-
-
     </script>
 @endsection

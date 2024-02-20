@@ -31,17 +31,35 @@
 
 
         <div class="container mx-auto flex flex-col items-center justify-center mt-[51px]">
-            <img src="{{ URL('images/ta.png') }}" alt="" class="mb-[48px]">
+            @php
+                $fullName = session('user')['name'];
+                $initials = '';
+                $names = explode(' ', $fullName);
+                foreach ($names as $name) {
+                    $initials .= strtoupper(substr($name, 0, 1));
+                }
+
+                // URL to DiceBear Avatars API with initials as parameter
+                $avatarUrl = 'https://api.dicebear.com/7.x/initials/svg?scale=75&backgroundColor=b6e3f4&seed=' . $initials;
+            @endphp
+
+            <!-- Display avatar image -->
+            <img src="{{ $avatarUrl }}" alt="Profile Picture" class="w-20 h-20 rounded-full mb-4">
 
             <form class="w-full max-w-md">
                 <div class="mb-4">
                     <label for="nama_lengkap"
                         class="text-gray-900 text-base font-medium font-['Inter'] leading-normal mb-[30px]">Nama
                         Lengkap</label>
+
+
+                    <!-- Input field for full name -->
                     <input type="text" id="nama_lengkap" name="nama_lengkap"
                         class="w-full p-2 border rounded-md mt-[10px] placeholder:text-gray-400 text-base font-normal font-['Inter'] leading-normal"
-                        placeholder="Contoh: Budiman" value="{{ session('user')['name'] }}" required>
+                        placeholder="Contoh: Budiman" value="{{ $fullName }}" required>
                 </div>
+
+
 
                 <div class="mb-4">
                     <label for="profesi"

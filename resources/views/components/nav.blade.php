@@ -36,10 +36,24 @@
                 </div>
 
                 <div class="flex-col items-start hidden md:block">
-                    <div class="text-gray-900 text-base font-medium font-inter leading-normal">{{ session('user')['name'] }}</div>
-                    <div class="text-gray-500 text-sm font-normal font-inter leading-snug">{{ session('user')['profession'] }}</div>
+                    <div class="text-gray-900 text-base font-medium font-inter leading-normal">
+                        {{ session('user')['name'] }}</div>
+                    <div class="text-gray-500 text-sm font-normal font-inter leading-snug">
+                        {{ session('user')['profession'] }}</div>
                 </div>
-                <img src="{{ URL('images/Avatar.png') }}" alt="">
+                @php
+                    $fullName = session('user')['name'];
+                    $initials = '';
+                    $names = explode(' ', $fullName);
+                    foreach ($names as $name) {
+                        $initials .= strtoupper(substr($name, 0, 1));
+                    }
+
+                    // URL to DiceBear Avatars API with initials as parameter
+                    $avatarUrl = 'https://api.dicebear.com/7.x/initials/svg?scale=75&backgroundColor=b6e3f4&seed=' . $initials;
+                @endphp
+
+                <img src="{{ $avatarUrl }}" alt="Profile Picture" class="w-12 h-12 rounded-full">
                 <div x-data="{ open: false }" x-ref="dropdown">
                     <img src="{{ URL('images/dropdown.svg') }}" alt="" @click="open = !open"
                         class="cursor-pointer">
@@ -50,23 +64,22 @@
                         x-transition:leave="transition ease-in duration-300"
                         x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-90">
                         <div class="md:hidden">
-                            <div class="text-gray-900 text-base font-medium font-inter leading-normal">{{ session('user')['name'] }}
+                            <div class="text-gray-900 text-base font-medium font-inter leading-normal">
+                                {{ session('user')['name'] }}
                             </div>
-                            <div class="text-gray-500 text-sm font-normal font-inter leading-snug mb-[4px]">{{ session('user')['profession'] }}</div>
+                            <div class="text-gray-500 text-sm font-normal font-inter leading-snug mb-[4px]">
+                                {{ session('user')['profession'] }}</div>
                             <hr class="w-full">
                         </div>
                         <ul class="py-2">
                             <li class="flex items-center  hover:bg-gray-100 hover:rounded-lg">
-                                <img src="{{ URL('images/user-circle.png') }}" alt=""
-                                    class="w-[20px] h-[20px]">
-                                <a href="{{ route('userProfile') }}"
-                                    class="block px-2 py-2 text-sm">Profile
+                                <img src="{{ URL('images/user-circle.png') }}" alt="" class="w-[20px] h-[20px]">
+                                <a href="{{ route('userProfile') }}" class="block px-2 py-2 text-sm">Profile
                                     Pengguna</a>
                             </li>
                             <li class="md:hidden flex items-center  hover:bg-gray-100 hover:rounded-lg">
                                 <img src="{{ URL('images/alarm.svg') }}" alt="" class="w-[20px] h-[20px]">
-                                <a href="#"
-                                    class="block px-2 py-2 text-sm ">Notification</a>
+                                <a href="#" class="block px-2 py-2 text-sm ">Notification</a>
                             </li>
                             <li class="flex items-center  hover:bg-gray-100 hover:rounded-lg">
                                 <img src="{{ URL('images/sign-out.svg') }}" alt="" class="w-[20px] h-[20px]">

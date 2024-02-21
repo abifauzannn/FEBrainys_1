@@ -44,32 +44,35 @@ class AuthenticationController extends Controller
         return view('forgetPasswords.forgetPage');
     }
 
-    public function emailVerify(Request $request){
-        // Buat permintaan login ke API
-        $response = Http::post('https://be.brainys.oasys.id/api/forgot-password', [
-            'email' => $request->input('email'),
+    public function changeProfile(Request $request)
+    {
+        $accessToken = Session::get('access_token');
+
+        if (!$accessToken) {
+            return redirect()->route('login')->withErrors(['error' => 'Token not found. Please verify OTP again.']);
+        }
+
+        $response = Http::withToken($accessToken)->post('https://be.brainys.oasys.id/api/update-profile', [
+            'name' => $request->input('name'),
+            'school_name' => $request->input('school_name'),
+            'profession' => $request->input('profession'),
         ]);
 
         $responseData = $response->json();
 
-        // Periksa keberhasilan login
         if ($response->successful() && $responseData['status'] === 'success') {
-            // Ambil token dari respons API
-            $accessToken = $responseData['reset_token'];
+            // Perbarui data pengguna di sesi
+            $user = session('user');
+            $user['name'] = $request->input('name');
+            $user['school_name'] = $request->input('school_name');
+            $user['profession'] = $request->input('profession');
+            session(['user' => $user]);
 
-            // Buat objek pengguna untuk menyimpan dalam sesi (tanpa database)
-            $email = $request->input('email');
-
-            // Simpan token dan objek pengguna di sesi Laravel
-            session(['access_token' => $accessToken, 'email' => $email]);
-
-            // Redirect ke halaman dashboard atau halaman setelah login
-            return redirect()->route('forgetPassword')->with('success', $responseData['message']);
+            return back()->with('success', $responseData['message']);
         } else {
-            // Tangani kesalahan login
             return back()->with('error', $responseData['message']);
         }
-        }
+    }
 
 
 
@@ -175,7 +178,7 @@ class AuthenticationController extends Controller
         // Periksa keberhasilan permintaan
         if ($response->successful() && $response->json()['status'] === 'success') {
             $successMessage = $response->json()['message'] ?? 'Password changed successfully.';
-            return redirect()->route('dashboard')->with('success', $successMessage);
+            return back()->with('success', $successMessage);
         } else {
             // Tampilkan respons JSON apabila terjadi kesalahan
             $responseData = $response->json();
@@ -190,6 +193,8 @@ class AuthenticationController extends Controller
             return back()->withErrors(['error' => $errorMessage]);
         }
     }
+
+
 
 
 
@@ -223,16 +228,18 @@ class AuthenticationController extends Controller
 
         // Periksa keberhasilan API request
         if ($response->successful() && $responseData['status'] === 'success') {
+            // Simpan data pengguna ke sesi
+            session(['user' => $responseData['data']['user']]);
 
-
-            // Flash success message to the next request
-            return redirect()->route('login')->with('success', 'Profile completed successfully');
+            // Redirect ke halaman dashboard
+            return redirect()->route('dashboard')->with('success', 'Profile completed successfully');
         } else {
             // Tangani kesalahan API request
             $errorMessage = isset($responseData['message']) ? $responseData['message'] : 'Profile completion failed. Please try again.';
             return back()->withErrors(['error' => $errorMessage]);
         }
     }
+
 
     public function verifyOTP(Request $request)
     {

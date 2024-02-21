@@ -82,6 +82,8 @@ Route::post('/forget-password', [AuthenticationController::class, 'resetPassword
 Route::get('/change-password', [AuthenticationController::class, 'showChangePassword'])->name('change-password');
 Route::post('/change-password', [AuthenticationController::class, 'changePassword'])->name('change-passwordPost');
 
+Route::post('/change-profile', [AuthenticationController::class, 'changeProfile'])->name('change-profilePost');
+
 Route::post('/check-email', [AuthenticationController::class, 'checkEmail'])->name('checkEmail');
 
 Route::get('/user-profile', [UserController::class, 'showProfile'])->name('userProfile');

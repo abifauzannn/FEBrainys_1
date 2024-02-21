@@ -17,6 +17,15 @@
             </div>
         </a>
 
+        <div id="successPopup"
+            class="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center hidden z-50">
+            <div class="bg-white w-[300px] p-6 rounded-lg shadow-md">
+                <img src="{{ URL('images/success.png') }}" alt="">
+                <div class="text-green-600 font-bold font-['Inter'] mt-4 ">Success!</div>
+                <div class="text-gray-800 font-bold font-['Inter']">{{ session('success') }}</div>
+            </div>
+        </div>
+
 
         <div class="w-full sm:w-[1170px] h-[60px] flex-col justify-start items-start gap-2 inline-flex">
             <div class="text-gray-900 text-2xl font-semibold font-['Inter'] leading-[30px]">Change Password</div>
@@ -29,6 +38,9 @@
         <div class="container mx-auto flex items-center justify-center mt-[51px] flex-col">
 
             <form class="w-full sm:w-[500px]" action="{{ route('change-passwordPost') }}" method="post">
+
+
+
                 @if ($errors->has('error'))
                     <div class="flex items-center p-4 mb-4 text-sm text-red-800 border border-red-300 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400 dark:border-red-800"
                         role="alert">
@@ -113,6 +125,21 @@
         </div>
     </div>
 
+    @if (session('success'))
+        <script>
+            // Tampilkan popup ketika halaman dimuat
+            window.addEventListener('DOMContentLoaded', (event) => {
+                // Tampilkan popup
+                document.getElementById('successPopup').classList.remove('hidden');
+
+                // Sembunyikan popup setelah 3 detik
+                setTimeout(function() {
+                    document.getElementById('successPopup').classList.add('hidden');
+                }, 3000);
+            });
+        </script>
+    @endif
+
     <script>
         document.getElementById('togglePassword').addEventListener('click', function() {
             var passwordInput = document.getElementById('current_password');
@@ -152,7 +179,7 @@
                 // Setelah selesai, tampilkan kembali tombol dan sembunyikan indikator loading
                 loadingIndicator.classList.add("inline-flex");
                 submitButton.classList.remove("hidden");
-            }, 3000); // Waktu simulasi loading (dalam milidetik)
+            }, 6000); // Waktu simulasi loading (dalam milidetik)
         });
     </script>
 

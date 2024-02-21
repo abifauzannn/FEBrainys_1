@@ -77,7 +77,7 @@
             <div id="passwordMatchError" class="text-red-700 py-2 font-bold"></div>
 
             <button type="submit" id="submitButton"
-                class="w-full h-12 px-6 pt-3 pb-5 bg-blue-600 rounded-[50px] justify-center items-center gap-2.5 inline-flex">
+                class="w-full h-12 px-6 bg-blue-600 rounded-[50px] justify-center items-center gap-2.5 inline-flex">
                 <img src="{{ URL('images/arrow.svg') }}" alt="" class="w-[20px] h-[20px]">
                 <div class="text-center text-white text-base font-medium font-['Inter'] leading-normal">Sign up
                 </div>
@@ -108,16 +108,16 @@
         </div>
 
         <button
-            class="w-full h-12 gap-[80px] pt-3 pb-[11px] bg-white rounded-[50px] shadow border border-neutral-200 mb-8 flex hover:bg-slate-50">
+            class="w-full h-12 gap-[80px] pt-3 pb-[11px] bg-white rounded-[50px] shadow border border-neutral-200 flex hover:bg-slate-50">
             <img src="{{ URL('images/google.svg') }}" alt="" class="w-[18px] h-[18px] ml-6">
             <div class="text-black text-opacity-50 text-base font-medium font-['Roboto']">Sign Up with Google</div>
         </button>
 
-        <div class="h-6 justify-center items-center gap-2 inline-flex">
+        <div class="justify-center items-center gap-2 inline-flex py-5">
             <div class="text-center text-gray-900 text-base font-medium font-['Inter'] leading-normal">Sudah Punya
                 Akun?</div>
             <div
-                class="text-center text-blue-600 text-base font-medium font-['Inter'] leading-normal py-3 hover:text-blue-700 hover:font-bold">
+                class="text-center text-blue-600 text-base font-medium font-['Inter'] leading-normals hover:text-blue-700 hover:font-bold">
                 <a href="/">Sign In</a>
             </div>
         </div>

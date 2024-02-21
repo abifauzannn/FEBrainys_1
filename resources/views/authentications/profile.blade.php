@@ -18,7 +18,7 @@
                         class="text-gray-900 text-base font-medium font-['Inter'] leading-normal mb-[30px]">Nama
                         Lengkap</label>
                     <input type="text" id="name" name="name"
-                        class="w-full p-2 border rounded-md mt-[10px] text-gray-400 text-base font-normal font-['Inter'] leading-normal mr-5"
+                        class="w-full p-2 border rounded-md mt-[10px] placeholder:text-gray-400 text-base font-normal font-['Inter'] leading-normal mr-5"
                         placeholder="Contoh: Budiman" required>
                 </div>
 
@@ -26,7 +26,7 @@
                     <label for="school_name"
                         class="text-gray-900 text-base font-medium font-['Inter'] leading-normal mb-[30px]">Sekolah</label>
                     <input type="text" id="school_name" name="school_name"
-                        class="w-full p-2 border rounded-md mt-[10px] text-gray-400 text-base font-normal font-['Inter'] leading-normal mr-5"
+                        class="w-full p-2 border rounded-md mt-[10px] placeholder:text-gray-400 text-base font-normal font-['Inter'] leading-normal mr-5"
                         placeholder="Contoh: SMP 1 Bandung" required>
                 </div>
 
@@ -34,7 +34,7 @@
                     <label for="profession"
                         class="text-gray-900 text-base font-medium font-['Inter'] leading-normal mb-[30px]">Profesi</label>
                     <input type="text" id="profession" name="profession"
-                        class="w-full p-2 border rounded-md mt-[10px] text-gray-400 text-base font-normal font-['Inter'] leading-normal mr-5"
+                        class="w-full p-2 border rounded-md mt-[10px] placeholder:text-gray-400 text-base font-normal font-['Inter'] leading-normal mr-5"
                         placeholder="Contoh: Guru Biologi" required>
                 </div>
 

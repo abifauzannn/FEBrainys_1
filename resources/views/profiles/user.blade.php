@@ -8,12 +8,7 @@
 
 
     <div class="container mx-auto px-3 sm:px-10 py-6 sm:py-9">
-        @if (session('success'))
-            <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 my-4" role="alert">
-                <p class="font-bold">Success!</p>
-                <p>{{ session('success') }}</p>
-            </div>
-        @endif
+
 
         <a href="/dashboard">
             <div class="w-[90px] h-6 justify-start items-end gap-1 inline-flex mb-6">
@@ -46,55 +41,52 @@
             <!-- Display avatar image -->
             <img src="{{ $avatarUrl }}" alt="Profile Picture" class="w-20 h-20 rounded-full mb-4">
 
-            <form class="w-full max-w-md">
-                <div class="mb-4">
-                    <label for="nama_lengkap"
-                        class="text-gray-900 text-base font-medium font-['Inter'] leading-normal mb-[30px]">Nama
-                        Lengkap</label>
+            <form class="w-full max-w-md" action="{{ route('change-profilePost') }}" method="POST">
+                @csrf
 
-
-                    <!-- Input field for full name -->
-                    <input type="text" id="nama_lengkap" name="nama_lengkap"
-                        class="w-full p-2 border rounded-md mt-[10px] placeholder:text-gray-400 text-base font-normal font-['Inter'] leading-normal"
-                        placeholder="Contoh: Budiman" value="{{ $fullName }}" required>
+                <!-- Popup untuk menampilkan pesan berhasil -->
+                <div id="successPopup"
+                    class="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center hidden">
+                    <div class="bg-white w-[300px] p-6 rounded-lg shadow-md">
+                        <img src="{{ URL('images/success.png') }}" alt="">
+                        <div class="text-green-600 font-bold font-['Inter'] mt-4 ">Success!</div>
+                        <div class="text-gray-800 font-bold font-['Inter']">{{ session('success') }}</div>
+                    </div>
                 </div>
 
 
-
                 <div class="mb-4">
-                    <label for="profesi"
-                        class="text-gray-900 text-base font-medium font-['Inter'] leading-normal mb-[30px]">Profesi</label>
-                    <input type="text" id="profesi" name="profesi"
-                        class="w-full p-2 border rounded-md mt-[10px] placeholder:text-gray-400 text-base font-normal font-['Inter'] leading-normal"
+                    <label for="name" class="text-gray-900 text-base font-medium leading-normal mb-[30px]">Nama
+                        Lengkap</label>
+                    <input type="text" id="name" name="name"
+                        class="w-full p-2 border rounded-md mt-[10px] placeholder:text-gray-400 text-base font-normal leading-normal"
+                        placeholder="Contoh: Budiman" value="{{ session('user')['name'] }}" required>
+                </div>
+
+                <!-- Input field for profession -->
+                <div class="mb-4">
+                    <label for="profession"
+                        class="text-gray-900 text-base font-medium leading-normal mb-[30px]">Profesi</label>
+                    <input type="text" id="profession" name="profession"
+                        class="w-full p-2 border rounded-md mt-[10px] placeholder:text-gray-400 text-base font-normal leading-normal"
                         placeholder="Guru" value="{{ session('user')['profession'] }}" required>
                 </div>
 
+                <!-- Input field for school name -->
                 <div class="mb-4">
-                    <label for="sekolah"
-                        class="text-gray-900 text-base font-medium font-['Inter'] leading-normal mb-[30px]">Sekolah</label>
-                    <input type="text" id="sekolah" name="sekolah"
-                        class="w-full p-2 border rounded-md mt-[10px] placeholder:text-gray-400 text-base font-normal font-['Inter'] leading-normal"
+                    <label for="school_name"
+                        class="text-gray-900 text-base font-medium leading-normal mb-[30px]">Sekolah</label>
+                    <input type="text" id="school_name" name="school_name"
+                        class="w-full p-2 border rounded-md mt-[10px] placeholder:text-gray-400 text-base font-normal leading-normal"
                         placeholder="SMPN 1 Bandung" value="{{ session('user')['school_name'] }}" required>
                 </div>
 
                 <div class="mb-4">
                     <label for="email"
                         class="text-gray-900 text-base font-medium font-['Inter'] leading-normal mb-[30px]">Email</label>
-                    <input type="email" id="email" name="email"
+                    <input type="email" id="email" name="email" disabled
                         class="w-full p-2 border rounded-md mt-[10px] placeholder:text-gray-400 text-base font-normal font-['Inter'] leading-normal"
                         placeholder="email@contoh.com" value="{{ session('user')['email'] }}" required>
-                </div>
-
-                <div class="relative mb-4">
-                    <label for="password"
-                        class="text-gray-900 text-base font-medium font-['Inter'] leading-normal mb-[30px]">Password:</label>
-                    <input type="password" id="password" name="password"
-                        class="w-full p-2 border rounded-md mt-[10px] placeholder:text-gray-400 text-base font-normal font-['Inter'] leading-normal"
-                        placeholder="Masukkan Password Anda">
-                    <button id="togglePassword" type="button"
-                        class="absolute right-0 top-[48px] flex items-center mr-3 focus:outline-none">
-                        <img src="{{ URL('images/group.svg') }}" alt="">
-                    </button>
                 </div>
 
                 <div class="flex justify-end items-end mb-4">
@@ -103,7 +95,8 @@
                 </div>
 
                 <div class="flex justify-center">
-                    <button class="w-full h-12 px-6 bg-blue-600 rounded-sm justify-center items-center gap-2.5 inline-flex">
+                    <button class="w-full h-12 px-6 bg-blue-600 rounded-sm justify-center items-center gap-2.5 inline-flex"
+                        type="submit">
                         <img src="{{ URL('images/check-circle.svg') }}" alt="" class="w-[20px] h-[20px]">
                         <span class="text-center text-white text-base font-medium font-['Inter'] leading-normal">Simpan
                             Profil</span>
@@ -113,6 +106,22 @@
         </div>
 
     </div>
+
+    @if (session('success'))
+        <script>
+            // Tampilkan popup ketika halaman dimuat
+            window.addEventListener('DOMContentLoaded', (event) => {
+                // Tampilkan popup
+                document.getElementById('successPopup').classList.remove('hidden');
+
+                // Sembunyikan popup setelah 3 detik
+                setTimeout(function() {
+                    document.getElementById('successPopup').classList.add('hidden');
+                }, 3000);
+            });
+        </script>
+    @endif
+
 
     <script>
         document.getElementById('togglePassword').addEventListener('click', function() {

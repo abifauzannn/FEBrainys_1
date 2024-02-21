@@ -22,7 +22,6 @@ class SyllabusController extends Controller
         }
     }
 
-
     public function generateSyllabus(Request $request)
     {
         // Check if the user is authenticated
@@ -76,6 +75,7 @@ class SyllabusController extends Controller
         // Pass the $data and $generateId variables to the view
         return view('syllabus.generate', compact('data', 'generateId'));
     }
+
 
 
 

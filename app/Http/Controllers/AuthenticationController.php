@@ -59,8 +59,7 @@ class AuthenticationController extends Controller
 
             // Simpan email baru di sesi Laravel
             $email = $request->input('email');
-            session(['email' => $email]);
-            session(['access_token' => $accessToken]);
+            session(['email' => $email, 'access_token' => $accessToken]);
 
             // Redirect ke halaman dengan pesan sukses dan email yang baru diinput
             return back()->with('success', $responseData['message'])->with('email', $email);

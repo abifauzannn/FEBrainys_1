@@ -60,9 +60,6 @@
                         class="w-full p-2 border rounded-md mt-[10px] placeholder:text-gray-400 text-base font-normal font-['Inter'] leading-normal mr-5"
                         placeholder="email@contoh.com" required>
 
-                    <input type="email" id="outputEmail" name="email" disabled
-                        class="hidden w-full p-2 border rounded-md mt-[10px] placeholder:text-gray-400 text-base font-normal font-['Inter'] leading-normal mr-5"
-                        placeholder="email@contoh.com" value="{{ session('email') }}">
                 </div>
                 <div class="items-center flex justify-center py-4">
                     <button type="submit" id="submitButton"
@@ -123,9 +120,6 @@
             submitButton.classList.add('bg-gray-300');
             verifikasi.classList.add('hidden');
             verifikasiEmail.classList.remove('hidden');
-            inputEmail.value = outputEmail.value
-            inputEmail.setAttribute('disabled', true);
-            inputEmail.classList.add('text-gray-300');
         </script>
     @endif
 

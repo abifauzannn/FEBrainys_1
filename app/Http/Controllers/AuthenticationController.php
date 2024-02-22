@@ -55,13 +55,10 @@ class AuthenticationController extends Controller
         // Periksa keberhasilan login
         if ($response->successful() && $responseData['status'] === 'success') {
 
-            // Login sukses, simpan token di sesi Laravel
-            $accessToken = $responseData['data']['reset_token'];
-            session(['access_token' => $accessToken]);
 
             // Simpan email baru di sesi Laravel
             $email = $request->input('email');
-            session(['email' => $email, 'access_token' => $accessToken]);
+            session(['email' => $email, 'access_token' => $responseData['reset_token']]);
             dd($responseData);
 
             // Redirect ke halaman dengan pesan sukses dan email yang baru diinput

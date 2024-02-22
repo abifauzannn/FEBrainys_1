@@ -114,6 +114,10 @@ class AuthenticationController extends Controller
             'new_password_confirmation' => $request->input('new_password_confirmation')
         ]);
 
+        if(session('access_token') == null){
+            return redirect()->route('login')->with('error', 'Token not found. Please verify OTP again.');
+        }
+
         // Periksa keberhasilan reset password
         if ($response->successful()) {
             // Password berhasil direset, hapus email dan token dari sesi

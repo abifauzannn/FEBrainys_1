@@ -57,19 +57,19 @@ class AuthenticationController extends Controller
             // Ambil token dari respons API
             $accessToken = $responseData['reset_token'];
 
-            // Buat objek pengguna untuk menyimpan dalam sesi (tanpa database)
+            // Simpan email baru di sesi Laravel
             $email = $request->input('email');
+            session(['email' => $email]);
+            session(['access_token' => $accessToken]);
 
-            // Simpan token dan objek pengguna di sesi Laravel
-            session(['access_token' => $accessToken, 'email' => $email]);
-
-            // Redirect ke halaman dashboard atau halaman setelah login
-            return redirect()->route('forgetPassword')->with('success', $responseData['message']);
+            // Redirect ke halaman dengan pesan sukses dan email yang baru diinput
+            return back()->with('success', $responseData['message'])->with('email', $email);
         } else {
             // Tangani kesalahan login
             return back()->with('error', $responseData['message']);
         }
-        }
+    }
+
 
 
 

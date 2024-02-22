@@ -7,12 +7,7 @@
 
     <div class="w-full container mx-auto px-4 sm:px-10 py-9">
 
-        @if (session('success'))
-            <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 my-4" role="alert">
-                <p class="font-bold">Success!</p>
-                <p>{{ session('success') }}</p>
-            </div>
-        @endif
+
 
 
 
@@ -64,13 +59,22 @@
                     <input type="email" id="email" name="email"
                         class="w-full p-2 border rounded-md mt-[10px] placeholder:text-gray-400 text-base font-normal font-['Inter'] leading-normal mr-5"
                         placeholder="email@contoh.com" required>
+
+                    <input type="email" id="outputEmail" name="email" disabled
+                        class="hidden w-full p-2 border rounded-md mt-[10px] placeholder:text-gray-400 text-base font-normal font-['Inter'] leading-normal mr-5"
+                        placeholder="email@contoh.com" value="{{ session('email') }}">
                 </div>
                 <div class="items-center flex justify-center py-4">
                     <button type="submit" id="submitButton"
-                        class="w-[194px] h-12 px-6 py-3 bg-blue-600 rounded-sm justify-center items-center gap-2.5 inline-flex hover:bg-blue-700">
+                        class="w-auto h-12 px-6 py-3 bg-blue-600 rounded-sm justify-center items-center gap-2.5 inline-flex hover:bg-blue-700">
                         <img src="{{ URL('images/check-circle.svg') }}" alt="" class="w-[20px] h-[20px]">
-                        <div class="text-center text-white text-base font-medium font-['Inter'] leading-normal">Verifikasi
+                        <div id="verifikasi"
+                            class="text-center text-white text-base font-medium font-['Inter'] leading-normal">Verifikasi
                             Email
+                        </div>
+                        <div id="terverifikasi"
+                            class="text-center text-white text-base font-medium font-['Inter'] leading-normal hidden">
+                            Verifikasi Email Terkirim
                         </div>
                     </button>
 
@@ -87,7 +91,17 @@
                                 fill="currentColor" />
                         </svg>
                     </button>
+
+
                 </div>
+
+                @if (session('success'))
+                    <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 my-4" role="alert">
+                        <p class="font-bold">Success!</p>
+                        <p>Link untuk proses reset password anda berhasik dikirim ke {{ session('email') }}. Silakan cek
+                            inbox atau di bagian spam email.</p>
+                    </div>
+                @endif
 
 
 
@@ -95,6 +109,26 @@
             </form>
         </div>
     </div>
+
+    @if (session('success'))
+        <script>
+            var submitButton = document.getElementById('submitButton')
+            var verifikasi = document.getElementById('verifikasi')
+            var verifikasiEmail = document.getElementById('terverifikasi')
+            var inputEmail = document.getElementById('email')
+            var outputEmail = document.getElementById('outputEmail')
+
+            submitButton.setAttribute('disabled', true);
+            submitButton.classList.remove('bg-blue-600', 'hover:bg-blue-700');
+            submitButton.classList.add('bg-gray-300');
+            verifikasi.classList.add('hidden');
+            verifikasiEmail.classList.remove('hidden');
+            inputEmail.value = outputEmail.value
+            inputEmail.setAttribute('disabled', true);
+            inputEmail.classList.add('text-gray-300');
+        </script>
+    @endif
+
 
     <script>
         submitButton.addEventListener("click", function() {

@@ -44,6 +44,35 @@ class AuthenticationController extends Controller
         return view('forgetPasswords.forgetPage');
     }
 
+    public function emailVerify(Request $request){
+        // Buat permintaan login ke API
+        $response = Http::post('https://be.brainys.oasys.id/api/forgot-password', [
+            'email' => $request->input('email'),
+        ]);
+
+        $responseData = $response->json();
+
+        // Periksa keberhasilan login
+        if ($response->successful() && $responseData['status'] === 'success') {
+            // Ambil token dari respons API
+            $accessToken = $responseData['reset_token'];
+
+            // Buat objek pengguna untuk menyimpan dalam sesi (tanpa database)
+            $email = $request->input('email');
+
+            // Simpan token dan objek pengguna di sesi Laravel
+            session(['access_token' => $accessToken, 'email' => $email]);
+
+            // Redirect ke halaman dashboard atau halaman setelah login
+            return redirect()->route('forgetPassword')->with('success', $responseData['message']);
+        } else {
+            // Tangani kesalahan login
+            return back()->with('error', $responseData['message']);
+        }
+        }
+
+
+
     public function changeProfile(Request $request)
     {
         $accessToken = Session::get('access_token');

@@ -47,6 +47,7 @@
             </div>
         </div>
 
+
         <div class="flex flex-col sm:flex-row sm:justify-between">
             <a href="/generate">
                 <div

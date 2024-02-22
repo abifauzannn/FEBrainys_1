@@ -118,6 +118,10 @@ class AuthenticationController extends Controller
             return redirect()->route('login')->with('error', 'Token not found. Please verify OTP again.');
         }
 
+        if(session('email') == null){
+            return redirect()->route('login')->with('error', 'Email not found. Please verify OTP again.');
+        }
+
         // Periksa keberhasilan reset password
         if ($response->successful()) {
             // Password berhasil direset, hapus email dan token dari sesi

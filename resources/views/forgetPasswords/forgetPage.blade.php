@@ -32,6 +32,9 @@
                 consectetur adipiscing elit. Cras ultrices lectus sem.</div>
         </div>
 
+        <p>Email: {{ $email }}</p>
+        <p>Access Token: {{ $accessToken }}</p>
+
         <div class="container mx-auto flex items-center justify-center mt-[51px] flex-col">
 
             @if (session('success'))

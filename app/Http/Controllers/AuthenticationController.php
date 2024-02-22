@@ -62,7 +62,7 @@ class AuthenticationController extends Controller
             session(['email' => $email, 'access_token' => $accessToken]);
 
             // Redirect ke halaman dengan pesan sukses dan email yang baru diinput
-            return back()->with('success', $responseData['message'])->with('email', $email);
+            return back()->with('success', $responseData['message'])->with('email', $email, 'access_token', $accessToken);
         } else {
             // Tangani kesalahan login
             return back()->with('error', $responseData['message']);
@@ -107,7 +107,6 @@ class AuthenticationController extends Controller
     public function resetPassword(Request $request) {
         // Buat permintaan reset password ke endpoint API
         $response = Http::post('https://be.brainys.oasys.id/api/reset-password', [
-            'email' => session('email'),
             'reset_token' =>  session('access_token'),
             'new_password' => $request->input('new_password'),
             'new_password_confirmation' => $request->input('new_password_confirmation')
@@ -115,7 +114,7 @@ class AuthenticationController extends Controller
         // Periksa keberhasilan reset password
         if ($response->successful()) {
             // Password berhasil direset, hapus email dan token dari sesi
-            $request->session()->forget(['email', 'reset_token']);
+            $request->session()->forget(['reset_token']);
             $responseData = $response->json();
 
             // Tampilkan pesan kesuksesan di halaman login

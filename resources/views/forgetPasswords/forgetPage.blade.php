@@ -25,6 +25,11 @@
             </div>
         </a>
 
+        <p>Email: {{ $email }}</p>
+        <p>Access Token: {{ $accessToken }}</p>
+
+
+
         <div class="w-full sm:w-[1170px] h-[60px] flex-col justify-start items-start gap-2 inline-flex">
             <div class="text-gray-900 text-2xl font-semibold font-['Inter'] leading-[30px]">Change Password</div>
             <div class="w-full sm:w-[549px] text-gray-500 text-sm font-normal font-['Inter'] leading-snug">Lorem ipsum dolor

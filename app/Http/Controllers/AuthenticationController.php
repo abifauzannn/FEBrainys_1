@@ -107,7 +107,7 @@ class AuthenticationController extends Controller
     public function resetPassword(Request $request) {
         // Buat permintaan reset password ke endpoint API
         $response = Http::post('https://be.brainys.oasys.id/api/reset-password', [
-            'reset_token' =>  session('access_token'),
+            'reset_token' =>   $request->query('token'),
             'new_password' => $request->input('new_password'),
             'new_password_confirmation' => $request->input('new_password_confirmation')
         ]);

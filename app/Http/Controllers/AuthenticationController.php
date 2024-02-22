@@ -123,6 +123,7 @@ class AuthenticationController extends Controller
         } else {
              // Gagal mereset password, tangani kesalahan
         $errorResponse = $response->json();
+        dd($response->json());
 
         // Manipulasi pesan kesalahan yang diberikan oleh server
         $errorMessage = $errorResponse['message'];
@@ -130,6 +131,8 @@ class AuthenticationController extends Controller
             // Jika ada pesan kesalahan khusus untuk field new_password, gunakan pesan tersebut
             $errorMessage = $errorResponse['data']['new_password'][0];
         }
+
+        dd($response->json());
 
         // Tampilkan pesan kesalahan di halaman forget password
         return redirect()->route('forgetPassword')->with('error', $errorMessage);

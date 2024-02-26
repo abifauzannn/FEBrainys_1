@@ -33,6 +33,7 @@
                 <!-- Input untuk Nama Silabus -->
                 @csrf
 
+
                 <div class="mb-4">
                     <label for="name" class="text-gray-900 text-base font-['Inter'] leading-normal font-semibold">Nama
                         Modul Ajar</label>

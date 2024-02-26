@@ -48,10 +48,10 @@
         </div>
 
 
-        <div class="flex flex-col sm:flex-row sm:justify-between">
+        <div class="flex flex-wrap flex-col md:flex-row sm:justify-between">
             <a href="/generate">
                 <div
-                    class="w-full md:w-[390px]  p-4 rounded-lg shadow border border-gray-300 flex-col justify-start items-start gap-2 inline-flex mr-6 mb-2">
+                    class="w-full md:w-[330px] xl:w-[375px] p-4 rounded-lg shadow border border-gray-300 flex-col justify-start items-start gap-2 inline-flex lg:mr-6 mb-2">
                     <img src="{{ URL('images/book-open.svg') }}" alt="" class="w-6 h-6 relative">
                     <div class=" text-gray-900 text-lg font-bold font-['Inter'] leading-normal">Templat Modul Ajar</div>
                     <div class=" text-black text-xs font-normal font-['Inter'] leading-normal">Gunakan templat modul ajar
@@ -61,7 +61,7 @@
             </a>
 
             <div
-                class="w-full md:w-[390px]  p-4 rounded-lg shadow border border-gray-300 flex-col justify-start items-start gap-2 inline-flex mr-6 mb-2">
+                class="w-full md:w-[330px] xl:w-[375px] p-4 rounded-lg shadow border border-gray-300 flex-col justify-start items-start gap-2 inline-flex lg:mr-6 mb-2">
                 <img src="{{ URL('images/book-open.png') }}" alt="" class="w-6 h-6 relative">
                 <div class=" text-gray-900 text-lg font-bold font-['Inter'] leading-normal">Templat Silabus (Soon)</div>
                 <div class=" text-black text-xs font-normal font-['Inter'] leading-normal">Gunakan templat silabus
@@ -70,7 +70,7 @@
             </div>
 
             <div
-                class="w-full md:w-[390px]  p-4 rounded-lg shadow border border-gray-300 flex-col justify-start items-start gap-2 inline-flex mb-2">
+                class="w-full md:w-[330px]  xl:w-[375px]  p-4 rounded-lg shadow border border-gray-300 flex-col justify-start items-start gap-2 inline-flex mb-2 md:mt-4 lg:mt-0">
                 <img src="{{ URL('images/document-text.png') }}" alt="" class="w-6 h-6 relative">
                 <div class=" text-gray-900 text-lg font-bold font-['Inter'] leading-normal">Templat Soal (soon)</div>
                 <div class=" text-black text-xs font-normal font-['Inter'] leading-normal">Gunakan templat soal untuk

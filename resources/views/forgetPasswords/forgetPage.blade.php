@@ -4,9 +4,6 @@
 
 @section('content')
 
-
-
-
     <div class="w-full container mx-auto px-4 sm:px-10 py-9">
 
         <div class="justify-center items-center gap-4 inline-flex mb-5">
@@ -49,8 +46,6 @@
                 </div>
             @endif
 
-
-
             <form class="w-full sm:w-[500px]" action="{{ route('resetPassword') }}" method="post">
 
                 @if (session('error'))
@@ -69,6 +64,11 @@
                 @endif
 
                 @csrf
+
+                <!-- Input hidden untuk email -->
+                <input type="hidden" name="email" value="{{ $email }}">
+                <!-- Input hidden untuk reset_token -->
+                <input type="hidden" name="reset_token" value="{{ $reset_token }}">
 
                 <div class="relative mb-4">
                     <label for="new_password"

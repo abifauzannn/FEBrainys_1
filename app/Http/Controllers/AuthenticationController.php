@@ -36,15 +36,25 @@ class AuthenticationController extends Controller
         return view('authentications.changePassword');
     }
 
-    public function showEmailForget(){
+    public function showEmailForget()
+    {
         return view('forgetPasswords.emailVerify');
     }
 
-    public function showForgetPassword(){
-        return view('forgetPasswords.forgetPage');
+    public function showForgetPassword(Request $request)
+    {
+        // Mengambil nilai parameter email dan reset_token dari URL
+        $email = $request->get('email');
+        $reset_token = $request->get('token');
+
+        // Melewatkan nilai email dan reset_token ke view
+        return view('forgetPasswords.forgetPage')
+            ->with('email', $email)
+            ->with('reset_token', $reset_token);
     }
 
-    public function emailVerify(Request $request){
+    public function emailVerify(Request $request)
+    {
         // Buat permintaan login ke API
         $response = Http::post('https://be.brainys.oasys.id/api/forgot-password', [
             'email' => $request->input('email'),
@@ -54,8 +64,6 @@ class AuthenticationController extends Controller
 
         // Periksa keberhasilan login
         if ($response->successful() && $responseData['status'] === 'success') {
-
-
             // Simpan email baru di sesi Laravel
             $email = $request->input('email');
             session(['email' => $email, 'access_token' => $responseData['reset_token']]);
@@ -68,10 +76,12 @@ class AuthenticationController extends Controller
         }
     }
 
-    public function resetPassword(Request $request) {
+    public function resetPassword(Request $request)
+    {
+        // dd($request);
         // Buat permintaan reset password ke endpoint API
         $response = Http::post('https://be.brainys.oasys.id/api/reset-password', [
-            'reset_token' =>  session('access_token'),
+            'reset_token' =>  $request->input('reset_token'),
             'new_password' => $request->input('new_password'),
             'new_password_confirmation' => $request->input('new_password_confirmation')
         ]);
@@ -84,26 +94,23 @@ class AuthenticationController extends Controller
             // Tampilkan pesan kesuksesan di halaman login
             return redirect()->route('login')->with('success', $responseData['message']);
         } else {
-             // Gagal mereset password, tangani kesalahan
-        $errorResponse = $response->json();
-        dd($response->json());
+            // Gagal mereset password, tangani kesalahan
+            $errorResponse = $response->json();
+            dd($response->json());
 
-        // Manipulasi pesan kesalahan yang diberikan oleh server
-        $errorMessage = $errorResponse['message'];
-        if (isset($errorResponse['data']) && isset($errorResponse['data']['new_password'])) {
-            // Jika ada pesan kesalahan khusus untuk field new_password, gunakan pesan tersebut
-            $errorMessage = $errorResponse['data']['new_password'][0];
-        }
+            // Manipulasi pesan kesalahan yang diberikan oleh server
+            $errorMessage = $errorResponse['message'];
+            if (isset($errorResponse['data']) && isset($errorResponse['data']['new_password'])) {
+                // Jika ada pesan kesalahan khusus untuk field new_password, gunakan pesan tersebut
+                $errorMessage = $errorResponse['data']['new_password'][0];
+            }
 
-        dd($response->json());
+            dd($response->json());
 
-        // Tampilkan pesan kesalahan di halaman forget password
-        return redirect()->route('forgetPassword')->with('error', $errorMessage);
+            // Tampilkan pesan kesalahan di halaman forget password
+            return redirect()->route('forgetPassword')->with('error', $errorMessage);
         }
     }
-
-
-
 
     public function changeProfile(Request $request)
     {
@@ -168,9 +175,6 @@ class AuthenticationController extends Controller
             return back()->withErrors(['error' => $errorMessage]);
         }
     }
-
-
-
 
     public function checkEmail(Request $request)
     {

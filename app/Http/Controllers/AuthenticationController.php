@@ -288,8 +288,8 @@ class AuthenticationController extends Controller
             // Redirect ke halaman melengkapi profil
             return redirect()->route('profileForm');
         } else {
-            $errorMessage = isset($responseData['message']) ? $responseData['message'] : 'OTP verification failed. Please try again.';
-            return back()->withErrors(['error' => $errorMessage]);
+            $errorMessage = isset($responseData['message']);
+            return back()->with('error', $responseData['message']);
         }
     }
 

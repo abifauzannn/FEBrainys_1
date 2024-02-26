@@ -13,34 +13,46 @@
                 cek kode OTP pada inbox email anda untuk </div>
 
             <form action="{{ route('verify.otp.post') }}" method="post">
+                @if (session('error'))
+                    <div class="flex items-center p-4 mb-4 text-sm text-red-800 border border-red-300 rounded-lg bg-red-50"
+                        role="alert">
+                        <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                            fill="currentColor" viewBox="0 0 20 20">
+                            <path
+                                d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+                        </svg>
+                        <span class="sr-only">Error!</span>
+                        <div>
+                            <span class="font-medium">{{ session('error') }}</span>
+                        </div>
+                    </div>
+                @endif
                 @csrf
                 <input type="hidden" name="email" value="{{ $email }}">
-                <input type="hidden" name="otp" value="{{ $otp }}">
+
+                <input type="hidden" id="otpDisplay" name="otp"
+                    class="w-full h-12 rounded-md text-center bg-gray-50 text-sky-600 text-xl font-medium font-['Inter'] leading-normal focus:outline-none focus:border-none p-2"
+                    placeholder="OTP">
+
                 <div class="flex gap-4 justify-between">
                     <input type="text"
                         class="w-11 h-12 rounded-md text-center bg-gray-50 text-sky-600 text-xl font-medium font-['Inter'] leading-normal focus:outline-none focus:border-none p-2"
-                        maxlength="1" id="digit1" oninput="handleInput(this)" placeholder="0"
-                        value="{{ $otp[0] }}">
+                        maxlength="1" id="digit1" oninput="handleInput(this)" placeholder="0">
                     <input type="text"
                         class="w-11 h-12 rounded-md text-center bg-gray-50 text-sky-600 text-xl font-medium font-['Inter'] leading-normal focus:outline-none focus:border-none p-2"
-                        maxlength="1" id="digit2" oninput="handleInput(this)" placeholder="0"
-                        value="{{ $otp[1] }}">
+                        maxlength="1" id="digit2" oninput="handleInput(this)" placeholder="0">
                     <input type="text"
                         class="w-11 h-12 rounded-md text-center bg-gray-50 text-sky-600 text-xl font-medium font-['Inter'] leading-normal focus:outline-none focus:border-none p-2"
-                        maxlength="1" id="digit3" oninput="handleInput(this)" placeholder="0"
-                        value="{{ $otp[2] }}">
+                        maxlength="1" id="digit3" oninput="handleInput(this)" placeholder="0">
                     <input type="text"
                         class="w-11 h-12 rounded-md text-center bg-gray-50 text-sky-600 text-xl font-medium font-['Inter'] leading-normal focus:outline-none focus:border-none p-2"
-                        maxlength="1" id="digit4" oninput="handleInput(this)" placeholder="0"
-                        value="{{ $otp[3] }}">
+                        maxlength="1" id="digit4" oninput="handleInput(this)" placeholder="0">
                     <input type="text"
                         class="w-11 h-12 rounded-md text-center bg-gray-50 text-sky-600 text-xl font-medium font-['Inter'] leading-normal focus:outline-none focus:border-none p-2"
-                        maxlength="1" id="digit5" oninput="handleInput(this)" placeholder="0"
-                        value="{{ $otp[4] }}">
+                        maxlength="1" id="digit5" oninput="handleInput(this)" placeholder="0">
                     <input type="text"
                         class="w-11 h-12 rounded-md text-center bg-gray-50 text-sky-600 text-xl font-medium font-['Inter'] leading-normal focus:outline-none focus:border-none p-2"
-                        maxlength="1" id="digit6" oninput="handleInput(this)" placeholder="0"
-                        value="{{ $otp[5] }}">
+                        maxlength="1" id="digit6" oninput="handleInput(this)" placeholder="0">
                 </div>
 
                 <button type="submit"
@@ -104,6 +116,35 @@
             // Mulai countdown pertama kali
             updateCountdown();
         });
+
+        function handleInput(input) {
+            // Tangkap nilai dari setiap field input
+            const digit1Value = document.getElementById('digit1').value;
+            const digit2Value = document.getElementById('digit2').value;
+            const digit3Value = document.getElementById('digit3').value;
+            const digit4Value = document.getElementById('digit4').value;
+            const digit5Value = document.getElementById('digit5').value;
+            const digit6Value = document.getElementById('digit6').value;
+
+            // Gabungkan nilai dari setiap field menjadi satu string
+            const otpValue = digit1Value + digit2Value + digit3Value + digit4Value + digit5Value + digit6Value;
+
+            // Tampilkan nilai OTP dalam input field tambahan
+            document.getElementById('otpDisplay').value = otpValue;
+
+            // Periksa apakah nilai telah dimasukkan
+            if (input.value) {
+                // Pindahkan fokus ke field berikutnya jika nilai telah dimasukkan
+                if (input.nextElementSibling) {
+                    input.nextElementSibling.focus();
+                }
+            } else {
+                // Jika nilai dihapus, pindahkan fokus ke field sebelumnya
+                if (input.previousElementSibling) {
+                    input.previousElementSibling.focus();
+                }
+            }
+        }
     </script>
 
 @endsection

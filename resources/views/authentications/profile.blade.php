@@ -45,7 +45,7 @@
                 </button>
 
                 <button id="loadingButton" disabled type="button"
-                    class="h-12 px-6 py-3 bg-blue-600 rounded-[50px] justify-center items-center gap-2.5 inline-flex w-full"
+                    class="h-12 px-6 my-5 bg-blue-600 rounded-[50px] justify-center items-center gap-2.5 inline-flex w-full"
                     style="display: none;">
                     <svg aria-hidden="true" role="status" class="inline w-4 h-4 me-3 text-white animate-spin"
                         viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">

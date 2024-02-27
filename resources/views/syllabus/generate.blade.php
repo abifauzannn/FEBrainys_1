@@ -27,6 +27,7 @@
     </div>
 
 
+
     <div class="flex container mx-auto px-3 sm:px-10 flex-col lg:flex-row">
         <div class="w-full lg:w-[500px] flex-col justify-start items-start sm:gap-6 inline-flex">
             <form action="{{ route('syllabusPost') }}" method="post" class="w-full">
@@ -36,61 +37,94 @@
 
                 <div class="mb-4">
                     <label for="name" class="text-gray-900 text-base font-['Inter'] leading-normal font-semibold">Nama
-                        Modul Ajar</label>
-                    <input type="text" name="name" id="name" data-tooltip-target="tooltip-light"
-                        data-tooltip-trigger="click" data-tooltip-placement="right"
-                        class="w-full p-2 border rounded-md mt-[10px] placeholder:text-gray-400 text-base font-normal font-['Inter'] leading-normal"
-                        placeholder="masukan nama modul ajar" required>
-                    <div id="tooltip-light" role="tooltip"
-                        class="mb-7 absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 tooltip">
+                        Modul Ajar </label>
+                    <button data-tooltip-target="nameTooltip" data-tooltip-placement="right"
+                        class="text-gray-600 transition-colors duration-200 focus:outline-none dark:text-gray-200 dark:hover:text-blue-400 hover:text-blue-500">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                            stroke="currentColor" class="w-4 h-4">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z" />
+                        </svg>
+                    </button>
+
+                    <div id="nameTooltip" role="tooltip"
+                        class="w-36 absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
                         Contoh : SOLUSI MENGATASI PEMANASAN GLOBAL
                         <div class="tooltip-arrow" data-popper-arrow></div>
                     </div>
+
+                    <input type="text" name="name" id="name"
+                        class="w-full p-2 border rounded-md mt-[10px] placeholder:text-gray-400 text-base font-normal font-['Inter'] leading-normal"
+                        placeholder="masukan nama modul ajar" required>
                 </div>
 
                 <div class="mb-4">
                     <label for="subject" class="text-gray-900 text-base font-['Inter'] leading-normal font-semibold">Mata
                         Pelajaran</label>
-                    <input type="text" name="subject" id="subject" data-tooltip-target="tooltip-subject"
-                        data-tooltip-trigger="click" data-tooltip-placement="right"
-                        class="w-full p-2 border rounded-md mt-[10px] placeholder:text-gray-400 text-base font-normal font-['Inter'] leading-normal"
-                        placeholder="masukan nama mata pelajaran" required>
-                    <div id="tooltip-subject" role="tooltip"
-                        class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 tooltip">
+                    <button data-tooltip-target="subjectTooltip" data-tooltip-placement="right"
+                        class="text-gray-600 transition-colors duration-200 focus:outline-none dark:text-gray-200 dark:hover:text-blue-400 hover:text-blue-500">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                            stroke="currentColor" class="w-4 h-4">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z" />
+                        </svg>
+                    </button>
+
+                    <div id="subjectTooltip" role="tooltip"
+                        class="w-36 absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
                         Contoh : Fisika
                         <div class="tooltip-arrow" data-popper-arrow></div>
                     </div>
+                    <input type="text" name="subject" id="subject"
+                        class="w-full p-2 border rounded-md mt-[10px] placeholder:text-gray-400 text-base font-normal font-['Inter'] leading-normal"
+                        placeholder="masukan nama mata pelajaran" required>
                 </div>
 
                 <!-- Input untuk Mata Pelajaran -->
                 <div class="mb-4">
                     <label for="grade"
                         class="text-gray-900 text-base font-semibold font-['Inter'] leading-normal">Kelas</label>
-                    <input type="number" id="grade" name="grade" data-tooltip-target="tooltip-grade"
-                        data-tooltip-trigger="click" data-tooltip-placement="right"
-                        class="w-full p-2 border rounded-md mt-[10px] placeholder:text-gray-400 text-base font-normal font-['Inter'] leading-normal"
-                        placeholder="masukan tingkat kelas" required>
-                    <div id="tooltip-grade" role="tooltip"
-                        class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 tooltip">
+                    <button data-tooltip-target="gradeTooltip" data-tooltip-placement="right"
+                        class="text-gray-600 transition-colors duration-200 focus:outline-none dark:text-gray-200 dark:hover:text-blue-400 hover:text-blue-500">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                            stroke="currentColor" class="w-4 h-4">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z" />
+                        </svg>
+                    </button>
+                    <div id="gradeTooltip" role="tooltip"
+                        class="w-36 absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
                         Contoh : 9
                         <div class="tooltip-arrow" data-popper-arrow></div>
                     </div>
+                    <input type="number" id="grade" name="grade"
+                        class="w-full p-2 border rounded-md mt-[10px] placeholder:text-gray-400 text-base font-normal font-['Inter'] leading-normal"
+                        placeholder="masukan tingkat kelas" required>
+
                 </div>
 
                 <div class="mb-4">
                     <label for="notes"
                         class="text-gray-900 text-base font-semibold font-['Inter'] leading-normal mb-[10px]">Deskripsi
                         Modul Ajar</label>
-                    <textarea id="notes" name="notes" data-tooltip-target="tooltip-notes" data-tooltip-placement="right"
-                        data-tooltip-trigger="click"
-                        class="w-full p-2 border rounded-md mt-[10px] placeholder:text-gray-400 text-base font-normal font-['Inter'] leading-normal"
-                        placeholder="Masukkan deskripsi poin Modul Ajar" maxlength="250" oninput="updateCharacterCount(this)" required></textarea>
-                    <div id="tooltip-notes" role="tooltip"
-                        class="max-w-xs absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 tooltip">
+                    <button data-tooltip-target="notesTooltip" data-tooltip-placement="right"
+                        class="text-gray-600 transition-colors duration-200 focus:outline-none dark:text-gray-200 dark:hover:text-blue-400 hover:text-blue-500">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                            stroke="currentColor" class="w-4 h-4">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z" />
+                        </svg>
+                    </button>
+                    <div id="notesTooltip" role="tooltip"
+                        class="w-36 absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
                         Contoh : Untuk memperkenalkan ke siswa tentang bagaimana solusi mengatasi pemanasan global, penyebab
                         pemanasan global dan langkah-langkah mengatasinya
                         <div class="tooltip-arrow" data-popper-arrow></div>
                     </div>
+                    <textarea id="notes" name="notes"
+                        class="w-full p-2 border rounded-md mt-[10px] placeholder:text-gray-400 text-base font-normal font-['Inter'] leading-normal"
+                        placeholder="Masukkan deskripsi poin Modul Ajar" maxlength="250" oninput="updateCharacterCount(this)" required></textarea>
+
                 </div>
                 <div class="flex justify-end -mt-2">
                     <div class="self-stretch justify-start items-end gap-5 inline-flex">

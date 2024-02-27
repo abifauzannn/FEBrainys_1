@@ -36,27 +36,27 @@
 
                 <div class="flex gap-4 justify-between">
                     <input type="text"
-                        class="w-11 h-12 rounded-md text-center bg-gray-50 text-sky-600 text-xl font-medium font-['Inter'] leading-normal focus:outline-none focus:border-none p-2"
+                        class="font-bold  w-11 h-12 rounded-md text-center bg-gray-50 text-sky-600 text-xl placeholder:font-medium font-['Inter'] leading-normal focus:outline-none focus:border-none p-2"
                         maxlength="1" id="digit1" oninput="handleInput(this)" placeholder="0">
                     <input type="text"
-                        class="w-11 h-12 rounded-md text-center bg-gray-50 text-sky-600 text-xl font-medium font-['Inter'] leading-normal focus:outline-none focus:border-none p-2"
+                        class="font-bold w-11 h-12 rounded-md text-center bg-gray-50 text-sky-600 text-xl placeholder:font-medium font-['Inter'] leading-normal focus:outline-none focus:border-none p-2"
                         maxlength="1" id="digit2" oninput="handleInput(this)" placeholder="0">
                     <input type="text"
-                        class="w-11 h-12 rounded-md text-center bg-gray-50 text-sky-600 text-xl font-medium font-['Inter'] leading-normal focus:outline-none focus:border-none p-2"
+                        class="font-bold w-11 h-12 rounded-md text-center bg-gray-50 text-sky-600 text-xl placeholder:font-medium font-['Inter'] leading-normal focus:outline-none focus:border-none p-2"
                         maxlength="1" id="digit3" oninput="handleInput(this)" placeholder="0">
                     <input type="text"
-                        class="w-11 h-12 rounded-md text-center bg-gray-50 text-sky-600 text-xl font-medium font-['Inter'] leading-normal focus:outline-none focus:border-none p-2"
+                        class="font-bold w-11 h-12 rounded-md text-center bg-gray-50 text-sky-600 text-xl placeholder:font-medium font-['Inter'] leading-normal focus:outline-none focus:border-none p-2"
                         maxlength="1" id="digit4" oninput="handleInput(this)" placeholder="0">
                     <input type="text"
-                        class="w-11 h-12 rounded-md text-center bg-gray-50 text-sky-600 text-xl font-medium font-['Inter'] leading-normal focus:outline-none focus:border-none p-2"
+                        class="font-bold w-11 h-12 rounded-md text-center bg-gray-50 text-sky-600 text-xl placeholder:font-medium font-['Inter'] leading-normal focus:outline-none focus:border-none p-2"
                         maxlength="1" id="digit5" oninput="handleInput(this)" placeholder="0">
                     <input type="text"
-                        class="w-11 h-12 rounded-md text-center bg-gray-50 text-sky-600 text-xl font-medium font-['Inter'] leading-normal focus:outline-none focus:border-none p-2"
+                        class="font-bold w-11 h-12 rounded-md text-center bg-gray-50 text-sky-600 text-xl placeholder:font-medium font-['Inter'] leading-normal focus:outline-none focus:border-none p-2"
                         maxlength="1" id="digit6" oninput="handleInput(this)" placeholder="0">
                 </div>
 
                 <button type="submit"
-                    class="w-full h-12 px-6 py-3 rounded-[50px] justify-center items-center gap-2 inline-flex mt-8 bg-blue-400 text-white">
+                    class="w-full h-12 px-6 py-3 rounded-[50px] justify-center items-center gap-2 inline-flex mt-8 bg-blue-600 hover:bg-blue-700 focus:bg-blue-700  text-white">
                     <div class="text-center text-base font-medium font-['Inter'] leading-normal">Konfirmasi</div>
                 </button>
             </form>

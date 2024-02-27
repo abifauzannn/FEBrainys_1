@@ -43,7 +43,7 @@
                         placeholder="masukan nama modul ajar" required>
                     <div id="tooltip-light" role="tooltip"
                         class="mb-7 absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 tooltip">
-                        Contoh : Modul Ajar Bahasa Indonesia
+                        Contoh : SOLUSI MENGATASI PEMANASAN GLOBAL
                         <div class="tooltip-arrow" data-popper-arrow></div>
                     </div>
                 </div>
@@ -57,7 +57,7 @@
                         placeholder="masukan nama mata pelajaran" required>
                     <div id="tooltip-subject" role="tooltip"
                         class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 tooltip">
-                        Contoh : Bahasa Indonesia
+                        Contoh : Fisika
                         <div class="tooltip-arrow" data-popper-arrow></div>
                     </div>
                 </div>
@@ -72,7 +72,7 @@
                         placeholder="masukan tingkat kelas" required>
                     <div id="tooltip-grade" role="tooltip"
                         class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 tooltip">
-                        Contoh : 10
+                        Contoh : 9
                         <div class="tooltip-arrow" data-popper-arrow></div>
                     </div>
                 </div>
@@ -87,9 +87,8 @@
                         placeholder="Masukkan deskripsi poin Modul Ajar" maxlength="250" oninput="updateCharacterCount(this)" required></textarea>
                     <div id="tooltip-notes" role="tooltip"
                         class="max-w-xs absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 tooltip">
-                        Contoh : untuk memperkenalkan siswa kelas X pada keberagaman kebudayaan dan karya sastra Indonesia.
-                        Modul ini bertujuan untuk membantu siswa memahami nilai-nilai budaya, tradisi, dan kekayaan sastra
-                        Indonesia yang merupakan bagian integral dari identitas bangsa.
+                        Contoh : Untuk memperkenalkan ke siswa tentang bagaimana solusi mengatasi pemanasan global, penyebab
+                        pemanasan global dan langkah-langkah mengatasinya
                         <div class="tooltip-arrow" data-popper-arrow></div>
                     </div>
                 </div>

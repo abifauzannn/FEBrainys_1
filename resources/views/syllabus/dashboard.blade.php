@@ -10,7 +10,8 @@
         <div id="welcomePopup"
             class="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center hidden">
             <div class="bg-white w-64 p-6 rounded-lg shadow-md text-center">
-                <div class="text-blue-600 font-bold text-lg mb-2">Welcome to Brainys!👋</div>
+                <div class="text-blue-600 font-bold text-lg mb-2">Hello {{ session('user')['name'] }}!, Welcome to Brainys👋
+                </div>
                 <div class="text-gray-800 font-normal mb-4">{{ session('success') }}</div>
                 <button id="closeWelcomePopup"
                     class="bg-blue-600 text-white font-semibold py-2 px-4 rounded hover:bg-blue-700 focus:outline-none focus:bg-blue-700">Close</button>

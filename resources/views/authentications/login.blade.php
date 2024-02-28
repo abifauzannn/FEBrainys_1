@@ -5,11 +5,11 @@
 @section('content')
     <div class="container mx-auto flex items-center justify-center mt-10 sm:h-screen sm:mt-0 xl:gap-48 lg:gap-20">
         <div class="hidden lg:block">
-            <img class="w-[612px] h-[612px] object-cover" src="{{ URL('images/onboarding.png') }}" />
+            <img class="w-[612px] h-[612px] object-cover" src="{{ URL('images/onboarding.png') }}" alt="onBoarding" />
         </div>
         <div class="w-full px-3 sm:w-[352px] h-[515px] flex flex-col">
             <div class="justify-center items-center gap-4 inline-flex mb-12">
-                <img src="{{ URL('images/Logo.svg') }}" alt="" class="w-[50px] h-[39px]">
+                <img src="{{ URL('images/Logo.svg') }}" alt="logo" class="w-[50px] h-[39px]">
                 <div class="text-center text-gray-900 text-2xl font-bold font-['Inter'] leading-normal">Brainys
                 </div>
             </div>
@@ -121,6 +121,11 @@
     </div>
 
     <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Memfokuskan ke input email
+            document.getElementById("email").focus();
+        });
+
         document.getElementById('togglePassword').addEventListener('click', function() {
             var passwordInput = document.getElementById('password');
             var type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';

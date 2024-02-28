@@ -125,6 +125,11 @@
     </div>
 
     <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Memfokuskan ke input email
+            document.getElementById("email").focus();
+        });
+
         document.getElementById('togglePassword').addEventListener('click', function() {
             var passwordInput = document.getElementById('password');
             var type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';

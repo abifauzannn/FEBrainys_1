@@ -93,9 +93,8 @@
                 </div>
 
                 @if (session('success'))
-                    <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 my-4" role="alert">
-                        <p class="font-bold">Success!</p>
-                        <p>Link untuk proses reset password anda berhasik dikirim ke {{ session('email') }}. Silakan cek
+                    <div class=" text-center p-4 my-2" role="alert">
+                        <p>Link untuk proses reset password anda berhasil dikirim ke {{ session('email') }}. Silakan cek
                             inbox atau di bagian spam email.</p>
                     </div>
                 @endif
@@ -109,22 +108,29 @@
 
     @if (session('success'))
         <script>
-            var submitButton = document.getElementById('submitButton')
-            var verifikasi = document.getElementById('verifikasi')
-            var verifikasiEmail = document.getElementById('terverifikasi')
-            var inputEmail = document.getElementById('email')
-            var outputEmail = document.getElementById('outputEmail')
+            // var submitButton = document.getElementById('submitButton')
+            // var verifikasi = document.getElementById('verifikasi')
+            // var verifikasiEmail = document.getElementById('terverifikasi')
+            // var inputEmail = document.getElementById('email')
+            // var outputEmail = document.getElementById('outputEmail')
 
-            submitButton.setAttribute('disabled', true);
-            submitButton.classList.remove('bg-blue-600', 'hover:bg-blue-700');
-            submitButton.classList.add('bg-gray-300');
-            verifikasi.classList.add('hidden');
-            verifikasiEmail.classList.remove('hidden');
+            // submitButton.setAttribute('disabled', true);
+            // submitButton.classList.remove('bg-blue-600', 'hover:bg-blue-700');
+            // submitButton.classList.add('bg-gray-300');
+            // verifikasi.classList.add('hidden');
+            // verifikasiEmail.classList.remove('hidden');
+
+            document.getElementById('email').value = "{{ session('email') }}";
         </script>
     @endif
 
 
     <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Memfokuskan ke input email
+            document.getElementById("email").focus();
+        });
+
         submitButton.addEventListener("click", function() {
             // Memeriksa apakah email memiliki format yang valid
             const emailValue = document.getElementById('email').value.trim();

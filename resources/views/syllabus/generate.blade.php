@@ -429,6 +429,11 @@
     </div>
 
     <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Memfokuskan ke input email
+            document.getElementById("name").focus();
+        });
+
         function clearInputs() {
             document.getElementById('name').value = ''; // Menghapus nilai input nama
             document.getElementById('subject').value = ''; // Menghapus nilai input subject

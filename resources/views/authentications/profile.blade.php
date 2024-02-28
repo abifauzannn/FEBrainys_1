@@ -64,6 +64,11 @@
     </div>
 
     <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Memfokuskan ke input email
+            document.getElementById("name").focus();
+        });
+
         const submitButton = document.getElementById("konfirmasiButton");
         const loadingIndicator = document.getElementById("loadingButton");
         const buttonText = document.getElementById("buttonText");

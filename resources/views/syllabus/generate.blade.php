@@ -24,6 +24,9 @@
             <div class="text-gray-900 text-2xl font-semibold font-['Inter']">Template Modul Ajar</div>
             <div class="mt-2 text-gray-500 text-sm leading-snug">Gunakan templat modul ajar kurikulum merdeka</div>
         </div>
+
+        <div class="mt-2 text-gray-500 text-sm leading-snug font-bold">Kuota yang sudah dipakai
+            {{ $userLimit['materials']['used'] }} dari {{ $userLimit['materials']['used'] }} </div>
     </div>
 
 

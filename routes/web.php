@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\SyllabusController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -89,6 +90,8 @@ Route::post('/check-email', [AuthenticationController::class, 'checkEmail'])->na
 Route::get('/user-profile', [UserController::class, 'showProfile'])->name('userProfile');
 
 Route::post('/resend-otp', [AuthenticationController::class, 'resendOTP'])->name('resend-otp');
+
+Route::get('/history-modul-ajar', [HistoryController::class, 'showHistoryModulAjar'])->name('historyModulAjar');
 
 
 

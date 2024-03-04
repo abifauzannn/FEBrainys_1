@@ -45,6 +45,7 @@
                     <label for="name" class="text-gray-900 text-base font-['Inter'] leading-normal font-semibold">Nama
                         Modul Ajar </label>
                     <button data-tooltip-target="nameTooltip" data-tooltip-placement="right" data-tooltip-trigger="click"
+                        type="button"
                         class="text-gray-600 transition-colors duration-200 focus:outline-none dark:text-gray-200 dark:hover:text-blue-400 hover:text-blue-500">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
                             stroke="currentColor" class="w-5 h-5">

@@ -6,9 +6,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 
-class SyllabusController extends Controller
+class ModulAjarController extends Controller
 {
-    public function syllabus()
+    public function modulAjar()
     {
         // Periksa apakah kunci 'user' ada dalam sesi
         if (session()->has('user')) {
@@ -19,14 +19,14 @@ class SyllabusController extends Controller
             $userLimit = $this->getUserLimit();
 
             // Teruskan data pengguna dan batas penggunaan ke view
-            return view('syllabus.generate', compact('userData', 'userLimit'));
+            return view('ModulAjars.generate', compact('userData', 'userLimit'));
         } else {
             // Redirect ke halaman login jika kunci 'user' tidak ada dalam sesi
             return redirect('/login');
         }
     }
 
-    public function generateSyllabus(Request $request)
+    public function generateModulAjar(Request $request)
 {
     // Check if the user is authenticated
     if (!session()->has('access_token') || !session()->has('user')) {
@@ -64,12 +64,12 @@ class SyllabusController extends Controller
                 $generateId = $responseData['data']['id'];
             } else {
                 // Handle the case where the expected structure is not present in the API response
-                return redirect('/generate')->with('error', 'Invalid API response format');
+                return redirect('/generate-modul-ajar')->with('error', 'Invalid API response format');
             }
         } else {
              // Handle error if needed
         if(isset($responseData['status']) && $responseData['status'] === 'failed' && isset($responseData['message'])) {
-            return redirect('/generate')->with('error', $responseData['message']);
+            return redirect('/generate-modul-ajar')->with('error', $responseData['message']);
         } else {
             return redirect('/dashboard')->with('error', 'Failed to generate syllabus. Status code: ' . $statusCode);
         }
@@ -80,7 +80,7 @@ class SyllabusController extends Controller
     }
 
     // Pass the $data and $generateId variables to the view
-    return view('syllabus.generate', compact('data', 'generateId', 'userLimit'));
+    return view('ModulAjars.generate', compact('data', 'generateId', 'userLimit'));
 }
 
 

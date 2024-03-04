@@ -26,7 +26,7 @@
         </div>
 
         <div class="mt-2 text-gray-500 text-sm leading-snug font-bold">Kuota yang sudah dipakai
-            {{ $userLimit['materials']['used'] }} dari {{ $userLimit['materials']['used'] }} </div>
+            {{ $userLimit['materials']['used'] }} dari {{ $userLimit['materials']['limit'] }} </div>
         <a href="{{ route('historyModulAjar') }}"
             class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg inline-block transition duration-300 ease-in-out mt-3">View
             History</a>
@@ -36,7 +36,7 @@
 
     <div class="flex container mx-auto px-3 sm:px-10 flex-col lg:flex-row">
         <div class="w-full lg:w-[500px] flex-col justify-start items-start sm:gap-6 inline-flex">
-            <form action="{{ route('syllabusPost') }}" method="post" class="w-full">
+            <form action="{{ route('modulAjarPost') }}" method="post" class="w-full">
                 <!-- Input untuk Nama Silabus -->
                 @csrf
 
@@ -44,7 +44,7 @@
                 <div class="mb-4">
                     <label for="name" class="text-gray-900 text-base font-['Inter'] leading-normal font-semibold">Nama
                         Modul Ajar </label>
-                    <button data-tooltip-target="nameTooltip" data-tooltip-placement="right"
+                    <button data-tooltip-target="nameTooltip" data-tooltip-placement="right" data-tooltip-trigger="click"
                         class="text-gray-600 transition-colors duration-200 focus:outline-none dark:text-gray-200 dark:hover:text-blue-400 hover:text-blue-500">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
                             stroke="currentColor" class="w-4 h-4">

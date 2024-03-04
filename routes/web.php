@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\EssayController;
 use App\Http\Controllers\HistoryController;
+use App\Http\Controllers\ModulAjarController;
 use App\Http\Controllers\SyllabusController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -62,9 +64,9 @@ Route::get('/login/google-forwarder', [AuthenticationController::class, 'handleG
 // Route untuk menampilkan halaman dashboard
 Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
 
-Route::get('/generate', [SyllabusController::class, 'syllabus'])->name('syllabus');
-Route::post('/generate', [SyllabusController::class, 'generateSyllabus'])->name('syllabusPost');
-Route::post('/export-word', [SyllabusController::class, 'exportToWord'])->name('export-word');
+Route::get('/generate-modul-ajar', [ModulAjarController::class, 'modulAjar'])->name('modulAjar');
+Route::post('/generate-modul-ajar', [ModulAjarController::class, 'generateModulAjar'])->name('modulAjarPost');
+Route::post('/export-word', [ModulAjarController::class, 'exportToWord'])->name('export-word');
 
 
 Route::post('/register', [AuthenticationController::class, 'register'])->name('registerPost');
@@ -92,6 +94,8 @@ Route::get('/user-profile', [UserController::class, 'showProfile'])->name('userP
 Route::post('/resend-otp', [AuthenticationController::class, 'resendOTP'])->name('resend-otp');
 
 Route::get('/history-modul-ajar', [HistoryController::class, 'showHistoryModulAjar'])->name('historyModulAjar');
+
+Route::get('/generate-essay', [EssayController::class, 'Essay'])->name('essay');
 
 
 

@@ -13,6 +13,12 @@
             </div>
         @endif
 
+        @if (session('error'))
+            <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 my-4" role="alert">
+                <p class="font-bold">Error!</p>
+                <p>{{ session('error') }}</p>
+            </div>
+        @endif
         <a href="/dashboard" class="block mb-6">
             <div class="flex items-center">
                 <img src="{{ URL('images/back.svg') }}" alt="" class="w-6 h-6">
@@ -36,9 +42,32 @@
 
     <div class="flex container mx-auto px-3 sm:px-10 flex-col lg:flex-row">
         <div class="w-full lg:w-[500px] flex-col justify-start items-start sm:gap-6 inline-flex">
-            <form action="" method="post" class="w-full">
+            <form action="{{ route('essayPost') }}" method="post" class="w-full">
                 <!-- Input untuk Nama Silabus -->
                 @csrf
+
+                <div class="mb-4">
+                    <label for="name" class="text-gray-900 text-base font-['Inter'] leading-normal font-semibold">Nama
+                        Latihan Essay</label>
+                    <button data-tooltip-target="nameTooltip" data-tooltip-placement="right"
+                        class="text-gray-600 transition-colors duration-200 focus:outline-none dark:text-gray-200 dark:hover:text-blue-400 hover:text-blue-500">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                            stroke="currentColor" class="w-4 h-4">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z" />
+                        </svg>
+                    </button>
+
+                    {{-- <div id="nameTooltip" role="tooltip"
+                        class="w-36 absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                        Contoh : SOLUSI MENGATASI PEMANASAN GLOBAL
+                        <div class="tooltip-arrow" data-popper-arrow></div>
+                    </div> --}}
+
+                    <input type="text" name="name" id="name"
+                        class="w-full p-2 border rounded-md mt-[10px] placeholder:text-gray-400 text-base font-normal font-['Inter'] leading-normal"
+                        placeholder="masukan nama latihan essay" required>
+                </div>
 
 
                 <div class="mb-4">
@@ -218,203 +247,31 @@
                     </div>
 
 
-                    <div class="overflow-x-auto">
-                        <table class="w-full mt-5">
+                    <div class="overflow-x-auto my-4">
+                        <table class="w-full">
                             <thead class="bg-slate-50">
                                 <tr>
-                                    <th class="px-6 py-3 text-left text-sm font-bold text-gray-800 uppercase" colspan="2">
-                                        Sarana dan Prasarana</th>
+                                    <th class="px-6 py-3 text-left text-sm font-bold text-gray-800 uppercase">No.</th>
+                                    <th class="px-6 py-3 text-left text-sm font-bold text-gray-800 uppercase">Pertanyaan</th>
+                                    <th class="px-6 py-3 text-left text-sm font-bold text-gray-800 uppercase">Instruksi</th>
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-gray-200">
-                                @foreach ($data['sarana_dan_prasarana'] as $key => $value)
+                                @foreach ($data['soal_essay'] as $index => $soal)
                                     <tr>
-                                        <td
-                                            class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200 font-semibold bg-slate-50">
-                                            {{ str_replace(' ', ' ', ucwords(str_replace('_', ' ', $key))) }}</td>
-                                        <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">
-                                            {{ $value }}</td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <div class="overflow-x-auto">
-                        <table class="w-full mt-5">
-                            <thead class="bg-slate-50">
-                                <tr>
-                                    <th class="px-6 py-3 text-left text-sm font-bold text-gray-800 uppercase" colspan="2">
-                                        Komponen Pembelajaran</th>
-                                </tr>
-                            </thead>
-                            <tbody class="divide-y divide-gray-200">
-                                @foreach ($data['komponen_pembelajaran'] as $key => $value)
-                                    <tr>
-                                        <td
-                                            class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200 font-semibold bg-slate-50">
-                                            {{ str_replace(' ', ' ', ucwords(str_replace('_', ' ', $key))) }}</td>
-                                        <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">
-                                            <ul>
-                                                @foreach ($value as $item)
-                                                    <li>{{ $loop->iteration }}. {{ $item }}</li>
-                                                @endforeach
-                                            </ul>
+                                        <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">{{ $index + 1 }}
                                         </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <div class="overflow-x-auto">
-                        <table class="w-full mt-5">
-                            <thead class="bg-slate-50">
-                                <tr>
-                                    <th class="px-6 py-3 text-left text-sm font-bold text-gray-800 uppercase" colspan="2">
-                                        Tujuan Kegiatan Pembelajaran</th>
-                                </tr>
-                            </thead>
-                            <tbody class="divide-y divide-gray-200">
-                                @foreach ($data['tujuan_kegiatan_pembelajaran'] as $key => $value)
-                                    <tr>
-                                        <td
-                                            class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200 font-semibold bg-slate-50">
-                                            {{ str_replace('_', ' ', ucwords(str_replace('_', ' ', $key))) }}</td>
-                                        <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">
-                                            @if (is_array($value))
-                                                <ul>
-                                                    @foreach ($value as $item)
-                                                        <li>{{ $loop->iteration }}. {{ $item }}</li>
-                                                    @endforeach
-                                                </ul>
-                                            @else
-                                                {{ $value }}
-                                            @endif
+                                        <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">{{ $soal['question'] }}
                                         </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <div class="overflow-x-auto">
-                        <table class="w-full mt-5">
-                            <thead class="bg-slate-50">
-                                <tr>
-                                    <th class="px-6 py-3 text-left text-sm font-bold text-gray-800 uppercase" colspan="2">
-                                        Pemahaman Bermakna</th>
-                                </tr>
-                            </thead>
-                            <tbody class="divide-y divide-gray-200">
-                                @foreach ($data['pemahaman_bermakna'] as $key => $value)
-                                    <tr>
-                                        <td
-                                            class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200 font-semibold bg-slate-50">
-                                            {{ str_replace(' ', ' ', ucwords(str_replace('_', ' ', $key))) }}</td>
                                         <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">
-                                            {{ $value }}</td>
+                                            {{ $soal['instructions'] }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>
                         </table>
-                    </div>
-
-                    <div class="overflow-x-auto">
-                        <table class="w-full mt-5">
-                            <thead class="bg-slate-50">
-                                <tr>
-                                    <th class="px-6 py-3 text-left text-sm font-bold text-gray-800 uppercase" colspan="2">
-                                        Pertanyaan Pemantik</th>
-                                </tr>
-                            </thead>
-                            <tbody class="divide-y divide-gray-200">
-                                @foreach ($data['pertanyaan_pemantik'] as $index => $pertanyaan)
-                                    <tr>
-
-
-                                        <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">
-                                            {{ $index + 1 }}. {{ $pertanyaan }}</td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <div class="overflow-x-auto">
-                        @foreach ($data['kompetensi_dasar'] as $kompetensi)
-                            <div class="mt-5">
-                                <div class="bg-slate-50 px-6 py-3 text-left text-sm font-bold text-gray-800 uppercase">
-                                    Kegiatan Pembelajaran
-                                </div>
-                                <ol>
-                                    <li class="px-6 pt-3 text-left text-sm font-bold text-gray-800 uppercase">
-                                        {{ $loop->iteration }}.
-                                        {{ $kompetensi['nama_kompetensi_dasar'] }}
-                                    </li>
-                                </ol>
-
-                                <div class="divide-y divide-gray-200">
-                                    @foreach ($kompetensi['materi_pembelajaran'] as $materi_pembelajaran)
-                                        <div class="px-6 py-3">
-
-                                            <li class="text-sm text-gray-800">
-
-                                                <span class="font-bold">
-                                                    Materi :
-                                                </span>
-                                                {{ $materi_pembelajaran['materi'] }}
-                                                <ul class="pl-10 list-disc mt-3">
-                                                    <li class="text-sm text-gray-800 mb-2">
-                                                        <span class="font-bold">
-                                                            Indikator :
-                                                        </span>
-                                                        {{ $materi_pembelajaran['indikator'] }}
-                                                    </li>
-                                                    <li class="text-sm text-gray-800 mb-2">
-
-                                                        <span class="font-bold">
-                                                            Nilai Karakter :
-                                                        </span>
-                                                        {{ $materi_pembelajaran['nilai_karakter'] }}
-                                                    </li>
-                                                    <li class="text-sm text-gray-800 mb-2">
-
-                                                        <span class="font-bold">
-                                                            Kegiatan Pembelajaran :
-                                                        </span>
-
-                                                        {{ $materi_pembelajaran['kegiatan_pembelajaran'] }}
-                                                    </li>
-                                                    <li class="text-sm text-gray-800 mb-2">
-                                                        <span class="font-bold">Alokasi Waktu : </span>
-                                                        {{ $materi_pembelajaran['alokasi_waktu'] }}
-                                                    </li>
-                                                    <li class="text-sm text-gray-800 mb-2">
-                                                        <span class="font-bold">
-                                                            Penilaian :
-                                                        </span>
-
-                                                        <ul class="pl-5 list-circle">
-                                                            @foreach ($materi_pembelajaran['penilaian'] as $index => $penilaian)
-                                                                <li>
-                                                                    {{ chr(97 + $index) }}. {{ $penilaian['jenis'] }}
-                                                                    ({{ $penilaian['bobot'] }}%)
-                                                                    <!-- Nested list items here -->
-                                                                </li>
-                                                            @endforeach
-                                                        </ul>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                        </div>
-                                    @endforeach
-                                </div>
-                            </div>
-                        @endforeach
                     </div>
                     <div class="mb-3 px-6 py-4">
-                        <form action="{{ route('export-word') }}" method="post">
+                        <form action="" method="post">
                             @csrf
                             <input type="hidden" name="generate_id" value="{{ $generateId }}">
                             <button type="submit" class="flex items-center bg-green-600 px-4 py-3 rounded-lg text-white">
@@ -430,6 +287,7 @@
                             </button>
                         </form>
                     </div>
+
                 @endisset
             </div>
 

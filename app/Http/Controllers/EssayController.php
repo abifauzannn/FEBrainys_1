@@ -23,6 +23,63 @@ class EssayController extends Controller
         }
     }
 
+    public function generateEssay(Request $request){
+          // Check if the user is authenticated
+    if (!session()->has('access_token') || !session()->has('user')) {
+        // If not authenticated, redirect to login page
+        return redirect('/login')->with('error', 'Please log in to generate syllabus.');
+    }
+
+    // Panggil method getUserLimit() untuk mendapatkan data batas penggunaan
+    $userLimit = $this->getUserLimit();
+
+    $generateId = null; // Initialize $generateId variable
+
+    if ($request->isMethod('post')) {
+        // Form submission
+
+        // Use the authentication token for API request
+        $token = session()->get('access_token');
+
+        $response = Http::withToken($token)
+            ->timeout(60) // timeout dalam detik (contoh: 60 detik)
+            ->post('https://be.brainys.oasys.id/api/exercise/generate-essay', [
+                'name' => $request->input('name'),
+                'subject' => $request->input('subject'),
+                'grade' => $request->input('grade'),
+                'number_of_questions' => $request->input('numberOfQuestion'),
+                'notes' => $request->input('notes')
+            ]);
+
+        $statusCode = $response->status();
+        $responseData = $response->json();
+
+        if ($response->successful()) {
+            // Process the API response body
+            if (isset($responseData['data'])) {
+                $data = $responseData['data'];
+                $generateId = $responseData['data']['id'];
+            } else {
+                // Handle the case where the expected structure is not present in the API response
+                return redirect('/generate-essay')->with('error', 'Invalid API response format');
+            }
+        } else {
+             // Handle error if needed
+        if(isset($responseData['status']) && $responseData['status'] === 'failed' && isset($responseData['message'])) {
+            return redirect('/generate-essay')->with('error', $responseData['message']);
+        } else {
+            return redirect('/dashboard')->with('error', 'Failed to generate syllabus. Status code: ' . $statusCode);
+        }
+        }
+    } else {
+        // Initial form display
+        $data = null;
+    }
+
+    // Pass the $data and $generateId variables to the view
+    return view('essays.generate', compact('data', 'generateId', 'userLimit'));
+    }
+
 
     public function getUserLimit()
 {

@@ -96,6 +96,7 @@ Route::post('/resend-otp', [AuthenticationController::class, 'resendOTP'])->name
 Route::get('/history-modul-ajar', [HistoryController::class, 'showHistoryModulAjar'])->name('historyModulAjar');
 
 Route::get('/generate-essay', [EssayController::class, 'Essay'])->name('essay');
+Route::post('/generate-essay', [EssayController::class, 'generateEssay'])->name('essayPost');
 
 
 

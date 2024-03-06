@@ -98,6 +98,9 @@ Route::get('/history-modul-ajar', [HistoryController::class, 'showHistoryModulAj
 Route::get('/generate-essay', [EssayController::class, 'Essay'])->name('essay');
 Route::post('/generate-essay', [EssayController::class, 'generateEssay'])->name('essayPost');
 
+Route::get('/generate-syllabus', [SyllabusController::class, 'syllabus'])->name('syllabus');
+Route::post('/generate-syllabus', [SyllabusController::class, 'generateSyllabus'])->name('syllabusPost');
+
 
 
 

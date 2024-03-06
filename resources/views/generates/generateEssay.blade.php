@@ -283,7 +283,6 @@
                                         d="M18 12h-2.55l-2.975 2.975a3.5 3.5 0 0 1-4.95 0L4.55 12H2a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2Zm-3 5a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z" />
                                 </svg>
                                 <span class="ml-3 font-bold font-['Inter']">Download File</span>
-
                             </button>
                         </form>
                     </div>

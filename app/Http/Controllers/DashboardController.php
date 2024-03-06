@@ -14,7 +14,7 @@ class DashboardController extends Controller
             // Ambil data pengguna dari sesi
             $userData = session('user');
 
-            return view('ModulAjars.dashboard', compact('userData'));
+            return view('dashboards.dashboard', compact('userData'));
         } else {
             // Redirect ke halaman login jika kunci 'user' tidak ada dalam sesi
             return redirect('/login');

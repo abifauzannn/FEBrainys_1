@@ -16,7 +16,7 @@ class EssayController extends Controller
             $userLimit = $this->getUserLimit();
 
             // Teruskan data pengguna dan batas penggunaan ke view
-            return view('essays.generate', compact('userData', 'userLimit'));
+            return view('generates.generateEssay', compact('userData', 'userLimit'));
         } else {
             // Redirect ke halaman login jika kunci 'user' tidak ada dalam sesi
             return redirect('/login');
@@ -77,7 +77,7 @@ class EssayController extends Controller
     }
 
     // Pass the $data and $generateId variables to the view
-    return view('essays.generate', compact('data', 'generateId', 'userLimit'));
+    return view('generates.generateEssay', compact('data', 'generateId', 'userLimit'));
     }
 
 

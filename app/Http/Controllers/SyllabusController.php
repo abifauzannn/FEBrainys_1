@@ -97,5 +97,29 @@ public function generateSyllabus(Request $request){
     return view('generates.generateSyllabus', compact('data', 'generateId', 'userLimit'));
 }
 
+public function exportToWord(Request $request)
+{
+    // Ambil generate_id dari permintaan
+    $generateId = $request->input('generate_id');
+
+    // Buat permintaan HTTP ke API untuk mengunduh dokumen Word
+    $response = Http::withToken(session()->get('access_token'))
+                    ->post('https://be.brainys.oasys.id/api/syllabus/export-word', [
+                        'id' => $generateId
+                    ]);
+
+    // Periksa apakah permintaan berhasil
+    if ($response->successful()) {
+        // Ambil URL unduhan dari respons
+        $downloadUrl = $response->json()['data']['download_url'];
+
+        // Arahkan pengguna ke URL unduhan
+        return redirect($downloadUrl);
+    } else {
+        // Tangani kasus jika permintaan gagal
+        return back()->with('error', 'Failed to export to Word.');
+    }
+}
+
 
 }

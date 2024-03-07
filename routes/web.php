@@ -67,6 +67,7 @@ Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashb
 Route::get('/generate-modul-ajar', [ModulAjarController::class, 'modulAjar'])->name('modulAjar');
 Route::post('/generate-modul-ajar', [ModulAjarController::class, 'generateModulAjar'])->name('modulAjarPost');
 Route::post('/export-word', [ModulAjarController::class, 'exportToWord'])->name('export-word');
+Route::post('/export-word-syllabus', [SyllabusController::class, 'exportToWord'])->name('export-word-syllabus');
 
 
 Route::post('/register', [AuthenticationController::class, 'register'])->name('registerPost');
@@ -94,6 +95,8 @@ Route::get('/user-profile', [UserController::class, 'showProfile'])->name('userP
 Route::post('/resend-otp', [AuthenticationController::class, 'resendOTP'])->name('resend-otp');
 
 Route::get('/history-modul-ajar', [HistoryController::class, 'showHistoryModulAjar'])->name('historyModulAjar');
+
+Route::get('/history-syllabus', [HistoryController::class, 'showHistorySyllabus'])->name('historySyllabus');
 
 Route::get('/generate-essay', [EssayController::class, 'Essay'])->name('essay');
 Route::post('/generate-essay', [EssayController::class, 'generateEssay'])->name('essayPost');

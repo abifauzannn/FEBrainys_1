@@ -50,7 +50,8 @@
                     }
 
                     // URL to DiceBear Avatars API with initials as parameter
-                    $avatarUrl = 'https://api.dicebear.com/7.x/initials/svg?scale=75&backgroundColor=b6e3f4&seed=' . $initials;
+                    $avatarUrl =
+                        'https://api.dicebear.com/7.x/initials/svg?scale=75&backgroundColor=b6e3f4&seed=' . $initials;
                 @endphp
 
                 <img src="{{ $avatarUrl }}" alt="Profile Picture" class="w-12 h-12 rounded-full">

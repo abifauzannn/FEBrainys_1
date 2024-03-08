@@ -69,5 +69,36 @@ class HistoryController extends Controller
                 return null;
             }
         }
-}
+
+        public function showHistoryExercise(){
+                 // Periksa apakah kunci 'user' ada dalam sesi
+        if (session()->has('user')) {
+            // Ambil data pengguna dari sesi
+            $userData = session('user');
+
+            // Panggil method getHistory() untuk mendapatkan data riwayat
+            $history = $this->historyExercise();
+
+            return view('histories.exercise', compact('userData', 'history'));
+        } else {
+            // Redirect ke halaman login jika kunci 'user' tidak ada dalam sesi
+            return redirect('/login');
+        }
+        }
+
+        public function historyExercise(){
+            $token = session()->get('access_token');
+
+            $response = Http::withHeaders([
+                'Authorization' => 'Bearer ' . $token,
+            ])->get('https://be.brainys.oasys.id/api/exercise/history/');
+
+            if($response->successful()){
+                return $response->json()['data'];
+            } else {
+                return null;
+            }
+        }
+        }
+
 

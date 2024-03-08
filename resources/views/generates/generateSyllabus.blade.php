@@ -49,7 +49,8 @@
                 <div class="mb-4">
                     <label for="subject"
                         class="text-gray-900 text-base font-['Inter'] leading-normal font-semibold">Subject</label>
-                    <button data-tooltip-target="nameTooltip" data-tooltip-placement="right"
+                    <button data-tooltip-target="subjectTooltip" data-tooltip-placement="right" data-tooltip-trigger="click"
+                        type="button"
                         class="text-gray-600 transition-colors duration-200 focus:outline-none dark:text-gray-200 dark:hover:text-blue-400 hover:text-blue-500">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
                             stroke="currentColor" class="w-4 h-4">
@@ -58,11 +59,11 @@
                         </svg>
                     </button>
 
-                    {{-- <div id="nameTooltip" role="tooltip"
+                    <div id="subjectTooltip" role="tooltip"
                         class="w-36 absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
-                        Contoh : SOLUSI MENGATASI PEMANASAN GLOBAL
+                        Contoh : Geografi
                         <div class="tooltip-arrow" data-popper-arrow></div>
-                    </div> --}}
+                    </div>
 
                     <input type="text" name="subject" id="subject"
                         class="w-full p-2 border rounded-md mt-[10px] placeholder:text-gray-400 text-base font-normal font-['Inter'] leading-normal"
@@ -72,7 +73,8 @@
                 <div class="mb-4">
                     <label for="grade"
                         class="text-gray-900 text-base font-['Inter'] leading-normal font-semibold">Kelas</label>
-                    <button data-tooltip-target="subjectTooltip" data-tooltip-placement="right"
+                    <button data-tooltip-target="gradeTooltip" data-tooltip-placement="right" data-tooltip-trigger="click"
+                        type="button"
                         class="text-gray-600 transition-colors duration-200 focus:outline-none dark:text-gray-200 dark:hover:text-blue-400 hover:text-blue-500">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
                             stroke="currentColor" class="w-4 h-4">
@@ -81,11 +83,11 @@
                         </svg>
                     </button>
 
-                    {{-- <div id="subjectTooltip" role="tooltip"
+                    <div id="gradeTooltip" role="tooltip"
                         class="w-36 absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
-                        Contoh : Fisika
+                        Contoh : 11
                         <div class="tooltip-arrow" data-popper-arrow></div>
-                    </div> --}}
+                    </div>
 
                     <input type="number" name="grade" id="grade"
                         class="w-full p-2 border rounded-md mt-[10px] placeholder:text-gray-400 text-base font-normal font-['Inter'] leading-normal"
@@ -96,7 +98,8 @@
                 <div class="mb-4">
                     <label for="nip"
                         class="text-gray-900 text-base font-semibold font-['Inter'] leading-normal">NIP</label>
-                    <button data-tooltip-target="gradeTooltip" data-tooltip-placement="right"
+                    <button data-tooltip-target="nipTooltip" data-tooltip-placement="right" data-tooltip-trigger="click"
+                        type="button"
                         class="text-gray-600 transition-colors duration-200 focus:outline-none dark:text-gray-200 dark:hover:text-blue-400 hover:text-blue-500">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
                             stroke="currentColor" class="w-4 h-4">
@@ -105,11 +108,11 @@
                         </svg>
                     </button>
 
-                    {{-- <div id="gradeTooltip" role="tooltip"
-                        class="w-36 absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
-                        Contoh : 9
+                    <div id="nipTooltip" role="tooltip"
+                        class="w-38 absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+                        Contoh : 199703242016022001
                         <div class="tooltip-arrow" data-popper-arrow></div>
-                    </div> --}}
+                    </div>
 
                     <input type="text" id="nip" name="nip"
                         class="w-full p-2 border rounded-md mt-[10px] placeholder:text-gray-400 text-base font-normal font-['Inter'] leading-normal"
@@ -130,12 +133,11 @@
                         </svg>
                     </button>
 
-                    {{-- <div id="notesTooltip" role="tooltip"
+                    <div id="notesTooltip" role="tooltip"
                         class="w-36 absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
-                        Contoh : Untuk memperkenalkan ke siswa tentang bagaimana solusi mengatasi pemanasan global, penyebab
-                        pemanasan global dan langkah-langkah mengatasinya
+                        Contoh : Buatkan silabus untuk mata pelajaran Geografi kelas 11
                         <div class="tooltip-arrow" data-popper-arrow></div>
-                    </div> --}}
+                    </div>
 
                     <textarea id="notes" name="notes"
                         class="w-full p-2 border rounded-md mt-[10px] placeholder:text-gray-400 text-base font-normal font-['Inter'] leading-normal"
@@ -338,7 +340,7 @@
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             // Memfokuskan ke input email
-            document.getElementById("name").focus();
+            document.getElementById("subject").focus();
         });
 
         function clearInputs() {

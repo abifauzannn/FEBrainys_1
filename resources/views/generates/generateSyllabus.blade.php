@@ -13,12 +13,6 @@
             </div>
         @endif
 
-        @if (session('error'))
-            <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 my-4" role="alert">
-                <p class="font-bold">Error!</p>
-                <p>{{ session('error') }}</p>
-            </div>
-        @endif
         <a href="/dashboard" class="block mb-6">
             <div class="flex items-center">
                 <img src="{{ URL('images/back.svg') }}" alt="" class="w-6 h-6">
@@ -125,6 +119,7 @@
                         class="text-gray-900 text-base font-semibold font-['Inter'] leading-normal mb-[10px]">Deskripsi
                         Syllabus</label>
                     <button data-tooltip-target="notesTooltip" data-tooltip-placement="right"
+                        data-tooltip-trigger="click" type="button"
                         class="text-gray-600 transition-colors duration-200 focus:outline-none dark:text-gray-200 dark:hover:text-blue-400 hover:text-blue-500">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
                             stroke="currentColor" class="w-4 h-4">

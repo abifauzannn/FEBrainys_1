@@ -22,7 +22,7 @@
 
 <body class="">
 
-    <div class="container w-full mx-auto px-4 py-3 justify-center bg-white border-b border-zinc-200">
+    <div class="container w-full mx-auto px-4 py-3 justify-center bg-white border-b border-zinc-200 font-['Inter']">
         <div class="flex justify-between h-45 items-center">
             <div>
                 <a href="/dashboard"><img src="{{ URL('images/Frame22.png') }}" alt=""></a>

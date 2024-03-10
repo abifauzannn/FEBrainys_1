@@ -7,7 +7,7 @@
 
 
 
-    <div class="container mx-auto px-3 sm:px-10 py-6 sm:py-9">
+    <div class="container mx-auto px-3 sm:px-10 py-6 sm:py-9 font-['Inter']">
 
 
         <a href="/dashboard">
@@ -35,7 +35,8 @@
                 }
 
                 // URL to DiceBear Avatars API with initials as parameter
-                $avatarUrl = 'https://api.dicebear.com/7.x/initials/svg?scale=75&backgroundColor=b6e3f4&seed=' . $initials;
+                $avatarUrl =
+                    'https://api.dicebear.com/7.x/initials/svg?scale=75&backgroundColor=b6e3f4&seed=' . $initials;
             @endphp
 
             <!-- Display avatar image -->
@@ -56,7 +57,7 @@
 
 
                 <div class="mb-4">
-                    <label for="name" class="text-gray-900 text-base font-medium leading-normal mb-[30px]">Nama
+                    <label for="name" class="text-gray-900 text-base font-semibold leading-normal mb-[30px]">Nama
                         Lengkap</label>
                     <input type="text" id="name" name="name"
                         class="w-full p-2 border rounded-md mt-[10px] placeholder:text-gray-400 text-base font-normal leading-normal"
@@ -66,7 +67,7 @@
                 <!-- Input field for profession -->
                 <div class="mb-4">
                     <label for="profession"
-                        class="text-gray-900 text-base font-medium leading-normal mb-[30px]">Profesi</label>
+                        class="text-gray-900 text-base font-semibold leading-normal mb-[30px]">Profesi</label>
                     <input type="text" id="profession" name="profession"
                         class="w-full p-2 border rounded-md mt-[10px] placeholder:text-gray-400 text-base font-normal leading-normal"
                         placeholder="Guru" value="{{ session('user')['profession'] }}" required>
@@ -75,7 +76,7 @@
                 <!-- Input field for school name -->
                 <div class="mb-4">
                     <label for="school_name"
-                        class="text-gray-900 text-base font-medium leading-normal mb-[30px]">Sekolah</label>
+                        class="text-gray-900 text-base font-semibold leading-normal mb-[30px]">Sekolah</label>
                     <input type="text" id="school_name" name="school_name"
                         class="w-full p-2 border rounded-md mt-[10px] placeholder:text-gray-400 text-base font-normal leading-normal"
                         placeholder="SMPN 1 Bandung" value="{{ session('user')['school_name'] }}" required>
@@ -83,7 +84,7 @@
 
                 <div class="mb-4">
                     <label for="email"
-                        class="text-gray-900 text-base font-medium font-['Inter'] leading-normal mb-[30px]">Email</label>
+                        class="text-gray-900 text-base font-semibold font-['Inter'] leading-normal mb-[30px]">Email</label>
                     <input type="email" id="email" name="email" disabled
                         class="w-full p-2 border rounded-md mt-[10px] placeholder:text-gray-400 text-base font-normal font-['Inter'] leading-normal"
                         placeholder="email@contoh.com" value="{{ session('user')['email'] }}" required>

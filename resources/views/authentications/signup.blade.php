@@ -7,7 +7,7 @@
     <div class="container mx-auto flex items-center justify-center mt-6 sm:h-screen sm:mt-0">
         <div class="w-[340px] sm:w-[352px] h-[675px] flex-col inline-flex">
             <a href="{{ route('login') }}">
-                <img src="{{ URL('images/Logo.svg') }}" alt="" class="w-[50px] h-[39px]">
+                <img src="{{ URL('images/Logo.svg') }}" alt="" class="w-[50px] h-[39px] mt-3">
                 <div class="text-gray-900 text-[40px] font-bold font-['Inter'] leading-[48px] mb-7 sm:mb-12 mt-4">Registrasi
             </a>
         </div>
@@ -44,14 +44,14 @@
             @csrf
             <div class="mb-4">
                 <label for="email"
-                    class="text-gray-900 text-base font-medium font-['Inter'] leading-normal mb-[30px]">Email</label>
+                    class="text-gray-900 text-base font-semibold font-['Inter'] leading-normal mb-[30px]">Email</label>
                 <input type="email" id="email" name="email"
                     class="w-full p-2 border rounded-md mt-[10px] placeholder:text-gray-400 text-base font-normal font-['Inter'] leading-normal"
                     placeholder="email@contoh.com" required>
             </div>
             <div class="relative mb-4">
                 <label for="password"
-                    class="text-gray-900 text-base font-medium font-['Inter'] leading-normal mb-[30px]">Password</label>
+                    class="text-gray-900 text-base font-semibold font-['Inter'] leading-normal mb-[30px]">Password</label>
                 <input type="password" id="password" name="password"
                     class="w-full p-2 border rounded-md mt-[10px] placeholder:text-gray-400 text-base font-normal font-['Inter'] leading-normal"
                     placeholder="Masukan Password Anda">
@@ -63,7 +63,7 @@
 
             <div class="relative">
                 <label for="password_confirmation"
-                    class="text-gray-900 text-base font-medium font-['Inter'] leading-normal mb-[30px]">Konfirmasi
+                    class="text-gray-900 text-base font-semibold font-['Inter'] leading-normal mb-[30px]">Konfirmasi
                     Password</label>
                 <input type="password" id="password_confirmation" name="password_confirmation"
                     class="w-full p-2 border rounded-md mt-[10px] placeholder:text-gray-400 text-base font-normal font-['Inter'] leading-normal"
@@ -108,7 +108,7 @@
         </div>
 
         <button
-            class="w-full h-12 gap-[80px] pt-3 pb-[11px] bg-white rounded-[50px] shadow border border-neutral-200 flex hover:bg-slate-50">
+            class="w-full h-12 gap-[80px] pt-3 pb-[11px] bg-white rounded-[50px] shadow border border-neutral-200 flex hover:bg-slate-50 duration-300 ease-in-out transition">
             <img src="{{ URL('images/google.svg') }}" alt="" class="w-[18px] h-[18px] ml-6">
             <div class="text-black text-opacity-50 text-base font-medium font-['Roboto']">Sign Up with Google</div>
         </button>

@@ -24,60 +24,62 @@ class EssayController extends Controller
     }
 
     public function generateEssay(Request $request){
-          // Check if the user is authenticated
-    if (!session()->has('access_token') || !session()->has('user')) {
-        // If not authenticated, redirect to login page
-        return redirect('/login')->with('error', 'Please log in to generate syllabus.');
-    }
+        // Pastikan user sudah terautentikasi
+        if (!session()->has('access_token') || !session()->has('user')) {
+            return redirect('/login')->with('error', 'Please log in to generate syllabus.');
+        }
 
-    // Panggil method getUserLimit() untuk mendapatkan data batas penggunaan
-    $userLimit = $this->getUserLimit();
+        $userLimit = $this->getUserLimit();
+        $generateId = null;
 
-    $generateId = null; // Initialize $generateId variable
+        if ($request->isMethod('post')) {
+            // Pengecekan apakah yang dipilih pengguna adalah 'essay' atau 'multiple choice'
+            $exerciseType = $request->input('exerciseType');
+            $apiEndpoint = '';
 
-    if ($request->isMethod('post')) {
-        // Form submission
-
-        // Use the authentication token for API request
-        $token = session()->get('access_token');
-
-        $response = Http::withToken($token)
-            ->timeout(60) // timeout dalam detik (contoh: 60 detik)
-            ->post('https://be.brainys.oasys.id/api/exercise/generate-essay', [
-                'name' => $request->input('name'),
-                'subject' => $request->input('subject'),
-                'grade' => $request->input('grade'),
-                'number_of_questions' => $request->input('numberOfQuestion'),
-                'notes' => $request->input('notes')
-            ]);
-
-        $statusCode = $response->status();
-        $responseData = $response->json();
-
-        if ($response->successful()) {
-            // Process the API response body
-            if (isset($responseData['data'])) {
-                $data = $responseData['data'];
-                $generateId = $responseData['data']['id'];
+            if ($exerciseType === 'essay') {
+                $apiEndpoint = 'https://be.brainys.oasys.id/api/exercise/generate-essay';
+            } elseif ($exerciseType === 'multiple_choice') {
+                $apiEndpoint = 'https://be.brainys.oasys.id/api/exercise/generate-choice';
             } else {
-                // Handle the case where the expected structure is not present in the API response
-                return redirect('/generate-essay')->with('error', 'Invalid API response format');
+                // Handle error jika pilihan subjek tidak valid
+                return redirect('/generate-essay')->with('error', 'Invalid exercise type choice');
+            }
+
+            $token = session()->get('access_token');
+
+            $response = Http::withToken($token)
+                ->timeout(60)
+                ->post($apiEndpoint, [
+                    'name' => $request->input('name'),
+                    'subject' => $request->input('subject'),
+                    'grade' => $request->input('grade'),
+                    'number_of_questions' => $request->input('numberOfQuestion'),
+                    'notes' => $request->input('notes')
+                ]);
+
+            $statusCode = $response->status();
+            $responseData = $response->json();
+
+            if ($response->successful()) {
+                if (isset($responseData['data'])) {
+                    $data = $responseData['data'];
+                    $generateId = $responseData['data']['id'];
+                } else {
+                    return redirect('/generate-essay')->with('error', 'Invalid API response format');
+                }
+            } else {
+                if(isset($responseData['status']) && $responseData['status'] === 'failed' && isset($responseData['message'])) {
+                    return redirect('/generate-essay')->with('error', $responseData['message']);
+                } else {
+                    return redirect('/dashboard')->with('error', 'Failed to generate syllabus. Status code: ' . $statusCode);
+                }
             }
         } else {
-             // Handle error if needed
-        if(isset($responseData['status']) && $responseData['status'] === 'failed' && isset($responseData['message'])) {
-            return redirect('/generate-essay')->with('error', $responseData['message']);
-        } else {
-            return redirect('/dashboard')->with('error', 'Failed to generate syllabus. Status code: ' . $statusCode);
+            $data = null;
         }
-        }
-    } else {
-        // Initial form display
-        $data = null;
-    }
 
-    // Pass the $data and $generateId variables to the view
-    return view('generates.generateEssay', compact('data', 'generateId', 'userLimit'));
+        return view('generates.generateEssay', compact('data', 'generateId', 'userLimit'));
     }
 
 
@@ -96,4 +98,30 @@ class EssayController extends Controller
         return null;
     }
 }
+
+public function exportToWord(Request $request)
+{
+    // Ambil generate_id dari permintaan
+   // Ambil generate_id dari permintaan
+   $generateId = $request->input('generate_id');
+
+   // Buat permintaan HTTP ke API untuk mengunduh dokumen Word
+   $response = Http::withToken(session()->get('access_token'))
+                   ->post('https://be.brainys.oasys.id/api/exercise/export-word', [
+                       'id' => $generateId
+                   ]);
+
+   // Periksa apakah permintaan berhasil
+   if ($response->successful()) {
+       // Ambil URL unduhan dari respons
+       $downloadUrl = $response->json()['data']['download_url'];
+
+       // Arahkan pengguna ke URL unduhan
+       return redirect($downloadUrl);
+   } else {
+       // Tangani kasus jika permintaan gagal
+       return back()->with('error', 'Failed to export to Word.');
+   }
+}
+
 }

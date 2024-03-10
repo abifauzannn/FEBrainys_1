@@ -66,8 +66,10 @@ Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashb
 
 Route::get('/generate-modul-ajar', [ModulAjarController::class, 'modulAjar'])->name('modulAjar');
 Route::post('/generate-modul-ajar', [ModulAjarController::class, 'generateModulAjar'])->name('modulAjarPost');
+
 Route::post('/export-word', [ModulAjarController::class, 'exportToWord'])->name('export-word');
 Route::post('/export-word-syllabus', [SyllabusController::class, 'exportToWord'])->name('export-word-syllabus');
+Route::post('/export-essay', [EssayController::class, 'exportToWord'])->name('export-essay');
 
 
 Route::post('/register', [AuthenticationController::class, 'register'])->name('registerPost');

@@ -3,12 +3,12 @@
 @section('title', 'Log In Page - Brainys')
 
 @section('content')
-    <div class="container mx-auto flex items-center justify-center mt-10 sm:h-screen sm:mt-0 xl:gap-48 lg:gap-20">
+    <div class="container mx-auto flex items-center justify-around mt-10 sm:h-screen sm:mt-0">
         <div class="hidden lg:block">
-            <img class="w-[612px] h-[612px] object-cover" src="{{ URL('images/onboarding.png') }}" alt="onBoarding" />
+            <img class="w-[500px] h-[515px] object-cover" src="{{ URL('images/onboarding.png') }}" alt="onBoarding" />
         </div>
-        <div class="w-full px-3 sm:w-[352px] h-[515px] flex flex-col">
-            <div class="justify-center items-center gap-4 inline-flex mb-12">
+        <div class="w-full px-6 sm:w-[352px] h-[500px] flex flex-col">
+            <div class="justify-center items-center gap-2 inline-flex mb-12">
                 <img src="{{ URL('images/Logo.svg') }}" alt="logo" class="w-[50px] h-[39px]">
                 <div class="text-center text-gray-900 text-2xl font-bold font-['Inter'] leading-normal">Brainys
                 </div>
@@ -18,7 +18,7 @@
                     @csrf
                     <div class="mb-4">
                         <label for="email"
-                            class="text-gray-900 text-base font-medium font-['Inter'] leading-normal mb-[30px]">Email</label>
+                            class="text-gray-900 text-base font-['Inter'] leading-normal mb-[30px] font-semibold">Email</label>
                         <input type="email" id="email" name="email"
                             class="w-full p-2 border rounded-md mt-[10px] placeholder:text-gray-400 text-base font-normal font-['Inter'] leading-normal"
                             placeholder="email@contoh.com" required>
@@ -26,7 +26,7 @@
 
                     <div class="relative mb-4">
                         <label for="password"
-                            class="text-gray-900 text-base font-medium font-['Inter'] leading-normal mb-[30px]">Password</label>
+                            class="text-gray-900 text-base font-['Inter'] leading-normal mb-[30px] font-semibold">Password</label>
                         <input type="password" id="password" name="password"
                             class="w-full p-2 border rounded-md mt-[10px] placeholder:text-gray-400 text-base font-normal font-['Inter'] leading-normal"
                             placeholder="masukan password anda">
@@ -69,10 +69,10 @@
 
 
                     <button id="submitButton" type="submit"
-                        class="w-full h-12 px-6 py-3 bg-blue-600 rounded-[50px] justify-center items-center gap-2.5 inline-flex hover:bg-blue-700">
+                        class="w-full h-12 px-6 py-3 bg-blue-600 rounded-[50px] justify-center items-center gap-2.5 inline-flex hover:bg-blue-700 duration-300 ease-in-out transition">
                         <img src="{{ URL('images/arrow.svg') }}" alt="" class="w-[20px] h-[20px]">
                         <div id="buttonText"
-                            class="text-center text-white text-base font-medium font-['Inter'] leading-normal">Login</div>
+                            class="text-center text-white text-base font-semibold font-['Inter'] leading-normal">Login</div>
                     </button>
 
                     <button id="loadingButton" disabled type="button"
@@ -102,7 +102,7 @@
             </div>
 
             <button type="submit"
-                class="w-full h-12 inline-flex gap-[80px] pt-3 pb-[11px] bg-white rounded-[50px] shadow border border-neutral-200 mb-8 hover:bg-slate-50">
+                class="w-full h-12 inline-flex gap-[80px] pt-3 pb-[11px] bg-white rounded-[50px] shadow border border-neutral-200 mb-8 hover:bg-slate-50 duration-300 ease-in-out transition">
                 <img src="{{ URL('images/google.svg') }}" alt="" class="w-[18px] h-[18px] ml-6">
                 <a href="{{ url('/login/google') }}"
                     class="text-black text-opacity-50 text-base font-medium font-['Roboto']">Sign in with Google</a>

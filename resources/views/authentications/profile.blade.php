@@ -15,7 +15,7 @@
                 @csrf
                 <div class="mb-4">
                     <label for="name"
-                        class="text-gray-900 text-base font-medium font-['Inter'] leading-normal mb-[30px]">Nama
+                        class="text-gray-900 text-base font-semibold font-['Inter'] leading-normal mb-[30px]">Nama
                         Lengkap</label>
                     <input type="text" id="name" name="name"
                         class="w-full p-2 border rounded-md mt-[10px] placeholder:text-gray-400 text-base font-normal font-['Inter'] leading-normal"
@@ -24,7 +24,7 @@
 
                 <div class="mb-4">
                     <label for="school_name"
-                        class="text-gray-900 text-base font-medium font-['Inter'] leading-normal mb-[30px]">Sekolah</label>
+                        class="text-gray-900 text-base font-semibold font-['Inter'] leading-normal mb-[30px]">Sekolah</label>
                     <input type="text" id="school_name" name="school_name"
                         class="w-full p-2 border rounded-md mt-[10px] placeholder:text-gray-400 text-base font-normal font-['Inter'] leading-normal"
                         placeholder="Contoh: SMP 1 Bandung" required>
@@ -32,7 +32,7 @@
 
                 <div class="">
                     <label for="profession"
-                        class="text-gray-900 text-base font-medium font-['Inter'] leading-normal mb-[30px]">Profesi</label>
+                        class="text-gray-900 text-base font-semibold font-['Inter'] leading-normal mb-[30px]">Profesi</label>
                     <input type="text" id="profession" name="profession"
                         class="w-full p-2 border rounded-md mt-[10px] placeholder:text-gray-400 text-base font-normal font-['Inter'] leading-normal"
                         placeholder="Contoh: Guru Biologi" required>

@@ -1,6 +1,6 @@
 @extends('layouts.template')
 
-@section('title', 'Templat Essay - Brainys')
+@section('title', 'Templat Latihan - Brainys')
 
 @section('content')
     <x-nav></x-nav>
@@ -12,13 +12,6 @@
                 <p>{{ session('success') }}</p>
             </div>
         @endif
-
-        @if (session('error'))
-            <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 my-4" role="alert">
-                <p class="font-bold">Error!</p>
-                <p>{{ session('error') }}</p>
-            </div>
-        @endif
         <a href="/dashboard" class="block mb-6">
             <div class="flex items-center">
                 <img src="{{ URL('images/back.svg') }}" alt="" class="w-6 h-6">
@@ -27,8 +20,8 @@
         </a>
 
         <div class="w-full">
-            <div class="text-gray-900 text-2xl font-semibold font-['Inter']">Template Essay</div>
-            <div class="mt-2 text-gray-500 text-sm leading-snug">Gunakan template Esaay kurikulum merdeka</div>
+            <div class="text-gray-900 text-2xl font-semibold font-['Inter']">Template Latihan</div>
+            <div class="mt-2 text-gray-500 text-sm leading-snug">Gunakan template Latihan kurikulum merdeka</div>
         </div>
 
         <div class="mt-2 text-gray-500 text-sm leading-snug font-bold">Kuota yang sudah dipakai
@@ -48,8 +41,9 @@
 
                 <div class="mb-4">
                     <label for="name" class="text-gray-900 text-base font-['Inter'] leading-normal font-semibold">Nama
-                        Latihan Essay</label>
-                    <button data-tooltip-target="nameTooltip" data-tooltip-placement="right"
+                        Latihan</label>
+                    <button data-tooltip-target="nameTooltip" data-tooltip-placement="right" data-tooltip-trigger="click"
+                        type="button"
                         class="text-gray-600 transition-colors duration-200 focus:outline-none dark:text-gray-200 dark:hover:text-blue-400 hover:text-blue-500">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
                             stroke="currentColor" class="w-4 h-4">
@@ -58,22 +52,35 @@
                         </svg>
                     </button>
 
-                    {{-- <div id="nameTooltip" role="tooltip"
+                    <div id="nameTooltip" role="tooltip"
                         class="w-36 absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
-                        Contoh : SOLUSI MENGATASI PEMANASAN GLOBAL
+                        Contoh : Draft UTS Semester Genap 2023/2024
                         <div class="tooltip-arrow" data-popper-arrow></div>
-                    </div> --}}
+                    </div>
 
                     <input type="text" name="name" id="name"
                         class="w-full p-2 border rounded-md mt-[10px] placeholder:text-gray-400 text-base font-normal font-['Inter'] leading-normal"
-                        placeholder="masukan nama latihan essay" required>
+                        placeholder="masukan nama latihan" required>
+                </div>
+
+                <div class="mb-4">
+                    <label for="exerciseType"
+                        class="text-gray-900 text-base font-semibold font-['Inter'] leading-normal">Jenis Latihan</label>
+                    <select name="exerciseType" id="exerciseType"
+                        class="w-full p-2 border rounded-md mt-[10px] placeholder:text-gray-400 text-base font-normal font-['Inter'] leading-normal"
+                        required>
+                        <option>Pilih Bentuk Soal Latihan</option>
+                        <option value="essay">Essay</option>
+                        <option value="multiple_choice">Multiple Choice</option>
+                    </select>
                 </div>
 
 
                 <div class="mb-4">
                     <label for="subject"
                         class="text-gray-900 text-base font-['Inter'] leading-normal font-semibold">Subject</label>
-                    <button data-tooltip-target="nameTooltip" data-tooltip-placement="right"
+                    <button data-tooltip-target="subjectTooltip" data-tooltip-placement="right" data-tooltip-trigger="click"
+                        type="button"
                         class="text-gray-600 transition-colors duration-200 focus:outline-none dark:text-gray-200 dark:hover:text-blue-400 hover:text-blue-500">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
                             stroke="currentColor" class="w-4 h-4">
@@ -82,11 +89,11 @@
                         </svg>
                     </button>
 
-                    {{-- <div id="nameTooltip" role="tooltip"
+                    <div id="subjectTooltip" role="tooltip"
                         class="w-36 absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
-                        Contoh : SOLUSI MENGATASI PEMANASAN GLOBAL
+                        Contoh : Sejarah Indonesia
                         <div class="tooltip-arrow" data-popper-arrow></div>
-                    </div> --}}
+                    </div>
 
                     <input type="text" name="subject" id="subject"
                         class="w-full p-2 border rounded-md mt-[10px] placeholder:text-gray-400 text-base font-normal font-['Inter'] leading-normal"
@@ -96,7 +103,8 @@
                 <div class="mb-4">
                     <label for="grade"
                         class="text-gray-900 text-base font-['Inter'] leading-normal font-semibold">Kelas</label>
-                    <button data-tooltip-target="subjectTooltip" data-tooltip-placement="right"
+                    <button data-tooltip-target="gradeTooltip" data-tooltip-placement="right" data-tooltip-trigger="click"
+                        type="button"
                         class="text-gray-600 transition-colors duration-200 focus:outline-none dark:text-gray-200 dark:hover:text-blue-400 hover:text-blue-500">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
                             stroke="currentColor" class="w-4 h-4">
@@ -105,11 +113,11 @@
                         </svg>
                     </button>
 
-                    {{-- <div id="subjectTooltip" role="tooltip"
+                    <div id="gradeTooltip" role="tooltip"
                         class="w-36 absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
-                        Contoh : Fisika
+                        Contoh : 11
                         <div class="tooltip-arrow" data-popper-arrow></div>
-                    </div> --}}
+                    </div>
 
                     <input type="number" name="grade" id="grade"
                         class="w-full p-2 border rounded-md mt-[10px] placeholder:text-gray-400 text-base font-normal font-['Inter'] leading-normal"
@@ -121,7 +129,8 @@
                     <label for="numberOfQuestion"
                         class="text-gray-900 text-base font-semibold font-['Inter'] leading-normal">Jumlah
                         Pertanyaan</label>
-                    <button data-tooltip-target="gradeTooltip" data-tooltip-placement="right"
+                    <button data-tooltip-target="numberTooltip" data-tooltip-placement="right"
+                        data-tooltip-trigger="click" type="button"
                         class="text-gray-600 transition-colors duration-200 focus:outline-none dark:text-gray-200 dark:hover:text-blue-400 hover:text-blue-500">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
                             stroke="currentColor" class="w-4 h-4">
@@ -130,11 +139,11 @@
                         </svg>
                     </button>
 
-                    {{-- <div id="gradeTooltip" role="tooltip"
+                    <div id="numberTooltip" role="tooltip"
                         class="w-36 absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
-                        Contoh : 9
+                        Contoh : 10
                         <div class="tooltip-arrow" data-popper-arrow></div>
-                    </div> --}}
+                    </div>
 
                     <input type="number" id="numberOfQuestion" name="numberOfQuestion"
                         class="w-full p-2 border rounded-md mt-[10px] placeholder:text-gray-400 text-base font-normal font-['Inter'] leading-normal"
@@ -147,6 +156,7 @@
                         class="text-gray-900 text-base font-semibold font-['Inter'] leading-normal mb-[10px]">Deskripsi
                         Pertanyaan</label>
                     <button data-tooltip-target="notesTooltip" data-tooltip-placement="right"
+                        data-tooltip-trigger="click" type="button"
                         class="text-gray-600 transition-colors duration-200 focus:outline-none dark:text-gray-200 dark:hover:text-blue-400 hover:text-blue-500">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
                             stroke="currentColor" class="w-4 h-4">
@@ -155,12 +165,11 @@
                         </svg>
                     </button>
 
-                    {{-- <div id="notesTooltip" role="tooltip"
+                    <div id="notesTooltip" role="tooltip"
                         class="w-36 absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
-                        Contoh : Untuk memperkenalkan ke siswa tentang bagaimana solusi mengatasi pemanasan global, penyebab
-                        pemanasan global dan langkah-langkah mengatasinya
+                        Contoh : Materi Sejarah Indonesia untuk pemahaman menengah ke atas dengan Hot Order Thinking Skill
                         <div class="tooltip-arrow" data-popper-arrow></div>
-                    </div> --}}
+                    </div>
 
                     <textarea id="notes" name="notes"
                         class="w-full p-2 border rounded-md mt-[10px] placeholder:text-gray-400 text-base font-normal font-['Inter'] leading-normal"
@@ -183,7 +192,7 @@
                         class="h-12 px-6 bg-blue-600 rounded-lg justify-center items-center gap-2.5 inline-flex">
                         <img src="{{ URL('images/glass.svg') }}" alt="" class="w-[20px] h-[20px]">
                         <div class="text-center text-white text-base font-medium font-['Inter'] leading-normal">Buat
-                            Essay</div>
+                            Latihan</div>
                     </button>
 
                     <button id="loadingButton" disabled type="button"
@@ -246,32 +255,56 @@
                         </table>
                     </div>
 
-
-                    <div class="overflow-x-auto my-4">
-                        <table class="w-full">
-                            <thead class="bg-slate-50">
-                                <tr>
-                                    <th class="px-6 py-3 text-left text-sm font-bold text-gray-800 uppercase">No.</th>
-                                    <th class="px-6 py-3 text-left text-sm font-bold text-gray-800 uppercase">Pertanyaan</th>
-                                    <th class="px-6 py-3 text-left text-sm font-bold text-gray-800 uppercase">Instruksi</th>
-                                </tr>
-                            </thead>
-                            <tbody class="divide-y divide-gray-200">
-                                @foreach ($data['soal_essay'] as $index => $soal)
+                    ``
+                    @if (isset($data['soal_essay']) && !empty($data['soal_essay']))
+                        <div class="overflow-x-auto my-4">
+                            <table class="w-full">
+                                <thead class="bg-slate-50">
                                     <tr>
-                                        <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">{{ $index + 1 }}
-                                        </td>
-                                        <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">{{ $soal['question'] }}
-                                        </td>
-                                        <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">
-                                            {{ $soal['instructions'] }}</td>
+                                        <th class="px-6 py-3 text-left text-sm font-bold text-gray-800 uppercase">No.</th>
+                                        <th class="px-6 py-3 text-left text-sm font-bold text-gray-800 uppercase">Pertanyaan
+                                        </th>
+                                        <th class="px-6 py-3 text-left text-sm font-bold text-gray-800 uppercase">Instruksi
+                                        </th>
                                     </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
+                                </thead>
+                                <tbody class="divide-y divide-gray-200">
+                                    @foreach ($data['soal_essay'] as $index => $soal)
+                                        <tr>
+                                            <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">{{ $index + 1 }}
+                                            </td>
+                                            <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">
+                                                {{ $soal['question'] }}</td>
+                                            <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">
+                                                {{ $soal['instructions'] }}</td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    @endif
+
+                    @if (isset($data['soal_pilihan_ganda']) && !empty($data['soal_pilihan_ganda']))
+                        <div class="w-full overflow-x-auto my-4">
+                            @foreach ($data['soal_pilihan_ganda'] as $index => $question)
+                                <div class="mt-4 px-6 py-4 bg-slate-50">
+                                    <p class="text-gray-800 dark:text-gray-200"><strong>{{ $index + 1 }}.</strong>
+                                        {{ $question['question'] }}</p>
+                                    <ul>
+                                        @foreach ($question['options'] as $key => $option)
+                                            <li class="text-gray-800 dark:text-gray-200 ml-4 py-1">
+                                                {{ $key }}) {{ $option }}
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endforeach
+                        </div>
+                    @endif
+
+
                     <div class="mb-3 px-6 py-4">
-                        <form action="" method="post">
+                        <form action="{{ route('export-essay') }}" method="post">
                             @csrf
                             <input type="hidden" name="generate_id" value="{{ $generateId }}">
                             <button type="submit" class="flex items-center bg-green-600 px-4 py-3 rounded-lg text-white">

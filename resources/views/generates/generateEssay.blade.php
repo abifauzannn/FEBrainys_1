@@ -25,7 +25,7 @@
         </div>
 
         <div class="mt-2 text-gray-500 text-sm leading-snug font-bold">Kuota yang sudah dipakai
-            {{ $userLimit['exercise']['used'] }} dari {{ $userLimit['exercise']['limit'] }} </div>
+            {{ $userLimit['all']['used'] }} dari {{ $userLimit['all']['limit'] }} </div>
         <a href="{{ route('historyExercise') }}"
             class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg inline-block transition duration-300 ease-in-out mt-3">View
             History</a>
@@ -255,7 +255,7 @@
                         </table>
                     </div>
 
-                    ``
+
                     @if (isset($data['soal_essay']) && !empty($data['soal_essay']))
                         <div class="overflow-x-auto my-4">
                             <table class="w-full">

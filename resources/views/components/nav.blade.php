@@ -22,6 +22,15 @@
 
 <body class="">
 
+    @if (!session()->has('user'))
+        @php
+            header('Location: ' . route('login'), true, 302);
+            exit();
+        @endphp
+    @endif
+
+
+
     <div class="container w-full mx-auto px-4 py-3 justify-center bg-white border-b border-zinc-200 font-['Inter']">
         <div class="flex justify-between h-45 items-center">
             <div>

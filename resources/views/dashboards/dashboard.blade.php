@@ -5,7 +5,7 @@
 @section('content')
     <x-nav></x-nav>
 
-    <div class="container mx-auto px-[20px] sm:px-10 py-9">
+    <div class="container mx-auto px-[20px] sm:px-10 py-5 font-['Inter']">
 
         <div id="welcomePopup"
             class="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center hidden">
@@ -39,23 +39,25 @@
         @endif
 
 
-        <div class="w-full h-[134px] mb-[32px]">
+        <div class="w-full h-[134px] mb-[25px] sm:mb-3">
             <div class="bg-gray-900 py-4 px-4 md:py-7 md:px-[51px] gap-3 rounded-2xl">
-                <div class=" text-white text-2xl md:text-[32px] font-bold font-['Inter'] leading-[49.99px]">Selamat
+                <div class=" text-white text-3xl md:text-[32px] font-bold font-['Inter'] leading-[49.99px]">
+                    Selamat
                     datang</div>
-                <div class=" text-white text-xs font-normal font-['Inter'] leading-tight">Brainys
+                <div class=" text-white text-md sm:text-xs font-normal font-['Inter'] leading-tight">Brainys
                     merupakan aplikasi AI Text Generation untuk kebutuhan administrasi dan akademik</div>
             </div>
         </div>
 
 
 
-        <div class="flex flex-wrap flex-col md:flex-row sm:justify-between">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 md:grid-cols-3">
             <a href="/generate-modul-ajar">
                 <div
-                    class="w-full md:w-[330px] xl:w-[375px] p-4 rounded-lg shadow border border-gray-300 flex-col justify-start items-start gap-2 inline-flex lg:mr-6 mb-2 hover:bg-slate-50 transition duration-300 ease-in-out">
+                    class="p-4 rounded-lg shadow border border-gray-300  lg:mr-6 hover:bg-slate-50 transition duration-300 ease-in-out">
                     <img src="{{ URL('images/book-open.svg') }}" alt="" class="w-6 h-6">
-                    <div class=" text-gray-900 text-lg font-bold font-['Inter'] leading-normal">Templat Modul Ajar</div>
+                    <div class=" text-gray-900 text-lg font-bold font-['Inter'] leading-normal py-2">Templat Modul Ajar
+                    </div>
                     <div class=" text-black text-xs font-normal font-['Inter'] leading-normal">Gunakan templat modul ajar
                         kurikulum merdeka
                     </div>
@@ -64,9 +66,9 @@
 
             <a href="/generate-syllabus">
                 <div
-                    class="w-full md:w-[330px] xl:w-[375px] p-4 rounded-lg shadow border border-gray-300 flex-col justify-start items-start gap-2 inline-flex lg:mr-6 mb-2 hover:bg-slate-50 transition duration-300 ease-in-out">
+                    class="p-4 rounded-lg shadow border border-gray-300 lg:mr-6 hover:bg-slate-50 transition duration-300 ease-in-out">
                     <img src="{{ URL('images/book-open.png') }}" alt="" class="w-6 h-6">
-                    <div class=" text-gray-900 text-lg font-bold font-['Inter'] leading-normal">Templat Silabus (Soon)</div>
+                    <div class=" text-gray-900 text-lg font-bold font-['Inter'] leading-normal py-2">Templat Silabus</div>
                     <div class=" text-black text-xs font-normal font-['Inter'] leading-normal">Gunakan templat silabus
                         merdeka belajar
                     </div>
@@ -77,21 +79,21 @@
 
             <a href="/generate-essay">
                 <div
-                    class="w-full md:w-[330px]  xl:w-[375px]  p-4 rounded-lg shadow border border-gray-300 flex-col justify-start items-start gap-2 inline-flex mb-2 md:mt-4 lg:mt-0  hover:bg-slate-50 transition duration-300 ease-in-out">
+                    class="p-4 rounded-lg shadow border border-gray-300 mb-2 hover:bg-slate-50 transition duration-300 ease-in-out">
                     <img src="{{ URL('images/document-text.png') }}" alt="" class="w-6 h-6">
-                    <div class=" text-gray-900 text-lg font-bold font-['Inter'] leading-normal">Templat Soal (soon)</div>
+                    <div class=" text-gray-900 text-lg font-bold font-['Inter'] leading-normal py-2">Templat Soal</div>
                     <div class=" text-black text-xs font-normal font-['Inter'] leading-normal">Gunakan templat soal untuk
                         sekolah</div>
                 </div>
             </a>
-
         </div>
 
 
 
 
+
+
+
     </div>
-
-
 
 @endsection

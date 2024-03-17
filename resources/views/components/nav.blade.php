@@ -84,19 +84,21 @@
                         <ul class="py-2">
                             <li class="flex items-center  hover:bg-gray-100 hover:rounded-lg">
                                 <img src="{{ URL('images/user-circle.png') }}" alt="" class="w-[20px] h-[20px]">
-                                <a href="{{ route('userProfile') }}" class="block px-2 py-2 text-sm">Profile
+                                <a href="{{ route('userProfile') }}"
+                                    class="block px-2 py-2 text-sm text-slate-500">Profile
                                     Pengguna</a>
                             </li>
-                            <li class="md:hidden flex items-center  hover:bg-gray-100 hover:rounded-lg">
-                                <img src="{{ URL('images/alarm.svg') }}" alt="" class="w-[20px] h-[20px]">
-                                <a href="#" class="block px-2 py-2 text-sm ">Notification</a>
+                            <li class="flex items-center  hover:bg-gray-100 hover:rounded-lg">
+                                <img src="{{ URL('images/Union.png') }}" alt="" class="w-[18px] h-[20px]">
+                                <a href="{{ route('history') }}"
+                                    class="block px-[10px] py-2 text-sm text-slate-500">Riwayat</a>
                             </li>
                             <li class="flex items-center  hover:bg-gray-100 hover:rounded-lg">
                                 <img src="{{ URL('images/sign-out.svg') }}" alt="" class="w-[20px] h-[20px]">
                                 <form action="{{ route('logout') }}" method="get">
                                     @csrf
                                     <button type="submit"
-                                        class="w-full text-start block px-2 py-2 text-sm  hover:bg-gray-100 hover:rounded-lg">Logout</button>
+                                        class="w-full text-start block px-2 py-2 text-sm  hover:bg-gray-100 hover:rounded-lg text-slate-500">Logout</button>
                                 </form>
                             </li>
                         </ul>

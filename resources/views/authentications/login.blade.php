@@ -153,7 +153,7 @@
                 // Setelah selesai, tampilkan kembali tombol dan sembunyikan indikator loading
                 loadingIndicator.classList.add("inline-flex");
                 submitButton.classList.remove("hidden");
-            }, 3000); // Waktu simulasi loading (dalam milidetik)
+            }, 12000); // Waktu simulasi loading (dalam milidetik)
         });
     </script>
 @endsection

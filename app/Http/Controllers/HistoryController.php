@@ -8,6 +8,23 @@ use Illuminate\Support\Facades\Http;
 class HistoryController extends Controller
 {
 
+    public function showAllHistory(){
+        // Periksa apakah kunci 'user' ada dalam sesi
+        if (session()->has('user')) {
+            // Ambil data pengguna dari sesi
+            $userData = session('user');
+
+            $historyModulAjar = $this->historyModulAjar();
+            $historyExercise = $this->historyExercise();
+            $historySyllabus = $this->historySyllabus();
+
+            return view('histories.allHistories', compact('userData', 'historyModulAjar', 'historyExercise', 'historySyllabus'));
+        } else {
+            // Redirect ke halaman login jika kunci 'user' tidak ada dalam sesi
+            return redirect('/login');
+        }
+    }
+
     public function showHistoryModulAjar(){
         // Periksa apakah kunci 'user' ada dalam sesi
         if (session()->has('user')) {

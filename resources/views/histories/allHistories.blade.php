@@ -21,7 +21,7 @@
                 <div class="mt-2 text-gray-500 text-sm leading-snug">Semua hasil pembuatan templat di tampilkan disini</div>
             </div>
 
-            <div class="inline-flex justify-center items-center gap-[16px] mt-[14px]">
+            <div class="inline-flex  justify-start sm:justify-center items-center gap-[16px] mt-[14px]">
                 <div class="text-gray-900 text-md font-semibold font-['Inter']">Filter</div>
                 <div x-data="{ isOpen: false, selectedOption: 'Semua' }" class="">
                     <button @click="isOpen = !isOpen"
@@ -53,10 +53,10 @@
             </div>
         </div>
 
-        <div class="container mx-auto py-3">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="container mx-auto py-5">
+            <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
                 @foreach ($allHistory as $history)
-                    <div class="history-item h-auto p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
+                    <div class="history-item h-auto p-6 bg-white border border-gray-200 rounded-lg shadow flex flex-col justify-between hover:shadow-lg hover:scale-100 duration-300"
                         data-type="{{ $history['type'] }}">
                         <header class="mb-3">
                             @if ($history['type'] == 'material')
@@ -66,13 +66,14 @@
                             @elseif ($history['type'] == 'exercise')
                                 <img src="{{ URL('images/historySoal.png') }}" alt="" class="mb-3">
                             @endif
-                            <div class="text-gray-900 text-xl font-semibold font-inter">{{ $history['name'] }}</div>
-                            <div class="text-slate-400 text-xs font-inter mt-3"> Dibuat pada <span
+                            <div class="text-gray-900 text-xl font-semibold font-inter capitalize">{{ $history['name'] }}
+                            </div>
+                            <div class="text-slate-400 text-xs font-inter mt-2"> Dibuat pada <span
                                     class="text-gray-900 font-bold">{{ date('d F Y', strtotime($history['created_at'])) }}</span>
                             </div>
                         </header>
-                        <section class="mb-3">
-                            <div class="text-gray-700 mb-2 text-justify" style="overflow-wrap: break-word;">
+                        <section class="w-full min-h-32 max-h-32">
+                            <div class="text-gray-700 mb-2 break-words ">
                                 {{ Str::limit($history['description'], 112) }}
                             </div>
                         </section>
@@ -132,7 +133,8 @@
 
                         if (filterValue === 'all' || item.getAttribute('data-type') ===
                             filterValue) {
-                            item.style.display = 'block';
+                            item.style.display =
+                                'flex'; // Mengatur ulang tata letak menjadi flex
                         }
                     });
                 });

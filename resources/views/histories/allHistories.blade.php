@@ -69,7 +69,8 @@
                             <div class="text-gray-900 text-xl font-semibold font-inter capitalize">{{ $history['name'] }}
                             </div>
                             <div class="text-slate-400 text-xs font-inter mt-2"> Dibuat pada <span
-                                    class="text-gray-900 font-bold">{{ date('d F Y', strtotime($history['created_at'])) }}</span>
+                                    class="text-gray-900 font-bold">{{ date('d F Y | H:i', strtotime($history['created_at'])) }}
+                                </span>
                             </div>
                         </header>
                         <section class="w-full min-h-32 max-h-32">

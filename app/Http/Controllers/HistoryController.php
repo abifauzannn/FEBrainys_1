@@ -17,10 +17,11 @@ class HistoryController extends Controller
             $historyModulAjar = $this->historyModulAjar();
             $historyExercise = $this->historyExercise();
             $historySyllabus = $this->historySyllabus();
+            $allHistory = $this->allHistory();
 
-            return view('histories.allHistories', compact('userData', 'historyModulAjar', 'historyExercise', 'historySyllabus'));
+            return view('histories.allHistories', compact('userData', 'historyModulAjar', 'historyExercise', 'historySyllabus', 'allHistory'));
         } else {
-            // Redirect ke halaman login jika kunci 'user' tidak ada dalam sesi
+
             return redirect('/login');
         }
     }
@@ -109,6 +110,20 @@ class HistoryController extends Controller
             $response = Http::withHeaders([
                 'Authorization' => 'Bearer ' . $token,
             ])->get('https://be.brainys.oasys.id/api/exercise/history/');
+
+            if($response->successful()){
+                return $response->json()['data'];
+            } else {
+                return null;
+            }
+        }
+
+        public function allHistory(){
+            $token = session()->get('access_token');
+
+            $response = Http::withHeaders([
+                'Authorization' => 'Bearer ' . $token,
+            ])->get('https://be.brainys.oasys.id/api/history');
 
             if($response->successful()){
                 return $response->json()['data'];

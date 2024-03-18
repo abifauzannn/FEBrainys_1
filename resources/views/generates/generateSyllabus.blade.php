@@ -13,12 +13,12 @@
             </div>
         @endif
 
-        <a href="/dashboard" class="block mb-6">
-            <div class="flex items-center">
+        <button onclick="window.location='{{ route('dashboard') }}'" class="mb-6">
+            <div class="flex items-cente">
                 <img src="{{ URL('images/back.svg') }}" alt="" class="w-6 h-6">
                 <div class="text-black text-base font-semibold ml-2">Kembali</div>
             </div>
-        </a>
+        </button>
 
         <div class="w-full">
             <div class="text-gray-900 text-2xl font-semibold font-['Inter']">Template Syllabus</div>
@@ -27,9 +27,6 @@
 
         <div class="mt-2 text-gray-500 text-sm leading-snug font-bold">Kuota yang sudah dipakai
             {{ $userLimit['all']['used'] }} dari {{ $userLimit['all']['limit'] }} </div>
-        <a href="{{ route('historySyllabus') }}"
-            class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg inline-block transition duration-300 ease-in-out mt-3">View
-            History</a>
     </div>
 
 

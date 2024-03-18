@@ -100,6 +100,7 @@ Route::get('/history-modul-ajar', [HistoryController::class, 'showHistoryModulAj
 Route::get('/history-syllabus', [HistoryController::class, 'showHistorySyllabus'])->name('historySyllabus');
 Route::get('history-exercise', [HistoryController::class, 'showhistoryExercise'])->name('historyExercise');
 Route::get('/history', [HistoryController::class, 'showAllHistory'])->name('history');
+Route::post('/history', [HistoryController::class, 'filterHistory'])->name('filterHistory');
 
 Route::get('/generate-essay', [EssayController::class, 'Essay'])->name('essay');
 Route::post('/generate-essay', [EssayController::class, 'generateEssay'])->name('essayPost');

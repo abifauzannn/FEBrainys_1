@@ -347,6 +347,8 @@
             var currentCount = textarea.value.length;
             characterCountElement.textContent = currentCount + '/250';
         }
+
+
         document.addEventListener('DOMContentLoaded', function() {
             const submitButton = document.getElementById('submitButton');
             const loadingButton = document.getElementById('loadingButton');
@@ -357,8 +359,12 @@
                 var subject = document.getElementById('subject').value;
                 var grade = document.getElementById('grade').value;
                 var notes = document.getElementById('notes').value;
+                var nipInput = document.getElementById('nip');
+                var nipValue = nipInput.value.trim();
                 var isValid = nip.trim() !== '' && subject.trim() !== '' && grade.trim() !== '' && notes
-                    .trim() !== '';
+                    .trim() !== '' && nipValue.length >= nipInput.minLength && nipValue.length <= nipInput
+                    .maxLength;
+
 
                 if (isValid) {
                     submitButton.style.display = 'none';
@@ -372,7 +378,7 @@
                     }, 3000); // Adjust the timeout as needed (in milliseconds)
                 } else {
                     // Tampilkan pesan bahwa ada kolom yang kosong
-                    alert('Silahkan lengkapi semua kolom sebelum melanjutkan.');
+                    return;
                 }
             });
         });

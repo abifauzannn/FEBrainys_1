@@ -7,6 +7,8 @@
 
     <div class="container mx-auto px-[20px] sm:px-10 py-5 font-['Inter']">
 
+
+
         <div id="welcomePopup"
             class="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center hidden">
             <div class="bg-white w-64 p-6 rounded-lg shadow-md text-center">

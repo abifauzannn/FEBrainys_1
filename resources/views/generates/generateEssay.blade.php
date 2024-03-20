@@ -12,6 +12,7 @@
                 <p>{{ session('success') }}</p>
             </div>
         @endif
+
         <button onclick="window.location='{{ route('dashboard') }}'" class="mb-6">
             <div class="flex items-cente">
                 <img src="{{ URL('images/back.svg') }}" alt="" class="w-6 h-6">
@@ -26,6 +27,21 @@
 
         <div class="mt-2 text-gray-500 text-sm leading-snug font-bold">Kuota yang sudah dipakai
             {{ $userLimit['all']['used'] }} dari {{ $userLimit['all']['limit'] }} </div>
+        @if ($userLimit['notification'])
+            <div class="flex items-center p-4 mb-4 text-sm text-yellow-800 rounded-lg bg-yellow-50 dark:bg-gray-800 dark:text-yellow-300 mt-2"
+                role="alert">
+                <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                    fill="currentColor" viewBox="0 0 20 20">
+                    <path
+                        d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+                </svg>
+                <span class="sr-only">Info</span>
+                <div>
+                    <span class="font-medium">{{ $userLimit['notification'] }}</span>
+                </div>
+            </div>
+        @endif
+
     </div>
 
 
@@ -263,6 +279,8 @@
                                         </th>
                                         <th class="px-6 py-3 text-left text-sm font-bold text-gray-800 uppercase">Instruksi
                                         </th>
+                                        <th class="px-6 py-3 text-left text-sm font-bold text-gray-800 uppercase">Kriteria
+                                            Penilaian</th>
                                     </tr>
                                 </thead>
                                 <tbody class="divide-y divide-gray-200">
@@ -274,6 +292,13 @@
                                                 {{ $soal['question'] }}</td>
                                             <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">
                                                 {{ $soal['instructions'] }}</td>
+                                            <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">
+                                                <ul>
+                                                    @foreach ($soal['kriteria_penilaian'] as $kriteria => $value)
+                                                        <li>{{ $kriteria + 1 }}. {{ $value }}</li>
+                                                    @endforeach
+                                                </ul>
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>

@@ -89,6 +89,11 @@
                                     Pengguna</a>
                             </li>
                             <li class="flex items-center  hover:bg-gray-100 hover:rounded-lg">
+                                <img src="{{ URL('images/alarm.svg') }}" alt="" class="w-[18px] h-[20px]">
+                                <a href="{{ route('history') }}"
+                                    class="block px-[10px] py-2 text-sm text-slate-500">Notification</a>
+                            </li>
+                            <li class="flex items-center  hover:bg-gray-100 hover:rounded-lg">
                                 <img src="{{ URL('images/Union.png') }}" alt="" class="w-[18px] h-[20px]">
                                 <a href="{{ route('history') }}"
                                     class="block px-[10px] py-2 text-sm text-slate-500">Riwayat</a>

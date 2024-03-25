@@ -65,6 +65,7 @@ class EssayController extends Controller
                 if (isset($responseData['data'])) {
                     $data = $responseData['data'];
                     $generateId = $responseData['data']['id'];
+
                 } else {
                     return redirect('/generate-essay')->with('error', 'Invalid API response format');
                 }
@@ -79,7 +80,7 @@ class EssayController extends Controller
             $data = null;
         }
 
-        return view('generates.generateEssay', compact('data', 'generateId', 'userLimit'));
+        return view('generates.generateEssay', compact('data', 'generateId', 'userLimit'))->with('success', $responseData['message']);
     }
 
 

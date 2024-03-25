@@ -96,11 +96,8 @@ Route::get('/user-profile', [UserController::class, 'showProfile'])->name('userP
 
 Route::post('/resend-otp', [AuthenticationController::class, 'resendOTP'])->name('resend-otp');
 
-Route::get('/history-modul-ajar', [HistoryController::class, 'showHistoryModulAjar'])->name('historyModulAjar');
-Route::get('/history-syllabus', [HistoryController::class, 'showHistorySyllabus'])->name('historySyllabus');
-Route::get('history-exercise', [HistoryController::class, 'showhistoryExercise'])->name('historyExercise');
 Route::get('/history', [HistoryController::class, 'showAllHistory'])->name('history');
-Route::post('/history', [HistoryController::class, 'filterHistory'])->name('filterHistory');
+Route::get('/history/modul-ajar/{idModul}', [ModulAjarController::class, 'getDetailModulAjar'])->name('detailModulAjar');
 
 Route::get('/generate-essay', [EssayController::class, 'Essay'])->name('essay');
 Route::post('/generate-essay', [EssayController::class, 'generateEssay'])->name('essayPost');

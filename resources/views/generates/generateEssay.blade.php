@@ -5,13 +5,10 @@
 @section('content')
     <x-nav></x-nav>
 
-    <div class="container mx-auto px-4 py-6 sm:px-10 sm:py-9">
-        @if (session('success'))
-            <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 my-4" role="alert">
-                <p class="font-bold">Success!</p>
-                <p>{{ session('success') }}</p>
-            </div>
-        @endif
+    <div class="container mx-auto px-4 py-6 sm:px-10 sm:py-9 relative">
+
+
+
 
         <button onclick="window.location='{{ route('dashboard') }}'" class="mb-6">
             <div class="flex items-cente">
@@ -20,6 +17,8 @@
             </div>
         </button>
 
+
+
         <div class="w-full">
             <div class="text-gray-900 text-2xl font-semibold font-['Inter']">Template Latihan</div>
             <div class="mt-2 text-gray-500 text-sm leading-snug">Gunakan template Latihan kurikulum merdeka</div>
@@ -27,20 +26,6 @@
 
         <div class="mt-2 text-gray-500 text-sm leading-snug font-bold">Kuota yang sudah dipakai
             {{ $userLimit['all']['used'] }} dari {{ $userLimit['all']['limit'] }} </div>
-        @if ($userLimit['notification'])
-            <div class="flex items-center p-4 mb-4 text-sm text-yellow-800 rounded-lg bg-yellow-50 dark:bg-gray-800 dark:text-yellow-300 mt-2"
-                role="alert">
-                <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                    fill="currentColor" viewBox="0 0 20 20">
-                    <path
-                        d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
-                </svg>
-                <span class="sr-only">Info</span>
-                <div>
-                    <span class="font-medium">{{ $userLimit['notification'] }}</span>
-                </div>
-            </div>
-        @endif
 
     </div>
 
@@ -398,6 +383,16 @@
                     alert('Silahkan lengkapi semua kolom sebelum melanjutkan.');
                 }
             });
+        });
+
+
+        document.addEventListener("DOMContentLoaded", function() {
+            var toastSuccess = document.getElementById("toast-warning");
+            toastSuccess.classList.add("opacity-100", "translate-x-[-5%]");
+
+            setTimeout(function() {
+                toastSuccess.classList.remove("opacity-100", "translate-x-[-5%]");
+            }, 3000);
         });
     </script>
 

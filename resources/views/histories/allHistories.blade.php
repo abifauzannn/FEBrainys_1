@@ -53,6 +53,10 @@
             </div>
         </div>
 
+        @if (session('error'))
+            <p>{{ session('error') }}</p>
+        @endif
+
         <div class="container mx-auto py-5">
             <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
                 @foreach ($allHistory as $history)
@@ -80,7 +84,8 @@
                         </section>
                         <footer class="">
                             <button
-                                class="border border-blue-600 px-5 py-2 rounded-full text-blue-600 mt-3 gap-2 hover:bg-blue-600 hover:text-white transition duration-300 ease-in-out w-full flex justify-center items-center">
+                                class="border border-blue-600 px-5 py-2 rounded-full text-blue-600 mt-3 gap-2 hover:bg-blue-600 hover:text-white transition duration-300 ease-in-out w-full flex justify-center items-center"
+                                onclick="window.location='{{ route('detailModulAjar', $history['id']) }}'">
                                 <svg class="w-4 h-4 mb-[4px]" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                     fill="none" viewBox="0 0 20 20">
                                     <path stroke="currentColor" stroke-width="2"

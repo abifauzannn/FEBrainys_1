@@ -5,7 +5,9 @@
 @section('content')
     <x-nav></x-nav>
 
-    <div class="container mx-auto px-[20px] sm:px-10 py-5 font-['Inter']">
+
+
+    <div class="container mx-auto px-[20px] sm:px-10 py-5 font-['Inter'] w-full a=re">
 
 
 
@@ -53,7 +55,9 @@
 
 
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
+
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
             <button onclick="window.location.href='/generate-modul-ajar'"
                 class="p-4 rounded-lg shadow border border-gray-300  lg:mr-6 hover:bg-slate-50 transition duration-300 ease-in-out flex flex-col">
                 <img src="{{ URL('images/book-open.svg') }}" alt="" class="w-6 h-6">

@@ -66,7 +66,7 @@
                             @if ($history['type'] == 'material')
                                 <button
                                     class="w-auto bg-green-400 text-green-700 px-2 py-1 rounded-full mb-3 font-bold text-xs hover:cursor-default"
-                                    disabled>Soal</button>
+                                    disabled>Modul Ajar</button>
                             @elseif ($history['type'] == 'syllabus')
                                 <img src="{{ URL('images/historySyllabus.png') }}" alt="" class="mb-3">
                             @elseif ($history['type'] == 'exercise')

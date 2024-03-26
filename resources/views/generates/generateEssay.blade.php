@@ -300,7 +300,7 @@
                                     <ul>
                                         @foreach ($question['options'] as $key => $option)
                                             <li class="text-gray-800 dark:text-gray-200 ml-4 py-1">
-                                                {{ $key }}) {{ $option }}
+                                                {{ $key }} {{ $option }}
                                             </li>
                                         @endforeach
                                     </ul>

@@ -21,8 +21,8 @@
         </button>
 
         <div class="w-full">
-            <div class="text-gray-900 text-2xl font-semibold font-['Inter']">Template Syllabus</div>
-            <div class="mt-2 text-gray-500 text-sm leading-snug">Gunakan template Syllabus kurikulum merdeka</div>
+            <div class="text-gray-900 text-2xl font-semibold font-['Inter']">Template Silabus</div>
+            <div class="mt-2 text-gray-500 text-sm leading-snug">Gunakan template Silabus kurikulum merdeka</div>
         </div>
 
         <div class="mt-2 text-gray-500 text-sm leading-snug font-bold">Kuota yang sudah dipakai

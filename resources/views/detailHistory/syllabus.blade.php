@@ -17,7 +17,7 @@
 
         <div class="w-full">
             <div class="text-gray-900 text-2xl font-semibold">{{ $data['subject'] }}</div>
-            <div class="mt-2 text-gray-500 text-sm leading-snug">Detail hasil generate Modul Ajar</div>
+            <div class="mt-2 text-gray-500 text-sm leading-snug">Detail hasil generate Syllabus</div>
             <div class="text-slate-400 text-xs mt-2"> Dibuat pada <span
                     class="text-gray-900 font-bold">{{ date('d F Y | H:i', strtotime($data['created_at'])) }}
                 </span>

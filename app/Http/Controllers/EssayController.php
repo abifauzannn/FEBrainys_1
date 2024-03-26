@@ -126,4 +126,43 @@ public function exportToWord(Request $request)
    }
 }
 
+public function getDetailExercise($idExercise){
+    if (!session()->has('access_token') || !session()->has('user')) {
+        // If not authenticated, redirect to login page
+        return redirect('/login')->with('error', 'Please log in to fetch material history.');
+    }
+
+    // Panggil method getUserLimit() untuk mendapatkan data batas penggunaan
+    $userLimit = $this->getUserLimit();
+
+    // Use the authentication token for API request
+    $token = session()->get('access_token');
+
+    $response = Http::withToken($token)
+        ->timeout(60) // timeout dalam detik (contoh: 60 detik)
+        ->get('https://be.brainys.oasys.id/api/exercise/history/' . $idExercise);
+
+    $statusCode = $response->status();
+    $responseData = $response->json();
+
+    if ($response->successful()) {
+
+        if (isset($responseData['data']['output_data'])) {
+            $data = $responseData['data'];
+            // Load view to display material history details
+            return view('detailHistory.exercise', compact('data', 'userLimit'));
+        } else {
+            // Handle the case where the expected structure is not present in the API response
+            return redirect('/history')->with('error', $responseData['message']);
+        }
+    } else {
+        // Handle error if needed
+        if (isset($responseData['status']) && $responseData['status'] === 'failed' && isset($responseData['message'])) {
+           dd($responseData);
+        } else {
+            return redirect('/history')->with('error', 'Failed to fetch material history. Status code: ' . $statusCode);
+        }
+    }
+}
+
 }

@@ -29,7 +29,10 @@
                         <span x-text="selectedOption" class=""></span>
                     </button>
 
-                    <div x-show="isOpen" @click.away="isOpen = false"
+                    <div x-show="isOpen" @click.away="isOpen = false" x-transition:enter="transition ease-out duration-300"
+                        x-transition:enter-start="opacity-0 scale-90" x-transition:enter-end="opacity-100 scale-100"
+                        x-transition:leave="transition ease-in duration-300"
+                        x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-90"
                         class="absolute bg-white border rounded-md shadow-md w-48">
                         <button @click="selectedOption = 'Semua'; isOpen = false" data-filter="all"
                             class="filter-btn px-4 py-2 cursor-pointer hover:bg-gray-100 inline-flex justify-start items-center w-full">
@@ -38,15 +41,15 @@
                         <button @click="selectedOption = 'Modul Ajar'; isOpen = false" data-filter="material"
                             class="filter-btn px-4 py-2 cursor-pointer hover:bg-gray-100  inline-flex justify-start items-center w-full">
                             <span class="flex w-3 h-3 me-3 bg-green-600 rounded-full"></span><span class="filter-btn"
-                                data-filter="material">Material</span>
+                                data-filter="material">Modul Ajar</span>
                         </button>
                         <button @click="selectedOption = 'Silabus'; isOpen = false" data-filter="syllabus"
                             class="filter-btn px-4 py-2 cursor-pointer hover:bg-gray-100  inline-flex justify-start items-center w-full">
-                            <span class="flex w-3 h-3 me-3 bg-orange-600 rounded-full"></span>Syllabus
+                            <span class="flex w-3 h-3 me-3 bg-yellow-600 rounded-full"></span>Silabus
                         </button>
                         <button @click="selectedOption = 'Soal'; isOpen = false" data-filter="exercise"
                             class="filter-btn px-4 py-2 cursor-pointer hover:bg-gray-100  inline-flex justify-start items-center w-full">
-                            <span class="flex w-3 h-3 me-3 bg-blue-700 rounded-full"></span>Exercise
+                            <span class="flex w-3 h-3 me-3 bg-blue-600 rounded-full"></span>Soal
                         </button>
                     </div>
                 </div>
@@ -65,12 +68,16 @@
                         <header class="mb-3">
                             @if ($history['type'] == 'material')
                                 <button
-                                    class="w-auto bg-green-400 text-green-700 px-2 py-1 rounded-full mb-3 font-bold text-xs hover:cursor-default"
+                                    class="w-auto bg-green-100 text-green-700 px-2 py-1 rounded-full mb-3 font-bold text-xs hover:cursor-default"
                                     disabled>Modul Ajar</button>
                             @elseif ($history['type'] == 'syllabus')
-                                <img src="{{ URL('images/historySyllabus.png') }}" alt="" class="mb-3">
+                                <button
+                                    class="w-auto bg-yellow-100 text-orange-700 px-2 py-1 rounded-full mb-3 font-bold text-xs hover:cursor-default"
+                                    disabled>Silabus</button>
                             @elseif ($history['type'] == 'exercise')
-                                <img src="{{ URL('images/historySoal.png') }}" alt="" class="mb-3">
+                                <button
+                                    class="w-auto bg-blue-100 text-blue-700 px-2 py-1 rounded-full mb-3 font-bold text-xs hover:cursor-default"
+                                    disabled>Soal</button>
                             @endif
                             <div class="text-gray-900 text-xl font-semibold font-inter capitalize">{{ $history['name'] }}
                             </div>
@@ -86,10 +93,15 @@
                         </section>
                         <footer class="">
                             <button
-                                class="border border-blue-600 px-5 py-2 rounded-full text-blue-600 mt-3 gap-2 hover:bg-blue-600 hover:text-white transition duration-300 ease-in-out w-full flex justify-center items-center"
-                                onclick="window.location =
-                                '{{ $history['type'] == 'material' ? route('detailModulAjar', $history['id']) : route('detailSyllabus', $history['id']) }}'">
-                                <svg class="w-4 h-4 mb-[4px]" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                class="border border-blue-600 px-5 py-2 rounded-full text-blue-600 mt-3 gap-2 hover:bg-blue-600 hover:text-white transition duration-300 ease-in-out w-full flex justify-center items-center hover:font-semibold"
+                                onclick="
+                            @if ($history['type'] == 'material') window.location = '{{ route('detailModulAjar', $history['id']) }}';
+                            @elseif($history['type'] == 'syllabus')
+                                window.location = '{{ route('detailSyllabus', $history['id']) }}';
+                            @else
+                                window.location = '{{ route('detailExercise', $history['id']) }}'; @endif
+                            ">
+                                <svg class="w-4 h-4 mb-[3px]" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                     fill="none" viewBox="0 0 20 20">
                                     <path stroke="currentColor" stroke-width="2"
                                         d="M21 12c0 1.2-4 6-9 6s-9-4.8-9-6c0-1.2 4-6 9-6s9 4.8 9 6Z" />
@@ -107,8 +119,8 @@
                                 @csrf
                                 <input type="hidden" name="generate_id" value="{{ $history['id'] }}">
                                 <button
-                                    class="border border-green-600 px-5 py-2 rounded-full text-green-600 mt-3 gap-2 hover:bg-green-600 hover:text-white transition duration-300 ease-in-out w-full flex justify-center items-center">
-                                    <svg class="w-4 h-4 mb-[4px] " aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                    class="border border-green-600 px-5 py-2 rounded-full text-green-600 mt-3 gap-2 hover:bg-green-600 hover:text-white hover:font-semibold transition duration-300 ease-in-out w-full flex justify-center items-center">
+                                    <svg class="w-4 h-4 mb-[3px] " aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                         fill="currentColor" viewBox="0 0 20 20">
                                         <path
                                             d="M14.707 7.793a1 1 0 0 0-1.414 0L11 10.086V1.5a1 1 0 0 0-2 0v8.586L6.707 7.793a1 1 0 1 0-1.414 1.414l4 4a1 1 0 0 0 1.416 0l4-4a1 1 0 0 0-.002-1.414Z" />

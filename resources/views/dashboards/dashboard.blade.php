@@ -53,13 +53,9 @@
             </div>
         </div>
 
-
-
-
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-2">
             <button onclick="window.location.href='/generate-modul-ajar'"
-                class="p-4 rounded-lg shadow border border-gray-300  lg:mr-6 hover:bg-slate-50 transition duration-300 ease-in-out flex flex-col">
+                class="p-4 rounded-lg shadow border border-gray-300 hover:bg-slate-50 transition duration-300 ease-in-out flex flex-col">
                 <img src="{{ URL('images/book-open.svg') }}" alt="" class="w-6 h-6">
                 <div class="text-gray-900 text-lg font-bold font-inter leading-normal py-2">Templat Modul Ajar</div>
                 <div class="text-black text-xs font-normal font-inter leading-normal">Gunakan templat modul ajar kurikulum
@@ -67,7 +63,7 @@
             </button>
 
             <button onclick="window.location.href='/generate-syllabus'"
-                class="p-4 rounded-lg shadow border border-gray-300  lg:mr-6 hover:bg-slate-50 transition duration-300 ease-in-out flex flex-col">
+                class="p-4 rounded-lg shadow border border-gray-300 hover:bg-slate-50 transition duration-300 ease-in-out flex flex-col">
                 <img src="{{ URL('images/book-open.png') }}" alt="" class="w-6 h-6">
                 <div class="text-gray-900 text-lg font-bold font-inter leading-normal py-2">Templat Silabus</div>
                 <div class="text-black text-xs font-normal font-inter leading-normal">Gunakan templat silabus merdeka
@@ -75,7 +71,7 @@
             </button>
 
             <button onclick="window.location.href='/generate-essay'"
-                class="p-4 rounded-lg shadow border border-gray-300  lg:mr-6 hover:bg-slate-50 transition duration-300 ease-in-out flex flex-col">
+                class="p-4 rounded-lg shadow border border-gray-300 hover:bg-slate-50 transition duration-300 ease-in-out flex flex-col">
                 <img src="{{ URL('images/document-text.png') }}" alt="" class="w-6 h-6">
                 <div class="text-gray-900 text-lg font-bold font-inter leading-normal py-2">Templat Soal</div>
                 <div class="text-black text-xs font-normal font-inter leading-normal">Gunakan templat soal untuk sekolah

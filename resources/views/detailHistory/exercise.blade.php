@@ -67,19 +67,25 @@
                                 </th>
                                 <th class="px-6 py-3 text-left text-sm font-bold text-gray-800 uppercase">Instruksi
                                 </th>
-                                <th class="px-6 py-3 text-left text-sm font-bold text-gray-800 uppercase">Kriteria
-                                    Penilaian</th>
-                            </tr>
-                        </thead>
-                        <tbody class="divide-y divide-gray-200">
-                            @foreach ($data['output_data']['soal_essay'] as $index => $soal)
-                                <tr>
-                                    <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">{{ $index + 1 }}
-                                    </td>
-                                    <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">
-                                        {{ $soal['question'] }}</td>
-                                    <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">
-                                        {{ $soal['instructions'] }}</td>
+                                @foreach ($data['output_data']['soal_essay'] as $soal)
+                                    @if (isset($soal['kriteria_penilaian']))
+                                        <th class="px-6 py-3 text-left text-sm font-bold text-gray-800 uppercase">Kriteria
+                                            Penilaian</th>
+                                    @break
+                                @endif
+                            @endforeach
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200">
+                        @foreach ($data['output_data']['soal_essay'] as $index => $soal)
+                            <tr>
+                                <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">{{ $index + 1 }}
+                                </td>
+                                <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">
+                                    {{ $soal['question'] }}</td>
+                                <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">
+                                    {{ $soal['instructions'] }}</td>
+                                @if (isset($soal['kriteria_penilaian']))
                                     <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">
                                         <ul>
                                             @foreach ($soal['kriteria_penilaian'] as $kriteria => $value)
@@ -87,37 +93,39 @@
                                             @endforeach
                                         </ul>
                                     </td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            @endif
-
-            <div class="py-4">
-                <form action="{{ route('export-essay') }}" method="post">
-                    @csrf
-                    <input type="hidden" name="generate_id" value="{{ $data['id'] }}">
-                    <button type="submit" class="flex items-center bg-green-600 px-4 py-3 rounded-lg text-white">
-                        <svg class="w-5 h-5 mb-[9px] " aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                            fill="currentColor" viewBox="0 0 20 20">
-                            <path
-                                d="M14.707 7.793a1 1 0 0 0-1.414 0L11 10.086V1.5a1 1 0 0 0-2 0v8.586L6.707 7.793a1 1 0 1 0-1.414 1.414l4 4a1 1 0 0 0 1.416 0l4-4a1 1 0 0 0-.002-1.414Z" />
-                            <path
-                                d="M18 12h-2.55l-2.975 2.975a3.5 3.5 0 0 1-4.95 0L4.55 12H2a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2Zm-3 5a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z" />
-                        </svg>
-                        <span class="ml-3 font-bold font-['Inter']">Download File</span>
-                    </button>
-                </form>
+                                @endif
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
             </div>
+        @endif
+
+
+        <div class="py-4">
+            <form action="{{ route('export-essay') }}" method="post">
+                @csrf
+                <input type="hidden" name="generate_id" value="{{ $data['id'] }}">
+                <button type="submit" class="flex items-center bg-green-600 px-4 py-3 rounded-lg text-white">
+                    <svg class="w-5 h-5 mb-[9px] " aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                        fill="currentColor" viewBox="0 0 20 20">
+                        <path
+                            d="M14.707 7.793a1 1 0 0 0-1.414 0L11 10.086V1.5a1 1 0 0 0-2 0v8.586L6.707 7.793a1 1 0 1 0-1.414 1.414l4 4a1 1 0 0 0 1.416 0l4-4a1 1 0 0 0-.002-1.414Z" />
+                        <path
+                            d="M18 12h-2.55l-2.975 2.975a3.5 3.5 0 0 1-4.95 0L4.55 12H2a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2Zm-3 5a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z" />
+                    </svg>
+                    <span class="ml-3 font-bold font-['Inter']">Download File</span>
+                </button>
+            </form>
+        </div>
 
 
 
 
 
-            {{-- <div class="text-gray-900 text-lg font-bold mt-5 bg-gray-100 px-2 py-2">Kegiatan Pembelajaran</div>
+        {{-- <div class="text-gray-900 text-lg font-bold mt-5 bg-gray-100 px-2 py-2">Kegiatan Pembelajaran</div>
             @foreach ($materialHistory['output_data']['kompetensi_dasar'] as $kompetensi) --}}
-            {{-- <ol class="border-t border-gray-200">
+        {{-- <ol class="border-t border-gray-200">
                 <li class="px-6 pt-3 text-left text-sm font-bold text-gray-800 uppercase">
                     {{ $loop->iteration }}.
                     {{ $kompetensi['nama_kompetensi_dasar'] }}
@@ -161,9 +169,9 @@
                 </div>
             @endforeach --}}
 
-        </div>
-        {{-- @endforeach --}}
     </div>
-    </div>
+    {{-- @endforeach --}}
+</div>
+</div>
 
 @endsection

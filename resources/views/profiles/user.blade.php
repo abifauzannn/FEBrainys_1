@@ -20,8 +20,6 @@
 
         <div class="w-full sm:w-[1170px] h-auto sm:h-[60px] flex flex-col justify-start items-start gap-2">
             <div class="text-gray-900 text-2xl font-semibold font-['Inter'] leading-[30px]">Profil Pengguna</div>
-            <div class="w-full sm:w-[549px] text-gray-500 text-sm font-normal font-['Inter'] leading-snug">Lorem ipsum dolor
-                sit amet, consectetur adipiscing elit. Cras ultrices lectus sem.</div>
         </div>
 
 

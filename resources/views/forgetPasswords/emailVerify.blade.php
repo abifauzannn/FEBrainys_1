@@ -5,16 +5,10 @@
 @section('content')
 
 
-    <div class="w-full container mx-auto px-4 sm:px-10 py-9">
-
-
-
-
+    <div class="w-full container mx-auto px-4 sm:px-10 py-5">
 
         <div class="justify-center items-center gap-4 inline-flex mb-5">
-            <img src="{{ URL('images/Logo.svg') }}" alt="" class="w-[50px] h-[39px]">
-            <div class="text-center text-gray-900 text-[18px] font-bold font-['Inter']">Brainys
-            </div>
+            <img src="{{ URL('images/newlogo.png') }}" alt="" class="w-[140px] h-[39px]">
         </div>
 
         <hr>
@@ -28,9 +22,7 @@
 
         <div class="w-full sm:w-[1170px] h-[60px] flex-col justify-start items-start gap-2 inline-flex">
             <div class="text-gray-900 text-2xl font-semibold font-['Inter'] leading-[30px]">Lupa Password</div>
-            <div class="w-full sm:w-[549px] text-gray-500 text-sm font-normal font-['Inter'] leading-snug">Lorem ipsum dolor
-                sit amet,
-                consectetur adipiscing elit. Cras ultrices lectus sem.</div>
+
         </div>
 
 

@@ -9,7 +9,7 @@
         </div>
         <div class="w-full px-6 sm:w-[352px] h-[500px] flex flex-col">
             <div class="justify-center items-center gap-2 inline-flex mb-12">
-                <img src="{{ URL('images/Logo.svg') }}" alt="logo" class="w-[50px] h-[39px]">
+                <img src="{{ URL('images/newicon.png') }}" alt="logo" class="w-[50px] h-[39px]">
                 <div class="text-center text-gray-900 text-2xl font-bold font-['Inter'] leading-normal">Brainys
                 </div>
             </div>

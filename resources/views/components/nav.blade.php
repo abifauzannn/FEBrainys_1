@@ -32,7 +32,8 @@
     <div class="container w-full mx-auto px-4 py-3 justify-center bg-white border-b border-zinc-200 font-['Inter']">
         <div class="flex justify-between h-45 items-center">
             <div>
-                <a href="/dashboard"><img src="{{ URL('images/Frame22.png') }}" alt=""></a>
+                <a href="/dashboard"><img src="{{ URL('images/newlogo.png') }}" alt=""
+                        class="w-[140px] h-[39px]"></a>
             </div>
             <div class="flex items-center space-x-4">
                 <div class="hidden md:block mt-1">

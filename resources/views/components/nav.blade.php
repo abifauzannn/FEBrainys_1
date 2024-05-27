@@ -33,7 +33,7 @@
         <div class="flex justify-between h-45 items-center">
             <div>
                 <a href="/dashboard"><img src="{{ URL('images/newlogo.png') }}" alt=""
-                        class="w-[140px] h-[39px]"></a>
+                        class="w-[120px] h-[39px]"></a>
             </div>
             <div class="flex items-center space-x-4">
                 <div class="hidden md:block mt-1">

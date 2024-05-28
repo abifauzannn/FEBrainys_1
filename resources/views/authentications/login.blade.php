@@ -16,7 +16,7 @@
                     @csrf
                     <div class="mb-4">
                         <label for="email"
-                            class="text-gray-900 text-base font-['Inter'] leading-normal mb-[30px] font-semibold">Email</label>
+                            class="text-gray-900 text-base font-['Inter'] leading-normal mb-[30px] font-semibold tracking-wider">Email</label>
                         <input type="email" id="email" name="email"
                             class="w-full p-2 border rounded-md mt-[10px] placeholder:text-gray-400 text-base font-normal font-['Inter'] leading-normal"
                             placeholder="email@contoh.com" required>
@@ -24,7 +24,7 @@
 
                     <div class="relative mb-4">
                         <label for="password"
-                            class="text-gray-900 text-base font-['Inter'] leading-normal mb-[30px] font-semibold">Password</label>
+                            class="text-gray-900 text-base font-['Inter'] leading-normal mb-[30px] font-semibold tracking-wider">Password</label>
                         <input type="password" id="password" name="password"
                             class="w-full p-2 border rounded-md mt-[10px] placeholder:text-gray-400 text-base font-normal font-['Inter'] leading-normal"
                             placeholder="masukan password anda" required>

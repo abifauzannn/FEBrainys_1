@@ -5,11 +5,7 @@
 @section('content')
     <x-nav></x-nav>
 
-
-
-    <div class="container mx-auto px-[20px] sm:px-10 py-5 font-['Inter'] w-full a=re">
-
-
+    <div class="container mx-auto px-[20px] sm:px-10 py-5 font-['Inter'] w-full">
 
         <div id="welcomePopup"
             class="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center hidden">
@@ -26,28 +22,19 @@
             class="fixed inset-0 z-50 overflow-auto bg-black bg-opacity-50 flex justify-center items-center hidden">
             <div class="bg-white rounded-lg p-8 max-w-md relative">
                 <span id="closeOtpModal" class="absolute top-0 right-0 p-4 cursor-pointer">&times;</span>
-                <p class="text-gray-900 text-base font-['Inter'] leading-normal font-semibold mt-[30px]">Masukkan
-                    Invitation
-                    Code Anda</p>
-                <div class="flex justify-center mt-4 space-x-2">
-                    <input type="text" id="otp1"
-                        class="w-10 p-2 font-bold rounded-md text-center text-sky-600 text-xl placeholder:font-medium font-['Inter'] leading-normal focus:outline-none focus:border-none"
-                        maxlength="1" autofocus>
-                    <input type="text" id="otp2"
-                        class="w-10 p-2 font-bold rounded-md text-center text-sky-600 text-xl placeholder:font-medium font-['Inter'] leading-normal focus:outline-none focus:border-none"
-                        maxlength="1">
-                    <input type="text" id="otp3"
-                        class="w-10 p-2 font-bold rounded-md text-center text-sky-600 text-xl placeholder:font-medium font-['Inter'] leading-normal focus:outline-none focus:border-none"
-                        maxlength="1">
-                    <input type="text" id="otp4"
-                        class="w-10 p-2 font-bold rounded-md text-center text-sky-600 text-xl placeholder:font-medium font-['Inter'] leading-normal focus:outline-none focus:border-none"
-                        maxlength="1">
-                    <input type="text" id="otp5"
-                        class="w-10 p-2 font-bold rounded-md text-center text-sky-600 text-xl placeholder:font-medium font-['Inter'] leading-normal focus:outline-none focus:border-none"
-                        maxlength="1">
-                </div>
-                <button id="submitOtpButton"
-                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4 font-['Inter']">Submit</button>
+                <form id="otpForm" method="" action="">
+                    @csrf
+                    <p class="text-gray-900 text-base font-['Inter'] leading-normal font-semibold mt-[30px]">Masukkan
+                        Invitation
+                        Code Anda</p>
+                    <div class="flex justify-center mt-4 space-x-2">
+                        <input type="text" id="otp" name="otp"
+                            class="w-full p-2 font-bold rounded-md text-center text-sky-600 text-xl placeholder:font-medium font-['Inter'] leading-normal focus:outline-none focus:border-none"
+                            maxlength="5" autofocus>
+                    </div>
+                    <button type="submit" id="submitOtpButton"
+                        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4 font-['Inter']">Submit</button>
+                </form>
             </div>
         </div>
 
@@ -69,27 +56,6 @@
                         otpModal.classList.add("hidden");
                     });
 
-                    // Event listener untuk tombol submit modal
-                    document.getElementById("submitOtpButton").addEventListener('click', function() {
-                        otpModal.classList.add("hidden");
-                        // Tambahkan logika submit OTP di sini, jika diperlukan
-                    });
-
-                    const otpInputs = document.querySelectorAll('#otpModal input[type="text"]');
-                    otpInputs.forEach((input, index) => {
-                        input.addEventListener('input', () => {
-                            if (input.value.length === 1 && index < otpInputs.length - 1) {
-                                otpInputs[index + 1].focus();
-                            }
-                        });
-
-                        input.addEventListener('keydown', (e) => {
-                            if (e.key === 'Backspace' && input.value === '' && index > 0) {
-                                otpInputs[index - 1].focus();
-                            }
-                        });
-                    });
-
                     // Sembunyikan popup setelah 3 detik
                     setTimeout(function() {
                         document.getElementById('welcomePopup').classList.add('hidden');
@@ -99,13 +65,11 @@
             </script>
         @endif
 
-
         <div class="w-full h-[134px] mb-[25px] sm:mb-3">
             <div class="bg-gray-900 py-4 px-4 md:py-7 md:px-[51px] gap-3 rounded-2xl">
-                <div class=" text-white text-3xl md:text-[32px] font-bold font-['Inter'] leading-[49.99px]">
-                    Selamat
-                    datang</div>
-                <div class=" text-white text-md sm:text-xs font-normal font-['Inter'] leading-tight">Brainys
+                <div class="text-white text-3xl md:text-[32px] font-bold font-['Inter'] leading-[49.99px]">
+                    Selamat datang</div>
+                <div class="text-white text-md sm:text-xs font-normal font-['Inter'] leading-tight">Brainys
                     merupakan aplikasi AI Text Generation untuk kebutuhan administrasi dan akademik</div>
             </div>
         </div>
@@ -136,14 +100,5 @@
             </button>
         </div>
 
-
-
-
-
-
-
-
     </div>
-
-
 @endsection

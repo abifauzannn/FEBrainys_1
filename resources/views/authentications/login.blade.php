@@ -60,7 +60,7 @@
                             </svg>
                             <span class="sr-only">Info</span>
                             <div>
-                                <span class="font-medium">{{ session('success') }} !</span> Silahkan Login
+                                <span class="font-medium">{{ session('success') }} !</span> Silahkan Loginnnnnnn
                             </div>
                         </div>
                     @endif

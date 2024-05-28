@@ -22,8 +22,38 @@
             </div>
         </div>
 
+        <div id="otpModal"
+            class="fixed inset-0 z-50 overflow-auto bg-black bg-opacity-50 flex justify-center items-center hidden">
+            <div class="bg-white rounded-lg p-8 max-w-md relative">
+                <span id="closeOtpModal" class="absolute top-0 right-0 p-4 cursor-pointer">&times;</span>
+                <p class="text-gray-900 text-base font-['Inter'] leading-normal font-semibold mt-[30px]">Masukkan
+                    Invitation
+                    Code Anda</p>
+                <div class="flex justify-center mt-4 space-x-2">
+                    <input type="text" id="otp1"
+                        class="w-10 p-2 font-bold rounded-md text-center text-sky-600 text-xl placeholder:font-medium font-['Inter'] leading-normal focus:outline-none focus:border-none"
+                        maxlength="1" autofocus>
+                    <input type="text" id="otp2"
+                        class="w-10 p-2 font-bold rounded-md text-center text-sky-600 text-xl placeholder:font-medium font-['Inter'] leading-normal focus:outline-none focus:border-none"
+                        maxlength="1">
+                    <input type="text" id="otp3"
+                        class="w-10 p-2 font-bold rounded-md text-center text-sky-600 text-xl placeholder:font-medium font-['Inter'] leading-normal focus:outline-none focus:border-none"
+                        maxlength="1">
+                    <input type="text" id="otp4"
+                        class="w-10 p-2 font-bold rounded-md text-center text-sky-600 text-xl placeholder:font-medium font-['Inter'] leading-normal focus:outline-none focus:border-none"
+                        maxlength="1">
+                    <input type="text" id="otp5"
+                        class="w-10 p-2 font-bold rounded-md text-center text-sky-600 text-xl placeholder:font-medium font-['Inter'] leading-normal focus:outline-none focus:border-none"
+                        maxlength="1">
+                </div>
+                <button id="submitOtpButton"
+                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4 font-['Inter']">Submit</button>
+            </div>
+        </div>
+
         @if (session('success'))
             <script>
+                const otpModal = document.getElementById('otpModal');
                 // Tampilkan popup ketika halaman dimuat
                 window.addEventListener('DOMContentLoaded', (event) => {
                     // Tampilkan popup welcoming
@@ -32,11 +62,38 @@
                     // Sembunyikan popup setelah tombol ditutup
                     document.getElementById('closeWelcomePopup').addEventListener('click', function() {
                         document.getElementById('welcomePopup').classList.add('hidden');
+                        otpModal.classList.remove('hidden');
+                    });
+
+                    document.getElementById("closeOtpModal").addEventListener('click', function() {
+                        otpModal.classList.add("hidden");
+                    });
+
+                    // Event listener untuk tombol submit modal
+                    document.getElementById("submitOtpButton").addEventListener('click', function() {
+                        otpModal.classList.add("hidden");
+                        // Tambahkan logika submit OTP di sini, jika diperlukan
+                    });
+
+                    const otpInputs = document.querySelectorAll('#otpModal input[type="text"]');
+                    otpInputs.forEach((input, index) => {
+                        input.addEventListener('input', () => {
+                            if (input.value.length === 1 && index < otpInputs.length - 1) {
+                                otpInputs[index + 1].focus();
+                            }
+                        });
+
+                        input.addEventListener('keydown', (e) => {
+                            if (e.key === 'Backspace' && input.value === '' && index > 0) {
+                                otpInputs[index - 1].focus();
+                            }
+                        });
                     });
 
                     // Sembunyikan popup setelah 3 detik
                     setTimeout(function() {
                         document.getElementById('welcomePopup').classList.add('hidden');
+                        otpModal.classList.remove('hidden');
                     }, 3000);
                 });
             </script>
@@ -87,5 +144,6 @@
 
 
     </div>
+
 
 @endsection

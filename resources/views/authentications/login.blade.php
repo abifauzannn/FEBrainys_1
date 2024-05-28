@@ -27,7 +27,7 @@
                             class="text-gray-900 text-base font-['Inter'] leading-normal mb-[30px] font-semibold">Password</label>
                         <input type="password" id="password" name="password"
                             class="w-full p-2 border rounded-md mt-[10px] placeholder:text-gray-400 text-base font-normal font-['Inter'] leading-normal"
-                            placeholder="masukan password anda">
+                            placeholder="masukan password anda" required>
                         <button id="togglePassword" type="button"
                             class="absolute right-0 top-[48px] flex items-center mr-3 focus:outline-none">
                             <img src="{{ URL('images/group.svg') }}" alt="">
@@ -118,7 +118,80 @@
         </div>
     </div>
 
+    {{-- <div id="otpModal"
+        class="fixed inset-0 z-50 overflow-auto bg-black bg-opacity-50 flex justify-center items-center hidden">
+        <div class="bg-white rounded-lg p-8 max-w-md relative">
+            <span id="closeOtpModal" class="absolute top-0 right-0 p-4 cursor-pointer">&times;</span>
+            <p class="text-gray-900 text-base font-['Inter'] leading-normal font-semibold mt-[30px]">Masukkan
+                Invitation
+                Code Anda</p>
+            <div class="flex justify-center mt-4 space-x-2">
+                <input type="text" id="otp1"
+                    class="w-10 p-2 font-bold rounded-md text-center text-sky-600 text-xl placeholder:font-medium font-['Inter'] leading-normal focus:outline-none focus:border-none"
+                    maxlength="1" autofocus>
+                <input type="text" id="otp2"
+                    class="w-10 p-2 font-bold rounded-md text-center text-sky-600 text-xl placeholder:font-medium font-['Inter'] leading-normal focus:outline-none focus:border-none"
+                    maxlength="1">
+                <input type="text" id="otp3"
+                    class="w-10 p-2 font-bold rounded-md text-center text-sky-600 text-xl placeholder:font-medium font-['Inter'] leading-normal focus:outline-none focus:border-none"
+                    maxlength="1">
+                <input type="text" id="otp4"
+                    class="w-10 p-2 font-bold rounded-md text-center text-sky-600 text-xl placeholder:font-medium font-['Inter'] leading-normal focus:outline-none focus:border-none"
+                    maxlength="1">
+                <input type="text" id="otp5"
+                    class="w-10 p-2 font-bold rounded-md text-center text-sky-600 text-xl placeholder:font-medium font-['Inter'] leading-normal focus:outline-none focus:border-none"
+                    maxlength="1">
+            </div>
+            <button id="submitOtpButton"
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4 font-['Inter']">Submit</button>
+        </div>
+    </div> --}}
+
+
+
+
+
     <script>
+        // document.addEventListener("DOMContentLoaded", function() {
+        //     const otpModal = document.getElementById("otpModal");
+        //     const emailInput = document.getElementById("email");
+
+        //     // Tampilkan modal saat dokumen dimuat dan fokuskan pada input OTP
+        //     otpModal.classList.remove("hidden");
+        //     document.getElementById("otp1").focus();
+
+        //     // Event listener untuk menutup modal saat tombol close di klik
+        //     document.getElementById("closeOtpModal").addEventListener("click", function() {
+        //         otpModal.classList.add("hidden");
+        //         emailInput.focus();
+        //     });
+
+        //     // Event listener untuk tombol submit modal
+        //     document.getElementById("submitOtpButton").addEventListener("click", function() {
+        //         otpModal.classList.add("hidden");
+        //         emailInput.focus();
+        //         // Tambahkan logika submit OTP di sini, jika diperlukan
+        //     });
+
+        //     // Logika untuk mengotomatisasi perpindahan fokus antar input field
+        //     const otpInputs = document.querySelectorAll('#otpModal input[type="text"]');
+        //     otpInputs.forEach((input, index) => {
+        //         input.addEventListener('input', () => {
+        //             if (input.value.length === 1 && index < otpInputs.length - 1) {
+        //                 otpInputs[index + 1].focus();
+        //             }
+        //         });
+
+        //         input.addEventListener('keydown', (e) => {
+        //             if (e.key === 'Backspace' && input.value === '' && index > 0) {
+        //                 otpInputs[index - 1].focus();
+        //             }
+        //         });
+        //     });
+        // });
+
+
+
         document.addEventListener("DOMContentLoaded", function() {
             // Memfokuskan ke input email
             document.getElementById("email").focus();

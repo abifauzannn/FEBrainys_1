@@ -333,36 +333,69 @@ class AuthenticationController extends Controller
         }
     }
 
+    public function verifyInvitationCode(Request $request) {
+        $apiUrl = 'https://be.brainys.oasys.id/api/user-invitations/redeem';
 
-    public function login(Request $request)
-    {
-        // Buat permintaan login ke API
-        $response = Http::post('https://be.brainys.oasys.id/api/login', [
-            'email' => $request->input('email'),
-            'password' => $request->input('password'),
+        // Ambil token dari sesi Laravel
+        $accessToken = Session::get('access_token');
+
+        // Buat permintaan ke endpoint change-password
+        $response = Http::withHeaders([
+            'Authorization' => 'Bearer ' . $accessToken,
+        ])->post($apiUrl, [
+            'invite_code' => $request->input('invite_code'),
         ]);
 
         $responseData = $response->json();
 
-        // Periksa keberhasilan login
         if ($response->successful() && $responseData['status'] === 'success') {
-            // Ambil token dari respons API
-            $accessToken = $responseData['data']['token'];
+            // Ubah sesi is_active menjadi 1
+            $user = Session::get('user');
+            $user['is_active'] = 1;
+            Session::put('user', $user);
 
-            // Buat objek pengguna untuk menyimpan dalam sesi (tanpa database)
-            $user = $responseData['data']['user'];
-
-            // Simpan token dan objek pengguna di sesi Laravel
-            session(['access_token' => $accessToken, 'user' => $user]);
-
-            // Redirect ke halaman dashboard atau halaman setelah login
             return redirect()->route('dashboard');
         } else {
-            // Tangani kesalahan login
-            $errorMessage = isset($responseData['message']) ? $responseData['message'] : 'Login failed. Please check your credentials.';
-            return back()->withErrors(['email' => $errorMessage]);
+            return back()->with('error', $responseData['message']);
         }
     }
+
+
+
+
+    public function login(Request $request)
+{
+    // Buat permintaan login ke API
+    $response = Http::post('https://be.brainys.oasys.id/api/login', [
+        'email' => $request->input('email'),
+        'password' => $request->input('password'),
+    ]);
+
+    $responseData = $response->json();
+
+    // Periksa keberhasilan login
+    if ($response->successful() && $responseData['status'] === 'success') {
+        // Ambil token dari respons API
+        $accessToken = $responseData['data']['token'];
+
+        // Buat objek pengguna untuk menyimpan dalam sesi (tanpa database)
+        $user = $responseData['data']['user'];
+
+        // Tambahkan is_active ke user jika belum ada
+        $user['is_active'] = $user['is_active'] ?? 0;
+
+        // Simpan token dan objek pengguna di sesi Laravel
+        session(['access_token' => $accessToken, 'user' => $user]);
+
+        // Redirect ke halaman dashboard atau halaman setelah login
+        return redirect()->route('dashboard');
+    } else {
+        // Tangani kesalahan login
+        $errorMessage = isset($responseData['message']) ? $responseData['message'] : 'Login failed. Please check your credentials.';
+        return back()->withErrors(['email' => $errorMessage]);
+    }
+}
+
 
 
     public function logout()

@@ -107,6 +107,8 @@ Route::post('/generate-essay', [EssayController::class, 'generateEssay'])->name(
 Route::get('/generate-syllabus', [SyllabusController::class, 'syllabus'])->name('syllabus');
 Route::post('/generate-syllabus', [SyllabusController::class, 'generateSyllabus'])->name('syllabusPost');
 
+Route::post('/reedem-code', [AuthenticationController::class, 'verifyInvitationCode'])->name('reedemCode');
+
 
 
 

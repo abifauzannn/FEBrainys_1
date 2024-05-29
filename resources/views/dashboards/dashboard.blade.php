@@ -9,47 +9,49 @@
 
         <div id="welcomePopup"
             class="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center hidden">
-            <div class="bg-white w-64 p-6 rounded-lg shadow-md text-center">
-                <div class="text-blue-600 font-bold text-lg mb-2">Hello {{ session('user')['name'] }}!, Welcome to Brainys👋
-                </div>
-                <div class="text-gray-800 font-normal mb-4">{{ session('success') }}</div>
-                <button id="closeWelcomePopup"
-                    class="bg-blue-600 text-white font-semibold py-2 px-4 rounded hover:bg-blue-700 focus:outline-none focus:bg-blue-700">Close</button>
-            </div>
-        </div>
-
-        <div id="otpModal"
-            class="fixed inset-0 z-50 overflow-auto bg-black bg-opacity-50 flex justify-center items-center hidden">
-            <div class="bg-white rounded-lg p-8 max-w-md relative">
-                <span id="closeOtpModal" class="absolute top-0 right-0 p-4 cursor-pointer">&times;</span>
-                <form id="otpForm" method="" action="">
+            <div
+                class="bg-white w-[300px] sm:w-[500px] p-5 sm:p-8 rounded-lg shadow-md text-center flex flex-col items-center">
+                <img src="{{ URL('images/invitation.png') }}" alt="" class="w-[70%] h-full object-cover mb-4">
+                <p class="text-gray-600 text-xs sm:text-base font-['Inter'] leading-normal mb-4">
+                    Sebelum anda mulai, masukkan kode undangan dulu yuk! {{ session('user')['is_active'] }}
+                </p>
+                @if (session('error'))
+                    <p class="text-red-600 text-xs sm:text-base font-['Inter'] leading-normal mb-4">
+                        {{ session('error') }}
+                    </p>
+                @endif
+                <form id="invitationForm" class="w-full" action="{{ route('reedemCode') }}" method="post">
                     @csrf
-                    <p class="text-gray-900 text-base font-['Inter'] leading-normal font-semibold mt-[30px]">Masukkan
-                        Invitation
-                        Code Anda</p>
-                    <div class="flex justify-center mt-4 space-x-2">
-                        <input type="text" id="otp" name="otp"
-                            class="w-full p-2 font-bold rounded-md text-center text-sky-600 text-xl placeholder:font-medium font-['Inter'] leading-normal focus:outline-none focus:border-none"
-                            maxlength="5" autofocus>
+                    <input type="text" id="invite_code" name="invite_code"
+                        class="w-full  border border-gray-300 rounded-md text-center placeholder:text-xs"
+                        placeholder="masukan 8 karakter kode undangan disini" maxlength="8" required>
+                    <div class="flex justify-center w-full mt-4 gap-3">
+                        <a href="{{ route('logout') }}"
+                            class="btnbg-white text-blue-600 font-semibold py-2 px-4 rounded  focus:outline-none mt-4 shadow-md ">
+                            Keluar</a>
+
+                        <button type="submit"
+                            class="bg-blue-600 text-white font-semibold py-2 px-4 rounded hover:bg-blue-700 focus:outline-none focus:bg-blue-700 mt-4">Submit</button>
                     </div>
-                    <button type="submit" id="submitOtpButton"
-                        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4 font-['Inter']">Submit</button>
                 </form>
             </div>
         </div>
 
+
         @if (session('success'))
             <script>
                 const otpModal = document.getElementById('otpModal');
+                const codeField = document.getElementById('invite_code');
                 // Tampilkan popup ketika halaman dimuat
                 window.addEventListener('DOMContentLoaded', (event) => {
                     // Tampilkan popup welcoming
                     document.getElementById('welcomePopup').classList.remove('hidden');
+                    codeField.focus();
 
                     // Sembunyikan popup setelah tombol ditutup
                     document.getElementById('closeWelcomePopup').addEventListener('click', function() {
                         document.getElementById('welcomePopup').classList.add('hidden');
-                        otpModal.classList.remove('hidden');
+
                     });
 
                     document.getElementById("closeOtpModal").addEventListener('click', function() {
@@ -57,17 +59,43 @@
                     });
 
                     // Sembunyikan popup setelah 3 detik
-                    setTimeout(function() {
-                        document.getElementById('welcomePopup').classList.add('hidden');
-                        otpModal.classList.remove('hidden');
-                    }, 3000);
+
                 });
             </script>
         @endif
 
-        <div class="w-full h-[134px] mb-[25px] sm:mb-3">
-            <img src="{{ URL('images/newbanner.png') }}" alt="" class="w-90 h-[134px] object-fill hidden lg:block">
-            <div class="bg-gray-900 py-4 px-4 md:py-7 md:px-[51px] gap-3 rounded-2xl lg:hidden ">
+        @if (session('user')['is_active'] == 0)
+            <script>
+                const otpModal = document.getElementById('otpModal');
+                const codeField = document.getElementById('invite_code');
+                // Tampilkan popup ketika halaman dimuat
+                window.addEventListener('DOMContentLoaded', (event) => {
+                    // Tampilkan popup welcoming
+                    document.getElementById('welcomePopup').classList.remove('hidden');
+                    codeField.focus();
+
+                    // Sembunyikan popup setelah tombol ditutup
+                    document.getElementById('closeWelcomePopup').addEventListener('click', function() {
+                        document.getElementById('welcomePopup').classList.add('hidden');
+
+                    });
+
+                    document.getElementById("closeOtpModal").addEventListener('click', function() {
+                        otpModal.classList.add("hidden");
+                    });
+
+                    // Sembunyikan popup setelah 3 detik
+
+                });
+            </script>
+        @endif
+
+
+
+        <div class="w-full h-[120px] mb-[40px] sm:mb-3">
+            <img src="{{ URL('images/newbanner.png') }}" alt=""
+                class="w-full h-[134px] object-cover hidden lg:block p-2">
+            <div class="bg-gray-900 py-4 px-4 md:py-7 md:px-[51px] gap-3 rounded-2xl lg:hidden">
                 <div class="text-white text-3xl md:text-[32px] font-bold font-['Inter'] leading-[49.99px]">
                     Selamat datang</div>
                 <div class="text-white text-md sm:text-xs font-normal font-['Inter'] leading-tight">Brainys
@@ -75,7 +103,7 @@
             </div>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-2">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-2 lg:p-2">
             <button onclick="window.location.href='/generate-modul-ajar'"
                 class="p-4 rounded-lg shadow border border-gray-300 hover:bg-slate-50 transition duration-300 ease-in-out flex flex-col">
                 <img src="{{ URL('images/modulajar.png') }}" alt="" class="w-10 h-10">

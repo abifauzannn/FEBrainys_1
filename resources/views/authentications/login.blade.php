@@ -9,7 +9,7 @@
         </div>
         <div class="w-full px-6 sm:w-[352px] h-[500px] flex flex-col">
             <div class="justify-center items-center gap-2 inline-flex mb-12">
-                <img src="{{ URL('images/newlogo.png') }}" alt="logo" class="w-[140px] h-[39px]">
+                <img src="{{ URL('images/newlogo.png') }}" alt="logo" class="w-[140px] h-[39px] object-cover">
             </div>
             <div>
                 <form action="{{ route('login') }}" method="post">

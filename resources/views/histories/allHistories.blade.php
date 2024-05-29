@@ -9,7 +9,7 @@
     <div class="container mx-auto px-4 sm:px-10 py-9 font-['Inter']">
 
         <button onclick="window.location='{{ route('dashboard') }}'" class="mb-6">
-            <div class="flex items-cente">
+            <div class="flex items-center">
                 <img src="{{ URL('images/back.svg') }}" alt="" class="w-6 h-6">
                 <div class="text-black text-base font-semibold ml-2">Kembali</div>
             </div>
@@ -21,34 +21,32 @@
                 <div class="mt-2 text-gray-500 text-sm leading-snug">Semua hasil pembuatan templat di tampilkan disini</div>
             </div>
 
-            <div class="inline-flex  justify-start sm:justify-center items-center gap-[16px] mt-[14px]">
+            <div class="inline-flex justify-start sm:justify-center items-center gap-[16px] mt-[14px]">
                 <div class="text-gray-900 text-md font-semibold font-['Inter']">Filter</div>
-                <div x-data="{ isOpen: false, selectedOption: 'Semua' }" class="">
-                    <button @click="isOpen = !isOpen"
-                        class="py-2 px-4 bg-white rounded-md shadow-md flex items-center w-48">
-                        <span x-text="selectedOption" class=""></span>
+                <div class="relative">
+                    <button id="filterButton" class="py-2 px-4 bg-white rounded-md shadow-md flex items-center w-48">
+                        <span id="selectedOption" class="">Semua</span>
                     </button>
 
-                    <div x-show="isOpen" @click.away="isOpen = false" x-transition:enter="transition ease-out duration-300"
-                        x-transition:enter-start="opacity-0 scale-90" x-transition:enter-end="opacity-100 scale-100"
-                        x-transition:leave="transition ease-in duration-300"
-                        x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-90"
-                        class="absolute bg-white border rounded-md shadow-md w-48">
-                        <button @click="selectedOption = 'Semua'; isOpen = false" data-filter="all"
-                            class="filter-btn px-4 py-2 cursor-pointer hover:bg-gray-100 inline-flex justify-start items-center w-full">
+                    <div id="filterDropdown" class="hidden absolute bg-white border rounded-md shadow-md w-48 mt-2">
+                        <button
+                            class="filter-btn px-4 py-2 cursor-pointer hover:bg-gray-100 inline-flex justify-start items-center w-full"
+                            data-filter="all">
                             <span class="flex w-3 h-3 me-3 bg-grey-600 rounded-full"></span>Semua
                         </button>
-                        <button @click="selectedOption = 'Modul Ajar'; isOpen = false" data-filter="material"
-                            class="filter-btn px-4 py-2 cursor-pointer hover:bg-gray-100  inline-flex justify-start items-center w-full">
-                            <span class="flex w-3 h-3 me-3 bg-green-600 rounded-full"></span><span class="filter-btn"
-                                data-filter="material">Modul Ajar</span>
+                        <button
+                            class="filter-btn px-4 py-2 cursor-pointer hover:bg-gray-100 inline-flex justify-start items-center w-full"
+                            data-filter="material">
+                            <span class="flex w-3 h-3 me-3 bg-green-600 rounded-full"></span>Modul Ajar
                         </button>
-                        <button @click="selectedOption = 'Silabus'; isOpen = false" data-filter="syllabus"
-                            class="filter-btn px-4 py-2 cursor-pointer hover:bg-gray-100  inline-flex justify-start items-center w-full">
+                        <button
+                            class="filter-btn px-4 py-2 cursor-pointer hover:bg-gray-100 inline-flex justify-start items-center w-full"
+                            data-filter="syllabus">
                             <span class="flex w-3 h-3 me-3 bg-yellow-600 rounded-full"></span>Silabus
                         </button>
-                        <button @click="selectedOption = 'Soal'; isOpen = false" data-filter="exercise"
-                            class="filter-btn px-4 py-2 cursor-pointer hover:bg-gray-100  inline-flex justify-start items-center w-full">
+                        <button
+                            class="filter-btn px-4 py-2 cursor-pointer hover:bg-gray-100 inline-flex justify-start items-center w-full"
+                            data-filter="exercise">
                             <span class="flex w-3 h-3 me-3 bg-blue-600 rounded-full"></span>Soal
                         </button>
                     </div>
@@ -142,22 +140,37 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
+            const filterButton = document.getElementById('filterButton');
+            const filterDropdown = document.getElementById('filterDropdown');
+            const selectedOption = document.getElementById('selectedOption');
             const filterButtons = document.querySelectorAll('.filter-btn');
             const historyItems = document.querySelectorAll('.history-item');
+
+            filterButton.addEventListener('click', function() {
+                filterDropdown.classList.toggle('hidden');
+            });
+
+            document.addEventListener('click', function(event) {
+                if (!filterButton.contains(event.target)) {
+                    filterDropdown.classList.add('hidden');
+                }
+            });
 
             filterButtons.forEach(button => {
                 button.addEventListener('click', function() {
                     const filterValue = this.dataset.filter;
+                    selectedOption.innerText = this.innerText;
 
                     historyItems.forEach(item => {
                         item.style.display = 'none';
 
                         if (filterValue === 'all' || item.getAttribute('data-type') ===
                             filterValue) {
-                            item.style.display =
-                                'flex'; // Mengatur ulang tata letak menjadi flex
+                            item.style.display = 'flex';
                         }
                     });
+
+                    filterDropdown.classList.add('hidden');
                 });
             });
         });

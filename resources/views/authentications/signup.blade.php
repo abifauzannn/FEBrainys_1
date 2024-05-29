@@ -7,7 +7,7 @@
     <div class="container mx-auto flex items-center justify-center mt-6 sm:h-screen sm:mt-0">
         <div class="w-[340px] sm:w-[352px] h-[675px] flex-col inline-flex">
             <a href="{{ route('login') }}">
-                <img src="{{ URL('images/Logo.svg') }}" alt="" class="w-[50px] h-[39px] mt-3">
+                <img src="{{ URL('images/newicon.png') }}" alt="" class="w-[50px] h-[39px] mt-3">
                 <div class="text-gray-900 text-[40px] font-bold font-['Inter'] leading-[48px] mb-7 sm:mb-12 mt-4">Registrasi
             </a>
         </div>
@@ -110,7 +110,8 @@
         <button
             class="w-full h-12 gap-[80px] pt-3 pb-[11px] bg-white rounded-[50px] shadow border border-neutral-200 flex hover:bg-slate-50 duration-300 ease-in-out transition">
             <img src="{{ URL('images/google.svg') }}" alt="" class="w-[18px] h-[18px] ml-6">
-            <div class="text-black text-opacity-50 text-base font-medium font-['Roboto']">Sign Up with Google</div>
+            <a href="{{ url('/login/google') }}"
+                class="text-black text-opacity-50 text-base font-medium font-['Roboto']">Sign up with Google</a>
         </button>
 
         <div class="justify-center items-center gap-2 inline-flex py-5">

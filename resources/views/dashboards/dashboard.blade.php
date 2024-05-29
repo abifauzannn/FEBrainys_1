@@ -5,7 +5,7 @@
 @section('content')
     <x-nav></x-nav>
 
-    <div class="container mx-auto px-[20px] sm:px-10 py-5 font-['Inter'] w-full">
+    <div class="container mx-auto px-[20px] py-5 font-['Inter'] w-full">
 
         <div id="welcomePopup"
             class="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center hidden">
@@ -66,7 +66,8 @@
         @endif
 
         <div class="w-full h-[134px] mb-[25px] sm:mb-3">
-            <div class="bg-gray-900 py-4 px-4 md:py-7 md:px-[51px] gap-3 rounded-2xl">
+            <img src="{{ URL('images/newbanner.png') }}" alt="" class="w-90 h-[134px] object-fill hidden lg:block">
+            <div class="bg-gray-900 py-4 px-4 md:py-7 md:px-[51px] gap-3 rounded-2xl lg:hidden ">
                 <div class="text-white text-3xl md:text-[32px] font-bold font-['Inter'] leading-[49.99px]">
                     Selamat datang</div>
                 <div class="text-white text-md sm:text-xs font-normal font-['Inter'] leading-tight">Brainys
@@ -77,7 +78,7 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-2">
             <button onclick="window.location.href='/generate-modul-ajar'"
                 class="p-4 rounded-lg shadow border border-gray-300 hover:bg-slate-50 transition duration-300 ease-in-out flex flex-col">
-                <img src="{{ URL('images/book-open.svg') }}" alt="" class="w-6 h-6">
+                <img src="{{ URL('images/modulajar.png') }}" alt="" class="w-10 h-10">
                 <div class="text-gray-900 text-lg font-bold font-inter leading-normal py-2">Templat Modul Ajar</div>
                 <div class="text-black text-xs font-normal font-inter leading-normal">Gunakan templat modul ajar kurikulum
                     merdeka</div>
@@ -85,7 +86,7 @@
 
             <button onclick="window.location.href='/generate-syllabus'"
                 class="p-4 rounded-lg shadow border border-gray-300 hover:bg-slate-50 transition duration-300 ease-in-out flex flex-col">
-                <img src="{{ URL('images/book-open.png') }}" alt="" class="w-6 h-6">
+                <img src="{{ URL('images/syllabus.png') }}" alt="" class="w-10 h-10">
                 <div class="text-gray-900 text-lg font-bold font-inter leading-normal py-2">Templat Silabus</div>
                 <div class="text-black text-xs font-normal font-inter leading-normal">Gunakan templat silabus merdeka
                     belajar</div>
@@ -93,7 +94,7 @@
 
             <button onclick="window.location.href='/generate-essay'"
                 class="p-4 rounded-lg shadow border border-gray-300 hover:bg-slate-50 transition duration-300 ease-in-out flex flex-col">
-                <img src="{{ URL('images/document-text.png') }}" alt="" class="w-6 h-6">
+                <img src="{{ URL('images/soal.png') }}" alt="" class="w-10 h-10">
                 <div class="text-gray-900 text-lg font-bold font-inter leading-normal py-2">Templat Soal</div>
                 <div class="text-black text-xs font-normal font-inter leading-normal">Gunakan templat soal untuk sekolah
                 </div>

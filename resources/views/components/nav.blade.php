@@ -13,14 +13,13 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
-    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <!-- Styles -->
 </head>
 
-<body class="">
+<body>
 
     @if (!session()->has('user'))
         @php
@@ -37,9 +36,9 @@
             </div>
             <div class="flex items-center space-x-4">
                 <div class="hidden md:block mt-1">
-                    <div x-data="{ isDropdownOpen: false }" class="relative">
+                    <div class="relative">
                         <!-- Tombol untuk menampilkan dropdown -->
-                        <button @click="isDropdownOpen = !isDropdownOpen"
+                        <button id="notificationButton"
                             class="w-[30px] h-[30px] bg-white rounded-[5px] border border-zinc-200 justify-center items-center inline-flex">
                             <svg class="w-5 h-5 fill-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                 viewBox="0 0 14 20">
@@ -49,13 +48,8 @@
                         </button>
 
                         <!-- Dropdown -->
-                        <div x-show="isDropdownOpen" @click.away="isDropdownOpen = false"
-                            class="absolute right-0 mt-[19px] w-48 bg-white rounded-lg border border-gray-200 shadow-md z-10 transform translate-x-1/4 max-h-[150px] overflow-y-auto"
-                            x-transition:enter="transition ease-out duration-300"
-                            x-transition:enter-start="opacity-0 scale-90" x-transition:enter-end="opacity-100 scale-100"
-                            x-transition:leave="transition ease-in duration-300"
-                            x-transition:leave-start="opacity-100 scale-100"
-                            x-transition:leave-end="opacity-0 scale-90">
+                        <div id="notificationDropdown"
+                            class="absolute right-0 mt-[19px] w-48 bg-white rounded-lg border border-gray-200 shadow-md z-10 transform translate-x-1/4 max-h-[150px] overflow-y-auto hidden">
                             <div class="py-1">
                                 <!-- Contoh item notifikasi -->
                                 <a href="#"
@@ -68,7 +62,6 @@
                                     class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Notification 3</a>
                                 <a href="#"
                                     class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Notification 3</a>
-
                                 <a href="#"
                                     class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Notification 3</a>
                                 <a href="#"
@@ -79,12 +72,7 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
-
-
-
-
 
                 <div class="flex-col items-start hidden md:block">
                     <div class="text-gray-900 text-base font-medium font-inter leading-normal">
@@ -108,15 +96,11 @@
 
                 <img src="{{ $avatarUrl }}" alt="Profile Picture" class="w-12 h-12 rounded-full">
 
-                <div x-data="{ isProfileDropdownOpen: false }" x-ref="dropdown">
-                    <img src="{{ URL('images/dropdown.svg') }}" alt=""
-                        @click="isProfileDropdownOpen = !isProfileDropdownOpen" class="cursor-pointer">
-                    <div x-show="isProfileDropdownOpen" @click.away="isProfileDropdownOpen = false" x-cloak
-                        class="absolute right-0 mt-[31px] border bg-white rounded-lg shadow p-3 transform -translate-x-1/4"
-                        x-transition:enter="transition ease-out duration-300"
-                        x-transition:enter-start="opacity-0 scale-90" x-transition:enter-end="opacity-100 scale-100"
-                        x-transition:leave="transition ease-in duration-300"
-                        x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-90">
+                <div class="relative">
+                    <img src="{{ URL('images/dropdown.svg') }}" alt="" id="profileButton"
+                        class="cursor-pointer">
+                    <div id="profileDropdown"
+                        class="absolute right-8 mt-[31px] border bg-white rounded-lg shadow p-3 transform translate-x-1/4 hidden w-48">
                         <div class="md:hidden">
                             <div class="text-gray-900 text-base font-medium font-inter leading-normal">
                                 {{ session('user')['name'] }}
@@ -144,8 +128,7 @@
                                     class="block px-[10px] py-2 text-sm text-slate-500">Riwayat</a>
                             </li>
                             <li class="flex items-center  hover:bg-gray-100 hover:rounded-lg">
-                                <img src="{{ URL('images/sign-out.svg') }}" alt=""
-                                    class="w-[20px] h-[20px]">
+                                <img src="{{ URL('images/sign-out.svg') }}" alt="" class="w-[20px] h-[20px]">
                                 <form action="{{ route('logout') }}" method="get">
                                     @csrf
                                     <button type="submit"
@@ -159,7 +142,35 @@
         </div>
     </div>
 
-    <script></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const notificationButton = document.getElementById('notificationButton');
+            const notificationDropdown = document.getElementById('notificationDropdown');
+            const profileButton = document.getElementById('profileButton');
+            const profileDropdown = document.getElementById('profileDropdown');
+
+            notificationButton.addEventListener('click', () => {
+                notificationDropdown.classList.toggle('hidden');
+            });
+
+            document.addEventListener('click', (event) => {
+                if (!notificationButton.contains(event.target) && !notificationDropdown.contains(event
+                        .target)) {
+                    notificationDropdown.classList.add('hidden');
+                }
+            });
+
+            profileButton.addEventListener('click', () => {
+                profileDropdown.classList.toggle('hidden');
+            });
+
+            document.addEventListener('click', (event) => {
+                if (!profileButton.contains(event.target) && !profileDropdown.contains(event.target)) {
+                    profileDropdown.classList.add('hidden');
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>

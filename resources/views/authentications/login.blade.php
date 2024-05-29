@@ -5,7 +5,7 @@
 @section('content')
     <div class="container mx-auto flex items-center justify-around mt-10 sm:h-screen sm:mt-0">
         <div class="hidden lg:block">
-            <img class="w-[500px] h-[515px] object-cover" src="{{ URL('images/onboarding.png') }}" alt="onBoarding" />
+            <img class="w-[500px] h-[515px] object-cover" src="{{ URL('images/newonboarding.png') }}" alt="onBoarding" />
         </div>
         <div class="w-full px-6 sm:w-[352px] h-[500px] flex flex-col">
             <div class="justify-center items-center gap-2 inline-flex mb-12">

@@ -13,7 +13,7 @@
                 class="bg-white w-[300px] sm:w-[500px] p-5 sm:p-8 rounded-lg shadow-md text-center flex flex-col items-center">
                 <img src="{{ URL('images/invitation.png') }}" alt="" class="w-[70%] h-full object-cover mb-4">
                 <p class="text-gray-600 text-xs sm:text-base font-['Inter'] leading-normal mb-4">
-                    Sebelum anda mulai, masukkan kode undangan dulu yuk! {{ session('user')['is_active'] }}
+                    Sebelum anda mulai, masukkan kode undangan dulu yuk!
                 </p>
                 @if (session('error'))
                     <p class="text-red-600 text-xs sm:text-base font-['Inter'] leading-normal mb-4">

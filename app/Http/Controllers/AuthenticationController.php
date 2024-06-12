@@ -176,6 +176,26 @@ class AuthenticationController extends Controller
         }
     }
 
+    public function otpOtomatis($email)
+{
+    // Lakukan pemanggilan ke API dengan email yang diberikan
+    $response = Http::post('https://be.brainys.oasys.id/api/resend-otp', [
+        'email' => $email,
+    ]);
+
+    $responseData = $response->json();
+
+    if ($response->successful() && $responseData['status'] === 'success') {
+        // Verifikasi OTP berhasil, simpan token dalam sesi
+        $otp = $responseData['data']['otp'];
+        return redirect()->route('verify.otp', compact('email', 'otp'));
+    } else {
+        $errorMessage = isset($responseData['message']) ? $responseData['message'] : 'OTP verification failed. Please try again.';
+        return back()->withErrors(['error' => $errorMessage]);
+    }
+}
+
+
     public function checkEmail(Request $request)
     {
         // Ambil email pengguna yang sedang login dari sesi
@@ -235,12 +255,22 @@ class AuthenticationController extends Controller
 
     public function showVerificationForm(Request $request)
     {
-        $email = $request->query('email');
+        $email = $request->query('email') ?? session('email');
         $otp = $request->query('otp');
         $id = $request->query('id');
 
+        // Perbarui sesi dengan email terbaru jika email dari permintaan tidak kosong
+        if (!empty($request->query('email'))) {
+            session(['email' => $request->query('email')]);
+        }
+
+        // Lupakan session email ketika pengguna meninggalkan halaman
+        $request->session()->forget('email');
+
         return view('authentications.otp', compact('email', 'otp', 'id'));
     }
+
+
 
     public function completeProfile(Request $request)
     {
@@ -389,12 +419,41 @@ class AuthenticationController extends Controller
 
         // Redirect ke halaman dashboard atau halaman setelah login
         return redirect()->route('dashboard');
-    } else {
-        // Tangani kesalahan login
-        $errorMessage = isset($responseData['message']) ? $responseData['message'] : 'Login failed. Please check your credentials.';
-        return back()->withErrors(['email' => $errorMessage]);
+    }
+    elseif ($response->failed()) {
+        // Tangani kasus ketika respons gagal
+        if ($responseData['message'] === 'Lengkapi profile Anda sebelum melakukan log-in.') {
+            // Simpan token di sesi sebelum redirect ke halaman lengkapi profil
+            $accessToken = $responseData['data']['token'] ?? null;
+            if ($accessToken) {
+                session(['access_token' => $accessToken]);
+            }
+
+            return redirect()->route('profileForm');
+
+        }
+        if ($responseData['message'] === 'Akun belum melakukan verifikasi OTP, silakan melakukan verifikasi OTP.') {
+            $accessToken = $responseData['data']['token'] ?? null;
+            $email = $request->input('email');
+            if ($accessToken) {
+                session(['access_token' => $accessToken]);
+            }
+
+            if ($email) {
+                $this->otpOtomatis($email);
+            }
+
+            return redirect()->route('verify.otp', compact('email'));
+        }
+        else {
+            $errorMessage = isset($responseData['message']) ? $responseData['message'] : 'Login failed. Please check your credentials.';
+            return back()->withErrors(['email' => $errorMessage]);
+        }
     }
 }
+
+
+
 
 
 

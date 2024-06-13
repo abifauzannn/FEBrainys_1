@@ -420,36 +420,36 @@ class AuthenticationController extends Controller
         // Redirect ke halaman dashboard atau halaman setelah login
         return redirect()->route('dashboard');
     }
-    elseif ($response->failed()) {
-        // Tangani kasus ketika respons gagal
-        if ($responseData['message'] === 'Lengkapi profile Anda sebelum melakukan log-in.') {
-            // Simpan token di sesi sebelum redirect ke halaman lengkapi profil
-            $accessToken = $responseData['data']['token'] ?? null;
-            if ($accessToken) {
-                session(['access_token' => $accessToken]);
-            }
+    $responseData = $response->json() ?? [];
+    $message = $responseData['message'] ?? null;
 
-            return redirect()->route('profileForm');
-
+    if ($message === 'Lengkapi profile Anda sebelum melakukan log-in.') {
+        // Simpan token di sesi sebelum redirect ke halaman lengkapi profil
+        $accessToken = $responseData['data']['token'] ?? null;
+        if ($accessToken) {
+            session(['access_token' => $accessToken]);
         }
-        if ($responseData['message'] === 'Akun belum melakukan verifikasi OTP, silakan melakukan verifikasi OTP.') {
-            $accessToken = $responseData['data']['token'] ?? null;
-            $email = $request->input('email');
-            if ($accessToken) {
-                session(['access_token' => $accessToken]);
-            }
 
-            if ($email) {
-                $this->otpOtomatis($email);
-            }
-
-            return redirect()->route('verify.otp', compact('email'));
-        }
-        else {
-            $errorMessage = isset($responseData['message']) ? $responseData['message'] : 'Login failed. Please check your credentials.';
-            return back()->withErrors(['email' => $errorMessage]);
-        }
+        return redirect()->route('profileForm');
     }
+
+    if ($message === 'Akun belum melakukan verifikasi OTP, silakan melakukan verifikasi OTP.') {
+        $accessToken = $responseData['data']['token'] ?? null;
+        $email = $request->input('email');
+        if ($accessToken) {
+            session(['access_token' => $accessToken]);
+        }
+
+        if ($email) {
+            $this->otpOtomatis($email);
+        }
+
+        return redirect()->route('verify.otp', compact('email'));
+    }
+
+    $errorMessage = $message ?? 'Akun anda sudah terhubung dengan Google. Silahkan login menggunakan Google.';
+
+    return back()->withErrors(['email' => $errorMessage]);
 }
 
 

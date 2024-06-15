@@ -122,7 +122,7 @@
                 </div>
                 <div
                     class="text-center text-blue-600 text-base font-medium font-['Inter'] leading-normal hover:text-blue-700 hover:font-bold flex flex-col">
-                    <a href="https://wa.link/24kfw0" target="_blank">Butuh Bantuan ?</a>
+                    <a href="https://wa.link/u21560" target="_blank">Butuh Bantuan ?</a>
                 </div>
             </div>
         </div>

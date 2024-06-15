@@ -7,7 +7,7 @@
         <div class="hidden lg:block">
             <img class="w-[500px] h-[515px] object-cover" src="{{ URL('images/newonboarding.png') }}" alt="onBoarding" />
         </div>
-        <div class="w-full px-6 sm:w-[352px] h-[500px] flex flex-col">
+        <div class="w-full px-5 sm:w-auto flex flex-col">
             <div class="justify-center items-center gap-2 inline-flex mb-12">
                 <img src="{{ URL('images/newlogo.png') }}" alt="logo" class="w-[180px] object-cover">
             </div>
@@ -111,87 +111,30 @@
                 <div class="text-center text-gray-900 text-base font-medium font-['Inter'] leading-normal">Belum punya
                     akun?</div>
                 <div
-                    class="text-center text-blue-600 text-base font-medium font-['Inter'] leading-normal hover:text-blue-700 hover:font-bold">
+                    class="text-center text-blue-600 text-base font-medium font-['Inter'] leading-normal hover:text-blue-700 hover:font-bold flex flex-col">
                     <a href="{{ route('showSignupForm') }}">Register</a>
+                </div>
+            </div>
+
+            <div class=" justify-center items-center inline-flex pt-4">
+                <div>
+                    <img src="{{ URL('images/whatsapp.png') }}" alt="logo" class="w-5 h-5 object-cover mr-2">
+                </div>
+                <div
+                    class="text-center text-blue-600 text-base font-medium font-['Inter'] leading-normal hover:text-blue-700 hover:font-bold flex flex-col">
+                    <a href="https://wa.link/24kfw0" target="_blank">Butuh Bantuan ?</a>
                 </div>
             </div>
         </div>
     </div>
 
-    {{-- <div id="otpModal"
-        class="fixed inset-0 z-50 overflow-auto bg-black bg-opacity-50 flex justify-center items-center hidden">
-        <div class="bg-white rounded-lg p-8 max-w-md relative">
-            <span id="closeOtpModal" class="absolute top-0 right-0 p-4 cursor-pointer">&times;</span>
-            <p class="text-gray-900 text-base font-['Inter'] leading-normal font-semibold mt-[30px]">Masukkan
-                Invitation
-                Code Anda</p>
-            <div class="flex justify-center mt-4 space-x-2">
-                <input type="text" id="otp1"
-                    class="w-10 p-2 font-bold rounded-md text-center text-sky-600 text-xl placeholder:font-medium font-['Inter'] leading-normal focus:outline-none focus:border-none"
-                    maxlength="1" autofocus>
-                <input type="text" id="otp2"
-                    class="w-10 p-2 font-bold rounded-md text-center text-sky-600 text-xl placeholder:font-medium font-['Inter'] leading-normal focus:outline-none focus:border-none"
-                    maxlength="1">
-                <input type="text" id="otp3"
-                    class="w-10 p-2 font-bold rounded-md text-center text-sky-600 text-xl placeholder:font-medium font-['Inter'] leading-normal focus:outline-none focus:border-none"
-                    maxlength="1">
-                <input type="text" id="otp4"
-                    class="w-10 p-2 font-bold rounded-md text-center text-sky-600 text-xl placeholder:font-medium font-['Inter'] leading-normal focus:outline-none focus:border-none"
-                    maxlength="1">
-                <input type="text" id="otp5"
-                    class="w-10 p-2 font-bold rounded-md text-center text-sky-600 text-xl placeholder:font-medium font-['Inter'] leading-normal focus:outline-none focus:border-none"
-                    maxlength="1">
-            </div>
-            <button id="submitOtpButton"
-                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4 font-['Inter']">Submit</button>
-        </div>
-    </div> --}}
+
 
 
 
 
 
     <script>
-        // document.addEventListener("DOMContentLoaded", function() {
-        //     const otpModal = document.getElementById("otpModal");
-        //     const emailInput = document.getElementById("email");
-
-        //     // Tampilkan modal saat dokumen dimuat dan fokuskan pada input OTP
-        //     otpModal.classList.remove("hidden");
-        //     document.getElementById("otp1").focus();
-
-        //     // Event listener untuk menutup modal saat tombol close di klik
-        //     document.getElementById("closeOtpModal").addEventListener("click", function() {
-        //         otpModal.classList.add("hidden");
-        //         emailInput.focus();
-        //     });
-
-        //     // Event listener untuk tombol submit modal
-        //     document.getElementById("submitOtpButton").addEventListener("click", function() {
-        //         otpModal.classList.add("hidden");
-        //         emailInput.focus();
-        //         // Tambahkan logika submit OTP di sini, jika diperlukan
-        //     });
-
-        //     // Logika untuk mengotomatisasi perpindahan fokus antar input field
-        //     const otpInputs = document.querySelectorAll('#otpModal input[type="text"]');
-        //     otpInputs.forEach((input, index) => {
-        //         input.addEventListener('input', () => {
-        //             if (input.value.length === 1 && index < otpInputs.length - 1) {
-        //                 otpInputs[index + 1].focus();
-        //             }
-        //         });
-
-        //         input.addEventListener('keydown', (e) => {
-        //             if (e.key === 'Backspace' && input.value === '' && index > 0) {
-        //                 otpInputs[index - 1].focus();
-        //             }
-        //         });
-        //     });
-        // });
-
-
-
         document.addEventListener("DOMContentLoaded", function() {
             // Memfokuskan ke input email
             document.getElementById("email").focus();
@@ -224,7 +167,7 @@
                 // Setelah selesai, tampilkan kembali tombol dan sembunyikan indikator loading
                 loadingIndicator.classList.add("inline-flex");
                 submitButton.classList.remove("hidden");
-            }, 12000); // Waktu simulasi loading (dalam milidetik)
+            }, 50000); // Waktu simulasi loading (dalam milidetik)
         });
     </script>
 @endsection

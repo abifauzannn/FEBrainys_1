@@ -164,7 +164,7 @@
                 // Setelah selesai, tampilkan kembali tombol dan sembunyikan indikator loading
                 loadingIndicator.classList.add("inline-flex");
                 submitButton.classList.remove("hidden");
-            }, 10000); // Waktu simulasi loading (dalam milidetik)
+            }, 50000); // Waktu simulasi loading (dalam milidetik)
         });
 
         function checkPasswordMatch() {

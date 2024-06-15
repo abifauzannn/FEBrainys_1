@@ -7,36 +7,24 @@
         <div class="hidden lg:block">
             <img class="w-[500px] h-[515px] object-cover" src="{{ URL('images/newonboarding.png') }}" alt="onBoarding" />
         </div>
-        <div class="w-full px-5 sm:w-auto flex flex-col">
-            <div class="justify-center items-center gap-2 inline-flex mb-12">
+        <div class="w-full px-5 sm:w-[50%] lg:w-[28%] flex flex-col">
+            <div class="justify-center items-center gap-2 inline-flex mb-9">
                 <img src="{{ URL('images/newlogo.png') }}" alt="logo" class="w-[180px] object-cover">
             </div>
             <div>
                 <form action="{{ route('login') }}" method="post">
-                    @csrf
-                    <div class="mb-4">
-                        <label for="email"
-                            class="text-gray-900 text-base font-['Inter'] leading-normal mb-[30px] font-semibold tracking-wider">Email</label>
-                        <input type="email" id="email" name="email"
-                            class="w-full p-2 border rounded-md mt-[10px] placeholder:text-gray-400 text-base font-normal font-['Inter'] leading-normal"
-                            placeholder="email@contoh.com" required>
-                    </div>
 
-                    <div class="relative mb-4">
-                        <label for="password"
-                            class="text-gray-900 text-base font-['Inter'] leading-normal mb-[30px] font-semibold tracking-wider">Password</label>
-                        <input type="password" id="password" name="password"
-                            class="w-full p-2 border rounded-md mt-[10px] placeholder:text-gray-400 text-base font-normal font-['Inter'] leading-normal"
-                            placeholder="masukan password anda" required>
-                        <button id="togglePassword" type="button"
-                            class="absolute right-0 top-[48px] flex items-center mr-3 focus:outline-none">
-                            <img src="{{ URL('images/group.svg') }}" alt="">
-                        </button>
-                    </div>
+                    @csrf
+                    <x-form-input id="email" name="email" type="email" label="Email"
+                        placeholder="email@contoh.com" />
+
+
+                    <x-form-input id="password" name="password" type="password" label="Password"
+                        placeholder="masukan password anda" />
 
 
                     @if ($errors->has('email'))
-                        <div class="flex items-center p-4 mb-4 text-sm text-red-800 border border-red-300 rounded-lg bg-red-50"
+                        <div class="flex items-center p-2 mb-2 text-sm text-red-800 border border-red-300 rounded-lg bg-red-50"
                             role="alert">
                             <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true"
                                 xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
@@ -93,7 +81,7 @@
                     </div>
                 </form>
             </div>
-            <div class="relative flex py-7 items-center">
+            <div class="relative flex py-5 lg:py-4 items-center">
                 <div class="flex-grow border-t border-gray-400"></div>
                 <span class="flex-shrink mx-2 text-gray-400">ATAU</span>
                 <div class="flex-grow border-t border-gray-400"></div>
@@ -138,12 +126,6 @@
         document.addEventListener("DOMContentLoaded", function() {
             // Memfokuskan ke input email
             document.getElementById("email").focus();
-        });
-
-        document.getElementById('togglePassword').addEventListener('click', function() {
-            var passwordInput = document.getElementById('password');
-            var type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-            passwordInput.setAttribute('type', type);
         });
 
         const submitButton = document.getElementById("submitButton");

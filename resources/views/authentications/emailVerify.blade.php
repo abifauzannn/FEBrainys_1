@@ -1,9 +1,6 @@
 @extends('layouts.template')
 
 @section('title', 'Email Verify - Brainys')
-@section('meta')
-    <meta name="robots" content="noindex, nofollow">
-@endsection
 
 
 @section('content')
@@ -113,4 +110,8 @@
         });
     </script>
 
+@endsection
+
+@section('meta')
+    <meta name="robots" content="noindex, nofollow">
 @endsection

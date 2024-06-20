@@ -2,6 +2,10 @@
 
 @section('title', 'Verify OTP - Brainys')
 
+@section('meta')
+    <meta name="robots" content="noindex, nofollow">
+@endsection
+
 @section('content')
 
     <div class="container mx-auto flex items-center justify-center flex-col mt-10">

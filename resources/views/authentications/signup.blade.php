@@ -2,6 +2,10 @@
 
 @section('title', 'Sign Up - Brainys')
 
+@section('meta')
+    <meta name="robots" content="noindex, nofollow">
+@endsection
+
 @section('content')
 
     <div class="container mx-auto flex items-center justify-center mt-6 sm:h-screen sm:mt-0">

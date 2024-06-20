@@ -2,6 +2,10 @@
 
 @section('title', 'History Modul Ajar - Brainys')
 
+@section('meta')
+    <meta name="robots" content="noindex, nofollow">
+@endsection
+
 @section('content')
 
     <x-nav></x-nav>

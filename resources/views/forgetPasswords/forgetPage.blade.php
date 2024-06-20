@@ -2,6 +2,10 @@
 
 @section('title', 'Forget Password - Brainys')
 
+@section('meta')
+    <meta name="robots" content="noindex, nofollow">
+@endsection
+
 @section('content')
 
     <div class="w-full container mx-auto px-4 sm:px-10 py-9">

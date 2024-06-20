@@ -4,9 +4,6 @@
 
 @section('content')
 
-    <meta name="robots" content="noindex">
-
-
     <div class="w-full container mx-auto px-4 sm:px-10 py-5">
 
         <div class="justify-center items-center gap-4 inline-flex mb-5">

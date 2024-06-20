@@ -14,11 +14,6 @@
     <link rel="shortcut icon" href="{{ URL('images/newicon.png') }}">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
-    <!-- Conditionally add noindex meta tag -->
-    @if (!Request::is('login'))
-        <meta name="robots" content="noindex, nofollow">
-    @endif
-
     <!-- Styles -->
 </head>
 
@@ -27,5 +22,3 @@
         @yield('content')
     </main>
 </body>
-
-</html>

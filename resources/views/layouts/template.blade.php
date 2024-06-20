@@ -7,9 +7,15 @@
 
     <title>@yield('title')</title>
 
+    @if (!Request::is('/'))
+        <meta name="robots" content="noindex, nofollow">
+    @endif
+
     @if (!Request::is('login'))
         <meta name="robots" content="noindex, nofollow">
     @endif
+
+
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">

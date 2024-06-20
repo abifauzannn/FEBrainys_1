@@ -7,7 +7,7 @@
 
     <title>@yield('title')</title>
 
-    @if (request()->route()->getName() !== 'login')
+    @if (!Request::is('login'))
         <meta name="robots" content="noindex, nofollow">
     @endif
 

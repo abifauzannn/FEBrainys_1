@@ -5,11 +5,14 @@
 @section('content')
     <x-nav></x-nav>
 
+
+    @if (session('user')['is_active'] == 0)
+        <script>
+            window.location.href = "{{ route('dashboard') }}";
+        </script>
+    @endif
+
     <div class="container mx-auto px-4 py-6 sm:px-10 sm:py-9 relative">
-
-
-
-
         <button onclick="window.location='{{ route('dashboard') }}'" class="mb-6">
             <div class="flex items-cente">
                 <img src="{{ URL('images/back.svg') }}" alt="" class="w-6 h-6">

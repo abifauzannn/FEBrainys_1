@@ -49,7 +49,7 @@
 
                         <!-- Dropdown -->
                         <div id="notificationDropdown"
-                            class="absolute right-0 mt-[19px] w-48 bg-white rounded-lg border border-gray-200 shadow-md z-10 transform translate-x-1/4 max-h-[150px] overflow-y-auto hidden">
+                            class=" mt-[19px] w-48 bg-white rounded-lg border border-gray-200 shadow-md transform translate-x-1/4 max-h-[150px] overflow-y-auto hidden">
                             <div class="py-1">
                                 <!-- Contoh item notifikasi -->
                                 <a href="#"

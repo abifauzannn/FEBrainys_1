@@ -5,6 +5,12 @@
 @section('content')
     <x-nav></x-nav>
 
+    @if (session('user')['is_active'] == 0)
+        <script>
+            window.location.href = "{{ route('dashboard') }}";
+        </script>
+    @endif
+
     <div class="container mx-auto px-4 py-6 sm:px-10 sm:py-9">
         @if (session('success'))
             <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 my-4" role="alert">

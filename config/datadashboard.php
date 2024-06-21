@@ -19,28 +19,28 @@ return [
         'title' => 'Templat Soal',
         'description' => 'Gunakan templat soal untuk sekolah',
     ],
-    [
-        'url' => '/generate-essay',
-        'icon' => 'images/bahanajar.png',
-        'title' => 'Templat Bahan Ajar',
-        'description' => 'Gunakan templat bahan materi pembelajaran',
-    ],
-    [
-        'url' => '/generate-essay',
-        'icon' => 'images/gamifikasi.png',
-        'title' => 'Templat Materi Gamifikasi',
-        'description' => 'Gunakan templat materi berbasis gamifikasi',
-    ],
-    [
-        'url' => '/generate-essay',
-        'icon' => 'images/kisikisi.png',
-        'title' => 'Templat Kisi Kisi Soal',
-        'description' => 'Gunakan templat kisi-kisi soal dari capaian pembelajaran',
-    ],
-    [
-        'url' => '/generate-essay',
-        'icon' => 'images/atp.png',
-        'title' => 'Templat Alur Tujuan Pembelajaran (ATP)',
-        'description' => 'Gunakan templat ATP kurikulum merdeka mengajar',
-    ],
+    // [
+    //     'url' => '/generate-essay',
+    //     'icon' => 'images/bahanajar.png',
+    //     'title' => 'Templat Bahan Ajar',
+    //     'description' => 'Gunakan templat bahan materi pembelajaran',
+    // ],
+    // [
+    //     'url' => '/generate-essay',
+    //     'icon' => 'images/gamifikasi.png',
+    //     'title' => 'Templat Materi Gamifikasi',
+    //     'description' => 'Gunakan templat materi berbasis gamifikasi',
+    // ],
+    // [
+    //     'url' => '/generate-essay',
+    //     'icon' => 'images/kisikisi.png',
+    //     'title' => 'Templat Kisi Kisi Soal',
+    //     'description' => 'Gunakan templat kisi-kisi soal dari capaian pembelajaran',
+    // ],
+    // [
+    //     'url' => '/generate-essay',
+    //     'icon' => 'images/atp.png',
+    //     'title' => 'Templat Alur Tujuan Pembelajaran (ATP)',
+    //     'description' => 'Gunakan templat ATP kurikulum merdeka mengajar',
+    // ],
 ];

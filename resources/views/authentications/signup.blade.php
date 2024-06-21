@@ -6,7 +6,9 @@
     <meta name="description"
         value="Brainys is an application that can help teachers / teaching staff to obtain creative ideas within the scope of administration and academic activities">
     <meta name="keyword" value="brainys, oasys, brainys oasys, register brainys, register oasys" />
+    <meta property="og:title" content="Register" />
 @endsection
+
 
 @section('content')
 

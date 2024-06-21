@@ -7,6 +7,7 @@
 @endsection
 
 @section('content')
+
     <x-nav></x-nav>
 
     @if (session('user')['is_active'] == 0)
@@ -125,8 +126,8 @@
                     <label for="notes"
                         class="text-gray-900 text-base font-semibold font-['Inter'] leading-normal mb-[10px]">Deskripsi
                         Modul Ajar</label>
-                    <button data-tooltip-target="notesTooltip" data-tooltip-placement="right" data-tooltip-trigger="click"
-                        type="button"
+                    <button data-tooltip-target="notesTooltip" data-tooltip-placement="right"
+                        data-tooltip-trigger="click" type="button"
                         class="text-gray-600 transition-colors duration-200 focus:outline-none dark:text-gray-200 dark:hover:text-blue-400 hover:text-blue-500">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
                             stroke="currentColor" class="w-4 h-4">

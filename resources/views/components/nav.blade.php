@@ -96,11 +96,12 @@
 
                 <img src="{{ $avatarUrl }}" alt="Profile Picture" class="w-12 h-12 rounded-full">
 
+
                 <div class="relative">
                     <img src="{{ URL('images/dropdown.svg') }}" alt="" id="profileButton"
                         class="cursor-pointer">
                     <div id="profileDropdown"
-                        class="absolute right-8 mt-[31px] border bg-white rounded-lg shadow p-3 transform translate-x-1/4 hidden w-48">
+                        class="absolute right-8 mt-[31px] border bg-white rounded-lg shadow p-3 transform translate-x-1/4 hidden w-48 z-10">
                         <div class="md:hidden">
                             <div class="text-gray-900 text-base font-medium font-inter leading-normal">
                                 {{ session('user')['name'] }}
@@ -138,6 +139,7 @@
                         </ul>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>

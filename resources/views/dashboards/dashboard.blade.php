@@ -9,7 +9,7 @@
 @section('content')
     <x-nav></x-nav>
 
-    <div class="container mx-auto px-[20px] py-5 font-['Inter'] w-full">
+    <div class="container mx-auto px-[20px] pt-5 pb-10 font-['Inter'] w-full">
 
         <div id="welcomePopup"
             class="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center hidden">
@@ -107,17 +107,31 @@
             </div>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-2 lg:p-2">
+        @php
+            $cards = config('datadashboard');
+        @endphp
 
-            <x-card onclick="window.location.href='/generate-modul-ajar'" icon="images/modulajar.png" title="Modul Ajar"
-                description="Gunakan templat modul ajar kurikulum merdeka" />
-
-            <x-card onclick="window.location.href='/generate-syllabus'" icon="images/syllabus.png" title="Templat Silabus"
-                description="Gunakan templat silabus merdeka belajar" />
-
-            <x-card onclick="window.location.href='/generate-essay'" icon="images/soal.png" title="Templat Soal"
-                description="Gunakan templat soal untuk sekolah" />
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-2 lg:gap-4 lg:p-2">
+            @foreach ($cards as $card)
+                <x-card onclick="window.location.href='{{ $card['url'] }}'" icon="{{ $card['icon'] }}"
+                    title="{{ $card['title'] }}" description="{{ $card['description'] }}" />
+            @endforeach
         </div>
+
+        <div class="flex items-center justify-center pt-10">
+            <button
+                class="w-full max-w-56 h-12 px-6 rounded-md justify-center items-center gap-2.5 inline-flex border border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white transition duration-300 ease-in-out"
+                type="button">
+                <div>
+                    <img src="{{ URL('images/whatsapp.png') }}" alt="logo" class="w-5 h-5 object-cover mr-2">
+                </div>
+                <div class="text-center text-base font-medium font-['Inter'] leading-normal flex flex-col">
+                    <a href="https://wa.link/z2edgq" target="_blank" class="hover:font-bold">Butuh Bantuan?</a>
+                </div>
+            </button>
+
+        </div>
+
 
     </div>
 @endsection

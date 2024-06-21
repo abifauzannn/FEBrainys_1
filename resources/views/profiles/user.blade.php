@@ -53,7 +53,7 @@
 
                 <!-- Popup untuk menampilkan pesan berhasil -->
                 <div id="successPopup"
-                    class="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center hidden">
+                    class="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center hidden z-10">
                     <div class="bg-white w-[300px] p-6 rounded-lg shadow-md">
                         <img src="{{ URL('images/success.png') }}" alt="">
                         <div class="text-green-600 font-bold font-['Inter'] mt-4 ">Success!</div>
@@ -62,39 +62,26 @@
                 </div>
 
 
-                <div class="mb-4">
-                    <label for="name" class="text-gray-900 text-base font-semibold leading-normal mb-[30px]">Nama
-                        Lengkap</label>
-                    <input type="text" id="name" name="name"
-                        class="w-full p-2 border rounded-md mt-[10px] placeholder:text-gray-400 text-base font-normal leading-normal"
-                        placeholder="Contoh: Budiman" value="{{ session('user')['name'] }}" required>
-                </div>
+                <x-form-input id="name" name="name" type="text" label="Nama Lengkap"
+                    placeholder="email@contoh.com" value="{{ session('user')['name'] }}" />
+
 
                 <!-- Input field for profession -->
-                <div class="mb-4">
-                    <label for="profession"
-                        class="text-gray-900 text-base font-semibold leading-normal mb-[30px]">Profesi</label>
-                    <input type="text" id="profession" name="profession"
-                        class="w-full p-2 border rounded-md mt-[10px] placeholder:text-gray-400 text-base font-normal leading-normal"
-                        placeholder="Guru" value="{{ session('user')['profession'] }}" required>
-                </div>
+
+                <x-form-input id="profession" name="profession" type="text" label="Profesi" placeholder="Guru"
+                    value="{{ session('user')['profession'] }}" />
+
 
                 <!-- Input field for school name -->
-                <div class="mb-4">
-                    <label for="school_name"
-                        class="text-gray-900 text-base font-semibold leading-normal mb-[30px]">Sekolah</label>
-                    <input type="text" id="school_name" name="school_name"
-                        class="w-full p-2 border rounded-md mt-[10px] placeholder:text-gray-400 text-base font-normal leading-normal"
-                        placeholder="SMPN 1 Bandung" value="{{ session('user')['school_name'] }}" required>
-                </div>
 
-                <div class="mb-4">
-                    <label for="email"
-                        class="text-gray-900 text-base font-semibold font-['Inter'] leading-normal mb-[30px]">Email</label>
-                    <input type="email" id="email" name="email" disabled
-                        class="w-full p-2 border rounded-md mt-[10px] placeholder:text-gray-400 text-base font-normal font-['Inter'] leading-normal"
-                        placeholder="email@contoh.com" value="{{ session('user')['email'] }}" required>
-                </div>
+                <x-form-input id="school_name" name="school_name" type="text" label="Asal Sekolah"
+                    placeholder="Asal Sekolah" value="{{ session('user')['school_name'] }}" />
+
+
+
+                <x-form-input id="email" name="email" type="email" label="Email" placeholder="email@contoh.com"
+                    value="{{ session('user')['email'] }}" />
+
 
                 <div class="flex justify-end items-end mb-4">
                     <a href="{{ route('emailVerifyChange') }}"

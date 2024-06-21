@@ -4,8 +4,8 @@
         {{ $label }}
     </label>
     <input type="{{ $type }}" id="{{ $id }}" name="{{ $name }}"
-        class="w-full p-2 border rounded-md mt-[10px] placeholder:text-gray-400 text-base font-normal font-['Inter'] leading-normal"
-        placeholder="{{ $placeholder }}" required>
+        class="w-full p-2 border-gray-400 shadow-sm rounded-md mt-[10px] placeholder:text-gray-400 text-base font-normal font-['Inter'] leading-normal"
+        placeholder="{{ $placeholder }}" value="{{ $value ?? '' }}" required>
 
     @if ($type == 'password')
         <button type="button" class="absolute right-0 top-[48px] flex items-center mr-3 focus:outline-none"

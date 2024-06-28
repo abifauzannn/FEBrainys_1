@@ -19,18 +19,18 @@ return [
         'title' => 'Templat Soal',
         'description' => 'Gunakan templat soal untuk sekolah',
     ],
-    [
-        'url' => '/generate-bahan-ajar',
-        'icon' => 'images/bahanajar.png',
-        'title' => 'Templat Bahan Ajar',
-        'description' => 'Gunakan templat bahan materi pembelajaran',
-    ],
-    [
-        'url' => '/generate-gamifikasi',
-        'icon' => 'images/gamifikasi.png',
-        'title' => 'Templat Materi Gamifikasi',
-        'description' => 'Gunakan templat materi berbasis gamifikasi',
-    ],
+    // [
+    //     'url' => '/generate-bahan-ajar',
+    //     'icon' => 'images/bahanajar.png',
+    //     'title' => 'Templat Bahan Ajar',
+    //     'description' => 'Gunakan templat bahan materi pembelajaran',
+    // ],
+    // [
+    //     'url' => '/generate-gamifikasi',
+    //     'icon' => 'images/gamifikasi.png',
+    //     'title' => 'Templat Materi Gamifikasi',
+    //     'description' => 'Gunakan templat materi berbasis gamifikasi',
+    // ],
     // [
     //     'url' => '/generate-kisi-kisi',
     //     'icon' => 'images/kisikisi.png',

@@ -78,7 +78,6 @@
                     placeholder="Asal Sekolah" value="{{ session('user')['school_name'] }}" required />
 
 
-
                 <x-form-input id="email" name="email" type="email" label="Email" placeholder="email@contoh.com"
                     value="{{ session('user')['email'] }}" required />
 

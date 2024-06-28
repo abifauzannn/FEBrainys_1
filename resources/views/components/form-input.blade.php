@@ -1,10 +1,10 @@
 <div class="relative mb-4">
     <label for="{{ $id }}"
-        class="text-gray-900 text-base font-['Inter'] leading-normal mb-[30px] font-semibold tracking-wider">
+        class="text-gray-900 text-base font-['Inter'] leading-normal mb-[30px] font-semibold">
         {{ $label }}
     </label>
     <input type="{{ $type }}" id="{{ $id }}" name="{{ $name }}"
-        class="w-full p-2 border-gray-400 shadow-sm rounded-md mt-[10px] placeholder:text-gray-400 text-base font-normal font-['Inter'] leading-normal"
+        class="w-full p-2 border-gray-300 shadow-sm text-gray-600 rounded-md mt-[10px] placeholder:text-gray-400 text-base font-normal font-['Inter'] leading-normal"
         placeholder="{{ $placeholder }}" value="{{ $value ?? '' }}" required>
 
     @if ($type == 'password')

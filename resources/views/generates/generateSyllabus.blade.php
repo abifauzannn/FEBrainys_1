@@ -7,6 +7,19 @@
 @endsection
 
 @section('content')
+    @php
+        $options = [];
+        for ($i = 1; $i <= 12; $i++) {
+            if ($i <= 6) {
+                $options[] = ['value' => $i, 'label' => "$i SD"];
+            } elseif ($i <= 9) {
+                $options[] = ['value' => $i, 'label' => "$i SMP"];
+            } else {
+                $options[] = ['value' => $i, 'label' => "$i SMA"];
+            }
+        }
+    @endphp
+
     <x-nav></x-nav>
 
     @if (session('user')['is_active'] == 0)
@@ -23,79 +36,31 @@
             </div>
         @endif
 
-        <button onclick="window.location='{{ route('dashboard') }}'" class="mb-6">
-            <div class="flex items-cente">
-                <img src="{{ URL('images/back.svg') }}" alt="" class="w-6 h-6">
-                <div class="text-black text-base font-semibold ml-2">Kembali</div>
-            </div>
-        </button>
+        <x-back-button url="{{ route('dashboard') }}" />
 
-        <div class="w-full">
-            <div class="text-gray-900 text-2xl font-semibold font-['Inter']">Template Silabus</div>
-            <div class="mt-2 text-gray-500 text-sm leading-snug">Gunakan template Silabus kurikulum merdeka</div>
-        </div>
-
+        <x-banner-page-generate title="Templat Silabus" description="Gunakan template Silabus kurikulum merdeka" />
+        {{--
         <div class="mt-2 text-gray-500 text-sm leading-snug font-bold">Kuota yang sudah dipakai
-            {{ $userLimit['all']['used'] }} dari {{ $userLimit['all']['limit'] }} </div>
+            {{ $userLimit['all']['used'] }} dari {{ $userLimit['all']['limit'] }} </div> --}}
     </div>
 
 
 
     <div class="flex container mx-auto px-3 sm:px-10 flex-col lg:flex-row">
         <div class="w-full lg:w-[500px] flex-col justify-start items-start sm:gap-6 inline-flex">
-            <form action="{{ route('syllabusPost') }}" method="post" class="w-full">
+            <form action="{{ route('syllabusPost') }}" method="post" class="w-full" id="silabusForm">
                 <!-- Input untuk Nama Silabus -->
                 @csrf
 
-                <div class="mb-4">
-                    <label for="subject"
-                        class="text-gray-900 text-base font-['Inter'] leading-normal font-semibold">Subject</label>
-                    <button data-tooltip-target="subjectTooltip" data-tooltip-placement="right" data-tooltip-trigger="click"
-                        type="button"
-                        class="text-gray-600 transition-colors duration-200 focus:outline-none dark:text-gray-200 dark:hover:text-blue-400 hover:text-blue-500">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
-                            stroke="currentColor" class="w-4 h-4">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z" />
-                        </svg>
-                    </button>
+                <x-generate-field type="text" id="subject" name="subject" label="Subject"
+                    placeholder="masukan nama mata pelajaran" tooltipId="subjectTooltip" tooltipText="Contoh : Geografi"
+                    required />
 
-                    <div id="subjectTooltip" role="tooltip"
-                        class="w-36 absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
-                        Contoh : Geografi
-                        <div class="tooltip-arrow" data-popper-arrow></div>
-                    </div>
-
-                    <input type="text" name="subject" id="subject"
-                        class="w-full p-2 border rounded-md mt-[10px] placeholder:text-gray-400 text-base font-normal font-['Inter'] leading-normal"
-                        placeholder="masukan nama mata pelajaran" required>
-                </div>
-
-                <div class="mb-4">
-                    <label for="grade"
-                        class="text-gray-900 text-base font-['Inter'] leading-normal font-semibold">Kelas</label>
-                    <button data-tooltip-target="gradeTooltip" data-tooltip-placement="right" data-tooltip-trigger="click"
-                        type="button"
-                        class="text-gray-600 transition-colors duration-200 focus:outline-none dark:text-gray-200 dark:hover:text-blue-400 hover:text-blue-500">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
-                            stroke="currentColor" class="w-4 h-4">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z" />
-                        </svg>
-                    </button>
-
-                    <div id="gradeTooltip" role="tooltip"
-                        class="w-36 absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
-                        Contoh : 11
-                        <div class="tooltip-arrow" data-popper-arrow></div>
-                    </div>
-
-                    <input type="number" name="grade" id="grade"
-                        class="w-full p-2 border rounded-md mt-[10px] placeholder:text-gray-400 text-base font-normal font-['Inter'] leading-normal"
-                        placeholder="masukan tingkat kelas" required>
-                </div>
+                <x-select-field id="grade" name="grade" label="Kelas" :options="$options" defaultOption="Pilih Kelas"
+                    required />
 
                 <!-- Input untuk Mata Pelajaran -->
+
                 <div class="mb-4">
                     <label for="nip"
                         class="text-gray-900 text-base font-semibold font-['Inter'] leading-normal">NIP</label>
@@ -116,36 +81,14 @@
                     </div>
 
                     <input type="text" id="nip" name="nip"
-                        class="w-full p-2 border rounded-md mt-[10px] placeholder:text-gray-400 text-base font-normal font-['Inter'] leading-normal"
+                        class="w-full p-2 border-gray-300 rounded-md mt-[10px] placeholder:text-gray-400 text-base font-normal font-['Inter'] leading-normal"
                         placeholder="masukan nip" minlength="21" maxlength="25" required>
-
                 </div>
 
-                <div class="mb-4">
-                    <label for="notes"
-                        class="text-gray-900 text-base font-semibold font-['Inter'] leading-normal mb-[10px]">Deskripsi
-                        Syllabus</label>
-                    <button data-tooltip-target="notesTooltip" data-tooltip-placement="right"
-                        data-tooltip-trigger="click" type="button"
-                        class="text-gray-600 transition-colors duration-200 focus:outline-none dark:text-gray-200 dark:hover:text-blue-400 hover:text-blue-500">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
-                            stroke="currentColor" class="w-4 h-4">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z" />
-                        </svg>
-                    </button>
+                <x-textarea-field id="notes" name="notes" label="Deskripsi Silabus"
+                    placeholder="masukan deskripsi silabus" tooltipId="descriptionTooltip"
+                    tooltipText=" Contoh : Buatkan silabus untuk mata pelajaran Geografi kelas 11" required />
 
-                    <div id="notesTooltip" role="tooltip"
-                        class="w-36 absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
-                        Contoh : Buatkan silabus untuk mata pelajaran Geografi kelas 11
-                        <div class="tooltip-arrow" data-popper-arrow></div>
-                    </div>
-
-                    <textarea id="notes" name="notes"
-                        class="w-full p-2 border rounded-md mt-[10px] placeholder:text-gray-400 text-base font-normal font-['Inter'] leading-normal"
-                        placeholder="Masukkan deskripsi syllabus" maxlength="250" oninput="updateCharacterCount(this)" required></textarea>
-
-                </div>
                 <div class="flex justify-end -mt-2">
                     <div class="self-stretch justify-start items-end gap-5 inline-flex">
                         <div id="characterCount"
@@ -153,16 +96,14 @@
                     </div>
                 </div>
                 <div class="flex justify-between py-6 border-b">
-                    <button type="button" onclick="clearInputs()"
-                        class="h-12 px-6 bg-white rounded-lg justify-center items-center gap-2.5 inline-flex border border-gray-900">
-                        <img src="{{ URL('images/x-circle.svg') }}" alt="" class="w-[20px] h-[20px]">
-                        <div class="text-center text-base font-medium font-['Inter'] leading-normal">Hapus</div>
-                    </button>
+                    <x-delete-button />
                     <button id="submitButton" type="submit"
                         class="h-12 px-6 bg-blue-600 rounded-lg justify-center items-center gap-2.5 inline-flex">
-                        <img src="{{ URL('images/glass.svg') }}" alt="" class="w-[20px] h-[20px]">
-                        <div class="text-center text-white text-base font-medium font-['Inter'] leading-normal">Buat
-                            Syllabus</div>
+                        <img id="submitButtonIcon" src="{{ URL('images/glass.svg') }}" alt=""
+                            class="w-[20px] h-[20px]">
+                        <div id="submitButtonText"
+                            class="text-center text-white text-base font-medium font-['Inter'] leading-normal">Buat Silabus
+                        </div>
                     </button>
 
                     <button id="loadingButton" disabled type="button"
@@ -189,8 +130,8 @@
                 @if (session('error'))
                     <div class="flex items-center p-4 mb-4 text-sm text-red-800 border border-red-300 rounded-lg bg-red-50"
                         role="alert">
-                        <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true"
-                            xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                        <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                            fill="currentColor" viewBox="0 0 20 20">
                             <path
                                 d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
                         </svg>
@@ -341,56 +282,32 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            // Memfokuskan ke input email
-            document.getElementById("subject").focus();
+            document.getElementById('subject').focus();
         });
 
         function clearInputs() {
-            document.getElementById('name').value = ''; // Menghapus nilai input nama
-            document.getElementById('subject').value = ''; // Menghapus nilai input subject
-            document.getElementById('grade').value = ''; // Menghapus nilai input grade
-            document.getElementById('notes').value = ''; // Menghapus nilai input notes
+            document.getElementById('subject').value = '';
+            document.getElementById('nip').value = '';
+            document.getElementById('grade').value = '';
+            document.getElementById('notes').value = '';
         }
 
-        function updateCharacterCount(textarea) {
+        document.getElementById('notes').addEventListener('input', function() {
             var characterCountElement = document.getElementById('characterCount');
-            var currentCount = textarea.value.length;
+            var currentCount = this.value.length;
             characterCountElement.textContent = currentCount + '/250';
-        }
+        });
 
+        document.getElementById('silabusForm').addEventListener('submit', function(event) {
+            event.preventDefault();
 
-        document.addEventListener('DOMContentLoaded', function() {
             const submitButton = document.getElementById('submitButton');
             const loadingButton = document.getElementById('loadingButton');
 
-            submitButton.addEventListener('click', function() {
-                // Validasi input
-                var nip = document.getElementById('nip').value;
-                var subject = document.getElementById('subject').value;
-                var grade = document.getElementById('grade').value;
-                var notes = document.getElementById('notes').value;
-                var nipInput = document.getElementById('nip');
-                var nipValue = nipInput.value.trim();
-                var isValid = nip.trim() !== '' && subject.trim() !== '' && grade.trim() !== '' && notes
-                    .trim() !== '' && nipValue.length >= nipInput.minLength && nipValue.length <= nipInput
-                    .maxLength;
+            submitButton.style.display = 'none';
+            loadingButton.style.display = 'inline-flex';
 
-
-                if (isValid) {
-                    submitButton.style.display = 'none';
-                    loadingButton.style.display = 'inline-flex';
-
-                    // Optional: Set a timeout to simulate form submission
-                    setTimeout(function() {
-                        // Your form submission code here...
-                        // For example:
-                        // form.submit();
-                    }, 3000); // Adjust the timeout as needed (in milliseconds)
-                } else {
-                    // Tampilkan pesan bahwa ada kolom yang kosong
-                    return;
-                }
-            });
+            this.submit();
         });
     </script>
 

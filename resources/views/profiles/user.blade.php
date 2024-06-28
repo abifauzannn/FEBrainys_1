@@ -48,7 +48,7 @@
             <!-- Display avatar image -->
             <img src="{{ $avatarUrl }}" alt="Profile Picture" class="w-20 h-20 rounded-full mb-4">
 
-            <form class="w-full max-w-md" action="{{ route('change-profilePost') }}" method="POST">
+            <form class="w-full max-w-md" action="{{ route('change-profilePost') }}" method="POST" id="profileForm">
                 @csrf
 
                 <!-- Popup untuk menampilkan pesan berhasil -->
@@ -63,24 +63,24 @@
 
 
                 <x-form-input id="name" name="name" type="text" label="Nama Lengkap"
-                    placeholder="email@contoh.com" value="{{ session('user')['name'] }}" />
+                    placeholder="email@contoh.com" value="{{ session('user')['name'] }}" required />
 
 
                 <!-- Input field for profession -->
 
                 <x-form-input id="profession" name="profession" type="text" label="Profesi" placeholder="Guru"
-                    value="{{ session('user')['profession'] }}" />
+                    value="{{ session('user')['profession'] }}" required />
 
 
                 <!-- Input field for school name -->
 
                 <x-form-input id="school_name" name="school_name" type="text" label="Asal Sekolah"
-                    placeholder="Asal Sekolah" value="{{ session('user')['school_name'] }}" />
+                    placeholder="Asal Sekolah" value="{{ session('user')['school_name'] }}" required />
 
 
 
                 <x-form-input id="email" name="email" type="email" label="Email" placeholder="email@contoh.com"
-                    value="{{ session('user')['email'] }}" />
+                    value="{{ session('user')['email'] }}" required />
 
 
                 <div class="flex justify-end items-end mb-4">
@@ -89,11 +89,24 @@
                 </div>
 
                 <div class="flex justify-center">
-                    <button class="w-full h-12 px-6 bg-blue-600 rounded-sm justify-center items-center gap-2.5 inline-flex"
+                    <button id="submitButton"
+                        class="w-full h-12 px-6 bg-blue-600 rounded-sm justify-center items-center gap-2.5 inline-flex"
                         type="submit">
-                        <img src="{{ URL('images/check-circle.svg') }}" alt="" class="w-[20px] h-[20px]">
-                        <span class="text-center text-white text-base font-medium font-['Inter'] leading-normal">Simpan
+                        <img id="checkIcon" src="{{ URL('images/check-circle.svg') }}" alt=""
+                            class="w-[20px] h-[20px]">
+                        <span id="submitButtonText"
+                            class="text-center text-white text-base font-medium font-['Inter'] leading-normal">Simpan
                             Profil</span>
+                        <div id="loadingSpinner" class="hidden ml-2">
+                            <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                viewBox="0 0 24 24">
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
+                                    stroke-width="4"></circle>
+                                <path class="opacity-75" fill="currentColor"
+                                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                                </path>
+                            </svg>
+                        </div>
                     </button>
                 </div>
             </form>
@@ -116,15 +129,13 @@
         </script>
     @endif
 
-
     <script>
-        document.getElementById('togglePassword').addEventListener('click', function() {
-            var passwordInput = document.getElementById('password');
-            var type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-            passwordInput.setAttribute('type', type);
+        document.getElementById('profileForm').addEventListener('submit', function() {
+            // Show loading spinner
+            document.getElementById('submitButtonText').classList.add('hidden');
+            document.getElementById('checkIcon').classList.add('hidden');
+            document.getElementById('loadingSpinner').classList.remove('hidden');
         });
     </script>
-
-
 
 @endsection

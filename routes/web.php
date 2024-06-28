@@ -1,9 +1,13 @@
 <?php
 
+use App\Http\Controllers\AtpController;
 use App\Http\Controllers\AuthenticationController;
+use App\Http\Controllers\BahanAjarController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EssayController;
+use App\Http\Controllers\GamifikasiController;
 use App\Http\Controllers\HistoryController;
+use App\Http\Controllers\KisiKisiController;
 use App\Http\Controllers\ModulAjarController;
 use App\Http\Controllers\SyllabusController;
 use App\Http\Controllers\UserController;
@@ -66,6 +70,12 @@ Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashb
 
 Route::get('/generate-modul-ajar', [ModulAjarController::class, 'modulAjar'])->name('modulAjar');
 Route::post('/generate-modul-ajar', [ModulAjarController::class, 'generateModulAjar'])->name('modulAjarPost');
+Route::get('/generate-modul-ajar/generate-output', [ModulAjarController::class, 'modulAjar'])->name('outputModulAjar');
+
+Route::get('/generate-bahan-ajar', [BahanAjarController::class, 'bahanAjar'])->name('bahanAjar');
+Route::get('/generate-gamifikasi', [GamifikasiController::class, 'gamifikasi'])->name('gamifikasi');
+Route::get('/generate-kisi-kisi', [KisiKisiController::class, 'kisi'])->name('kisi');
+Route::get('/generate-atp', [AtpController::class, 'atp'])->name('atp');
 
 Route::post('/export-word', [ModulAjarController::class, 'exportToWord'])->name('export-word');
 Route::post('/export-word-syllabus', [SyllabusController::class, 'exportToWord'])->name('export-word-syllabus');

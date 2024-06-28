@@ -80,7 +80,7 @@ class ModulAjarController extends Controller
     }
 
     // Pass the $data and $generateId variables to the view
-    return view('generates.generateModulAjar', compact('data', 'generateId', 'userLimit'));
+    return view('outputGenerates.outputModulAjar', compact('data', 'generateId', 'userLimit'));
 }
 
 

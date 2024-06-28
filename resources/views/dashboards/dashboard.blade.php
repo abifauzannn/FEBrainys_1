@@ -129,9 +129,6 @@
                     <a href="https://wa.link/z2edgq" target="_blank" class="hover:font-bold">Butuh Bantuan?</a>
                 </div>
             </button>
-
         </div>
-
-
     </div>
 @endsection

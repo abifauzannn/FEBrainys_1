@@ -48,7 +48,7 @@ class HistoryController extends Controller
         // Mengirim permintaan ke API dengan menyertakan token otorisasi
         $response = Http::withHeaders([
             'Authorization' => 'Bearer ' . $token,
-        ])->get('https://be.brainys.oasys.id/api/material/history');
+        ])->get(env('APP_API').'/material/history');
 
         if($response->successful()){
             return $response->json()['data'];
@@ -79,7 +79,7 @@ class HistoryController extends Controller
             // Mengirim permintaan ke API dengan menyertakan token otorisasi
             $response = Http::withHeaders([
                 'Authorization' => 'Bearer ' . $token,
-            ])->get('https://be.brainys.oasys.id/api/syllabus/history');
+            ])->get(env('APP_API').'/syllabus/history');
 
             if($response->successful()){
                 return $response->json()['data'];
@@ -109,7 +109,7 @@ class HistoryController extends Controller
 
             $response = Http::withHeaders([
                 'Authorization' => 'Bearer ' . $token,
-            ])->get('https://be.brainys.oasys.id/api/exercise/history/');
+            ])->get(env('APP_API').'/exercise/history/');
 
             if($response->successful()){
                 return $response->json()['data'];
@@ -123,7 +123,7 @@ class HistoryController extends Controller
 
             $response = Http::withHeaders([
                 'Authorization' => 'Bearer ' . $token,
-            ])->get('https://be.brainys.oasys.id/api/history');
+            ])->get(env('APP_API').'/history');
 
             if($response->successful()){
                 return $response->json()['data'];

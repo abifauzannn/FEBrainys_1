@@ -47,7 +47,7 @@ class ModulAjarController extends Controller
 
         $response = Http::withToken($token)
             ->timeout(60) // timeout dalam detik (contoh: 60 detik)
-            ->post('https://be.brainys.oasys.id/api/material/generate', [
+            ->post(env('APP_API').'/material/generate', [
                 'name' => $request->input('name'),
                 'subject' => $request->input('subject'),
                 'grade' => $request->input('grade'),
@@ -93,7 +93,7 @@ public function exportToWord(Request $request)
 
     // Buat permintaan HTTP ke API untuk mengunduh dokumen Word
     $response = Http::withToken(session()->get('access_token'))
-                    ->post('https://be.brainys.oasys.id/api/material/export-word', [
+                    ->post(env('APP_API').'/material/export-word', [
                         'id' => $generateId
                     ]);
 
@@ -114,7 +114,7 @@ public function getUserLimit()
 {
     // Lakukan HTTP request untuk mendapatkan data status pengguna
     $response = Http::withToken(session()->get('access_token'))
-                    ->get('https://be.brainys.oasys.id/api/user-status');
+                    ->get(env('APP_API').'/user-status');
 
     // Periksa apakah permintaan HTTP sukses
     if ($response->successful()) {
@@ -141,7 +141,7 @@ public function getDetailModulAjar($idModul){
 
     $response = Http::withToken($token)
         ->timeout(60) // timeout dalam detik (contoh: 60 detik)
-        ->get('https://be.brainys.oasys.id/api/material/history/' . $idModul);
+        ->get(env('APP_API').'/material/history/' . $idModul);
 
     $statusCode = $response->status();
     $responseData = $response->json();

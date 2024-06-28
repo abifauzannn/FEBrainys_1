@@ -56,7 +56,7 @@ class AuthenticationController extends Controller
     public function emailVerify(Request $request)
     {
         // Buat permintaan login ke API
-        $response = Http::post('https://be.brainys.oasys.id/api/forgot-password', [
+        $response = Http::post(env('APP_API').'/forgot-password', [
             'email' => $request->input('email'),
         ]);
 
@@ -80,7 +80,7 @@ class AuthenticationController extends Controller
     {
         // dd($request);
         // Buat permintaan reset password ke endpoint API
-        $response = Http::post('https://be.brainys.oasys.id/api/reset-password', [
+        $response = Http::post(env('APP_API').'/reset-password', [
             'reset_token' =>  $request->input('reset_token'),
             'new_password' => $request->input('new_password'),
             'new_password_confirmation' => $request->input('new_password_confirmation')
@@ -120,7 +120,7 @@ class AuthenticationController extends Controller
             return redirect()->route('login')->withErrors(['error' => 'Token not found. Please verify OTP again.']);
         }
 
-        $response = Http::withToken($accessToken)->post('https://be.brainys.oasys.id/api/update-profile', [
+        $response = Http::withToken($accessToken)->post(env('APP_API').'/update-profile', [
             'name' => $request->input('name'),
             'school_name' => $request->input('school_name'),
             'profession' => $request->input('profession'),
@@ -151,7 +151,7 @@ class AuthenticationController extends Controller
 
     public function resendOTP(Request $request)
     {
-        $response = Http::post('https://be.brainys.oasys.id/api/resend-otp', [
+        $response = Http::post(env('APP_API').'/resend-otp', [
             'email' => $request->input('email'),
         ]);
 
@@ -179,7 +179,7 @@ class AuthenticationController extends Controller
     public function otpOtomatis($email)
 {
     // Lakukan pemanggilan ke API dengan email yang diberikan
-    $response = Http::post('https://be.brainys.oasys.id/api/resend-otp', [
+    $response = Http::post(env('APP_API').'/resend-otp', [
         'email' => $email,
     ]);
 
@@ -215,7 +215,7 @@ class AuthenticationController extends Controller
 
     public function changePassword(Request $request)
     {
-        $apiUrl = 'https://be.brainys.oasys.id/api/change-password';
+        $apiUrl = env('APP_API').'/change-password';
 
         // Ambil token dari sesi Laravel
         $accessToken = Session::get('access_token');
@@ -282,7 +282,7 @@ class AuthenticationController extends Controller
         }
 
         // Panggil API untuk melengkapi profil dengan menggunakan token
-        $response = Http::withToken($accessToken)->post('https://be.brainys.oasys.id/api/profile', [
+        $response = Http::withToken($accessToken)->post(env('APP_API').'/profile', [
             'name' => $request->input('name'),
             'school_name' => $request->input('school_name'),
             'profession' => $request->input('profession'),
@@ -307,7 +307,7 @@ class AuthenticationController extends Controller
 
     public function verifyOTP(Request $request)
     {
-        $response = Http::post('https://be.brainys.oasys.id/api/verify-otp', [
+        $response = Http::post(env('APP_API').'/verify-otp', [
             'email' => $request->input('email'),
             'otp' => $request->input('otp'),
         ]);
@@ -330,7 +330,7 @@ class AuthenticationController extends Controller
 
     public function register(Request $request)
     {
-        $response = Http::post('https://be.brainys.oasys.id/api/register', [
+        $response = Http::post(env('APP_API').'/register', [
             'email' => $request->input('email'),
             'password' => $request->input('password'),
             'password_confirmation' => $request->input('password_confirmation'),
@@ -364,7 +364,7 @@ class AuthenticationController extends Controller
     }
 
     public function verifyInvitationCode(Request $request) {
-        $apiUrl = 'https://be.brainys.oasys.id/api/user-invitations/redeem';
+        $apiUrl = env('APP_API').'/user-invitations/redeem';
 
         // Ambil token dari sesi Laravel
         $accessToken = Session::get('access_token');
@@ -396,7 +396,7 @@ class AuthenticationController extends Controller
     public function login(Request $request)
 {
     // Buat permintaan login ke API
-    $response = Http::post('https://be.brainys.oasys.id/api/login', [
+    $response = Http::post(env('APP_API').'/login', [
         'email' => $request->input('email'),
         'password' => $request->input('password'),
     ]);
@@ -447,7 +447,7 @@ class AuthenticationController extends Controller
         return redirect()->route('verify.otp', compact('email'));
     }
 
-    $errorMessage = $message ?? 'Akun anda sudah terhubung dengan Google. Silahkan login menggunakan Google.';
+    $errorMessage = $message ?? 'Akun anda sudah terhubung dengan Google. Silahkan login menggunakan Google. ENV: '.env('APP_API').'/login'.' ';
 
     return back()->withErrors(['email' => $errorMessage]);
 }
@@ -469,7 +469,7 @@ class AuthenticationController extends Controller
     public function redirectToGoogle()
     {
         // Mengarahkan pengguna langsung ke URL pilihan akun Google
-        return redirect('https://be.brainys.oasys.id/api/login/google/');
+        return redirect(env('APP_API').'/login/google/');
     }
 
     public function handleGoogleCallback(Request $request)
@@ -481,7 +481,7 @@ class AuthenticationController extends Controller
         $client = new Client();
 
         // Tentukan URL callback dengan menyertakan semua parameter
-        $callbackUrl = 'https://be.brainys.oasys.id/api/login/google/callback?' . http_build_query($allParameters);
+        $callbackUrl = env('APP_API').'/login/google/callback?' . http_build_query($allParameters);
 
         // Lakukan permintaan GET ke endpoint callback
         $response = $client->get($callbackUrl);
@@ -490,7 +490,7 @@ class AuthenticationController extends Controller
         $result = json_decode($response->getBody(), true);
 
         // Buat permintaan profile
-        $profile = Http::withToken($result['token'])->get('https://be.brainys.oasys.id/api/user-profile');
+        $profile = Http::withToken($result['token'])->get(env('APP_API').'/user-profile');
         // $profile = $profile->json();
         $profileData = json_decode($profile->getBody(), true);
 

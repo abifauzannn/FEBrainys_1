@@ -38,9 +38,9 @@ class EssayController extends Controller
             $apiEndpoint = '';
 
             if ($exerciseType === 'essay') {
-                $apiEndpoint = 'https://be.brainys.oasys.id/api/exercise/generate-essay';
+                $apiEndpoint = env('APP_API').'/exercise/generate-essay';
             } elseif ($exerciseType === 'multiple_choice') {
-                $apiEndpoint = 'https://be.brainys.oasys.id/api/exercise/generate-choice';
+                $apiEndpoint = env('APP_API').'/exercise/generate-choice';
             } else {
                 // Handle error jika pilihan subjek tidak valid
                 return redirect('/generate-essay')->with('error', 'Invalid exercise type choice');
@@ -88,7 +88,7 @@ class EssayController extends Controller
 {
     // Lakukan HTTP request untuk mendapatkan data status pengguna
     $response = Http::withToken(session()->get('access_token'))
-                    ->get('https://be.brainys.oasys.id/api/user-status');
+                    ->get(env('APP_API').'/user-status');
 
     // Periksa apakah permintaan HTTP sukses
     if ($response->successful()) {
@@ -108,7 +108,7 @@ public function exportToWord(Request $request)
 
    // Buat permintaan HTTP ke API untuk mengunduh dokumen Word
    $response = Http::withToken(session()->get('access_token'))
-                   ->post('https://be.brainys.oasys.id/api/exercise/export-word', [
+                   ->post(env('APP_API').'/exercise/export-word', [
                        'id' => $generateId
                    ]);
 
@@ -140,7 +140,7 @@ public function getDetailExercise($idExercise){
 
     $response = Http::withToken($token)
         ->timeout(60) // timeout dalam detik (contoh: 60 detik)
-        ->get('https://be.brainys.oasys.id/api/exercise/history/' . $idExercise);
+        ->get(env('APP_API').'/exercise/history/' . $idExercise);
 
     $statusCode = $response->status();
     $responseData = $response->json();

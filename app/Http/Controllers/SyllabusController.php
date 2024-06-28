@@ -28,7 +28,7 @@ class SyllabusController extends Controller
 {
     // Lakukan HTTP request untuk mendapatkan data status pengguna
     $response = Http::withToken(session()->get('access_token'))
-                    ->get('https://be.brainys.oasys.id/api/user-status');
+                    ->get(env('APP_API').'/user-status');
 
     // Periksa apakah permintaan HTTP sukses
     if ($response->successful()) {
@@ -61,7 +61,7 @@ public function generateSyllabus(Request $request){
 
         $response = Http::withToken($token)
             ->timeout(60) // timeout dalam detik (contoh: 60 detik)
-            ->post('https://be.brainys.oasys.id/api/syllabus/generate', [
+            ->post(env('APP_API').'/syllabus/generate', [
                 'subject' => $request->input('subject'),
                 'grade' => $request->input('grade'),
                 'nip' => $request->input('nip'),
@@ -104,7 +104,7 @@ public function exportToWord(Request $request)
 
     // Buat permintaan HTTP ke API untuk mengunduh dokumen Word
     $response = Http::withToken(session()->get('access_token'))
-                    ->post('https://be.brainys.oasys.id/api/syllabus/export-word', [
+                    ->post(env('APP_API').'/syllabus/export-word', [
                         'id' => $generateId
                     ]);
 
@@ -137,7 +137,7 @@ public function getDetailSyllabus($idSyllabus){
 
     $response = Http::withToken($token)
         ->timeout(60) // timeout dalam detik (contoh: 60 detik)
-        ->get('https://be.brainys.oasys.id/api/syllabus/history/' . $idSyllabus);
+        ->get(env('APP_API').'/syllabus/history/' . $idSyllabus);
 
     $statusCode = $response->status();
     $responseData = $response->json();

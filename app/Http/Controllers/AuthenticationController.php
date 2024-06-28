@@ -286,6 +286,7 @@ class AuthenticationController extends Controller
             'name' => $request->input('name'),
             'school_name' => $request->input('school_name'),
             'profession' => $request->input('profession'),
+            'school_level' => $request->input('school_level'),
         ]);
 
         $responseData = $response->json();

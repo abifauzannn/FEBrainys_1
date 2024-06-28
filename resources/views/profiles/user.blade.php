@@ -77,6 +77,9 @@
                 <x-form-input id="school_name" name="school_name" type="text" label="Asal Sekolah"
                     placeholder="Asal Sekolah" value="{{ session('user')['school_name'] }}" required />
 
+                <x-form-input id="school_level" name="school_level" type="text" label="Jenjang" placeholder="Jenjang"
+                    value="{{ session('user')['school_level'] }}" required />
+
 
                 <x-form-input id="email" name="email" type="email" label="Email" placeholder="email@contoh.com"
                     value="{{ session('user')['email'] }}" required />

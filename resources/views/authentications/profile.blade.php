@@ -8,6 +8,14 @@
 
 @section('content')
 
+    @php
+        $jenjang = [
+            ['value' => 'sd', 'label' => 'SD'],
+            ['value' => 'smp', 'label' => 'SMP'],
+            ['value' => 'sma', 'label' => 'SMA'],
+        ];
+    @endphp
+
     <div class="container mx-auto flex items-center justify-center flex-col mt-10 ">
         <img src="{{ URL('images/Steps1.png') }}" alt="" class="w-[206px] h-[84px]">
         <div class="w-full p-3 h-[420px] flex items-center justify-center flex-col mt-24 sm:mt-[100px] p">
@@ -25,6 +33,9 @@
                         class="w-full p-2 border rounded-md mt-[10px] placeholder:text-gray-400 text-base font-normal font-['Inter'] leading-normal"
                         placeholder="Contoh: Budiman" required>
                 </div>
+
+                <x-select-field id="school_level" name="school_level" label="Jenjang" :options="$jenjang"
+                    defaultOption="Pilih Jenjang" required />
 
                 <div class="mb-4">
                     <label for="school_name"

@@ -124,6 +124,7 @@ class AuthenticationController extends Controller
             'name' => $request->input('name'),
             'school_name' => $request->input('school_name'),
             'profession' => $request->input('profession'),
+            'school_level' => $request->input('school_level'),
         ]);
 
         $responseData = $response->json();
@@ -134,6 +135,7 @@ class AuthenticationController extends Controller
             $user['name'] = $request->input('name');
             $user['school_name'] = $request->input('school_name');
             $user['profession'] = $request->input('profession');
+            $user['school_level'] = $request->input('school_level');
             session(['user' => $user]);
 
             return back()->with('success', $responseData['message']);
@@ -300,8 +302,9 @@ class AuthenticationController extends Controller
             return redirect()->route('dashboard')->with('success', 'Profile completed successfully');
         } else {
             // Tangani kesalahan API request
-            $errorMessage = isset($responseData['message']) ? $responseData['message'] : 'Profile completion failed. Please try again.';
-            return back()->withErrors(['error' => $errorMessage]);
+            // $errorMessage = isset($responseData['message']) ? $responseData['message'] : 'Profile completion failed. Please try again.';
+            // return back()->withErrors(['error' => $errorMessage]);
+            dd($responseData);
         }
     }
 

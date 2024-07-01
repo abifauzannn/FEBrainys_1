@@ -21,4 +21,5 @@ class AtpController extends Controller
             return redirect('/login');
         }
     }
+
 }

@@ -10,13 +10,30 @@
 
     @php
         $options = [];
-        for ($i = 1; $i <= 12; $i++) {
-            if ($i <= 6) {
+
+        $schoolLevel = session('user')['school_level'] ?? '';
+
+        if ($schoolLevel == 'sd') {
+            for ($i = 1; $i <= 6; $i++) {
                 $options[] = ['value' => $i, 'label' => "$i SD"];
-            } elseif ($i <= 9) {
+            }
+        } elseif ($schoolLevel == 'smp') {
+            for ($i = 7; $i <= 9; $i++) {
                 $options[] = ['value' => $i, 'label' => "$i SMP"];
-            } else {
+            }
+        } elseif ($schoolLevel == 'sma') {
+            for ($i = 10; $i <= 12; $i++) {
                 $options[] = ['value' => $i, 'label' => "$i SMA"];
+            }
+        } else {
+            for ($i = 1; $i <= 12; $i++) {
+                if ($i <= 6) {
+                    $options[] = ['value' => $i, 'label' => "$i SD"];
+                } elseif ($i <= 9) {
+                    $options[] = ['value' => $i, 'label' => "$i SMP"];
+                } else {
+                    $options[] = ['value' => $i, 'label' => "$i SMA"];
+                }
             }
         }
     @endphp
@@ -32,6 +49,9 @@
     <div class="container mx-auto px-4 py-6 sm:px-10 sm:py-9">
         <x-back-button url="{{ route('dashboard') }}" />
         <x-banner-page-generate title="Templat Modul Ajar" description="Gunakan template Modul Ajar kurikulum merdeka" />
+        @if (session('user')['school_level'] == '')
+            <x-alert-jenjang />
+        @endif
     </div>
 
     <div class="flex container mx-auto px-3 sm:px-10 flex-col lg:flex-row">
@@ -47,8 +67,12 @@
                     placeholder="masukan nama mata pelajaran" tooltipId="subjectTooltip" tooltipText="Contoh : Geografi"
                     required />
 
-                <x-select-field id="grade" name="grade" label="Kelas" :options="$options" defaultOption="Pilih Kelas"
-                    required />
+                @if (session('user')['school_level'] == '')
+                    <x-disable-select id="grade" label="Kelas" :options="$options" defaultOption="Pilih Kelas" />
+                @elseif (session('user')['school_level'] != '')
+                    <x-select-field id="grade" name="grade" label="Kelas" :options="$options"
+                        defaultOption="Pilih Kelas" />
+                @endif
 
                 <x-textarea-field id="notes" name="notes" label="Deskripsi Modul Ajar"
                     placeholder="masukan deskripsi modul ajar" tooltipId="descriptionTooltip"
@@ -65,14 +89,23 @@
 
                 <div class="flex justify-between py-6 border-b">
                     <x-delete-button />
-                    <button id="submitButton" type="submit"
-                        class="h-12 px-6 bg-blue-600 rounded-lg justify-center items-center gap-2.5 inline-flex">
-                        <img id="submitButtonIcon" src="{{ URL('images/glass.svg') }}" alt=""
-                            class="w-[20px] h-[20px]">
-                        <div id="submitButtonText"
-                            class="text-center text-white text-base font-medium font-['Inter'] leading-normal">Buat Modul
-                        </div>
-                    </button>
+                    @if (session('user')['school_level'] == '')
+                        <button id="submitButton" type="submit" disabled
+                            class="h-12 px-3 bg-blue-600 rounded-lg justify-center items-center gap-2.5 inline-flex">
+                            <img src="{{ URL('images/glass.svg') }}" alt="" class="w-[20px] h-[20px]">
+                            <div class="text-center text-white text-base font-medium font-['Inter'] leading-normal">Buat
+                                Bahan
+                                Ajar</div>
+                        </button>
+                    @elseif (session('user')['school_level'] != '')
+                        <button id="submitButton" type="submit"
+                            class="h-12 px-3 bg-blue-600 rounded-lg justify-center items-center gap-2.5 inline-flex">
+                            <img src="{{ URL('images/glass.svg') }}" alt="" class="w-[20px] h-[20px]">
+                            <div class="text-center text-white text-base font-medium font-['Inter'] leading-normal">Buat
+                                Bahan
+                                Ajar</div>
+                        </button>
+                    @endif
 
                     <button id="loadingButton" disabled type="button"
                         class="h-12 px-6 bg-blue-600 rounded-lg justify-center items-center gap-2.5 inline-flex"

@@ -67,7 +67,8 @@
                 @if (session('user')['school_level'] == '')
                     <x-disable-select id="grade" label="Kelas" :options="$options" defaultOption="Pilih Kelas" />
                 @elseif (session('user')['school_level'] != '')
-                    <x-select-field id="grade" label="Kelas" :options="$options" defaultOption="Pilih Kelas" />
+                    <x-select-field id="grade" label="Kelas" name="grade" :options="$options"
+                        defaultOption="Pilih Kelas" />
                 @endif
 
                 <x-generate-field type="text" id="subject" name="subject" label="Mata Pelajaran"

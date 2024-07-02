@@ -9,13 +9,30 @@
 @section('content')
     @php
         $options = [];
-        for ($i = 1; $i <= 12; $i++) {
-            if ($i <= 6) {
+
+        $schoolLevel = session('user')['school_level'] ?? '';
+
+        if ($schoolLevel == 'sd') {
+            for ($i = 1; $i <= 6; $i++) {
                 $options[] = ['value' => $i, 'label' => "$i SD"];
-            } elseif ($i <= 9) {
+            }
+        } elseif ($schoolLevel == 'smp') {
+            for ($i = 7; $i <= 9; $i++) {
                 $options[] = ['value' => $i, 'label' => "$i SMP"];
-            } else {
+            }
+        } elseif ($schoolLevel == 'sma') {
+            for ($i = 10; $i <= 12; $i++) {
                 $options[] = ['value' => $i, 'label' => "$i SMA"];
+            }
+        } else {
+            for ($i = 1; $i <= 12; $i++) {
+                if ($i <= 6) {
+                    $options[] = ['value' => $i, 'label' => "$i SD"];
+                } elseif ($i <= 9) {
+                    $options[] = ['value' => $i, 'label' => "$i SMP"];
+                } else {
+                    $options[] = ['value' => $i, 'label' => "$i SMA"];
+                }
             }
         }
     @endphp
@@ -29,19 +46,11 @@
     @endif
 
     <div class="container mx-auto px-4 py-6 sm:px-10 sm:py-9">
-        @if (session('success'))
-            <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 my-4" role="alert">
-                <p class="font-bold">Success!</p>
-                <p>{{ session('success') }}</p>
-            </div>
-        @endif
-
         <x-back-button url="{{ route('dashboard') }}" />
-
         <x-banner-page-generate title="Templat Silabus" description="Gunakan template Silabus kurikulum merdeka" />
-        {{--
-        <div class="mt-2 text-gray-500 text-sm leading-snug font-bold">Kuota yang sudah dipakai
-            {{ $userLimit['all']['used'] }} dari {{ $userLimit['all']['limit'] }} </div> --}}
+        @if (session('user')['school_level'] == '')
+            <x-alert-jenjang />
+        @endif
     </div>
 
 
@@ -56,8 +65,11 @@
                     placeholder="masukan nama mata pelajaran" tooltipId="subjectTooltip" tooltipText="Contoh : Geografi"
                     required />
 
-                <x-select-field id="grade" name="grade" label="Kelas" :options="$options" defaultOption="Pilih Kelas"
-                    required />
+                @if (session('user')['school_level'] == '')
+                    <x-disable-select id="grade" label="Kelas" :options="$options" defaultOption="Pilih Kelas" />
+                @elseif (session('user')['school_level'] != '')
+                    <x-select-field id="grade" label="Kelas" name="grade" :options="$options" defaultOption="Pilih Kelas" />
+                @endif
 
                 <!-- Input untuk Mata Pelajaran -->
 

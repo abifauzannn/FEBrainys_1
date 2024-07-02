@@ -15,6 +15,11 @@
             ['value' => 'sma', 'label' => 'SMA/SMK/MA Sederajat'],
         ];
     @endphp
+
+    @php
+        $isDisabled = true; // Replace this with your actual condition
+    @endphp
+
     <x-nav></x-nav>
 
     @if (session('user')['is_active'] == 0)
@@ -98,7 +103,7 @@
                 @endif
 
                 <x-form-input id="email" name="email" type="email" label="Email" placeholder="email@contoh.com"
-                    value="{{ session('user')['email'] }}" required />
+                    value="{{ session('user')['email'] }}" required :disabled="$isDisabled" />
 
 
                 <div class="flex justify-end items-end mb-4">

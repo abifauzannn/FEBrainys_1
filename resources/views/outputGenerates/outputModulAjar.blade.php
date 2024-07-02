@@ -19,13 +19,14 @@
                 <tbody class="divide-y divide-gray-200">
                     @foreach ($data['informasi_umum'] as $key => $value)
                         <tr class="">
-                            <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200 font-semibold  bg-slate-50">
+                            <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200 font-semibold bg-slate-50">
                                 {{ str_replace(' ', ' ', ucwords(str_replace('_', ' ', $key))) }}</td>
                             <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">
-                                {{ $value }}</td>
+                                {{ is_array($value) ? json_encode($value) : htmlspecialchars($value) }}</td>
                         </tr>
                     @endforeach
                 </tbody>
+
             </table>
         </div>
 

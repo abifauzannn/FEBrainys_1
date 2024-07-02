@@ -72,7 +72,7 @@
                         </button>
                         <button
                             class="filter-btn px-4 py-2 cursor-pointer hover:bg-gray-100 inline-flex justify-start items-center w-full"
-                            data-filter="exercise">
+                            data-filter="bahan-ajar">
                             <span class="flex w-3 h-3 me-3 bg-[#FD6969] rounded-full"></span>Bahan Ajar
                         </button>
                         <button
@@ -107,6 +107,10 @@
                                 <button
                                     class="w-auto bg-blue-100 text-blue-700 px-2 py-1 rounded-full mb-3 font-bold text-xs hover:cursor-default"
                                     disabled>Soal</button>
+                            @elseif ($history['type'] == 'bahan-ajar')
+                                <button
+                                    class="w-auto  bg-[#FD6969] text-white px-2 py-1 rounded-full mb-3 font-bold text-xs hover:cursor-default"
+                                    disabled>Bahan Ajar</button>
                             @endif
                             <div class="text-gray-900 text-xl font-semibold font-inter capitalize">{{ $history['name'] }}
                             </div>

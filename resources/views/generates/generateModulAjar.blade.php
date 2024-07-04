@@ -94,16 +94,14 @@
                             class="h-12 px-3 bg-blue-600 rounded-lg justify-center items-center gap-2.5 inline-flex">
                             <img src="{{ URL('images/glass.svg') }}" alt="" class="w-[20px] h-[20px]">
                             <div class="text-center text-white text-base font-medium font-['Inter'] leading-normal">Buat
-                                Bahan
-                                Ajar</div>
+                                Modul Ajar</div>
                         </button>
                     @elseif (session('user')['school_level'] != '')
                         <button id="submitButton" type="submit"
                             class="h-12 px-3 bg-blue-600 rounded-lg justify-center items-center gap-2.5 inline-flex">
                             <img src="{{ URL('images/glass.svg') }}" alt="" class="w-[20px] h-[20px]">
                             <div class="text-center text-white text-base font-medium font-['Inter'] leading-normal">Buat
-                                Bahan
-                                Ajar</div>
+                                Modul Ajar</div>
                         </button>
                     @endif
 

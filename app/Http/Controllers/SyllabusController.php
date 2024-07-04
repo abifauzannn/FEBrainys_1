@@ -13,11 +13,8 @@ class SyllabusController extends Controller
             // Ambil data pengguna dari sesi
             $userData = session('user');
 
-            // Panggil method getUserLimit() untuk mendapatkan data batas penggunaan
-            $userLimit = $this->getUserLimit();
-
             // Teruskan data pengguna dan batas penggunaan ke view
-            return view('generates.generateSyllabus', compact('userData', 'userLimit'));
+            return view('generates.generateSyllabus', compact('userData'));
         } else {
             // Redirect ke halaman login jika kunci 'user' tidak ada dalam sesi
             return redirect('/login');

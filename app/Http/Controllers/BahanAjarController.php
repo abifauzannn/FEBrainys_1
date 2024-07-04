@@ -104,6 +104,30 @@ public function exportToWord(Request $request)
     }
 }
 
+public function exportToPpt(Request $request)
+{
+    // Ambil generate_id dari permintaan
+    $generateId = $request->input('generate_id');
+
+    // Buat permintaan HTTP ke API untuk mengunduh dokumen Word
+    $response = Http::withToken(session()->get('access_token'))
+                    ->post(env('APP_API').'/bahan-ajar/export-ppt', [
+                        'id' => $generateId
+                    ]);
+
+    // Periksa apakah permintaan berhasil
+    if ($response->successful()) {
+        // Ambil URL unduhan dari respons
+        $downloadUrl = $response->json()['data']['download_url'];
+
+        // Arahkan pengguna ke URL unduhan
+        return redirect($downloadUrl);
+    } else {
+        dd($response->json());
+        return back()->with('error', 'Failed to export to Word.');
+    }
+}
+
 public function getUserLimit()
 {
     // Lakukan HTTP request untuk mendapatkan data status pengguna

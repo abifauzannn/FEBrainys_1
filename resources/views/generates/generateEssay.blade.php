@@ -104,14 +104,21 @@
                 </div>
                 <div class="flex justify-between py-6 border-b">
                     <x-delete-button />
-                    <button id="submitButton" type="submit"
-                        class="h-12 px-6 bg-blue-600 rounded-lg justify-center items-center gap-2.5 inline-flex">
-                        <img id="submitButtonIcon" src="{{ URL('images/glass.svg') }}" alt=""
-                            class="w-[20px] h-[20px]">
-                        <div id="submitButtonText"
-                            class="text-center text-white text-base font-medium font-['Inter'] leading-normal">Buat Latihan
-                        </div>
-                    </button>
+                    @if (session('user')['school_level'] == '')
+                        <button id="submitButton" type="submit" disabled
+                            class="h-12 px-3 bg-blue-600 rounded-lg justify-center items-center gap-2.5 inline-flex">
+                            <img src="{{ URL('images/glass.svg') }}" alt="" class="w-[20px] h-[20px]">
+                            <div class="text-center text-white text-base font-medium font-['Inter'] leading-normal">Buat
+                                Latihan</div>
+                        </button>
+                    @elseif (session('user')['school_level'] != '')
+                        <button id="submitButton" type="submit"
+                            class="h-12 px-3 bg-blue-600 rounded-lg justify-center items-center gap-2.5 inline-flex">
+                            <img src="{{ URL('images/glass.svg') }}" alt="" class="w-[20px] h-[20px]">
+                            <div class="text-center text-white text-base font-medium font-['Inter'] leading-normal">Buat
+                                Buat Latihan</div>
+                        </button>
+                    @endif
 
                     <button id="loadingButton" disabled type="button"
                         class="h-12 px-6 bg-blue-600 rounded-lg justify-center items-center gap-2.5 inline-flex"

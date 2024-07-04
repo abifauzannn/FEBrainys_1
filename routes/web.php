@@ -77,11 +77,16 @@ Route::post('/generate-bahan-ajar', [BahanAjarController::class, 'generateBahanA
 Route::get('/generate-gamifikasi', [GamifikasiController::class, 'gamifikasi'])->name('gamifikasi');
 Route::get('/generate-kisi-kisi', [KisiKisiController::class, 'kisi'])->name('kisi');
 Route::get('/generate-atp', [AtpController::class, 'atp'])->name('atp');
+Route::get('/generate-gamifikasi', [GamifikasiController::class, 'gamifikasi'])->name('gamifikasi');
 
 Route::post('/export-word', [ModulAjarController::class, 'exportToWord'])->name('export-word');
 Route::post('/export-word-syllabus', [SyllabusController::class, 'exportToWord'])->name('export-word-syllabus');
 Route::post('/export-essay', [EssayController::class, 'exportToWord'])->name('export-essay');
 Route::post('/export-bahan-ajar', [BahanAjarController::class, 'exportToWord'])->name('export-bahan-ajar');
+Route::post('/export-bahan-ajar-ppt', [BahanAjarController::class, 'exportToPpt'])->name('export-bahanAjar-ppt');
+Route::post('/export-gamifikasi-word', [GamifikasiController::class, 'exportToWord'])->name('export-gamifikasi-word');
+Route::post('/export-gamifikasi-ppt', [GamifikasiController::class, 'exportToPpt'])->name('export-gamifikasi-ppt');
+Route::post('/generate-gamifikasi', [GamifikasiController::class, 'generateGamifikasi'])->name('gamifikasiPost');
 
 
 Route::post('/register', [AuthenticationController::class, 'register'])->name('registerPost');

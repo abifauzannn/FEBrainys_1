@@ -9,13 +9,30 @@
 @section('content')
     @php
         $options = [];
-        for ($i = 1; $i <= 12; $i++) {
-            if ($i <= 6) {
+
+        $schoolLevel = session('user')['school_level'] ?? '';
+
+        if ($schoolLevel == 'sd') {
+            for ($i = 1; $i <= 6; $i++) {
                 $options[] = ['value' => $i, 'label' => "$i SD"];
-            } elseif ($i <= 9) {
+            }
+        } elseif ($schoolLevel == 'smp') {
+            for ($i = 7; $i <= 9; $i++) {
                 $options[] = ['value' => $i, 'label' => "$i SMP"];
-            } else {
+            }
+        } elseif ($schoolLevel == 'sma') {
+            for ($i = 10; $i <= 12; $i++) {
                 $options[] = ['value' => $i, 'label' => "$i SMA"];
+            }
+        } else {
+            for ($i = 1; $i <= 12; $i++) {
+                if ($i <= 6) {
+                    $options[] = ['value' => $i, 'label' => "$i SD"];
+                } elseif ($i <= 9) {
+                    $options[] = ['value' => $i, 'label' => "$i SMP"];
+                } else {
+                    $options[] = ['value' => $i, 'label' => "$i SMA"];
+                }
             }
         }
     @endphp
@@ -35,13 +52,14 @@
     <div class="container mx-auto px-4 py-6 sm:px-10 sm:py-9 relative">
         <x-back-button url="{{ route('dashboard') }}" />
         <x-banner-page-generate title="Templat Materi Gamifikasi" description="Gunakan template materi berbasis gamifikasi" />
-        {{-- <div class="mt-2 text-gray-500 text-sm leading-snug font-bold">Kuota yang sudah dipakai
-        {{ $userLimit['all']['used'] }} dari {{ $userLimit['all']['limit'] }} </div> --}}
+        @if (session('user')['school_level'] == '')
+            <x-alert-jenjang />
+        @endif
     </div>
 
     <div class="flex container mx-auto px-3 sm:px-10 flex-col lg:flex-row">
         <div class="w-full lg:w-[500px] flex-col justify-start items-start sm:gap-6 inline-flex h-auto">
-            <form action="{{ route('modulAjarPost') }}" method="post" class="w-full">
+            <form action="{{ route('gamifikasiPost') }}" method="post" class="w-full" id="gamifikasiForm">
                 <!-- Input untuk Nama Silabus -->
                 @csrf
 
@@ -49,12 +67,22 @@
                     placeholder="masukan nama materi" tooltipId="nameTooltip"
                     tooltipText="Contoh : SOLUSI MENGATASI PEMANASAN GLOBAL" />
 
-                <x-select-field id="grade" label="Kelas" :options="$options" defaultOption="Pilih Kelas" />
+                @if (session('user')['school_level'] == '')
+                    <x-disable-select id="grade" label="Kelas" :options="$options" defaultOption="Pilih Kelas" />
+                @elseif (session('user')['school_level'] != '')
+                    <x-select-field id="grade" name="grade" label="Kelas" :options="$options"
+                        defaultOption="Pilih Kelas" />
+                @endif
 
                 <x-generate-field type="text" id="subject" name="subject" label="Mata Pelajaran"
                     placeholder="masukan nama mata pelajaran" tooltipId="subjectTooltip" tooltipText="Contoh : Geografi" />
 
-                <x-select-field id="skema" label="Skema" :options="$skema" defaultOption="Pilih Skema" />
+                <x-select-field id="skema" label="Skema" name="skema" :options="$skema"
+                    defaultOption="Pilih Skema" />
+
+                <x-generate-field type="text" id="material" name="material" label="Material"
+                    placeholder="masukan material gamifikasi" tooltipId="materialTooltip"
+                    tooltipText="Contoh : Mengenai Sampah" />
 
                 <x-textarea-field id="notes" name="notes" label="Deskripsi Materi" tooltipId="descriptionTooltip"
                     placeholder="masukan deskripsi materi"
@@ -71,16 +99,22 @@
 
 
                 <div class="flex justify-between py-6 border-b">
-                    <button type="button" onclick="clearInputs()"
-                        class="h-12 px-6 bg-white rounded-lg justify-center items-center gap-2.5 inline-flex border border-gray-900">
-                        <img src="{{ URL('images/x-circle.svg') }}" alt="" class="w-[20px] h-[20px]">
-                        <div class="text-center text-base font-medium font-['Inter'] leading-normal">Hapus</div>
-                    </button>
-                    <button id="submitButton" type="submit"
-                        class="h-12 px-3 bg-blue-600 rounded-lg justify-center items-center gap-2.5 inline-flex">
-                        <img src="{{ URL('images/glass.svg') }}" alt="" class="w-[20px] h-[20px]">
-                        <div class="text-center text-white text-base font-medium font-['Inter'] leading-normal">Buat Materi</div>
-                    </button>
+                    <x-delete-button />
+                    @if (session('user')['school_level'] == '')
+                        <button id="submitButton" type="submit" disabled
+                            class="h-12 px-3 bg-blue-600 rounded-lg justify-center items-center gap-2.5 inline-flex">
+                            <img src="{{ URL('images/glass.svg') }}" alt="" class="w-[20px] h-[20px]">
+                            <div class="text-center text-white text-base font-medium font-['Inter'] leading-normal">Buat
+                                Gamifikasi</div>
+                        </button>
+                    @elseif (session('user')['school_level'] != '')
+                        <button id="submitButton" type="submit"
+                            class="h-12 px-3 bg-blue-600 rounded-lg justify-center items-center gap-2.5 inline-flex">
+                            <img src="{{ URL('images/glass.svg') }}" alt="" class="w-[20px] h-[20px]">
+                            <div class="text-center text-white text-base font-medium font-['Inter'] leading-normal">Buat
+                                Gamifikasi</div>
+                        </button>
+                    @endif
 
                     <button id="loadingButton" disabled type="button"
                         class="h-12 px-6 bg-blue-600 rounded-lg justify-center items-center gap-2.5 inline-flex"
@@ -103,7 +137,21 @@
         <div class="flex-col justify-start items-start lg:ml-[72px] inline-flex mt-3 lg:mt-0">
             <div class="text-gray-900 text-2xl font-semibold font-['Inter'] leading-[30px]">Hasil</div>
             <div class="w-full lg:w-[788px] text-gray-500 text-sm font-normal font-['Inter'] leading-snug mt-3">
-
+                @if (session('error'))
+                    <div class="flex items-center p-4 mb-4 text-sm text-red-800 border border-red-300 rounded-lg bg-red-50"
+                        role="alert">
+                        <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                            fill="currentColor" viewBox="0 0 20 20">
+                            <path
+                                d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+                        </svg>
+                        <span class="sr-only">Error!</span>
+                        <div>
+                            <span class="font-medium">{{ session('error') }}</span>
+                        </div>
+                    </div>
+                @endif
+                @yield('output')
             </div>
         </div>
     </div>
@@ -119,6 +167,8 @@
             document.getElementById('subject').value = ''; // Menghapus nilai input subject
             document.getElementById('grade').value = ''; // Menghapus nilai input grade
             document.getElementById('notes').value = ''; // Menghapus nilai input notes
+            document.getElementById('skema').value = ''; // Menghapus nilai input notes
+            document.getElementById('material').value = ''; // Menghapus nilai input notes
         }
 
         function updateCharacterCount(textarea) {
@@ -126,34 +176,16 @@
             var currentCount = textarea.value.length;
             characterCountElement.textContent = currentCount + '/250';
         }
-        document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('gamifikasiForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
             const submitButton = document.getElementById('submitButton');
             const loadingButton = document.getElementById('loadingButton');
 
-            submitButton.addEventListener('click', function() {
-                // Validasi input
-                var name = document.getElementById('name').value;
-                var subject = document.getElementById('subject').value;
-                var grade = document.getElementById('grade').value;
-                var notes = document.getElementById('notes').value;
-                var isValid = name.trim() !== '' && subject.trim() !== '' && grade.trim() !== '' && notes
-                    .trim() !== '';
+            submitButton.style.display = 'none';
+            loadingButton.style.display = 'inline-flex';
 
-                if (isValid) {
-                    submitButton.style.display = 'none';
-                    loadingButton.style.display = 'inline-flex';
-
-                    // Optional: Set a timeout to simulate form submission
-                    setTimeout(function() {
-                        // Your form submission code here...
-                        // For example:
-                        // form.submit();
-                    }, 3000); // Adjust the timeout as needed (in milliseconds)
-                } else {
-                    // Tampilkan pesan bahwa ada kolom yang kosong
-                    alert('Silahkan lengkapi semua kolom sebelum melanjutkan.');
-                }
-            });
+            this.submit();
         });
     </script>
 

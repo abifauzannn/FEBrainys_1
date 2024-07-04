@@ -18,12 +18,7 @@
     <div class="w-full container mx-auto px-4 sm:px-10 py-9">
 
 
-        <a href="/dashboard">
-            <div class="w-[90px] h-6 justify-start items-end gap-1 inline-flex mb-6">
-                <img src="{{ URL('images/back.svg') }}" alt="" class="w-6 h-6">
-                <div class="text-black text-base font-semibold font-['Inter']">Kembali</div>
-            </div>
-        </a>
+        <x-back-button url="/email-verify-change" />
 
         <div id="successPopup"
             class="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center hidden z-50">

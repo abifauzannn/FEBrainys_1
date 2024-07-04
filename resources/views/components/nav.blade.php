@@ -33,8 +33,16 @@
             <div>
                 <a href="/dashboard"><img src="{{ URL('images/newlogo.png') }}" alt=""
                         class="w-[140px] object-cover"></a>
+
             </div>
             <div class="flex items-center space-x-4">
+                @if (isset($userLimit))
+                    <div
+                        class="flex justify-center gap-1 items-center mt-1 text-gray-500 text-sm border border-zinc-200 rounded-[5px] py-1 px-1 bg-white font-bold">
+                        <img src="{{ URL('images/sparkles.png') }}" alt="" class="w-5 h-5">
+                        {{ $userLimit['all']['used'] }} / {{ $userLimit['all']['limit'] }}
+                    </div>
+                @endif
                 <div class="hidden md:block mt-1">
                     <div class="relative">
                         <!-- Tombol untuk menampilkan dropdown -->
@@ -112,7 +120,8 @@
                         </div>
                         <ul class="">
                             <li class="flex items-center hover:bg-gray-100 hover:rounded-lg px-1">
-                                <img src="{{ URL('images/user-circle.png') }}" alt="" class="w-[20px] h-[20px]">
+                                <img src="{{ URL('images/user-circle.png') }}" alt=""
+                                    class="w-[20px] h-[20px]">
                                 <a href="{{ route('userProfile') }}"
                                     class="block px-2 py-2 text-sm text-slate-500">Profile
                                     Pengguna</a>

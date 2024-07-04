@@ -24,12 +24,7 @@
             </div>
         @endif
 
-        <a href="/dashboard">
-            <div class="w-[90px] h-6 justify-start items-end gap-1 inline-flex mb-6">
-                <img src="{{ URL('images/back.svg') }}" alt="" class="w-6 h-6">
-                <div class="text-black text-base font-semibold font-['Inter']">Kembali</div>
-            </div>
-        </a>
+        <x-back-button url="{{ route('userProfile') }}" />
 
         <div class="w-full sm:w-[1170px] h-[60px] flex-col justify-start items-start gap-2 inline-flex">
             <div class="text-gray-900 text-2xl font-semibold font-['Inter'] leading-[30px]">Change Password</div>
@@ -52,14 +47,8 @@
                     </div>
                 @endif
                 @csrf
-                <div class="mb-4">
-                    <label for="email"
-                        class="text-gray-900 text-base font-medium font-['Inter'] leading-normal mb-[30px]">Masukan
-                        Email</label>
-                    <input type="email" id="email" name="email"
-                        class="w-full p-2 border rounded-md mt-[10px] placeholder:text-gray-400 text-base font-normal font-['Inter'] leading-normal mr-5"
-                        placeholder="email@contoh.com" value="{{ session('user')['email'] }}" required>
-                </div>
+                <x-form-input id="email" name="email" type="email" label="Email" placeholder="email@contoh.com"
+                    value="{{ session('user')['email'] }}" required />
                 <div class="items-center flex justify-center py-4">
                     <button type="submit" id="submitButton"
                         class="w-[194px] h-12 px-6 py-3 bg-blue-600 rounded-sm justify-center    items-center gap-2.5 inline-flex hover:bg-blue-700">
@@ -115,5 +104,3 @@
     </script>
 
 @endsection
-
-

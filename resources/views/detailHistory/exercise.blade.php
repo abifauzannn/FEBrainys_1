@@ -128,54 +128,7 @@
 
 
 
-        {{-- <div class="text-gray-900 text-lg font-bold mt-5 bg-gray-100 px-2 py-2">Kegiatan Pembelajaran</div>
-            @foreach ($materialHistory['output_data']['kompetensi_dasar'] as $kompetensi) --}}
-        {{-- <ol class="border-t border-gray-200">
-                <li class="px-6 pt-3 text-left text-sm font-bold text-gray-800 uppercase">
-                    {{ $loop->iteration }}.
-                    {{ $kompetensi['nama_kompetensi_dasar'] }}
-                </li>
-            </ol>
-
-
-            @foreach ($kompetensi['materi_pembelajaran'] as $materi_pembelajaran)
-                <div class="px-6 py-3">
-                    <div class="text-sm text-gray-800">
-                        <span class="font-bold">Materi :</span> {{ $materi_pembelajaran['materi'] }}
-                    </div>
-                    <ul class="pl-10 list-disc mt-3">
-                        <li class="text-sm text-gray-800 mb-2">
-                            <span class="font-bold">Indikator :</span> {{ $materi_pembelajaran['indikator'] }}
-                        </li>
-                        <li class="text-sm text-gray-800 mb-2">
-                            <span class="font-bold">Nilai Karakter :</span>
-                            {{ $materi_pembelajaran['nilai_karakter'] }}
-                        </li>
-                        <li class="text-sm text-gray-800 mb-2">
-                            <span class="font-bold">Kegiatan Pembelajaran :</span>
-                            {{ $materi_pembelajaran['kegiatan_pembelajaran'] }}
-                        </li>
-                        <li class="text-sm text-gray-800 mb-2">
-                            <span class="font-bold">Alokasi Waktu :</span>
-                            {{ $materi_pembelajaran['alokasi_waktu'] }}
-                        </li>
-                        <li class="text-sm text-gray-800 mb-2">
-                            <span class="font-bold">Penilaian :</span>
-                            <ul class="pl-5 list-circle">
-                                @foreach ($materi_pembelajaran['penilaian'] as $index => $penilaian)
-                                    <li>
-                                        {{ chr(97 + $index) }}. {{ $penilaian['jenis'] }}
-                                        ({{ $penilaian['bobot'] }}%)
-                                    </li>
-                                @endforeach
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-            @endforeach --}}
-
     </div>
-    {{-- @endforeach --}}
 </div>
 </div>
 

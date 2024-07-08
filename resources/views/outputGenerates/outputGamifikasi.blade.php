@@ -167,7 +167,7 @@
                     <span class="ml-3 font-bold font-['Inter']">Download File Word</span>
                 </button>
             </form>
-            <form action="{{ route('export-bahanAjar-ppt') }}" method="post">
+            <form action="{{ route('export-gamifikasi-ppt') }}" method="post">
                 @csrf
                 <input type="hidden" name="generate_id" value="{{ $generateId }}">
                 <button type="submit" class="flex items-center bg-blue-600 px-4 py-3 rounded-lg text-white">

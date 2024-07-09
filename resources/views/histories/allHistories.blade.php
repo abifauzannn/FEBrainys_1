@@ -101,7 +101,7 @@
                                     disabled>Modul Ajar</button>
                             @elseif ($history['type'] == 'syllabus')
                                 <button
-                                    class="w-auto bg-yellow-100 text-orange-700 px-2 py-1 rounded-full mb-3 font-bold text-xs hover:cursor-default"
+                                    class="w-auto bg-cyan-100 text-cyan-500 px-2 py-1 rounded-full mb-3 font-bold text-xs hover:cursor-default"
                                     disabled>Silabus</button>
                             @elseif ($history['type'] == 'exercise')
                                 <button

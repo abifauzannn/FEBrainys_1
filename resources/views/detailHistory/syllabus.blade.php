@@ -35,7 +35,7 @@
                     <tbody>
                         @foreach ($data['generate_output']['informasi_umum'] as $key => $value)
                             <tr>
-                                <td class="py-1 text-sm w-[250px]">{{ ucwords(str_replace('_', ' ', $key)) }}</td>
+                                <td class="py-1 text-sm w-[200px]">{{ ucwords(str_replace('_', ' ', $key)) }}</td>
                                 <td class="py-1 text-sm">: {{ $value }}</td>
                             </tr>
                         @endforeach
@@ -48,22 +48,22 @@
                 <table class="w-full">
                     <tbody>
                         <tr>
-                            <td class="py-1 text-sm w-[250px]">Mata Pelajaran</td>
+                            <td class="py-1 text-sm w-[200px]">Mata Pelajaran</td>
                             <td class="py-1 text-sm">:
                                 {{ $data['generate_output']['silabus_pembelajaran']['mata_pelajaran'] }}</td>
                         </tr>
                         <tr>
-                            <td class="py-1 text-sm w-[250px]">Tingkat Kelas</td>
+                            <td class="py-1 text-sm w-[200px]">Tingkat Kelas</td>
                             <td class="py-1 text-sm">:
                                 {{ $data['generate_output']['silabus_pembelajaran']['tingkat_kelas'] }}</td>
                         </tr>
                         <tr>
-                            <td class="py-1 text-sm w-[250px]">Alokasi Waktu</td>
+                            <td class="py-1 text-sm w-[200px]">Alokasi Waktu</td>
                             <td class="py-1 text-sm">:
                                 {{ $data['generate_output']['silabus_pembelajaran']['alokasi_waktu'] }}</td>
                         </tr>
                         <tr>
-                            <td class="py-1 text-sm w-[250px]">Kompetensi Inti</td>
+                            <td class="py-1 text-sm w-[200px]">Kompetensi Inti</td>
                             <td class="py-1 text-sm">
                                 <ul>
                                     @foreach ($data['generate_output']['silabus_pembelajaran']['kompetensi_inti'] as $ki)
@@ -73,7 +73,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td class="py-1 text-sm w-[250px]">Definisi Kompetensi Inti</td>
+                            <td class="py-1 text-sm w-[200px]">Definisi Kompetensi Inti</td>
                             <td class="py-1 text-sm">:
                                 {{ $data['generate_output']['silabus_pembelajaran']['definisi_kompetensi_inti'] }}</td>
                         </tr>

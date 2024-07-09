@@ -1,6 +1,6 @@
 @extends('layouts.template')
 
-@section('title', 'History Modul Ajar - Brainys')
+@section('title', 'History - Brainys')
 
 @section('meta')
     <meta name="robots" content="noindex, nofollow">
@@ -97,7 +97,7 @@
                         <header class="mb-3">
                             @if ($history['type'] == 'material')
                                 <button
-                                    class="w-auto bg-[#225AAD] text-white px-2 py-1 rounded-full mb-3 font-bold text-xs hover:cursor-default"
+                                    class="w-auto bg-blue-100 text-blue-900 px-2 py-1 rounded-full mb-3 font-bold text-xs hover:cursor-default"
                                     disabled>Modul Ajar</button>
                             @elseif ($history['type'] == 'syllabus')
                                 <button
@@ -105,15 +105,15 @@
                                     disabled>Silabus</button>
                             @elseif ($history['type'] == 'exercise')
                                 <button
-                                    class="w-auto bg-blue-100 text-blue-700 px-2 py-1 rounded-full mb-3 font-bold text-xs hover:cursor-default"
+                                    class="w-auto bg-yellow-100 text-orange-700 px-2 py-1 rounded-full mb-3 font-bold text-xs hover:cursor-default"
                                     disabled>Soal</button>
                             @elseif ($history['type'] == 'bahan-ajar')
                                 <button
-                                    class="w-auto  bg-[#FD6969] text-white px-2 py-1 rounded-full mb-3 font-bold text-xs hover:cursor-default"
+                                    class="w-auto  bg-red-100 text-red-500 px-2 py-1 rounded-full mb-3 font-bold text-xs hover:cursor-default"
                                     disabled>Bahan Ajar</button>
                             @elseif ($history['type'] == 'gamification')
                                 <button
-                                    class="w-auto  bg-[#D0EC27] text-white px-2 py-1 rounded-full mb-3 font-bold text-xs hover:cursor-default"
+                                    class="w-auto  bg-lime-100 text-lime-500 px-2 py-1 rounded-full mb-3 font-bold text-xs hover:cursor-default"
                                     disabled>Gamifikasi</button>
                             @endif
                             <div class="text-gray-900 text-xl font-semibold font-inter capitalize">{{ $history['name'] }}
@@ -130,8 +130,10 @@
                                 class="border border-blue-600 px-5 py-2 rounded-full text-blue-600 mt-3 gap-2 hover:bg-blue-600 hover:text-white transition duration-300 ease-in-out w-full flex justify-center items-center hover:font-semibold"
                                 onclick="
                                 @if ($history['type'] == 'material') window.location = '{{ route('detailModulAjar', $history['id']) }}';
+                                @elseif($history['type'] == 'bahan-ajar') window.location = '{{ route('detailBahanAjar', $history['id']) }}';
                                 @elseif($history['type'] == 'syllabus') window.location = '{{ route('detailSyllabus', $history['id']) }}';
-                                @else window.location = '{{ route('detailExercise', $history['id']) }}'; @endif">
+                                @elseif($history['type'] == 'exercise') window.location = '{{ route('detailExercise', $history['id']) }}';
+                                @elseif($history['type'] == 'gamification') window.location = '{{ route('detailGamifikasi', $history['id']) }}'; @endif">
                                 <svg class="w-4 h-4 mb-[3px]" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                     fill="none" viewBox="0 0 20 20">
                                     <path stroke="currentColor" stroke-width="2"
@@ -145,7 +147,7 @@
                             <form
                                 action="@if ($history['type'] == 'material') {{ route('export-word') }}
                                 @elseif ($history['type'] == 'syllabus') {{ route('export-word-syllabus') }}
-                                @elseif ($history['type'] == 'exercise') {{ route('export-essay') }} @elseif ($history['type'] == 'gamification') {{ route('export-gamifikasi-word') }} @elseif ($history['type'] == 'bahan-ajar') {{ route('export-bahan-ajar') }}  @endif"
+                                @elseif ($history['type'] == 'exercise') {{ route('export-essay') }} @elseif ($history['type'] == 'gamification') {{ route('export-gamifikasi-word') }} @elseif ($history['type'] == 'bahan-ajar') {{ route('export-bahan-ajar') }} @endif"
                                 method="post">
                                 @csrf
                                 <input type="hidden" name="generate_id" value="{{ $history['id'] }}">

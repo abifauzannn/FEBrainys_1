@@ -149,6 +149,46 @@ public function getUserLimit()
     }
 }
 
+public function getDetailGamifikasi($idGamifikasi){
+    // Check if the user is authenticated
+    if (!session()->has('access_token') || !session()->has('user')) {
+        // If not authenticated, redirect to login page
+        return redirect('/login')->with('error', 'Please log in to fetch material history.');
+    }
+
+    // Panggil method getUserLimit() untuk mendapatkan data batas penggunaan
+    $userLimit = $this->getUserLimit();
+
+    // Use the authentication token for API request
+    $token = session()->get('access_token');
+
+    $response = Http::withToken($token)
+        ->timeout(60) // timeout dalam detik (contoh: 60 detik)
+        ->get(env('APP_API').'/gamification/history/' . $idGamifikasi);
+
+    $statusCode = $response->status();
+    $responseData = $response->json();
+
+    if ($response->successful()) {
+        // Process the API response body
+        if (isset($responseData['data']['output_data'])) {
+            $gamifikasiHistory = $responseData['data'];
+            // Load view to display material history details
+            return view('detailHistory.gamification', compact('gamifikasiHistory', 'userLimit'));
+        } else {
+            // Handle the case where the expected structure is not present in the API response
+            return redirect('/history')->with('error', $responseData['message']);
+        }
+    } else {
+        // Handle error if needed
+        if (isset($responseData['status']) && $responseData['status'] === 'failed' && isset($responseData['message'])) {
+           dd($responseData);
+        } else {
+           dd($responseData);
+        }
+    }
+}
+
 
 
 }

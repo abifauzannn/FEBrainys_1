@@ -70,23 +70,37 @@ Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashb
 
 Route::get('/generate-modul-ajar', [ModulAjarController::class, 'modulAjar'])->name('modulAjar');
 Route::post('/generate-modul-ajar', [ModulAjarController::class, 'generateModulAjar'])->name('modulAjarPost');
+Route::post('/export-word', [ModulAjarController::class, 'exportToWord'])->name('export-word');
 Route::get('/generate-modul-ajar/generate-output', [ModulAjarController::class, 'modulAjar'])->name('outputModulAjar');
+
 
 Route::get('/generate-bahan-ajar', [BahanAjarController::class, 'bahanAjar'])->name('bahanAjar');
 Route::post('/generate-bahan-ajar', [BahanAjarController::class, 'generateBahanAjar'])->name('bahanAjarPost');
-Route::get('/generate-gamifikasi', [GamifikasiController::class, 'gamifikasi'])->name('gamifikasi');
-Route::get('/generate-kisi-kisi', [KisiKisiController::class, 'kisi'])->name('kisi');
-Route::get('/generate-atp', [AtpController::class, 'atp'])->name('atp');
-Route::get('/generate-gamifikasi', [GamifikasiController::class, 'gamifikasi'])->name('gamifikasi');
-
-Route::post('/export-word', [ModulAjarController::class, 'exportToWord'])->name('export-word');
-Route::post('/export-word-syllabus', [SyllabusController::class, 'exportToWord'])->name('export-word-syllabus');
-Route::post('/export-essay', [EssayController::class, 'exportToWord'])->name('export-essay');
 Route::post('/export-bahan-ajar', [BahanAjarController::class, 'exportToWord'])->name('export-bahan-ajar');
 Route::post('/export-bahan-ajar-ppt', [BahanAjarController::class, 'exportToPpt'])->name('export-bahanAjar-ppt');
+
+Route::get('/generate-gamifikasi', [GamifikasiController::class, 'gamifikasi'])->name('gamifikasi');
+Route::get('/generate-gamifikasi', [GamifikasiController::class, 'gamifikasi'])->name('gamifikasi');
 Route::post('/export-gamifikasi-word', [GamifikasiController::class, 'exportToWord'])->name('export-gamifikasi-word');
 Route::post('/export-gamifikasi-ppt', [GamifikasiController::class, 'exportToPpt'])->name('export-gamifikasi-ppt');
 Route::post('/generate-gamifikasi', [GamifikasiController::class, 'generateGamifikasi'])->name('gamifikasiPost');
+
+Route::get('/generate-kisi-kisi', [KisiKisiController::class, 'kisi'])->name('kisi');
+
+Route::get('/generate-atp', [AtpController::class, 'atp'])->name('atp');
+
+
+
+Route::get('/generate-essay', [EssayController::class, 'Essay'])->name('essay');
+Route::post('/generate-essay', [EssayController::class, 'generateEssay'])->name('essayPost');
+Route::post('/export-essay', [EssayController::class, 'exportToWord'])->name('export-essay');
+
+
+
+Route::get('/generate-syllabus', [SyllabusController::class, 'syllabus'])->name('syllabus');
+Route::post('/generate-syllabus', [SyllabusController::class, 'generateSyllabus'])->name('syllabusPost');
+Route::post('/export-word-syllabus', [SyllabusController::class, 'exportToWord'])->name('export-word-syllabus');
+
 
 
 Route::post('/register', [AuthenticationController::class, 'register'])->name('registerPost');
@@ -117,12 +131,10 @@ Route::get('/history', [HistoryController::class, 'showAllHistory'])->name('hist
 Route::get('/history/modul-ajar/{idModul}', [ModulAjarController::class, 'getDetailModulAjar'])->name('detailModulAjar');
 Route::get('/history/syllabus/{idSyllabus}', [SyllabusController::class, 'getDetailSyllabus'])->name('detailSyllabus');
 Route::get('/history/exercise/{idExercise}', [EssayController::class, 'getDetailExercise'])->name('detailExercise');
+Route::get('/history/bahan-ajar/{idBahan}', [BahanAjarController::class, 'getDetailBahanAjar'])->name('detailBahanAjar');
+Route::get('/history/gamifikasi/{idGamifikasi}', [GamifikasiController::class, 'getDetailGamifikasi'])->name('detailGamifikasi');
 
-Route::get('/generate-essay', [EssayController::class, 'Essay'])->name('essay');
-Route::post('/generate-essay', [EssayController::class, 'generateEssay'])->name('essayPost');
 
-Route::get('/generate-syllabus', [SyllabusController::class, 'syllabus'])->name('syllabus');
-Route::post('/generate-syllabus', [SyllabusController::class, 'generateSyllabus'])->name('syllabusPost');
 
 Route::post('/reedem-code', [AuthenticationController::class, 'verifyInvitationCode'])->name('reedemCode');
 

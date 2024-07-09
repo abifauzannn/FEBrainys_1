@@ -34,7 +34,7 @@
                     <tbody>
                         @foreach ($materialHistory['output_data']['informasi_umum'] as $key => $value)
                             <tr>
-                                <td class="py-1 text-sm w-[250px]">{{ ucwords(str_replace('_', ' ', $key)) }}</td>
+                                <td class="py-1 text-sm w-[200px]">{{ ucwords(str_replace('_', ' ', $key)) }}</td>
                                 <td class="py-1 text-sm">: {{ $value }}</td>
                             </tr>
                         @endforeach
@@ -48,7 +48,7 @@
                     <tbody>
                         @foreach ($materialHistory['output_data']['sarana_dan_prasarana'] as $key => $value)
                             <tr>
-                                <td class="py-1 text-sm w-[250px]">
+                                <td class="py-1 text-sm w-[200px]">
                                     {{ str_replace(' ', ' ', ucwords(str_replace('_', ' ', $key))) }}
                                 </td>
                                 <td class="py-1 text-sm">: {{ $value }}</td>
@@ -64,7 +64,7 @@
                     <tbody>
                         @foreach ($materialHistory['output_data']['komponen_pembelajaran'] as $key => $value)
                             <tr>
-                                <td class="py-1 text-sm w-[250px]">
+                                <td class="py-1 text-sm w-[200px]">
                                     {{ str_replace(' ', ' ', ucwords(str_replace('_', ' ', $key))) }}
                                 </td>
                                 <td class="py-1 text-sm">
@@ -86,7 +86,7 @@
                     <tbody>
                         @foreach ($materialHistory['output_data']['tujuan_kegiatan_pembelajaran'] as $key => $value)
                             <tr>
-                                <td class="py-1 text-sm w-[250px]">
+                                <td class="py-1 text-sm w-[200px]">
                                     {{ str_replace('_', ' ', ucwords(str_replace('_', ' ', $key))) }}
                                 </td>
                                 <td class="py-1 text-sm">
@@ -112,7 +112,7 @@
                     <tbody>
                         @foreach ($materialHistory['output_data']['pemahaman_bermakna'] as $key => $value)
                             <tr>
-                                <td class="py-1 text-sm w-[250px]">
+                                <td class="py-1 text-sm w-[200px]">
                                     {{ str_replace(' ', ' ', ucwords(str_replace('_', ' ', $key))) }}
                                 </td>
                                 <td class="py-1 text-sm">
@@ -219,7 +219,7 @@
                             d="M14.707 7.793a1 1 0 0 0-1.414 0L11 10.086V1.5a1 1 0 0 0-2 0v8.586L6.707 7.793a1 1 0 1 0-1.414 1.414l4 4a1 1 0 0 0 1.416 0l4-4a1 1 0 0 0-.002-1.414Z" />
                         <path
                             d="M18 12h-2.55l-2.975 2.975a3.5 3.5 0 0 1-4.95 0L4.55 12H2a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2
-                                                                                                                                                                                                                                                        v-4a2 2 0 0 0-2-2v-4a2 2 0 0 0-2-2Zm-3 5a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z" />
+                                                                                                                                                                                                                                                                        v-4a2 2 0 0 0-2-2v-4a2 2 0 0 0-2-2Zm-3 5a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z" />
                     </svg>
                     <span class="ml-3 font-bold font-['Inter']">Download File</span>
 

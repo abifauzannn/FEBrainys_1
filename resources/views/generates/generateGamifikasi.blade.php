@@ -63,7 +63,7 @@
                 <!-- Input untuk Nama Silabus -->
                 @csrf
 
-                <x-generate-field type="text" id="name" name="name" label="Nama Gamifikasi"
+                <x-generate-field type="text" id="name" name="name" label="Nama gamifikasi"
                     placeholder="masukan nama gamifikasi" tooltipId="nameTooltip"
                     tooltipText="Contoh : SOLUSI MENGATASI PEMANASAN GLOBAL" />
 

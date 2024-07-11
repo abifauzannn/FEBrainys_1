@@ -63,8 +63,8 @@
                 <!-- Input untuk Nama Silabus -->
                 @csrf
 
-                <x-generate-field type="text" id="name" name="name" label="Nama Materi"
-                    placeholder="masukan nama materi" tooltipId="nameTooltip"
+                <x-generate-field type="text" id="name" name="name" label="Nama Gamifikasi"
+                    placeholder="masukan nama gamifikasi" tooltipId="nameTooltip"
                     tooltipText="Contoh : SOLUSI MENGATASI PEMANASAN GLOBAL" />
 
                 @if (session('user')['school_level'] == '')
@@ -80,12 +80,12 @@
                 <x-select-field id="skema" label="Skema" name="skema" :options="$skema"
                     defaultOption="Pilih Skema" />
 
-                <x-generate-field type="text" id="material" name="material" label="Material"
-                    placeholder="masukan material gamifikasi" tooltipId="materialTooltip"
+                <x-generate-field type="text" id="material" name="material" label="Materi Pembelajaran"
+                    placeholder="masukan materi pembelajaran" tooltipId="materialTooltip"
                     tooltipText="Contoh : Mengenai Sampah" />
 
                 <x-textarea-field id="notes" name="notes" label="Deskripsi Materi" tooltipId="descriptionTooltip"
-                    placeholder="masukan deskripsi materi"
+                    placeholder="masukan deskripsi materi gamifikasi"
                     tooltipText="Contoh : Untuk memperkenalkan ke siswa tentang bagaimana solusi mengatasi pemanasan global, penyebab
                pemanasan global dan langkah-langkah mengatasinya" />
 

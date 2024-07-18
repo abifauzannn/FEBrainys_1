@@ -156,7 +156,7 @@
                             <form
                                 action="@if ($history['type'] == 'material') {{ route('export-word') }}
                                 @elseif ($history['type'] == 'syllabus') {{ route('export-word-syllabus') }}
-                                @elseif ($history['type'] == 'exercise') {{ route('export-essay') }} @elseif ($history['type'] == 'gamification') {{ route('export-gamifikasi-word') }} @elseif ($history['type'] == 'bahan-ajar') {{ route('export-bahan-ajar') }} @elseif ($history['type'] == 'hint') {{ route('export-kisi-kisi-word') }} @endif"
+                                @elseif ($history['type'] == 'exercise') {{ route('export-essay') }} @elseif ($history['type'] == 'gamification') {{ route('export-gamifikasi-word') }} @elseif ($history['type'] == 'bahan-ajar') {{ route('export-bahan-ajar') }} @elseif ($history['type'] == 'hint') {{ route('export-kisi-kisi-word') }} @elseif ($history['type'] == 'atp') {{ route('export-atp-word') }} @endif"
                                 method="post">
                                 @csrf
                                 <input type="hidden" name="generate_id" value="{{ $history['id'] }}">

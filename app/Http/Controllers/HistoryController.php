@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Http;
 
 class HistoryController extends Controller
@@ -17,14 +18,16 @@ class HistoryController extends Controller
             $historyModulAjar = $this->historyModulAjar();
             $historyExercise = $this->historyExercise();
             $historySyllabus = $this->historySyllabus();
+
+            // Assuming allHistory returns a query builder or Eloquent model instance
             $allHistory = $this->allHistory();
 
             return view('histories.allHistories', compact('userData', 'historyModulAjar', 'historyExercise', 'historySyllabus', 'allHistory'));
         } else {
-
             return redirect('/login');
         }
     }
+
 
     public function showHistoryModulAjar(){
         // Periksa apakah kunci 'user' ada dalam sesi

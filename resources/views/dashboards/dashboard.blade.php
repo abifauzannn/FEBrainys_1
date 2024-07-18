@@ -114,7 +114,7 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-2 lg:gap-4 lg:p-2">
             @foreach ($cards as $card)
                 <x-card onclick="window.location.href='{{ $card['url'] }}'" icon="{{ $card['icon'] }}"
-                    title="{{ $card['title'] }}" description="{{ $card['description'] }}" />
+                    title="{{ $card['title'] }}" description="{{ $card['description'] }}" status="{{ $card['status'] }}" />
             @endforeach
         </div>
 

@@ -1,6 +1,6 @@
 @extends('layouts.template')
 
-@section('title', 'Detail History Bahan Ajar - Brainys')
+@section('title', 'Detail History Gamifikasi - Brainys')
 
 
 @section('meta')

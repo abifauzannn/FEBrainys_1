@@ -86,9 +86,16 @@ Route::post('/export-gamifikasi-ppt', [GamifikasiController::class, 'exportToPpt
 Route::post('/generate-gamifikasi', [GamifikasiController::class, 'generateGamifikasi'])->name('gamifikasiPost');
 
 Route::get('/generate-kisi-kisi', [KisiKisiController::class, 'kisi'])->name('kisi');
+Route::post('/generate-kisi-kisi', [KisiKisiController::class, 'generateKisi'])->name('kisiPost');
+Route::post('/export-kisi-kisi-word', [KisiKisiController::class, 'exportToWord'])->name('export-kisi-kisi-word');
+Route::post('/export-kisi-kisi-excel', [KisiKisiController::class, 'exportToExcel'])->name('export-kisi-kisi-excel');
+
+
 
 Route::get('/generate-atp', [AtpController::class, 'atp'])->name('atp');
-
+Route::post('/generate-atp', [AtpController::class, 'generateAtp'])->name('atpPost');
+Route::post('/export-atp-word', [AtpController::class, 'exportToWord'])->name('export-atp-word');
+Route::post('/export-atp-excel', [AtpController::class, 'exportToExcel'])->name('export-atp-excel');
 
 
 Route::get('/generate-essay', [EssayController::class, 'Essay'])->name('essay');
@@ -133,10 +140,17 @@ Route::get('/history/syllabus/{idSyllabus}', [SyllabusController::class, 'getDet
 Route::get('/history/exercise/{idExercise}', [EssayController::class, 'getDetailExercise'])->name('detailExercise');
 Route::get('/history/bahan-ajar/{idBahan}', [BahanAjarController::class, 'getDetailBahanAjar'])->name('detailBahanAjar');
 Route::get('/history/gamifikasi/{idGamifikasi}', [GamifikasiController::class, 'getDetailGamifikasi'])->name('detailGamifikasi');
+Route::get('/history/kisi-kisi/{id}', [KisiKisiController::class, 'getDetailKisi'])->name('detailKisi');
+Route::get('/history/atp/{id}', [AtpController::class, 'getDetailAtp'])->name('detailAtp');
 
 
 
 Route::post('/reedem-code', [AuthenticationController::class, 'verifyInvitationCode'])->name('reedemCode');
+
+Route::get('/api/fases', [KisiKisiController::class, 'getFases']);
+Route::get('/api/subjects/{fase}', [KisiKisiController::class, 'getSubjects']);
+Route::get('/api/elements', [KisiKisiController::class, 'getElements']);
+Route::get('/api/final', [KisiKisiController::class, 'getFinal']);
 
 
 

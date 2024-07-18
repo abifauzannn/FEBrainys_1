@@ -88,7 +88,7 @@
 
 
                 <div class="flex justify-between items-center -mt-2">
-                    <a href="{{ route('emailVerifyChange') }}"
+                    <a href="https://guru.kemdikbud.go.id/kurikulum/referensi-penerapan/capaian-pembelajaran/"
                         class="text-blue-500 hover:text-blue-700 font-semibold text-sm">Lihat
                         panduan capaian belajar</a>
                     <div class="self-stretch justify-start items-end gap-5 inline-flex">

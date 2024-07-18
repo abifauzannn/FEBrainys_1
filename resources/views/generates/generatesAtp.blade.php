@@ -77,12 +77,11 @@
                     </select>
                 </div>
 
-                <x-generate-field type="number" id="pekan" name="pekan" label="Pekan"
-                    placeholder="masukan jumlah pertanyaan" tooltipId="questuinTooltip" tooltipText=" Contoh : 5" required
-                    :min="1" />
+                <x-generate-field type="number" id="pekan" name="pekan" label="Pekan" placeholder="masukan pekan"
+                    tooltipId="questuinTooltip" tooltipText=" Contoh : 5" required :min="1" />
 
                 <x-textarea-field id="notes" name="notes" label="Deskripsi ATP" tooltipId="descriptionTooltip"
-                    placeholder="masukan deskripsi kisi - kisi"
+                    placeholder="masukan deskripsi atp"
                     tooltipText="Contoh :
                     Penjelasan tentang logika matematika yang memuat tentang Lingkaran, Konjungsi, Disjungsi, Implikasi & Biimplikasi" />
 

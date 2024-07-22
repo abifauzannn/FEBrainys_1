@@ -42,11 +42,16 @@ class HistoryController extends Controller
         $queryParams = ['page' => $page];
         if ($type !== 'all') {
             $queryParams['type'] = $type;
+            $response = Http::withHeaders([
+                'Authorization' => 'Bearer ' . $token,
+            ])->post(env('APP_API') . '/history', $queryParams);
+        } else if ($type == 'all') {
+            $response = Http::withHeaders([
+                'Authorization' => 'Bearer ' . $token,
+            ])->get(env('APP_API') . '/history', $queryParams);
         }
 
-        $response = Http::withHeaders([
-            'Authorization' => 'Bearer ' . $token,
-        ])->post(env('APP_API') . '/history', $queryParams);
+        // dd($response);
 
         if ($response->successful()) {
             return $response->json();
@@ -55,6 +60,4 @@ class HistoryController extends Controller
             return null;
         }
     }
-
-
 }

@@ -10,9 +10,12 @@
 
     @php
         $jenjang = [
-            ['value' => 'sd', 'label' => 'SD/MI Sederajat'],
-            ['value' => 'smp', 'label' => 'SMP/MTs Sederajat'],
-            ['value' => 'sma', 'label' => 'SMA/SMK/MA Sederajat'],
+            ['value' => 'sd', 'label' => ' SD/MI Sederajat'],
+            ['value' => 'smp', 'label' => ' SMP/MTs Sederajat'],
+            ['value' => 'sma', 'label' => ' SMA/SMK/MA Sederajat'],
+            ['value' => 'paketa', 'label' => ' Pendidikan Kesetaraan Paket A'],
+            ['value' => 'paketb', 'label' => ' Pendidikan Kesetaraan Paket B'],
+            ['value' => 'paketc', 'label' => ' Pendidikan Kesetaraan Paket C'],
         ];
     @endphp
 
@@ -93,13 +96,22 @@
                         defaultOption="Pilih Jenjang" required />
                 @elseif (session('user')['school_level'] == 'smp')
                     <x-select-field id="school_level" name="school_level" label="Jenjang" :options="$jenjang"
-                        defaultOption="{{ strtoupper(session('user')['school_level']) }}/MTs Sederajat" required />
+                        defaultOption="{{ strtoupper(session('user')['school_level']) }}" required />
                 @elseif (session('user')['school_level'] == 'sd')
                     <x-select-field id="school_level" name="school_level" label="Jenjang" :options="$jenjang"
-                        defaultOption="{{ strtoupper(session('user')['school_level']) }}/MI Sederajat" required />
+                        defaultOption="{{ strtoupper(session('user')['school_level']) }}" required />
                 @elseif (session('user')['school_level'] == 'sma')
                     <x-select-field id="school_level" name="school_level" label="Jenjang" :options="$jenjang"
-                        defaultOption="{{ strtoupper(session('user')['school_level']) }}/SMA/SMK/MA Sederajat" required />
+                        defaultOption="{{ strtoupper(session('user')['school_level']) }}" required />
+                @elseif (session('user')['school_level'] == 'paketa')
+                    <x-select-field id="school_level" name="school_level" label="Jenjang" :options="$jenjang"
+                        defaultOption="{{ strtoupper(session('user')['school_level']) }}" required />
+                @elseif (session('user')['school_level'] == 'paketb')
+                    <x-select-field id="school_level" name="school_level" label="Jenjang" :options="$jenjang"
+                        defaultOption="{{ strtoupper(session('user')['school_level']) }}t" required />
+                @elseif (session('user')['school_level'] == 'paketc')
+                    <x-select-field id="school_level" name="school_level" label="Jenjang" :options="$jenjang"
+                        defaultOption="{{ strtoupper(session('user')['school_level']) }}" required />
                 @endif
 
                 <x-form-input id="email" name="email" type="email" label="Email" placeholder="email@contoh.com"

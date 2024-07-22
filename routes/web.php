@@ -134,7 +134,8 @@ Route::get('/user-profile', [UserController::class, 'showProfile'])->name('userP
 
 Route::post('/resend-otp', [AuthenticationController::class, 'resendOTP'])->name('resend-otp');
 
-Route::get('/history', [HistoryController::class, 'showAllHistory'])->name('history');
+Route::get('/history', [HistoryController::class, 'showHistory'])->name('history');
+
 Route::get('/history/modul-ajar/{idModul}', [ModulAjarController::class, 'getDetailModulAjar'])->name('detailModulAjar');
 Route::get('/history/syllabus/{idSyllabus}', [SyllabusController::class, 'getDetailSyllabus'])->name('detailSyllabus');
 Route::get('/history/exercise/{idExercise}', [EssayController::class, 'getDetailExercise'])->name('detailExercise');

@@ -16,7 +16,7 @@
             <div
                 class="bg-white w-[300px] sm:w-[500px] p-5 sm:p-8 rounded-lg shadow-md text-center flex flex-col items-center">
                 <img src="{{ URL('images/invitation.png') }}" alt="" class="w-[70%] h-full object-cover mb-4">
-                <p class="text-gray-600 text-xs sm:text-base font-['Inter'] leading-normal mb-4">
+                <p class="text-gray-600 text-xs sm:text-base font-['Inter'] leading-normal mb-2">
                     Sebelum anda mulai, masukkan kode undangan dulu yuk!
                 </p>
                 @if (session('error'))
@@ -26,9 +26,13 @@
                 @endif
                 <form id="invitationForm" class="w-full" action="{{ route('reedemCode') }}" method="post">
                     @csrf
+
                     <input type="text" id="invite_code" name="invite_code"
                         class="w-full  border border-gray-300 rounded-md text-center placeholder:text-xs"
                         placeholder="masukan 8 karakter kode undangan disini" maxlength="8" required>
+                    <p class="text-gray-600 text-xs font-['Inter'] leading-normal mt-2">
+                        Silakan periksa kode undangan di inbox email anda!
+                    </p>
                     <div class="flex justify-center w-full mt-4 gap-3">
                         <a href="{{ route('logout') }}"
                             class="btnbg-white text-blue-600 font-semibold py-2 px-4 rounded  focus:outline-none mt-4 shadow-md ">

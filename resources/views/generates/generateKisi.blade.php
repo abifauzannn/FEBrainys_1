@@ -9,13 +9,30 @@
 @section('content')
     @php
         $options = [];
-        for ($i = 1; $i <= 12; $i++) {
-            if ($i <= 6) {
+
+        $schoolLevel = session('user')['school_level'] ?? '';
+
+        if ($schoolLevel == 'sd' || $schoolLevel == 'paketa') {
+            for ($i = 1; $i <= 6; $i++) {
                 $options[] = ['value' => $i, 'label' => "$i SD"];
-            } elseif ($i <= 9) {
+            }
+        } elseif ($schoolLevel == 'smp' || $schoolLevel == 'paketb') {
+            for ($i = 7; $i <= 9; $i++) {
                 $options[] = ['value' => $i, 'label' => "$i SMP"];
-            } else {
+            }
+        } elseif ($schoolLevel == 'sma' || $schoolLevel == 'paketc') {
+            for ($i = 10; $i <= 12; $i++) {
                 $options[] = ['value' => $i, 'label' => "$i SMA"];
+            }
+        } else {
+            for ($i = 1; $i <= 12; $i++) {
+                if ($i <= 6) {
+                    $options[] = ['value' => $i, 'label' => "$i SD"];
+                } elseif ($i <= 9) {
+                    $options[] = ['value' => $i, 'label' => "$i SMP"];
+                } else {
+                    $options[] = ['value' => $i, 'label' => "$i SMA"];
+                }
             }
         }
     @endphp

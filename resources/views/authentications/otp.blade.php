@@ -16,7 +16,7 @@
             <div class="text-center text-gray-900 text-base font-medium font-['Inter'] leading-normal mb-12">Silakan
                 cek kode OTP pada inbox email anda untuk </div>
 
-            <form action="{{ route('verify.otp.post') }}" method="post">
+            <form action="{{ route('verify.otp.post') }}" method="post" id="otpForm">
                 @if (session('error'))
                     <div class="flex items-center p-4 mb-4 text-sm text-red-800 border border-red-300 rounded-lg bg-red-50"
                         role="alert">
@@ -40,7 +40,7 @@
 
                 <div class="flex gap-4 justify-between">
                     <input type="text"
-                        class="font-bold  w-11 h-12 rounded-md text-center bg-gray-50 text-sky-600 text-xl placeholder:font-medium font-['Inter'] leading-normal focus:outline-none focus:border-none p-2"
+                        class="font-bold w-11 h-12 rounded-md text-center bg-gray-50 text-sky-600 text-xl placeholder:font-medium font-['Inter'] leading-normal focus:outline-none focus:border-none p-2"
                         maxlength="1" id="digit1" oninput="handleInput(this)" placeholder="0">
                     <input type="text"
                         class="font-bold w-11 h-12 rounded-md text-center bg-gray-50 text-sky-600 text-xl placeholder:font-medium font-['Inter'] leading-normal focus:outline-none focus:border-none p-2"
@@ -59,9 +59,21 @@
                         maxlength="1" id="digit6" oninput="handleInput(this)" placeholder="0">
                 </div>
 
-                <button type="submit"
-                    class="w-full h-12 px-6 py-3 rounded-[50px] justify-center items-center gap-2 inline-flex mt-8 bg-blue-600 hover:bg-blue-700 focus:bg-blue-700  text-white">
+                <button id="submitButton" type="submit"
+                    class="w-full h-12 px-6 py-3 rounded-[50px] justify-center items-center gap-2 inline-flex mt-8 bg-blue-600 hover:bg-blue-700 focus:bg-blue-700 text-white">
                     <div class="text-center text-base font-medium font-['Inter'] leading-normal">Konfirmasi</div>
+                </button>
+
+                <button id="loadingButton" disabled type="button"
+                    class="h-12 px-6 py-3 bg-blue-600 rounded-[50px] justify-center items-center gap-2.5 inline-flex w-full hidden mt-8">
+                    <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none"
+                        viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
+                            stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor"
+                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                        </path>
+                    </svg>
                 </button>
             </form>
             <div class="flex justify-center mt-8">
@@ -78,8 +90,6 @@
                             Kirim Kode
                         </button>
                     </div>
-
-
                 </form>
             </div>
         </div>
@@ -119,6 +129,12 @@
 
             // Mulai countdown pertama kali
             updateCountdown();
+        });
+
+        document.getElementById('otpForm').addEventListener('submit', function() {
+            // Show loading spinner and hide submit button
+            document.getElementById('submitButton').classList.add('hidden');
+            document.getElementById('loadingButton').classList.remove('hidden');
         });
 
         function handleInput(input) {

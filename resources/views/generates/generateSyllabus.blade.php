@@ -12,15 +12,15 @@
 
         $schoolLevel = session('user')['school_level'] ?? '';
 
-        if ($schoolLevel == 'sd') {
+        if ($schoolLevel == 'sd' || $schoolLevel == 'paketa') {
             for ($i = 1; $i <= 6; $i++) {
                 $options[] = ['value' => $i, 'label' => "$i SD"];
             }
-        } elseif ($schoolLevel == 'smp') {
+        } elseif ($schoolLevel == 'smp' || $schoolLevel == 'paketb') {
             for ($i = 7; $i <= 9; $i++) {
                 $options[] = ['value' => $i, 'label' => "$i SMP"];
             }
-        } elseif ($schoolLevel == 'sma') {
+        } elseif ($schoolLevel == 'sma' || $schoolLevel == 'paketc') {
             for ($i = 10; $i <= 12; $i++) {
                 $options[] = ['value' => $i, 'label' => "$i SMA"];
             }
@@ -36,7 +36,6 @@
             }
         }
     @endphp
-
     <x-nav></x-nav>
 
     @if (session('user')['is_active'] == 0)

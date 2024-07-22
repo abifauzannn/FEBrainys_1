@@ -9,9 +9,7 @@
     <meta property="og:title" content="Register" />
 @endsection
 
-
 @section('content')
-
     <div class="container mx-auto flex items-center justify-center mt-6 sm:h-screen sm:mt-0">
         <div class="w-[340px] sm:w-[352px] h-[675px] flex-col inline-flex">
             <a href="{{ route('login') }}">
@@ -40,7 +38,7 @@
                 <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                     fill="currentColor" viewBox="0 0 20 20">
                     <path
-                        d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+                        d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 1 1 1 1v4h1a1 1 0 0 1 0 2Z" />
                 </svg>
                 <span class="sr-only">Error!</span>
                 <div>
@@ -48,7 +46,7 @@
                 </div>
             </div>
         @endif
-        <form action="{{ route('registerPost') }}" method="post">
+        <form id="registerForm" action="{{ route('registerPost') }}" method="post">
             @csrf
             <div class="mb-4">
                 <label for="email"
@@ -56,6 +54,9 @@
                 <input type="email" id="email" name="email"
                     class="w-full p-2 border rounded-md mt-[10px] placeholder:text-gray-400 text-base font-normal font-['Inter'] leading-normal"
                     placeholder="email@contoh.com" required>
+                <div class="font-['Inter'] text-sm mt-2 text-gray-500">Direkomendasikan menggunakan email <b
+                        class="text-black">belajar.id</b>
+                </div>
             </div>
             <div class="relative mb-4">
                 <label for="password"
@@ -67,6 +68,25 @@
                     class="absolute right-0 top-[48px] flex items-center mr-3 focus:outline-none">
                     <img src="{{ URL('images/group.svg') }}" alt="">
                 </button>
+                <div class="flex items-center gap-2 justify-items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" id="trueCheck"
+                        class="hidden" viewBox="0 0 24 24">
+                        <path fill="#4CAF50"
+                            d="M9.75 19.75a.75.75 0 01-.53-.22l-5-5a.75.75 0 111.06-1.06l4.47 4.47 9.47-9.47a.75.75 0 111.06 1.06l-10 10a.75.75 0 01-.53.22z" />
+                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" class="mt-1 hidden"
+                        id="falseCheck" viewBox="0 0 24 24">
+                        <path fill="#F44336"
+                            d="M12 10.586L16.95 5.636a1 1 0 111.414 1.414L13.414 12l4.95 4.95a1 1 0 01-1.414 1.414L12 13.414l-4.95 4.95a1 1 0 01-1.414-1.414L10.586 12 5.636 7.05a1 1 0 011.414-1.414L12 10.586z" />
+                    </svg>
+
+
+                    <div id="passwordLengthError" class="font-['Inter'] text-sm mt-1 text-gray-500">
+                        Minimal password 8 karakter
+                    </div>
+                </div>
+
+
             </div>
 
             <div class="relative">
@@ -82,7 +102,7 @@
                 </button>
             </div>
 
-            <div id="passwordMatchError" class="text-red-700 py-2 font-bold"></div>
+            <div id="passwordMatchError" class="text-red-500 py-2 text-sm font-['Inter']"></div>
 
             <button type="submit" id="submitButton"
                 class="w-full h-12 px-6 bg-blue-600 rounded-[50px] justify-center items-center gap-2.5 inline-flex">
@@ -92,22 +112,16 @@
             </button>
 
             <button id="loadingButton" disabled type="button"
-                class="h-12 px-6 py-3 bg-blue-600 rounded-[50px] justify-center items-center gap-2.5 inline-flex w-full"
-                style="display: none;">
-                <svg aria-hidden="true" role="status" class="inline w-4 h-4 me-3 text-white animate-spin"
-                    viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                        d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
-                        fill="#E5E7EB" />
-                    <path
-                        d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
-                        fill="currentColor" />
+                class="h-12 px-6 py-3 bg-blue-600 rounded-[50px] justify-center items-center gap-2.5 inline-flex w-full hidden">
+                <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none"
+                    viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
+                        stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor"
+                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                    </path>
                 </svg>
             </button>
-
-            <div class="flex justify-center mt-5 font-['Inter']">
-                <a href="{{ route('emailForget') }}" class="font-bold text-blue-500 hover:text-blue-700">Lupa Password ?</a>
-            </div>
         </form>
         <div class="relative flex py-7 items-center">
             <div class="flex-grow border-t border-gray-400"></div>
@@ -144,50 +158,48 @@
             var type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
             passwordInput.setAttribute('type', type);
         });
+
         document.getElementById('seePassword').addEventListener('click', function() {
             var passwordInput = document.getElementById('password_confirmation');
             var type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
             passwordInput.setAttribute('type', type);
         });
 
-        const submitButton = document.getElementById("submitButton");
-        const loadingIndicator = document.getElementById("loadingButton");
-        const buttonText = document.getElementById("buttonText");
-
-        submitButton.addEventListener("click", function() {
-            // Memeriksa apakah semua input sudah diisi
-            const emailValue = document.getElementById('email').value.trim();
-            const passwordValue = document.getElementById('password').value.trim();
-            const passwordConfirmationValue = document.getElementById('password_confirmation')
-
-            if (emailValue === '' || passwordValue === '' || passwordConfirmationValue == '') {
-                return; // Jika ada input yang masih kosong, hentikan proses
-            }
-
-            // Jika semua input telah diisi, maka lanjutkan dengan proses loading
-            submitButton.classList.add("hidden"); // Menyembunyikan tombol saat diklik
-            loadingButton.style.display = 'inline-flex';
-            setTimeout(() => {
-                // Simulasi proses loading selama beberapa waktu (misalnya, 3 detik)
-                // Setelah selesai, tampilkan kembali tombol dan sembunyikan indikator loading
-                loadingIndicator.classList.add("inline-flex");
-                submitButton.classList.remove("hidden");
-            }, 50000); // Waktu simulasi loading (dalam milidetik)
+        document.getElementById('registerForm').addEventListener('submit', function() {
+            // Show loading spinner
+            document.getElementById('submitButton').classList.add('hidden');
+            document.getElementById('loadingButton').classList.remove('hidden');
         });
 
         function checkPasswordMatch() {
             var passwordInput = document.getElementById('password');
             var confirmPasswordInput = document.getElementById('password_confirmation');
             var errorDiv = document.getElementById('passwordMatchError');
-            var submitButton = document.getElementById('submitBtn'); // Gantilah 'submitBtn' dengan ID tombol submit Anda
+            var lengthErrorDiv = document.getElementById('passwordLengthError');
+            var submitButton = document.getElementById('submitButton');
+            var trueCheck = document.getElementById('trueCheck');
+            var falseCheck = document.getElementById('falseCheck');
+
+            // Periksa panjang password
+            if (passwordInput.value.length < 8) {
+                lengthErrorDiv.classList.remove('text-green-500');
+                lengthErrorDiv.classList.add('text-red-500');
+                falseCheck.classList.remove('hidden');
+                trueCheck.classList.add('hidden');
+            } else {
+                lengthErrorDiv.classList.remove('text-red-500');
+                lengthErrorDiv.classList.add('text-green-500');
+                trueCheck.classList.remove('hidden');
+                falseCheck.classList.add('hidden');
+            }
 
             // Periksa kesamaan password
             if (confirmPasswordInput.value !== passwordInput.value) {
                 errorDiv.textContent = 'Password tidak sesuai.';
                 submitButton.disabled = true; // Nonaktifkan tombol jika password tidak sesuai
-            } else {
+            } else if (passwordInput.value.length >= 8) {
                 errorDiv.textContent = '';
-                submitButton.disabled = false; // Aktifkan tombol jika password sesuai
+                submitButton.disabled = false; // Aktifkan tombol jika password sesuai dan panjangnya cukup
             }
         }
 

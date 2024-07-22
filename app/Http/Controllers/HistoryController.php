@@ -3,137 +3,58 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Http;
 
 class HistoryController extends Controller
 {
-
-    public function showAllHistory(){
-        // Periksa apakah kunci 'user' ada dalam sesi
-        if (session()->has('user')) {
-            // Ambil data pengguna dari sesi
-            $userData = session('user');
-
-            $historyModulAjar = $this->historyModulAjar();
-            $historyExercise = $this->historyExercise();
-            $historySyllabus = $this->historySyllabus();
-
-            // Assuming allHistory returns a query builder or Eloquent model instance
-            $allHistory = $this->allHistory();
-
-            return view('histories.allHistories', compact('userData', 'historyModulAjar', 'historyExercise', 'historySyllabus', 'allHistory'));
-        } else {
+    public function showHistory(Request $request)
+    {
+        if (!session()->has('user')) {
             return redirect('/login');
         }
-    }
 
+        $userData = session('user');
+        $page = $request->get('page', 1);
+        $type = $request->get('type', 'all'); // Default to 'all' if not provided
 
-    public function showHistoryModulAjar(){
-        // Periksa apakah kunci 'user' ada dalam sesi
-        if (session()->has('user')) {
-            // Ambil data pengguna dari sesi
-            $userData = session('user');
+        // Fetch data without 'type' if it's 'all'
+        $response = $this->fetchHistoryData($page, $type);
 
-            // Panggil method getHistory() untuk mendapatkan data riwayat
-            $history = $this->historyModulAjar();
-
-            return view('histories.modulAjar', compact('userData', 'history'));
+        if ($response) {
+            $historyData = $response['data'];
+            $pagination = $response['pagination'];
+            $totalPages = $pagination['last_page'];
+            $hasMorePages = $pagination['current_page'] < $totalPages;
         } else {
-            // Redirect ke halaman login jika kunci 'user' tidak ada dalam sesi
-            return redirect('/login');
+            $historyData = [];
+            $pagination = null;
+            $totalPages = 0;
+            $hasMorePages = false;
         }
+
+        return view('histories.allHistories', compact('userData', 'historyData', 'page', 'hasMorePages', 'totalPages', 'type'));
     }
 
-    public function historyModulAjar(){
+    public function fetchHistoryData($page, $type = 'all')
+    {
         $token = session()->get('access_token');
 
-        // Mengirim permintaan ke API dengan menyertakan token otorisasi
+        $queryParams = ['page' => $page];
+        if ($type !== 'all') {
+            $queryParams['type'] = $type;
+        }
+
         $response = Http::withHeaders([
             'Authorization' => 'Bearer ' . $token,
-        ])->get(env('APP_API').'/material/history');
+        ])->post(env('APP_API') . '/history', $queryParams);
 
-        if($response->successful()){
-            return $response->json()['data'];
+        if ($response->successful()) {
+            return $response->json();
         } else {
+            // Handle the error
             return null;
         }
-        }
-
-        public function showHistorySyllabus(){
-             // Periksa apakah kunci 'user' ada dalam sesi
-        if (session()->has('user')) {
-            // Ambil data pengguna dari sesi
-            $userData = session('user');
-
-            // Panggil method getHistory() untuk mendapatkan data riwayat
-            $history = $this->historySyllabus();
-
-            return view('histories.syllabus', compact('userData', 'history'));
-        } else {
-            // Redirect ke halaman login jika kunci 'user' tidak ada dalam sesi
-            return redirect('/login');
-        }
-        }
-
-        public function historySyllabus(){
-            $token = session()->get('access_token');
-
-            // Mengirim permintaan ke API dengan menyertakan token otorisasi
-            $response = Http::withHeaders([
-                'Authorization' => 'Bearer ' . $token,
-            ])->get(env('APP_API').'/syllabus/history');
-
-            if($response->successful()){
-                return $response->json()['data'];
-            } else {
-                return null;
-            }
-        }
-
-        public function showHistoryExercise(){
-                 // Periksa apakah kunci 'user' ada dalam sesi
-        if (session()->has('user')) {
-            // Ambil data pengguna dari sesi
-            $userData = session('user');
-
-            // Panggil method getHistory() untuk mendapatkan data riwayat
-            $history = $this->historyExercise();
-
-            return view('histories.exercise', compact('userData', 'history'));
-        } else {
-            // Redirect ke halaman login jika kunci 'user' tidak ada dalam sesi
-            return redirect('/login');
-        }
-        }
-
-        public function historyExercise(){
-            $token = session()->get('access_token');
-
-            $response = Http::withHeaders([
-                'Authorization' => 'Bearer ' . $token,
-            ])->get(env('APP_API').'/exercise/history/');
-
-            if($response->successful()){
-                return $response->json()['data'];
-            } else {
-                return null;
-            }
-        }
-
-        public function allHistory(){
-            $token = session()->get('access_token');
-
-            $response = Http::withHeaders([
-                'Authorization' => 'Bearer ' . $token,
-            ])->get(env('APP_API').'/history');
-
-            if($response->successful()){
-                return $response->json()['data'];
-            } else {
-                return null;
-            }
-        }
-        }
+    }
 
 
+}

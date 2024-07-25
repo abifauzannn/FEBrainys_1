@@ -28,7 +28,7 @@
                 <div class="relative">
                     <form method="GET" action="{{ route('history') }}" id="filterForm">
                         <input type="hidden" name="page" value="1">
-                        <input type="" name="type" id="filterInput" value="{{ $type }}">
+                        <input type="hidden" name="type" id="filterInput" value="{{ $type }}">
                         <button type="button" id="filterButton"
                             class="py-2 px-4 bg-white rounded-md shadow-md flex items-center w-48">
                             <span id="selectedOption">

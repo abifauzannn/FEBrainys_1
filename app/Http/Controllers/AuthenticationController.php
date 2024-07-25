@@ -451,7 +451,7 @@ class AuthenticationController extends Controller
         return redirect()->route('verify.otp', compact('email'));
     }
 
-    $errorMessage = $message ?? 'Akun anda sudah terhubung dengan Google. Silahkan login menggunakan Google. ENV: '.env('APP_API').'/login'.' ';
+    $errorMessage = $message ?? 'Akun anda sudah terhubung dengan Google. Silahkan login menggunakan Google. ';
 
     return back()->withErrors(['email' => $errorMessage]);
 }

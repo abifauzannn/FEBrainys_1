@@ -13,7 +13,14 @@ class AuthenticationController extends Controller
 
     public function showLoginForm()
     {
-        return view('authentications.login');
+        if (session()->has('user')) {
+            // Ambil data pengguna dari sesi
+
+            return redirect()->route('dashboard');
+        } else {
+            // Redirect ke halaman login jika kunci 'user' tidak ada dalam sesi
+            return view('authentications.login');
+        }
     }
 
     public function showSignupForm()

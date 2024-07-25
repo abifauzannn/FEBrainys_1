@@ -24,9 +24,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('authentications.login');
-});
+
 
 Route::get('/signup', function () {
     return view('authentications.signup');
@@ -49,9 +47,10 @@ Route::get('/change-password', function () {
     return view('profiles.changePassword');
 });
 
-Route::get('/login', function () {
-    return view('authentications.login');
-})->name('login');
+Route::get('/', [AuthenticationController::class, 'showLoginForm']);
+Route::get('/login', [AuthenticationController::class, 'showLoginForm'])->name('login');
+
+
 
 Route::get('/verify-otp', [AuthenticationController::class, 'showVerificationForm'])->name('verify.otp');
 Route::post('/verify-otp', [AuthenticationController::class, 'verifyOTP'])->name('verify.otp.post');

@@ -10,6 +10,8 @@
 @section('title', 'Log In Page - Brainys')
 
 @section('content')
+
+
     <div class="container mx-auto flex items-center justify-around mt-10 sm:h-screen sm:mt-0">
         <div class="hidden lg:block">
             <img class="w-[500px] h-[515px] object-cover" src="{{ URL('images/newonboarding.png') }}" alt="onBoarding" />

@@ -70,6 +70,7 @@ Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashb
 Route::get('/generate-modul-ajar', [ModulAjarController::class, 'modulAjar'])->name('modulAjar');
 Route::post('/generate-modul-ajar', [ModulAjarController::class, 'generateModulAjar'])->name('modulAjarPost');
 Route::post('/export-word', [ModulAjarController::class, 'exportToWord'])->name('export-word');
+Route::post('/export-excel', [ModulAjarController::class, 'exportToExcel'])->name('export-modul-excel');
 Route::get('/generate-modul-ajar/generate-output', [ModulAjarController::class, 'modulAjar'])->name('outputModulAjar');
 
 

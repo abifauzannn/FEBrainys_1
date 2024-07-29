@@ -184,8 +184,9 @@
         </div>
 
 
-        <div class="mb-3 px-6 py-4">
+        <div class="mb-3 px-6 py-4 flex flex-row gap-3">
             <x-export-word generateId="{{ $generateId }}" export="{{ route('export-word') }}" />
+            <x-export-excel generateId="{{ $generateId }}" export="{{ route('export-modul-excel') }}" />
         </div>
 
     @endisset

@@ -58,28 +58,6 @@
                 </table>
             </div>
 
-            <div class="text-gray-900 text-lg font-bold bg-gray-100 px-2 py-2 mt-5">Komponen Pembelajaran</div>
-            <div class="mt-2">
-                <table class="w-full">
-                    <tbody>
-                        @foreach ($materialHistory['output_data']['komponen_pembelajaran'] as $key => $value)
-                            <tr>
-                                <td class="py-1 text-sm w-[200px]">
-                                    {{ str_replace(' ', ' ', ucwords(str_replace('_', ' ', $key))) }}
-                                </td>
-                                <td class="py-1 text-sm">
-                                    <ul>
-                                        @foreach ($value as $item)
-                                            <li>{{ $loop->iteration }}. {{ $item }}</li>
-                                        @endforeach
-                                    </ul>
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
-
             <div class="text-gray-900 text-lg font-bold bg-gray-100 px-2 py-2 mt-5">Tujuan Kegiatan Pembelajaran</div>
             <div class="mt-2">
                 <table class="w-full">
@@ -166,21 +144,6 @@
                                         {{ $materi_pembelajaran['indikator'] }}
                                     </li>
                                     <li class="text-sm text-gray-800 mb-2">
-
-                                        <span class="font-bold">
-                                            Nilai Karakter :
-                                        </span>
-                                        {{ $materi_pembelajaran['nilai_karakter'] }}
-                                    </li>
-                                    <li class="text-sm text-gray-800 mb-2">
-
-                                        <span class="font-bold">
-                                            Kegiatan Pembelajaran :
-                                        </span>
-
-                                        {{ $materi_pembelajaran['kegiatan_pembelajaran'] }}
-                                    </li>
-                                    <li class="text-sm text-gray-800 mb-2">
                                         <span class="font-bold">Alokasi Waktu : </span>
                                         {{ $materi_pembelajaran['alokasi_waktu'] }}
                                     </li>
@@ -208,8 +171,9 @@
         @endforeach
 
         <!-- Button untuk download file -->
-        <div class=" mb-7 px-4 sm:px-10 container mx-auto">
+        <div class=" mb-7 px-4 sm:px-10 container mx-auto flex flex-row gap-3">
             <x-export-word generateId="{{ $materialHistory['id'] }}" export="{{ route('export-word') }}" />
+            <x-export-excel generateId="{{ $materialHistory['id'] }}" export="{{ route('export-modul-excel') }}" />
         </div>
     </div>
     </div>

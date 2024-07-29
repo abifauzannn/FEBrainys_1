@@ -21,7 +21,7 @@
     @if ($type == 'password')
         <button type="button" class="absolute right-0 top-[48px] flex items-center mr-3 focus:outline-none"
             onclick="togglePasswordVisibility('{{ $id }}')">
-            <img src="{{ URL('images/group.svg') }}" alt="">
+            <img src="{{ URL('images/group.svg') }}" alt="" loading="lazy">
         </button>
     @endif
 </div>

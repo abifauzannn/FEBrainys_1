@@ -44,10 +44,11 @@ class ModulAjarController extends Controller
 
         $response = Http::withToken($token)
             ->timeout(60) // timeout dalam detik (contoh: 60 detik)
-            ->post(env('APP_API').'/material/generate', [
+            ->post(env('APP_API').'/modul-ajar/generate', [
                 'name' => $request->input('name'),
-                'subject' => $request->input('subject'),
-                'grade' => $request->input('grade'),
+                'phase' => $request->input('fase'),
+                'subject' => $request->input('mata-pelajaran'),
+                'element' => $request->input('element'),
                 'notes' => $request->input('notes')
             ]);
 
@@ -66,7 +67,7 @@ class ModulAjarController extends Controller
         } else {
              // Handle error if needed
         if(isset($responseData['status']) && $responseData['status'] === 'failed' && isset($responseData['message'])) {
-            return redirect('/generate-modul-ajar')->with('error', $responseData['message']);
+            dd($responseData);
         } else {
             return redirect('/dashboard')->with('error', 'Failed to generate syllabus. Status code: ' . $statusCode);
         }
@@ -90,7 +91,7 @@ public function exportToWord(Request $request)
 
     // Buat permintaan HTTP ke API untuk mengunduh dokumen Word
     $response = Http::withToken(session()->get('access_token'))
-                    ->post(env('APP_API').'/material/export-word', [
+                    ->post(env('APP_API').'/modul-ajar/export-word', [
                         'id' => $generateId
                     ]);
 

@@ -1,6 +1,7 @@
 @extends('layouts.template')
 
-@section('title', 'User Profile - Brainys')
+@section('title', session('user')['name'] . ' - Brainys')
+
 
 @section('meta')
     <meta name="robots" content="noindex, nofollow">
@@ -52,17 +53,19 @@
                 $fullName = session('user')['name'];
                 $initials = '';
                 $names = explode(' ', $fullName);
-                foreach ($names as $name) {
-                    $initials .= strtoupper(substr($name, 0, 1));
-                }
 
-                // URL to DiceBear Avatars API with initials as parameter
-                $avatarUrl =
-                    'https://api.dicebear.com/7.x/initials/svg?scale=75&backgroundColor=b6e3f4&seed=' . $initials;
+                // Ambil maksimal 2 huruf inisial
+                foreach ($names as $name) {
+                    if (strlen($initials) < 2) {
+                        $initials .= strtoupper(substr($name, 0, 1));
+                    }
+                }
             @endphp
 
-            <!-- Display avatar image -->
-            <img src="{{ $avatarUrl }}" alt="Profile Picture" class="w-20 h-20 rounded-full mb-4">
+            <div class="w-20 h-20 text-white flex items-center justify-center text-4xl font-bold rounded-full bg-[#b6e3f4]">
+                {{ $initials }}
+            </div>
+
 
             <form class="w-full max-w-md" action="{{ route('change-profilePost') }}" method="POST" id="profileForm">
                 @csrf

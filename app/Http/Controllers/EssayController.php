@@ -26,7 +26,6 @@ class EssayController extends Controller
             return redirect('/login')->with('error', 'Please log in to generate syllabus.');
         }
 
-        $userLimit = $this->getUserLimit();
         $generateId = null;
 
         if ($request->isMethod('post')) {
@@ -35,9 +34,9 @@ class EssayController extends Controller
             $apiEndpoint = '';
 
             if ($exerciseType === 'essay') {
-                $apiEndpoint = env('APP_API').'/exercise/generate-essay';
+                $apiEndpoint = env('APP_API').'/exercise-v2/generate-essay';
             } elseif ($exerciseType === 'multiple_choice') {
-                $apiEndpoint = env('APP_API').'/exercise/generate-choice';
+                $apiEndpoint = env('APP_API').'/exercise-v2/generate-choice';
             } else {
                 // Handle error jika pilihan subjek tidak valid
                 return redirect('/generate-essay')->with('error', 'Invalid exercise type choice');
@@ -49,8 +48,9 @@ class EssayController extends Controller
                 ->timeout(60)
                 ->post($apiEndpoint, [
                     'name' => $request->input('name'),
-                    'subject' => $request->input('subject'),
-                    'grade' => $request->input('grade'),
+                    'phase' => $request->input('fase'),
+                    'element' => $request->input('element'),
+                    'subject' => $request->input('mata-pelajaran'),
                     'number_of_questions' => $request->input('numberOfQuestion'),
                     'notes' => $request->input('notes')
                 ]);
@@ -77,25 +77,9 @@ class EssayController extends Controller
             $data = null;
         }
 
-        return view('generates.generateEssay', compact('data', 'generateId', 'userLimit'))->with('success', $responseData['message']);
+        return view('outputGenerates.outputExercise', compact('data', 'generateId'))->with('success', $responseData['message']);
     }
 
-
-    public function getUserLimit()
-{
-    // Lakukan HTTP request untuk mendapatkan data status pengguna
-    $response = Http::withToken(session()->get('access_token'))
-                    ->get(env('APP_API').'/user-status');
-
-    // Periksa apakah permintaan HTTP sukses
-    if ($response->successful()) {
-        // Mengembalikan data status pengguna
-        return $response->json()['data'];
-    } else {
-        // Tangani kasus jika permintaan HTTP gagal
-        return null;
-    }
-}
 
 public function exportToWord(Request $request)
 {
@@ -105,7 +89,7 @@ public function exportToWord(Request $request)
 
    // Buat permintaan HTTP ke API untuk mengunduh dokumen Word
    $response = Http::withToken(session()->get('access_token'))
-                   ->post(env('APP_API').'/exercise/export-word', [
+                   ->post(env('APP_API').'/exercise-v2/export-word', [
                        'id' => $generateId
                    ]);
 
@@ -129,15 +113,13 @@ public function getDetailExercise($idExercise){
         return redirect('/login')->with('error', 'Please log in to fetch material history.');
     }
 
-    // Panggil method getUserLimit() untuk mendapatkan data batas penggunaan
-    $userLimit = $this->getUserLimit();
 
     // Use the authentication token for API request
     $token = session()->get('access_token');
 
     $response = Http::withToken($token)
         ->timeout(60) // timeout dalam detik (contoh: 60 detik)
-        ->get(env('APP_API').'/exercise/history/' . $idExercise);
+        ->get(env('APP_API').'/exercise-v2/history/' . $idExercise);
 
     $statusCode = $response->status();
     $responseData = $response->json();
@@ -147,7 +129,7 @@ public function getDetailExercise($idExercise){
         if (isset($responseData['data']['output_data'])) {
             $data = $responseData['data'];
             // Load view to display material history details
-            return view('detailHistory.exercise', compact('data', 'userLimit'));
+            return view('detailHistory.exercise', compact('data'));
         } else {
             // Handle the case where the expected structure is not present in the API response
             return redirect('/history')->with('error', $responseData['message']);

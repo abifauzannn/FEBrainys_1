@@ -32,21 +32,21 @@
         <div class="flex justify-between h-45 items-center">
             <div>
                 <a href="/dashboard"><img src="{{ URL('images/newlogo.png') }}" alt=""
-                        class="w-[140px] object-cover"></a>
+                        class="w-[140px] object-cover" loading="lazy"></a>
 
             </div>
             <div class="flex items-center space-x-4">
                 @if (isset($userLimit))
                     <div
                         class="flex justify-center gap-1 items-center mt-1 text-gray-500 text-sm border border-zinc-200 rounded-[5px] py-1 px-1 bg-white font-bold">
-                        <img src="{{ URL('images/sparkles.png') }}" alt="" class="w-5 h-5">
+                        <img src="{{ URL('images/sparkles.png') }}" alt="" class="w-5 h-5" loading="lazy">
                         {{ $userLimit['all']['used'] }} / {{ $userLimit['all']['limit'] }}
                     </div>
                 @endif
                 <div class="hidden md:block mt-1">
                     <div class="relative">
                         <!-- Tombol untuk menampilkan dropdown -->
-                        <button id="notificationButton"
+                        <button id="notificationButton" disabled
                             class="w-[30px] h-[30px] bg-white rounded-[5px] border border-zinc-200 justify-center items-center inline-flex">
                             <svg class="w-5 h-5 fill-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                 viewBox="0 0 14 20">
@@ -93,52 +93,57 @@
                     $fullName = session('user')['name'];
                     $initials = '';
                     $names = explode(' ', $fullName);
-                    foreach ($names as $name) {
-                        $initials .= strtoupper(substr($name, 0, 1));
-                    }
 
-                    // URL to DiceBear Avatars API with initials as parameter
-                    $avatarUrl =
-                        'https://api.dicebear.com/7.x/initials/svg?scale=75&backgroundColor=b6e3f4&seed=' . $initials;
+                    // Ambil maksimal 2 huruf inisial
+                    foreach ($names as $name) {
+                        if (strlen($initials) < 2) {
+                            $initials .= strtoupper(substr($name, 0, 1));
+                        }
+                    }
                 @endphp
 
-                <img src="{{ $avatarUrl }}" alt="Profile Picture" class="w-12 h-12 rounded-full">
+                <div
+                    class="w-12 h-12 text-white flex items-center justify-center text-xl font-['Inter'] font-bold rounded-full bg-[#b6e3f4]">
+                    {{ $initials }}
+                </div>
+
 
 
                 <div class="relative">
-                    <img src="{{ URL('images/dropdown.svg') }}" alt="" id="profileButton"
+                    <img src="{{ URL('images/dropdown.svg') }}" alt="" id="profileButton" loading="lazy"
                         class="cursor-pointer">
                     <div id="profileDropdown"
                         class="absolute right-8 mt-[31px] border bg-white rounded-lg shadow p-3 transform translate-x-1/4 hidden w-48 z-10">
                         <div class="md:hidden">
-                            <div class="text-gray-900 text-base font-medium font-inter leading-normal">
+                            <div class="text-gray-900 text-base font-medium font-['Inter'] leading-normal">
                                 {{ session('user')['name'] }}
                             </div>
-                            <div class="text-gray-500 text-sm font-normal font-inter leading-snug mb-[4px]">
+                            <div class="text-gray-500 text-sm font-normal font-['Inter'] leading-snug mb-[4px]">
                                 {{ session('user')['profession'] }}</div>
                             <hr class="w-full">
                         </div>
                         <ul class="">
                             <li class="flex items-center hover:bg-gray-100 hover:rounded-lg px-1">
-                                <img src="{{ URL('images/user-circle.png') }}" alt=""
-                                    class="w-[20px] h-[20px]">
+                                <img src="{{ URL('images/user-circle.png') }}" alt="" class="w-[20px] h-[20px]"
+                                    loading="lazy">
                                 <a href="{{ route('userProfile') }}"
                                     class="block px-2 py-2 text-sm text-slate-500">Profile
                                     Pengguna</a>
                             </li>
                             <li class="flex items-center  hover:bg-gray-100 hover:rounded-lg px-1">
                                 <img src="{{ URL('images/alarm.svg') }}" alt="" class="w-[18px] h-[20px]"
-                                    onclick="test()">
-                                <a href="{{ route('history') }}"
-                                    class="block px-[10px] py-2 text-sm text-slate-500">Notification</a>
+                                    onclick="test()" loading="lazy">
+                                <a href="" class="block px-[10px] py-2 text-sm text-slate-500">Notification</a>
                             </li>
                             <li class="flex items-center  hover:bg-gray-100 hover:rounded-lg px-1">
-                                <img src="{{ URL('images/Union.png') }}" alt="" class="w-[18px] h-[20px]">
+                                <img src="{{ URL('images/Union.png') }}" alt="" class="w-[18px] h-[20px]"
+                                    loading="lazy">
                                 <a href="{{ route('history') }}"
                                     class="block px-[10px] py-2 text-sm text-slate-500">Riwayat</a>
                             </li>
                             <li class="flex items-center  hover:bg-gray-100 hover:rounded-lg px-1">
-                                <img src="{{ URL('images/sign-out.svg') }}" alt="" class="w-[20px] h-[20px]">
+                                <img src="{{ URL('images/sign-out.svg') }}" alt="" class="w-[20px] h-[20px]"
+                                    loading="lazy">
                                 <form action="{{ route('logout') }}" method="get">
                                     @csrf
                                     <button type="submit"

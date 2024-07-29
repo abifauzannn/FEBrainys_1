@@ -1,5 +1,7 @@
 @extends('layouts.template')
 
+@section('title', 'Riwayat Generasi - Brainys')
+
 @section('content')
     <x-nav></x-nav>
 

@@ -157,6 +157,7 @@
         document.addEventListener("DOMContentLoaded", function() {
             // Memfokuskan ke input email
             document.getElementById("name").focus();
+
         });
 
         function clearInputs() {

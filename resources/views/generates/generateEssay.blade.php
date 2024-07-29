@@ -1,49 +1,13 @@
 @extends('layouts.template')
 
-@section('title', 'Templat Latihan - Brainys')
+@section('title', 'Templat Modul Ajar - Brainys')
 
 @section('meta')
     <meta name="robots" content="noindex, nofollow">
 @endsection
 
 @section('content')
-    @php
-        $type = [
-            ['value' => 'essay', 'label' => 'Essay'],
-            ['value' => 'multiple_choice', 'label' => 'Multiple Choice'],
-        ];
-    @endphp
-    @php
-        $options = [];
-
-        $schoolLevel = session('user')['school_level'] ?? '';
-
-        if ($schoolLevel == 'sd' || $schoolLevel == 'paketa') {
-            for ($i = 1; $i <= 6; $i++) {
-                $options[] = ['value' => $i, 'label' => "$i SD"];
-            }
-        } elseif ($schoolLevel == 'smp' || $schoolLevel == 'paketb') {
-            for ($i = 7; $i <= 9; $i++) {
-                $options[] = ['value' => $i, 'label' => "$i SMP"];
-            }
-        } elseif ($schoolLevel == 'sma' || $schoolLevel == 'paketc') {
-            for ($i = 10; $i <= 12; $i++) {
-                $options[] = ['value' => $i, 'label' => "$i SMA"];
-            }
-        } else {
-            for ($i = 1; $i <= 12; $i++) {
-                if ($i <= 6) {
-                    $options[] = ['value' => $i, 'label' => "$i SD"];
-                } elseif ($i <= 9) {
-                    $options[] = ['value' => $i, 'label' => "$i SMP"];
-                } else {
-                    $options[] = ['value' => $i, 'label' => "$i SMA"];
-                }
-            }
-        }
-    @endphp
     <x-nav></x-nav>
-
 
     @if (session('user')['is_active'] == 0)
         <script>
@@ -51,72 +15,106 @@
         </script>
     @endif
 
+    @php
+        $skema = [['value' => 'essay', 'label' => 'Essay'], ['value' => 'multiple_choice', 'label' => 'Pilihan Ganda']];
+    @endphp
+
     <div class="container mx-auto px-4 py-6 sm:px-10 sm:py-9 relative">
         <x-back-button url="{{ route('dashboard') }}" />
-        <x-banner-page-generate title="Templat Latihan" description="Gunakan template Latihan kurikulum merdeka" />
+        <x-banner-page-generate title="Templat Latihan Soal" description="Gunakan templat soal kurikulum merdeka" />
         @if (session('user')['school_level'] == '')
             <x-alert-jenjang />
         @endif
     </div>
 
-
-
     <div class="flex container mx-auto px-3 sm:px-10 flex-col lg:flex-row">
-        <div class="w-full lg:w-[500px] flex-col justify-start items-start sm:gap-6 inline-flex">
-            <form action="{{ route('essayPost') }}" method="post" class="w-full" id="exerciseForm">
-                <!-- Input untuk Nama Silabus -->
+        <div class="w-full lg:w-[500px] flex-col justify-start items-start sm:gap-6 inline-flex h-auto">
+            <form action="{{ route('essayPost') }}" method="post" class="w-full" id="modulAjarForm">
                 @csrf
 
-                <x-generate-field type="text" id="name" name="name" label="Nama Latihan"
-                    placeholder="masukan nama latihan" tooltipId="nameTooltip"
-                    tooltipText="Contoh : Draft UTS Semester Genap 2023/2024" required />
+                <x-generate-field type="text" id="name" name="name" label="Nama Latihan Soal"
+                    placeholder="Masukkan nama latihan soal" tooltipId="nameTooltip" tooltipText="Contoh : Latihan UAS" />
 
-                <x-select-field id="exerciseType" label="Jenis Latihan" name="exerciseType" :options="$type"
-                    defaultOption="Pilih Bentuk Soal Latihan" />
+                <x-select-field id="exerciseType" label="Jenis Soal" name="exerciseType" :options="$skema"
+                    defaultOption="Pilih Jenis Soal" />
+
+                <div class="mb-4 form-group">
+                    <label for="fase" class="text-gray-900 text-base font-semibold mb-2 leading-normal">Fase
+                        (Kelas)</label>
+                    <select id="fase" name="fase" required
+                        class="bg-white mt-2 font-['Inter'] shadow appearance-none border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <option value="">Select Fase</option>
+                    </select>
+                </div>
+
+                <div class="mb-4 form-group">
+                    <label for="mata-pelajaran" class="text-gray-900 text-base font-semibold mb-2 leading-normal">Mata
+                        Pelajaran</label>
+                    <select id="mata-pelajaran" name="mata-pelajaran"
+                        class="bg-white font-['Inter'] mt-2 shadow appearance-none border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        required disabled>
+                        <option value="">Select Mata Pelajaran</option>
+                    </select>
+                </div>
+
+                <div class="mb-4 form-group">
+                    <label for="element" class="text-gray-900 text-base font-semibold mb-2 leading-normal">Elemen
+                        Capaian</label>
+                    <select id="element" name="element"
+                        class="bg-white font-['Inter'] mt-2 shadow appearance-none border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        required disabled>
+                        <option value="">Select Element</option>
+                    </select>
+                </div>
+
+                <div class="mb-4 form-group">
+                    <label for="numberOfQuestion" class="text-gray-900 text-base font-semibold mb-2 leading-normal">Jumlah
+                        Soal</label>
+                    <input type="number" id="numberOfQuestion" name="numberOfQuestion" min="1" max="15"
+                        required placeholder="Masukkan jumlah soal"
+                        class="bg-white mt-2 font-['Inter'] shadow appearance-none border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <small id="numberError" class="text-gray-500 mt-2 font-['Inter']">Maksimal 15 Soal</small>
+                </div>
 
 
-                <x-generate-field type="text" id="subject" name="subject" label="Mata Pelajaran"
-                    placeholder="masukan nama mata pelajaran" tooltipId="subjectTooltip" tooltipText="Contoh : Geografi"
-                    required />
+                <x-textarea-field id="notes" name="notes" label="Kisi-kisi/Deskripsi" tooltipId="descriptionTooltip"
+                    placeholder="Masukkan kisi-kisi atau deskripsi pada soal"
+                    tooltipText="Contoh: Buatkan sesuai materi elemen" />
 
-                @if (session('user')['school_level'] == '')
-                    <x-disable-select id="grade" label="Kelas" :options="$options" defaultOption="Pilih Kelas" />
-                @elseif (session('user')['school_level'] != '')
-                    <x-select-field id="grade" label="Kelas" name="grade" :options="$options"
-                        defaultOption="Pilih Kelas" />
-                @endif
-
-                <x-generate-field type="number" id="numberOfQuestion" name="numberOfQuestion" label="Jumlah Pertanyaan"
-                    placeholder="masukan jumlah pertanyaan" tooltipId="questuinTooltip" tooltipText=" Contoh : 10" required
-                    :min="1" />
-
-                <x-textarea-field id="notes" name="notes" label="Deskripsi Pertanyaan"
-                    placeholder="masukan deskripsi pertanyaan" tooltipId="descriptionTooltip"
-                    tooltipText=" Contoh : Materi Sejarah Indonesia untuk pemahaman menengah ke atas dengan Hot Order Thinking Skill"
-                    required />
-
-                <!-- Input untuk Mata Pelajaran -->
-                <div class="flex justify-end -mt-2">
+                <div class="flex justify-between items-center -mt-2">
                     <div class="self-stretch justify-start items-end gap-5 inline-flex">
                         <div id="characterCount"
                             class="text-left text-gray-500 text-sm font-normal font-inter leading-snug">0/250</div>
                     </div>
                 </div>
+
                 <div class="flex justify-between py-6 border-b">
-                    <x-delete-button />
+                    <button type="button" onclick="clearInputs()"
+                        class="group h-12 px-6 bg-white rounded-lg justify-center items-center gap-2.5 inline-flex border border-gray-900 hover:bg-gray-900 hover:border-white hover:text-white transition duration-300 ease-in-out">
+                        <svg width="20" height="20" viewBox="0 0 20 20"
+                            class="group-hover:fill-white transition duration-300 ease-in-out"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM8.28033 7.21967C7.98744 6.92678 7.51256 6.92678 7.21967 7.21967C6.92678 7.51256 6.92678 7.98744 7.21967 8.28033L8.93934 10L7.21967 11.7197C6.92678 12.0126 6.92678 12.4874 7.21967 12.7803C7.51256 13.0732 7.98744 13.0732 8.28033 12.7803L10 11.0607L11.7197 12.7803C12.0126 13.0732 12.4874 13.0732 12.7803 12.7803C13.0732 12.4874 13.0732 12.0126 12.7803 11.7197L11.0607 10L12.7803 8.28033C13.0732 7.98744 13.0732 7.51256 12.7803 7.21967C12.4874 6.92678 12.0126 6.92678 11.7197 7.21967L10 8.93934L8.28033 7.21967Z" />
+                        </svg>
+                        <div class="text-center text-base font-medium font-['Inter'] leading-normal">Hapus</div>
+                    </button>
+
                     @if (session('user')['school_level'] == '')
                         <button id="submitButton" type="submit" disabled
                             class="h-12 px-3 bg-blue-600 rounded-lg justify-center items-center gap-2.5 inline-flex">
-                            <img src="{{ URL('images/glass.svg') }}" alt="" class="w-[20px] h-[20px]">
+                            <img src="{{ URL('images/glass.svg') }}" alt="" class="w-[20px] h-[20px]"
+                                loading="lazy">
                             <div class="text-center text-white text-base font-medium font-['Inter'] leading-normal">Buat
-                                Latihan</div>
+                                Soal</div>
                         </button>
-                    @elseif (session('user')['school_level'] != '')
+                    @else
                         <button id="submitButton" type="submit"
                             class="h-12 px-3 bg-blue-600 rounded-lg justify-center items-center gap-2.5 inline-flex">
-                            <img src="{{ URL('images/glass.svg') }}" alt="" class="w-[20px] h-[20px]">
+                            <img src="{{ URL('images/glass.svg') }}" alt="" class="w-[20px] h-[20px]"
+                                loading="lazy">
                             <div class="text-center text-white text-base font-medium font-['Inter'] leading-normal">Buat
-                                Latihan</div>
+                                Soal</div>
                         </button>
                     @endif
 
@@ -137,15 +135,14 @@
             </form>
         </div>
 
-
         <div class="flex-col justify-start items-start lg:ml-[72px] inline-flex mt-3 lg:mt-0">
             <div class="text-gray-900 text-2xl font-semibold font-['Inter'] leading-[30px]">Hasil</div>
             <div class="w-full lg:w-[788px] text-gray-500 text-sm font-normal font-['Inter'] leading-snug mt-3">
                 @if (session('error'))
                     <div class="flex items-center p-4 mb-4 text-sm text-red-800 border border-red-300 rounded-lg bg-red-50"
                         role="alert">
-                        <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                            fill="currentColor" viewBox="0 0 20 20">
+                        <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                             <path
                                 d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
                         </svg>
@@ -155,150 +152,222 @@
                         </div>
                     </div>
                 @endif
-                @isset($data)
-
-
-                    <div class="overflow-x-auto">
-                        <table class="w-full">
-                            <thead class=" bg-slate-50">
-                                <tr>
-                                    <th class="px-6 py-3 text-left text-sm font-bold text-gray-800 uppercase" colspan="2">
-                                        Informasi Umum</th>
-                                </tr>
-                            </thead>
-                            <tbody class="divide-y divide-gray-200">
-                                @foreach ($data['informasi_umum'] as $key => $value)
-                                    <tr class="">
-                                        <td
-                                            class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200 font-semibold  bg-slate-50">
-                                            {{ str_replace(' ', ' ', ucwords(str_replace('_', ' ', $key))) }}</td>
-                                        <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">
-                                            {{ $value }}</td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-
-
-                    @if (isset($data['soal_essay']) && !empty($data['soal_essay']))
-                        <div class="overflow-x-auto my-4">
-                            <table class="w-full">
-                                <thead class="bg-slate-50">
-                                    <tr>
-                                        <th class="px-6 py-3 text-left text-sm font-bold text-gray-800 uppercase">No.</th>
-                                        <th class="px-6 py-3 text-left text-sm font-bold text-gray-800 uppercase">Pertanyaan
-                                        </th>
-                                        <th class="px-6 py-3 text-left text-sm font-bold text-gray-800 uppercase">Instruksi
-                                        </th>
-                                        <th class="px-6 py-3 text-left text-sm font-bold text-gray-800 uppercase">Kriteria
-                                            Penilaian</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="divide-y divide-gray-200">
-                                    @foreach ($data['soal_essay'] as $index => $soal)
-                                        <tr>
-                                            <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">{{ $index + 1 }}
-                                            </td>
-                                            <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">
-                                                {{ $soal['question'] }}</td>
-                                            <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">
-                                                {{ $soal['instructions'] }}</td>
-                                            <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">
-                                                <ul>
-                                                    @foreach ($soal['kriteria_penilaian'] as $kriteria => $value)
-                                                        <li>{{ $kriteria + 1 }}. {{ $value }}</li>
-                                                    @endforeach
-                                                </ul>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                    @endif
-
-                    @if (isset($data['soal_pilihan_ganda']) && !empty($data['soal_pilihan_ganda']))
-                        <div class="w-full overflow-x-auto my-4">
-                            @foreach ($data['soal_pilihan_ganda'] as $index => $question)
-                                <div class="mt-4 px-6 py-4 bg-slate-50">
-                                    <p class="text-gray-800 dark:text-gray-200"><strong>{{ $index + 1 }}.</strong>
-                                        {{ $question['question'] }}</p>
-                                    <ul>
-                                        @foreach ($question['options'] as $key => $option)
-                                            <li class="text-gray-800 dark:text-gray-200 ml-4 py-1">
-                                                {{ $key }} {{ $option }}
-                                            </li>
-                                        @endforeach
-                                    </ul>
-                                </div>
-                            @endforeach
-                        </div>
-                    @endif
-
-
-                    <div class="mb-3 px-6 py-4">
-                        <form action="{{ route('export-essay') }}" method="post">
-                            @csrf
-                            <input type="hidden" name="generate_id" value="{{ $generateId }}">
-                            <button type="submit" class="flex items-center bg-green-600 px-4 py-3 rounded-lg text-white">
-                                <svg class="w-5 h-5 mb-[9px] " aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                    fill="currentColor" viewBox="0 0 20 20">
-                                    <path
-                                        d="M14.707 7.793a1 1 0 0 0-1.414 0L11 10.086V1.5a1 1 0 0 0-2 0v8.586L6.707 7.793a1 1 0 1 0-1.414 1.414l4 4a1 1 0 0 0 1.416 0l4-4a1 1 0 0 0-.002-1.414Z" />
-                                    <path
-                                        d="M18 12h-2.55l-2.975 2.975a3.5 3.5 0 0 1-4.95 0L4.55 12H2a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2Zm-3 5a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z" />
-                                </svg>
-                                <span class="ml-3 font-bold font-['Inter']">Download File</span>
-                            </button>
-                        </form>
-                    </div>
-
-                @endisset
+                @yield('output')
             </div>
-
-
-
-
-
         </div>
     </div>
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
+        $(document).ready(function() {
+            var API_URL = 'https://testing.brainys.oasys.id/api';
+            // var API_URL = 'http://127.0.0.1:8000/api';
+
+            // Fetch Fase
+            $.ajax({
+                url: API_URL + "/capaian-pembelajaran/fase",
+                method: "POST",
+                success: function(response) {
+                    if (response.status === "success") {
+                        response.data.forEach(function(item) {
+                            $("#fase").append(new Option(item.fase, item.fase));
+                        });
+                    }
+                },
+            });
+
+            // Fetch Mata Pelajaran based on Fase
+            $("#fase").on("change", function() {
+                let fase = $(this).val();
+                $("#mata-pelajaran").prop("disabled", true).empty().append(new Option(
+                    "Select Mata Pelajaran", ""));
+
+                if (fase) {
+                    $.ajax({
+                        url: API_URL + "/capaian-pembelajaran/mata-pelajaran",
+                        method: "POST",
+                        contentType: "application/json",
+                        data: JSON.stringify({
+                            fase: fase
+                        }),
+                        success: function(response) {
+                            if (response.status === "success") {
+                                $("#mata-pelajaran").prop("disabled", false);
+                                response.data.forEach(function(item) {
+                                    $("#mata-pelajaran").append(new Option(item
+                                        .mata_pelajaran, item.mata_pelajaran));
+                                });
+                            }
+                        },
+                    });
+                }
+            });
+
+            // Fetch Element based on Mata Pelajaran and Fase
+            $("#mata-pelajaran").on("change", function() {
+                let fase = $("#fase").val();
+                let mataPelajaran = $(this).val();
+                $("#element").prop("disabled", true).empty().append(new Option("Select Element", ""));
+
+                if (fase && mataPelajaran) {
+                    $.ajax({
+                        url: API_URL + "/capaian-pembelajaran/element",
+                        method: "POST",
+                        contentType: "application/json",
+                        data: JSON.stringify({
+                            fase: fase,
+                            mata_pelajaran: mataPelajaran
+                        }),
+                        success: function(response) {
+                            if (response.status === "success") {
+                                $("#element").prop("disabled", false);
+                                response.data.forEach(function(item) {
+                                    $("#element").append(new Option(item.element, item
+                                        .element));
+                                });
+                            }
+                        },
+                    });
+                }
+            });
+
+            // Fetch Capaian Pembelajaran and Capaian Pembelajaran Redaksi based on Element
+            $("#element").on("change", function() {
+                let fase = $("#fase").val();
+                let mataPelajaran = $("#mata-pelajaran").val();
+                let element = $(this).val();
+
+                if (fase && mataPelajaran && element) {
+                    $.ajax({
+                        url: API_URL + "/capaian-pembelajaran/final",
+                        method: "POST",
+                        contentType: "application/json",
+                        data: JSON.stringify({
+                            fase: fase,
+                            mata_pelajaran: mataPelajaran,
+                            element: element
+                        }),
+                        success: function(response) {
+                            if (response.status === "success") {
+                                $("#capaian-pembelajaran").val(response.data
+                                    ?.capaian_pembelajaran || "No data available");
+                                $("#capaian-pembelajaran-redaksi").val(response.data
+                                    ?.capaian_pembelajaran_redaksi || "No data available");
+                            } else {
+                                $("#capaian-pembelajaran").val("Error retrieving data");
+                                $("#capaian-pembelajaran-redaksi").val("Error retrieving data");
+                            }
+                        },
+                    });
+                }
+            });
+
+
+            // Form submission handler
+            $('#modulAjarForm').on('submit', function(event) {
+                event.preventDefault();
+
+                const submitButton = $('#submitButton');
+                const loadingButton = $('#loadingButton');
+
+                submitButton.hide();
+                loadingButton.show();
+
+                this.submit();
+            });
+        });
+
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const numberInput = document.getElementById('numberOfQuestion');
+            const numberError = document.getElementById('numberError');
+            const submitButton = document.getElementById('submitButton');
+
+            function validateNumber() {
+                const value = numberInput.value;
+                const number = parseInt(value, 10);
+
+                // Check if the value is valid and within range
+                if (isNaN(number) || number < 1 || number > 15 || value.length > 2) {
+
+                    submitButton.disabled = true;
+                } else {
+
+                    submitButton.disabled = false;
+                }
+            }
+
+            function enforceDigitLimit() {
+                let value = numberInput.value;
+
+                // If the input is empty, do nothing
+                if (value === '') return;
+
+                // Ensure the value has at most 2 digits
+                if (value.length > 2) {
+                    value = value.slice(0, 2);
+                    numberInput.value = value;
+                }
+
+                // Apply digit-based restrictions
+                const firstDigit = parseInt(value.charAt(0), 10);
+                const secondDigit = parseInt(value.charAt(1), 10);
+
+                // Check if the first digit is zero
+                if (firstDigit === 0) {
+                    value = '';
+                    numberInput.value = value;
+                    submitButton.disabled = true;
+                    return;
+                }
+
+                // If the first digit is 1, the second digit must not be greater than 5
+                if (firstDigit === 1 && secondDigit > 5) {
+                    value = value.charAt(0) + '5';
+                    numberInput.value = value;
+                }
+
+                // If the first digit is greater than 1, ensure only one digit is allowed
+                else if (firstDigit > 1 && value.length > 1) {
+                    value = value.charAt(0);
+                    numberInput.value = value;
+                }
+
+                validateNumber();
+            }
+
+            numberInput.addEventListener('input', enforceDigitLimit);
+
+            // Initial validation
+            validateNumber();
+        });
+
+
+
+
+
         document.addEventListener("DOMContentLoaded", function() {
-            document.getElementById("name   ").focus();
+            // Memfokuskan ke input nama
+            document.getElementById("name").focus();
+
+
         });
 
         function clearInputs() {
-            document.getElementById('name').value = '';
-            document.getElementById('subject').value = '';
-            document.getElementById('grade').value = '';
-            document.getElementById('notes').value = '';
-            document.getElementById('numberOfQuestion').value = '';
-            document.getElementById('exerciseType').value = '';
+            document.getElementById('name').value = ''; // Menghapus nilai input nama
+            document.getElementById('fase').value = ''; // Menghapus nilai input fase
+            document.getElementById('mata-pelajaran').value = ''; // Menghapus nilai input mata pelajaran
+            document.getElementById('element').value = ''; // Menghapus nilai input element
+            document.getElementById('notes').value = ''; // Menghapus nilai input notes
+            document.getElementById('number').value = ''; // Menghapus nilai input number
+            $('#numberError').text(''); // Menghapus pesan error
+            $('#submitButton').prop('disabled', true); // Menonaktifkan tombol submit
         }
 
-        document.getElementById('notes').addEventListener('input', function() {
+        function updateCharacterCount(textarea) {
             var characterCountElement = document.getElementById('characterCount');
-            var currentCount = this.value.length;
+            var currentCount = textarea.value.length;
             characterCountElement.textContent = currentCount + '/250';
-        });
-
-        document.getElementById('exerciseForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-
-            const submitButton = document.getElementById('submitButton');
-            const loadingButton = document.getElementById('loadingButton');
-
-            submitButton.style.display = 'none';
-            loadingButton.style.display = 'inline-flex';
-
-            this.submit();
-        });
+        }
     </script>
-
-
-
-
-
 @endsection

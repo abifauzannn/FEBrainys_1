@@ -1,4 +1,4 @@
-@extends('generates.generateKisi')
+@extends('generates.generatesAtp')
 
 @section('title', 'Templat Alur Tujuan Pembelajaran - Brainys')
 
@@ -8,48 +8,49 @@
 
 @section('output')
     @isset($data)
-        <div class="overflow-x-auto">
-            <table class="w-full">
-                <thead class="bg-slate-50">
-                    <tr>
-                        <th class="px-6 py-3 text-left text-sm font-bold text-gray-800 uppercase" colspan="2">
-                            Informasi Umum
-                        </th>
-                    </tr>
-                </thead>
-                <tbody class="divide-y divide-gray-200">
-                    @foreach ($data['informasi_umum'] as $key => $value)
+        @isset($data['informasi_umum'])
+            <div class="overflow-x-auto">
+                <table class="w-full">
+                    <thead class="bg-slate-50">
                         <tr>
-                            <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200 font-semibold bg-slate-50">
-                                {{ str_replace(' ', ' ', ucwords(str_replace('_', ' ', $key))) }}
-                            </td>
-                            <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">
-                                @if (is_array($value))
-                                    <ul class="list-disc pl-5">
-                                        @foreach ($value as $item)
-                                            @if (is_array($item))
-                                                <li>
-                                                    @foreach ($item as $key => $val)
-                                                        <strong>
-                                                            {{ str_replace(' ', ' ', ucwords(str_replace('_', ' ', $key))) }}
-                                                            :</strong> {{ $val }}<br>
-                                                    @endforeach
-                                                </li>
-                                            @else
-                                                <li>{{ $item }}</li>
-                                            @endif
-                                        @endforeach
-                                    </ul>
-                                @else
-                                    {{ $value }}
-                                @endif
-                            </td>
-
+                            <th class="px-6 py-3 text-left text-sm font-bold text-gray-800 uppercase" colspan="2">
+                                Informasi Umum
+                            </th>
                         </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
+                    </thead>
+                    <tbody class="divide-y divide-gray-200">
+                        @foreach ($data['informasi_umum'] as $key => $value)
+                            <tr>
+                                <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200 font-semibold bg-slate-50">
+                                    {{ str_replace(' ', ' ', ucwords(str_replace('_', ' ', $key))) }}
+                                </td>
+                                <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">
+                                    @if (is_array($value))
+                                        <ul class="list-disc pl-5">
+                                            @foreach ($value as $item)
+                                                @if (is_array($item))
+                                                    <li>
+                                                        @foreach ($item as $key => $val)
+                                                            <strong>
+                                                                {{ str_replace(' ', ' ', ucwords(str_replace('_', ' ', $key))) }}
+                                                                :</strong> {{ $val }}<br>
+                                                        @endforeach
+                                                    </li>
+                                                @else
+                                                    <li>{{ $item }}</li>
+                                                @endif
+                                            @endforeach
+                                        </ul>
+                                    @else
+                                        {{ $value }}
+                                    @endif
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        @endisset
 
         @if (!empty($data['alur']))
             <div class="overflow-x-auto py-5">
@@ -97,7 +98,6 @@
             </div>
         @endif
 
-
         <div class="flex flex-row gap-3 mb-3 px-6 py-4">
             <form action="{{ route('export-atp-word') }}" method="post">
                 @csrf
@@ -129,5 +129,4 @@
             </form>
         </div>
     @endisset
-
 @endsection

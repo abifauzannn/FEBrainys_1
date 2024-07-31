@@ -104,7 +104,7 @@ public function exportToWord(Request $request)
         // Arahkan pengguna ke URL unduhan
         return redirect($downloadUrl);
     } else {
-        dd($response->json());
+
         return back()->with('error', 'Failed to export to Word.');
     }
 }
@@ -128,7 +128,7 @@ public function exportToPpt(Request $request)
         // Arahkan pengguna ke URL unduhan
         return redirect($downloadUrl);
     } else {
-        dd($response->json());
+
         return back()->with('error', 'Failed to export to Word.');
     }
 }
@@ -182,9 +182,9 @@ public function getDetailGamifikasi($idGamifikasi){
     } else {
         // Handle error if needed
         if (isset($responseData['status']) && $responseData['status'] === 'failed' && isset($responseData['message'])) {
-           dd($responseData);
+            return redirect('/history')->with('error', $responseData['message']);
         } else {
-           dd($responseData);
+           return redirect('/history')->with('error', 'Failed to fetch material history.');
         }
     }
 }

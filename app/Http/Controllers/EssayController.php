@@ -102,7 +102,6 @@ public function exportToWord(Request $request)
        return redirect($downloadUrl);
    } else {
        // Tangani kasus jika permintaan gagal
-       dd($response->json());
        return back()->with('error', 'Failed to export to Word.');
    }
 }

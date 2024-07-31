@@ -123,7 +123,6 @@ public function exportToPpt(Request $request)
         // Arahkan pengguna ke URL unduhan
         return redirect($downloadUrl);
     } else {
-        dd($response->json());
         return back()->with('error', 'Failed to export to Word.');
     }
 }

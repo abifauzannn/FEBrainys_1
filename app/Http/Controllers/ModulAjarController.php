@@ -67,7 +67,7 @@ class ModulAjarController extends Controller
         } else {
              // Handle error if needed
         if(isset($responseData['status']) && $responseData['status'] === 'failed' && isset($responseData['message'])) {
-            dd($responseData);
+            return redirect('/generate-modul-ajar')->with('error', $responseData['message']);
         } else {
             return redirect('/dashboard')->with('error', 'Failed to generate syllabus. Status code: ' . $statusCode);
         }
@@ -103,7 +103,7 @@ public function exportToWord(Request $request)
         // Arahkan pengguna ke URL unduhan
         return redirect($downloadUrl);
     } else {
-        dd($response->json());
+
         return back()->with('error', 'Failed to export to Word.');
     }
 }
@@ -127,7 +127,7 @@ public function exportToExcel(Request $request)
         // Arahkan pengguna ke URL unduhan
         return redirect($downloadUrl);
     } else {
-        dd($response->json());
+
         return back()->with('error', 'Failed to export to Word.');
     }
 }

@@ -167,6 +167,14 @@
                                                 {{ $materi_pembelajaran['indikator'] }}
                                             </li>
                                             <li class="text-sm text-gray-800 mb-2">
+                                                <span class="font-bold">Nilai Karakter :</span>
+                                                {{ $materi_pembelajaran['nilai_karakter'] }}
+                                            </li>
+                                            <li class="text-sm text-gray-800 mb-2">
+                                                <span class="font-bold">Kegiatan Pembelajaran :</span>
+                                                {{ $materi_pembelajaran['kegiatan_pembelajaran'] }}
+                                            </li>
+                                            <li class="text-sm text-gray-800 mb-2">
                                                 <span class="font-bold">Alokasi Waktu :</span>
                                                 {{ $materi_pembelajaran['alokasi_waktu'] }}
                                             </li>

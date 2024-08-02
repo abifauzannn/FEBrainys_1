@@ -41,6 +41,16 @@
                         <button type="submit"
                             class="bg-blue-600 text-white font-semibold py-2 px-4 rounded hover:bg-blue-700 focus:outline-none focus:bg-blue-700 mt-4">Submit</button>
                     </div>
+                    <div class="flex items-center justify-center pt-10">
+
+                        <div>
+                            <img src="{{ URL('images/whatsapp.png') }}" alt="logo" class="w-5 h-5 object-cover mr-2">
+                        </div>
+                        <div class="text-center text-base font-medium font-['Inter'] leading-normal flex flex-col">
+                            <a href="https://wa.link/z2edgq" target="_blank" class="hover:font-bold">Butuh Bantuan?</a>
+                        </div>
+
+                    </div>
                 </form>
             </div>
         </div>

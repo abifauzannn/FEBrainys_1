@@ -4,7 +4,7 @@ return [
     [
         'url' => '/generate-modul-ajar',
         'icon' => 'images/modulajar.png',
-        'title' => 'Modul Ajar',
+        'title' => 'Templat Modul Ajar',
         'description' => 'Gunakan templat modul ajar kurikulum merdeka',
         'status' => 'old',
     ],

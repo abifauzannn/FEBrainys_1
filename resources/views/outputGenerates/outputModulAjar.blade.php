@@ -19,13 +19,28 @@
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-200">
-                        @foreach ($data['informasi_umum'] as $key => $value)
+                        @php
+                            $informasiUmum = [
+                                'nama_modul_ajar' => 'Nama Modul Ajar',
+                                'penyusun' => 'Nama Penyusun',
+                                'jenjang_sekolah' => 'Satuan Pendidikan',
+                                'fase_kelas' => 'Fase/Kelas',
+                                'mata_pelajaran' => 'Mata Pelajaran',
+                                'alokasi_waktu' => 'Alokasi Waktu',
+                                'kompetensi_awal' => 'Kompetensi Awal',
+                                'profil_pelajar_pancasila' => 'Profil Pelajar Pancasila',
+                                'target_peserta_didik' => 'Target Peserta Didik',
+                                'model_pembelajaran' => 'Model Pembelajaran',
+                            ];
+                        @endphp
+
+                        @foreach ($informasiUmum as $key => $label)
                             <tr>
                                 <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200 font-semibold bg-slate-50">
-                                    {{ str_replace(' ', ' ', ucwords(str_replace('_', ' ', $key))) }}
+                                    {{ $label }}
                                 </td>
                                 <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">
-                                    {{ is_array($value) ? json_encode($value) : htmlspecialchars($value) }}
+                                    {{ is_array($data['informasi_umum'][$key]) ? json_encode($data['informasi_umum'][$key]) : htmlspecialchars($data['informasi_umum'][$key]) }}
                                 </td>
                             </tr>
                         @endforeach
@@ -33,6 +48,7 @@
                 </table>
             </div>
         @endif
+
 
         @if (isset($data['sarana_dan_prasarana']) && !empty($data['sarana_dan_prasarana']))
             <div class="overflow-x-auto mt-5">

@@ -105,7 +105,7 @@
 
                 <div class="flex justify-between items-center -mt-2">
                     <a href="https://guru.kemdikbud.go.id/kurikulum/referensi-penerapan/capaian-pembelajaran/"
-                        class="text-blue-500 hover:text-blue-700 font-semibold text-sm">Lihat
+                        target="_blank" class="text-blue-500 hover:text-blue-700 font-semibold text-sm">Lihat
                         panduan capaian belajar</a>
                     <div class="self-stretch justify-start items-end gap-5 inline-flex">
                         <div id="characterCount"
@@ -305,6 +305,67 @@
         document.addEventListener("DOMContentLoaded", function() {
             // Memfokuskan ke input email
             document.getElementById("name").focus();
+            const numberInput = document.getElementById('pekan');
+            const numberError = document.getElementById('numberError');
+            const submitButton = document.getElementById('submitButton');
+
+            function validateNumber() {
+                const value = numberInput.value;
+                const number = parseInt(value, 10);
+
+                // Check if the value is valid and within range
+                if (isNaN(number) || number < 1 || number > 15 || value.length > 2) {
+
+                    submitButton.disabled = true;
+                } else {
+
+                    submitButton.disabled = false;
+                }
+            }
+
+            function enforceDigitLimit() {
+                let value = numberInput.value;
+
+                // If the input is empty, do nothing
+                if (value === '') return;
+
+                // Ensure the value has at most 2 digits
+                if (value.length > 2) {
+                    value = value.slice(0, 2);
+                    numberInput.value = value;
+                }
+
+                // Apply digit-based restrictions
+                const firstDigit = parseInt(value.charAt(0), 10);
+                const secondDigit = parseInt(value.charAt(1), 10);
+
+                // Check if the first digit is zero
+                if (firstDigit === 0) {
+                    value = '';
+                    numberInput.value = value;
+                    submitButton.disabled = true;
+                    return;
+                }
+
+                // If the first digit is 1, the second digit must not be greater than 5
+                if (firstDigit === 1 && secondDigit >= 0) {
+                    value = value.charAt(0) + '0';
+                    numberInput.value = value;
+                }
+
+                // If the first digit is greater than 1, ensure only one digit is allowed
+                else if (firstDigit > 1 && value.length > 1) {
+                    value = value.charAt(0);
+                    numberInput.value = value;
+                }
+
+                validateNumber();
+            }
+
+            numberInput.addEventListener('input', enforceDigitLimit);
+
+            // Initial validation
+            validateNumber();
         });
 
         function clearInputs() {
@@ -332,6 +393,24 @@
 
             this.submit();
         });
+
+
+        function clearInputs() {
+            document.getElementById('name').value = ''; // Menghapus nilai input nama
+            document.getElementById('fase').value = ''; // Menghapus nilai input fase
+            document.getElementById('mata-pelajaran').value = ''; // Menghapus nilai input mata pelajaran
+            document.getElementById('element').value = ''; // Menghapus nilai input element
+            document.getElementById('notes').value = ''; // Menghapus nilai input notes
+            document.getElementById('number').value = ''; // Menghapus nilai input number
+            $('#numberError').text(''); // Menghapus pesan error
+            $('#submitButton').prop('disabled', true); // Menonaktifkan tombol submit
+        }
+
+        function updateCharacterCount(textarea) {
+            var characterCountElement = document.getElementById('characterCount');
+            var currentCount = textarea.value.length;
+            characterCountElement.textContent = currentCount + '/250';
+        }
     </script>
 
 @endsection

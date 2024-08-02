@@ -19,38 +19,39 @@
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-200">
-                        @foreach ($data['informasi_umum'] as $key => $value)
-                            <tr>
-                                <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200 font-semibold bg-slate-50">
-                                    {{ str_replace(' ', ' ', ucwords(str_replace('_', ' ', $key))) }}
-                                </td>
-                                <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">
-                                    @if (is_array($value))
-                                        <ul class="list-disc pl-5">
-                                            @foreach ($value as $item)
-                                                @if (is_array($item))
-                                                    <li>
-                                                        @foreach ($item as $key => $val)
-                                                            <strong>
-                                                                {{ str_replace(' ', ' ', ucwords(str_replace('_', ' ', $key))) }}
-                                                                :</strong> {{ $val }}<br>
-                                                        @endforeach
-                                                    </li>
-                                                @else
-                                                    <li>{{ $item }}</li>
-                                                @endif
-                                            @endforeach
-                                        </ul>
-                                    @else
-                                        {{ $value }}
-                                    @endif
-                                </td>
-                            </tr>
+                        @php
+                            $informasiUmumOrder = [
+                                'nama_kisi_kisi' => 'Nama Kisi-kisi',
+                                'penyusun' => 'Nama Penyusun',
+                                'instansi' => 'Satuan Pendidikan',
+                                'kelas' => 'Fase/Kelas',
+                                'mata_pelajaran' => 'Mata Pelajaran',
+                                'alokasi_waktu' => 'Alokasi Waktu',
+                                'kompetensi_awal' => 'Kompetensi Awal',
+                                'elemen_capaian' => 'Elemen Capaian',
+                                'capaian_pembelajaran_redaksi' => 'Capaian Pembelajaran',
+                                'pokok_materi' => 'Pokok Materi',
+                                'tahun_penyusunan' => 'Tahun Penyusunan',
+                            ];
+                        @endphp
+
+                        @foreach ($informasiUmumOrder as $key => $label)
+                            @if (isset($data['informasi_umum'][$key]))
+                                <tr>
+                                    <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200 font-semibold bg-slate-50">
+                                        {{ $label }}
+                                    </td>
+                                    <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">
+                                        {{ is_array($data['informasi_umum'][$key]) ? json_encode($data['informasi_umum'][$key]) : htmlspecialchars($data['informasi_umum'][$key]) }}
+                                    </td>
+                                </tr>
+                            @endif
                         @endforeach
                     </tbody>
                 </table>
             </div>
         @endif
+
 
         @if (isset($data['kisi_kisi']) && !empty($data['kisi_kisi']))
             <div class="overflow-x-auto py-5">

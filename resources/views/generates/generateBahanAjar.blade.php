@@ -148,6 +148,8 @@
                         </div>
                     </div>
                 @endif
+
+                <x-generate-image />
                 @yield('output')
             </div>
         </div>
@@ -177,9 +179,15 @@
 
             const submitButton = document.getElementById('submitButton');
             const loadingButton = document.getElementById('loadingButton');
+            const imageGenerate = document.getElementById('output')
+            const imageGenerate2 = document.getElementById('output2')
+            const loadingSpinner = document.getElementById('loadingSpinner');
 
             submitButton.style.display = 'none';
             loadingButton.style.display = 'inline-flex';
+            imageGenerate.style.display = 'none';
+            imageGenerate2.style.display = 'inline-flex';
+            loadingSpinner.style.display = 'inline-flex';
 
             this.submit();
         });

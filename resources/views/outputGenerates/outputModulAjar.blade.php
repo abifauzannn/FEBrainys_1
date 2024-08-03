@@ -222,4 +222,8 @@
             </div>
         @endif
     @endisset
+
+    <script>
+        document.getElementById('output').style.display = 'none';
+    </script>
 @endsection

@@ -152,6 +152,9 @@
                         </div>
                     </div>
                 @endif
+
+                <x-generate-image />
+
                 @yield('output')
             </div>
         </div>
@@ -269,12 +272,19 @@
 
                 const submitButton = $('#submitButton');
                 const loadingButton = $('#loadingButton');
+                const imageGenerate = $('#output');
+                const imageGenerate2 = $('#output2');
+                const loadingSpinner = $('#loadingSpinner');
 
                 submitButton.hide();
                 loadingButton.show();
+                imageGenerate.hide();
+                imageGenerate2.css('display', 'inline-flex');
+                loadingSpinner.css('display', 'inline-flex');
 
                 this.submit();
             });
+
         });
 
 

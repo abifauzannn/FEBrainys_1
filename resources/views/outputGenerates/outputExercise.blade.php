@@ -99,6 +99,10 @@
             <x-export-word generateId="{{ $generateId }}" export="{{ route('export-essay') }}" />
         </div>
 
+        <script>
+            document.getElementById('output').style.display = 'none';
+        </script>
+
 
     @endisset
 @endsection

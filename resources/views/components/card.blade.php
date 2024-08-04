@@ -10,7 +10,7 @@
     </div>
 
     <div class="py-2 w-full text-left">
-        <div class="text-gray-900 text-lg font-bold font-inter leading-normal">
+        <div class="text-gray-900 text-base font-bold font-inter leading-normal">
             {{ $title }}
         </div>
     </div>

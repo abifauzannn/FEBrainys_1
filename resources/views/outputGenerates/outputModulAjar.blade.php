@@ -31,6 +31,8 @@
                                 'profil_pelajar_pancasila' => 'Profil Pelajar Pancasila',
                                 'target_peserta_didik' => 'Target Peserta Didik',
                                 'model_pembelajaran' => 'Model Pembelajaran',
+                                'element' => 'Elemen',
+                                'capaian_pembelajaran' => 'Capaian Pembelajaran',
                             ];
                         @endphp
 
@@ -225,5 +227,6 @@
 
     <script>
         document.getElementById('output').style.display = 'none';
+        document.getElementById('imageBox').classList.remove('my-8');
     </script>
 @endsection

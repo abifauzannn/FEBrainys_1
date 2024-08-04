@@ -189,5 +189,6 @@
 
     <script>
         document.getElementById('output').style.display = 'none';
+        document.getElementById('imageBox').classList.remove('my-8');
     </script>
 @endsection

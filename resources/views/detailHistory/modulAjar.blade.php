@@ -32,6 +32,7 @@
             <div class="mt-2">
                 <table class="w-full">
                     <tbody>
+
                         @foreach ($materialHistory['output_data']['informasi_umum'] as $key => $value)
                             <tr>
                                 <td class="py-1 text-sm w-[200px]">{{ ucwords(str_replace('_', ' ', $key)) }}</td>

@@ -134,15 +134,17 @@
 
         <div class="flex items-center justify-center pt-10">
             <button
-                class="w-full max-w-56 h-12 px-6 rounded-md justify-center items-center gap-2.5 inline-flex border border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white transition duration-300 ease-in-out"
+                class="group w-full max-w-56 h-12 px-6 rounded-md justify-center items-center gap-2.5 inline-flex border border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white"
                 type="button">
                 <div>
                     <img src="{{ URL('images/whatsapp.png') }}" alt="logo" class="w-5 h-5 object-cover mr-2">
                 </div>
                 <div class="text-center text-base font-medium font-['Inter'] leading-normal flex flex-col">
-                    <a href="https://wa.link/z2edgq" target="_blank" class="hover:font-bold">Butuh Bantuan?</a>
+                    <a href="https://wa.link/z2edgq" target="_blank"
+                        class="group-hover:font-bold transition duration-300 ease-in-out">Butuh Bantuan?</a>
                 </div>
             </button>
         </div>
+
     </div>
 @endsection

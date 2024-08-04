@@ -32,13 +32,13 @@
         <div class="flex justify-between h-45 items-center">
             <div>
                 <a href="/dashboard"><img src="{{ URL('images/newlogo.png') }}" alt=""
-                        class="w-[140px] object-cover" loading="lazy"></a>
+                        class="w-[120px] md:w-[140px] object-cover" loading="lazy"></a>
 
             </div>
             <div class="flex items-center space-x-4">
                 @if (isset($userLimit))
                     <div
-                        class="flex justify-center gap-1 items-center mt-1 text-gray-500 text-sm border border-zinc-200 rounded-[5px] py-1 px-1 bg-white font-bold">
+                        class="flex justify-center gap-1 items-center mt-1 text-gray-500 text-xs border border-zinc-200 rounded-[5px] py-1 px-1 bg-white font-bold">
                         <img src="{{ URL('images/sparkles.png') }}" alt="" class="w-5 h-5" loading="lazy">
                         {{ $userLimit['all']['used'] }} / {{ $userLimit['all']['limit'] }}
                     </div>
@@ -103,7 +103,7 @@
                 @endphp
 
                 <div
-                    class="w-12 h-12 text-white flex items-center justify-center text-xl font-['Inter'] font-bold rounded-full bg-[#b6e3f4]">
+                    class="w-10 h-10 md:w-12 md:h-12 text-white flex items-center justify-center text-md md:text-lg font-['Inter'] font-bold rounded-full bg-[#b6e3f4]">
                     {{ $initials }}
                 </div>
 

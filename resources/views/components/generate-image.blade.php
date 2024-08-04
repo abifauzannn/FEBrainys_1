@@ -1,8 +1,8 @@
-<div class="flex items-center justify-center w-full">
-    <img src="{{ URL('images/generate.png') }}" class="w-[350px] h-[350px] mt-8" alt="" id="output">
-    <img src="{{ URL('images/generate.png') }}" class="w-[350px] h-[350px] mt-8 opacity-50 hidden" alt=""
+<div class="flex items-center justify-center w-full my-8" id="imageBox">
+    <img src="{{ URL('images/generate.png') }}" class="w-[350px] h-[350px] " alt="" id="output">
+    <img src="{{ URL('images/generate.png') }}" class="w-[350px] h-[350px]  opacity-50 hidden" alt=""
         id="output2">
-    <div id="loadingSpinner" class="ml-2 mt-8 w-[350px] h-[350px]  flex items-center justify-center absolute hidden">
+    <div id="loadingSpinner" class="ml-2 mt-8 w-[350px] h-[350px]  flex items-center justify-center absolute hidden ">
         <svg class="animate-spin h-5 w-5 text-black" xmlns="http://www.w3.org/2000/svg" fill="none"
             viewBox="0 0 24 24">
             <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4">

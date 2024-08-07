@@ -72,24 +72,24 @@
                                     {{ $item['no'] }}
                                 </td>
                                 <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">
-                                    {{ $item['tujuan_pembelajaran'] }}
+                                    {{ $item['tujuan_pembelajaran'] ?? '' }}
                                 </td>
                                 <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">
                                     <ul class="list-disc pl-5">
                                         @foreach ($item['kata_frase_kunci'] as $kata_frase)
-                                            <li>{{ $kata_frase }}</li>
+                                            <li>{{ $kata_frase ?? '' }}</li>
                                         @endforeach
                                     </ul>
                                 </td>
                                 <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">
                                     <ul class="list-disc pl-5">
                                         @foreach ($item['profil_pelajar_pancasila'] as $profil)
-                                            <li>{{ $profil }}</li>
+                                            <li>{{ $profil ?? '' }}</li>
                                         @endforeach
                                     </ul>
                                 </td>
                                 <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">
-                                    {{ $item['glorasium'] }}
+                                    {{ $item['glorasium'] ?? '' }}
                                 </td>
                             </tr>
                         @endforeach

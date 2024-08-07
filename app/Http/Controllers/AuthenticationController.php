@@ -402,8 +402,6 @@ class AuthenticationController extends Controller
     }
 
 
-
-
     public function login(Request $request)
 {
     // Buat permintaan login ke API

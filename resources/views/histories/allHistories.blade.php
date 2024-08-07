@@ -54,7 +54,6 @@
                             </span>
                         </button>
 
-
                         <div id="filterDropdown"
                             class="hidden absolute bg-white border rounded-md shadow-md w-48 mt-2 z-50">
                             <button
@@ -147,7 +146,7 @@
                             <div class="text-gray-900 text-xl font-semibold font-inter capitalize">{{ $history['name'] }}
                             </div>
                             <div class="text-slate-400 text-xs font-inter mt-2"> Dibuat pada <span
-                                    class="text-gray-900 font-bold">{{ date('d F Y | H:i', strtotime($history['created_at'])) }}</span>
+                                    class="text-gray-900 font-bold">{{ $history['created_at_format'] ?? $history['created_at'] }}</span>
                             </div>
                         </header>
                         <section class="w-full min-h-32 max-h-32">
@@ -200,79 +199,35 @@
             </div>
         </div>
 
-        <div id="pagination" class="flex flex-col items-center mt-5">
-            <div class="flex flex-row items-center mb-4">
-                <button id="prevPage" class="px-4 py-2 bg-blue-500 text-white rounded-md"
-                    data-page="{{ $page - 1 }}" {{ $page <= 1 ? 'disabled' : '' }}>Previous</button>
+        <!-- Pagination Links -->
+        <div class="flex justify-center mt-4 space-x-2">
+            @if ($currentGroupStart > 1)
+                <a href="{{ route('history', ['page' => $currentGroupStart - 1, 'type' => $type]) }}"
+                    class="px-3 py-1 bg-blue-500 text-white rounded">Sebelumnya</a>
+            @endif
 
-                <div class="flex flex-wrap justify-center gap-2 mx-4">
-                    @for ($i = 1; $i <= $totalPages; $i++)
-                        <button
-                            class="page-btn px-4 py-2 border rounded-md {{ $i == $page ? 'bg-blue-500 text-white' : 'bg-white text-blue-500' }} {{ $i == $page ? 'font-semibold' : '' }}"
-                            data-page="{{ $i }}">
-                            {{ $i }}
-                        </button>
-                    @endfor
-                </div>
+            @for ($i = $currentGroupStart; $i <= $currentGroupEnd; $i++)
+                <a href="{{ route('history', ['page' => $i, 'type' => $type]) }}"
+                    class="px-3 py-1 {{ $i == $page ? 'bg-blue-500 text-white' : 'bg-white border' }} rounded">{{ $i }}</a>
+            @endfor
 
-                <button id="nextPage" class="px-4 py-2 bg-blue-500 text-white rounded-md"
-                    data-page="{{ $page + 1 }}" {{ !$hasMorePages ? 'disabled' : '' }}>Next</button>
-            </div>
+            @if ($currentGroupEnd < $totalPages)
+                <a href="{{ route('history', ['page' => $currentGroupEnd + 1, 'type' => $type]) }}"
+                    class="px-3 py-1 bg-blue-500 text-white rounded">Berikutnya</a>
+            @endif
         </div>
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const filterButton = document.getElementById('filterButton');
-            const filterDropdown = document.getElementById('filterDropdown');
-            const selectedOption = document.getElementById('selectedOption');
-            const filterButtons = document.querySelectorAll('.filter-btn');
-            const filterForm = document.getElementById('filterForm');
-            const filterInput = document.getElementById('filterInput');
-            const pageButtons = document.querySelectorAll('.page-btn');
-            const prevPageButton = document.getElementById('prevPage');
-            const nextPageButton = document.getElementById('nextPage');
+        document.getElementById('filterButton').addEventListener('click', function() {
+            document.getElementById('filterDropdown').classList.toggle('hidden');
+        });
 
-            filterButton.addEventListener('click', () => {
-                filterDropdown.classList.toggle('hidden');
-            });
-
-            filterButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    const filterType = button.dataset.filter;
-                    const page = document.querySelector('input[name="page"]').value;
-
-                    if (filterType === 'all') {
-                        filterInput.value = 'all';
-                        selectedOption.textContent = 'Semua';
-                        window.location.href = `{{ route('history') }}?page=${page}`;
-                    } else {
-                        selectedOption.textContent = button.textContent.trim();
-                        filterInput.value = filterType;
-                        filterForm.submit();
-                    }
-                });
-            });
-
-            pageButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    const page = button.dataset.page;
-                    const filterType = filterInput.value;
-                    window.location.href =
-                        `{{ route('history') }}?page=${page}&type=${filterType}`;
-                });
-            });
-
-            prevPageButton.addEventListener('click', () => {
-                const currentPage = parseInt(prevPageButton.dataset.page);
-                const filterType = filterInput.value;
-                window.location.href = `{{ route('history') }}?page=${currentPage}&type=${filterType}`;
-            });
-
-            nextPageButton.addEventListener('click', () => {
-                const currentPage = parseInt(nextPageButton.dataset.page);
-                const filterType = filterInput.value;
-                window.location.href = `{{ route('history') }}?page=${currentPage}&type=${filterType}`;
+        document.querySelectorAll('.filter-btn').forEach(function(button) {
+            button.addEventListener('click', function() {
+                var filterValue = this.getAttribute('data-filter');
+                document.getElementById('filterInput').value = filterValue;
+                document.getElementById('filterForm').submit();
             });
         });
     </script>

@@ -39,8 +39,6 @@ class HistoryController extends Controller
 
     return view('histories.allHistories', compact('userData', 'historyData', 'page', 'hasMorePages', 'totalPages', 'type', 'currentGroupStart', 'currentGroupEnd'));
 }
-
-
     public function fetchHistoryData($page, $type = 'all')
     {
         $token = session()->get('access_token');

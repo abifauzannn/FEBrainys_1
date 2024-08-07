@@ -10,7 +10,6 @@
             window.location.href = "{{ route('dashboard') }}";
         </script>
     @endif
-
     <div class="container mx-auto px-4 sm:px-10 py-9 font-['Inter']">
         <button onclick="window.location='{{ route('dashboard') }}'" class="mb-6">
             <div class="flex items-center">

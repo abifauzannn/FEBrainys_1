@@ -15,8 +15,6 @@
     @endphp
 
     @isset($data)
-
-
         @if (isset($data['informasi_umum']) && !empty($data['informasi_umum']))
             <div class="overflow-x-auto my-3">
                 <table class="w-full">

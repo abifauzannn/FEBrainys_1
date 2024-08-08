@@ -89,8 +89,6 @@ class EssayController extends Controller
     return view('outputGenerates.outputExercise', compact('data', 'generateId'));
 }
 
-
-
 public function exportToWord(Request $request)
 {
     // Ambil generate_id dari permintaan

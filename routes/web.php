@@ -114,8 +114,6 @@ Route::get('/output-syllabus', function () {
 })->name('outputSyllabus');
 Route::post('/export-word-syllabus', [SyllabusController::class, 'exportToWord'])->name('export-word-syllabus');
 
-
-
 Route::post('/register', [AuthenticationController::class, 'register'])->name('registerPost');
 Route::get('/register', [AuthenticationController::class, 'showSignupForm'])->name('showSignupForm');
 

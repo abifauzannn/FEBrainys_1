@@ -209,9 +209,4 @@
             this.submit();
         });
     </script>
-
-
-
-
-
 @endsection

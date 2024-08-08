@@ -1,6 +1,6 @@
 @extends('generates.generateSyllabus')
 
-@section('title', 'Templat Soal - Brainys')
+@section('title', 'Templat Syllabus - Brainys')
 
 @section('meta')
     <meta name="robots" content="noindex, nofollow">

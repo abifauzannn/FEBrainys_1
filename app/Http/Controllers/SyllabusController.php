@@ -161,4 +161,5 @@ public function getDetailSyllabus($idSyllabus){
         }
     }
 }
+
 }

@@ -291,7 +291,6 @@
 
         });
 
-
         document.addEventListener('DOMContentLoaded', function() {
             const numberInput = document.getElementById('numberOfQuestion');
             const numberError = document.getElementById('numberError');

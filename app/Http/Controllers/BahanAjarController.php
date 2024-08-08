@@ -23,62 +23,64 @@ class BahanAjarController extends Controller
         }
     }
 
-    public function generateBahanAjar(Request $request){
+    public function generateBahanAjar(Request $request)
+{
+    // Check if the user is authenticated
+    if (!session()->has('access_token') || !session()->has('user')) {
+        return redirect('/login')->with('error', 'Please log in to generate teaching materials.');
+    }
 
-        // Check if the user is authenticated
-        if (!session()->has('access_token') || !session()->has('user')) {
-            // If not authenticated, redirect to login page
-            return redirect('/login')->with('error', 'Please log in to generate syllabus.');
-        }
+    // Call method getUserLimit() to get user limit data
+    $userLimit = $this->getUserLimit();
 
-        // Panggil method getUserLimit() untuk mendapatkan data batas penggunaan
-        $userLimit = $this->getUserLimit();
+    $generateId = null; // Initialize $generateId variable
+    $responseMessage = null;
 
-        $generateId = null; // Initialize $generateId variable
+    if ($request->isMethod('post')) {
+        // Form submission
+        $token = session()->get('access_token');
 
-        if ($request->isMethod('post')) {
-            // Form submission
+        $response = Http::withToken($token)
+            ->timeout(60) // timeout in seconds (example: 60 seconds)
+            ->post(env('APP_API').'/bahan-ajar/generate', [
+                'name' => $request->input('name'),
+                'subject' => $request->input('subject'),
+                'grade' => $request->input('grade'),
+                'notes' => $request->input('notes')
+            ]);
 
-            // Use the authentication token for API request
-            $token = session()->get('access_token');
+        $statusCode = $response->status();
+        $responseData = $response->json();
 
-            $response = Http::withToken($token)
-                ->timeout(60) // timeout dalam detik (contoh: 60 detik)
-                ->post(env('APP_API').'/bahan-ajar/generate', [
-                    'name' => $request->input('name'),
-                    'subject' => $request->input('subject'),
-                    'grade' => $request->input('grade'),
-                    'notes' => $request->input('notes')
-                ]);
-
-            $statusCode = $response->status();
-            $responseData = $response->json();
-
-            if ($response->successful()) {
-                // Process the API response body
-                if (isset($responseData['data'])) {
-                    $data = $responseData['data'];
-                    $generateId = $responseData['data']['id'];
-                } else {
-                    // Handle the case where the expected structure is not present in the API response
-                    return redirect('/generate-bahan-ajar')->with('error', 'Invalid API response format');
-                }
+        if ($response->successful()) {
+            if (isset($responseData['data'])) {
+                $data = $responseData['data'];
+                $generateId = $responseData['data']['id'];
+                $responseMessage = 'Teaching material generated successfully!';
+                session()->flash('success', $responseMessage);
+                session()->flash('data', $data);
+                session()->flash('generateId', $generateId);
             } else {
-                 // Handle error if needed
-            if(isset($responseData['status']) && $responseData['status'] === 'failed' && isset($responseData['message'])) {
-                return redirect('/generate-bahan-ajar')->with('error', $responseData['message']);
-            } else {
-                return redirect('/dashboard')->with('error', 'Failed to generate syllabus. Status code: ' . $statusCode);
-            }
+                session()->flash('error', 'Invalid API response format');
             }
         } else {
-            // Initial form display
-            $data = null;
+            if (isset($responseData['status']) && $responseData['status'] === 'failed' && isset($responseData['message'])) {
+                session()->flash('error', $responseData['message']);
+            } else {
+                session()->flash('error', 'Failed to generate teaching materials. Status code: ' . $statusCode);
+            }
         }
 
-        // Pass the $data and $generateId variables to the view
-        return view('outputGenerates.outputBahanAjar', compact('data', 'generateId', 'userLimit'));
+        return redirect('/generate-bahan-ajar');
+    } else {
+        // Initial form display
+        $data = null;
     }
+
+    // Pass the $data and $generateId variables to the view
+    return view('outputGenerates.outputBahanAjar', compact('data', 'generateId', 'userLimit'));
+}
+
 
 public function exportToWord(Request $request)
 {

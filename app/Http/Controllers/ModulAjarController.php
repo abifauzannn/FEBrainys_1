@@ -53,31 +53,33 @@ class ModulAjarController extends Controller
 
             if ($response->successful()) {
                 if (isset($responseData['data'])) {
-                    $data = $responseData['data'];
-                    $generateId = $responseData['data']['id'];
-
-                    session()->flash('data', $data);
-                    session()->flash('generateId', $generateId);
-                    session()->flash('userLimit', $userLimit);
-
-                    return redirect()->route('outputModulAjar');
+                $data = $responseData['data'];
+                $generateId = $responseData['data']['id'];
+                $responseMessage = 'Syllabus generated successfully!';
+                session()->flash('success', $responseMessage);
+                session()->flash('data', $data);
+                session()->flash('generateId', $generateId);
                 } else {
-                    return redirect('/generate-modul-ajar')->with('error', 'Invalid API response format');
+                     // Handle the case where the expected structure is not present in the API response
+                session()->flash('error', 'Invalid API response format');
+                return redirect('/generate-modul-ajar');
                 }
             } else {
                 if (isset($responseData['status']) && $responseData['status'] === 'failed' && isset($responseData['message'])) {
-                    return redirect('/generate-modul-ajar')->with('error', $responseData['message']);
+                    session()->flash('error', $responseData['message']);
                 } else {
-                    return redirect('/dashboard')->with('error', 'Failed to generate syllabus. Status code: ' . $statusCode);
+                    session()->flash('error', 'Failed to generate syllabus. Status code: ' . $statusCode);
                 }
             }
+
+            return redirect('/generate-modul-ajar');
         } else {
             // Initial form display
             $data = null;
             $generateId = null;
         }
 
-        return view('generates.generateModulAjar', compact('data', 'generateId', 'userLimit'));
+        return view('outputGenerates.outputModulAjar', compact('data', 'generateId', 'userLimit'));
     }
 
 

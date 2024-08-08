@@ -93,7 +93,7 @@ public function generateSyllabus(Request $request)
     }
 
     // Pass the $data and $generateId variables to the view
-    return view('outputgenerates.outputSyllabus', compact('data', 'generateId'));
+    return view('outputGenerates.syllabusOutput', compact('data', 'generateId'));
 }
 
 

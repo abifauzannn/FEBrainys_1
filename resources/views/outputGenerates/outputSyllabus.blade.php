@@ -7,7 +7,6 @@
 @endsection
 
 @section('output')
-
     @php
         $data = session('data');
         $generateId = session('generateId');

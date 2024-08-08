@@ -7,10 +7,16 @@
 @endsection
 
 @section('output')
-    @isset($data)
+    @if (session('data'))
+        @php
+            $data = session('data');
+            $generateId = session('generateId');
+            $userLimit = session('userLimit');
+        @endphp
+        <!-- Display the session data in tables -->
         @if (isset($data['informasi_umum']) && !empty($data['informasi_umum']))
-            <div class="overflow-x-auto">
-                <table class="w-full">
+            <div class="overflow-x-auto mt-5">
+                <table class="w-full bg-white ">
                     <thead class="bg-slate-50">
                         <tr>
                             <th class="px-6 py-3 text-left text-sm font-bold text-gray-800 uppercase" colspan="2">
@@ -51,10 +57,9 @@
             </div>
         @endif
 
-
         @if (isset($data['sarana_dan_prasarana']) && !empty($data['sarana_dan_prasarana']))
             <div class="overflow-x-auto mt-5">
-                <table class="w-full">
+                <table class="w-full bg-white ">
                     <thead class="bg-slate-50">
                         <tr>
                             <th class="px-6 py-3 text-left text-sm font-bold text-gray-800 uppercase" colspan="2">
@@ -80,7 +85,7 @@
 
         @if (isset($data['tujuan_kegiatan_pembelajaran']) && !empty($data['tujuan_kegiatan_pembelajaran']))
             <div class="overflow-x-auto mt-5">
-                <table class="w-full">
+                <table class="w-full bg-white ">
                     <thead class="bg-slate-50">
                         <tr>
                             <th class="px-6 py-3 text-left text-sm font-bold text-gray-800 uppercase" colspan="2">
@@ -96,7 +101,7 @@
                                 </td>
                                 <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">
                                     @if (is_array($value))
-                                        <ul>
+                                        <ul class="list-disc pl-5">
                                             @foreach ($value as $item)
                                                 <li>{{ $loop->iteration }}. {{ $item }}</li>
                                             @endforeach
@@ -114,7 +119,7 @@
 
         @if (isset($data['pemahaman_bermakna']) && !empty($data['pemahaman_bermakna']))
             <div class="overflow-x-auto mt-5">
-                <table class="w-full">
+                <table class="w-full bg-white ">
                     <thead class="bg-slate-50">
                         <tr>
                             <th class="px-6 py-3 text-left text-sm font-bold text-gray-800 uppercase" colspan="2">
@@ -140,7 +145,7 @@
 
         @if (isset($data['pertanyaan_pemantik']) && !empty($data['pertanyaan_pemantik']))
             <div class="overflow-x-auto mt-5">
-                <table class="w-full">
+                <table class="w-full bg-white ">
                     <thead class="bg-slate-50">
                         <tr>
                             <th class="px-6 py-3 text-left text-sm font-bold text-gray-800 uppercase" colspan="2">
@@ -168,8 +173,8 @@
                         <div class="bg-slate-50 px-6 py-3 text-left text-sm font-bold text-gray-800 uppercase">
                             Kegiatan Pembelajaran
                         </div>
-                        <ol>
-                            <li class="px-6 pt-3 text-left text-sm font-bold text-gray-800 uppercase">
+                        <ol class="list-decimal pl-6">
+                            <li class="pt-3 text-sm font-bold text-gray-800 uppercase">
                                 {{ $loop->iteration }}. {{ $kompetensi['nama_kompetensi_dasar'] }}
                             </li>
                         </ol>
@@ -179,7 +184,7 @@
                                 <div class="px-6 py-3">
                                     <li class="text-sm text-gray-800">
                                         <span class="font-bold">Materi :</span> {{ $materi_pembelajaran['materi'] }}
-                                        <ul class="pl-10 list-disc mt-3">
+                                        <ul class="pl-10 mt-3">
                                             <li class="text-sm text-gray-800 mb-2">
                                                 <span class="font-bold">Indikator :</span>
                                                 {{ $materi_pembelajaran['indikator'] }}
@@ -192,21 +197,6 @@
                                                 <span class="font-bold">Kegiatan Pembelajaran :</span>
                                                 {{ $materi_pembelajaran['kegiatan_pembelajaran'] }}
                                             </li>
-                                            <li class="text-sm text-gray-800 mb-2">
-                                                <span class="font-bold">Alokasi Waktu :</span>
-                                                {{ $materi_pembelajaran['alokasi_waktu'] }}
-                                            </li>
-                                            <li class="text-sm text-gray-800 mb-2">
-                                                <span class="font-bold">Penilaian :</span>
-                                                <ul class="pl-5 list-circle">
-                                                    @foreach ($materi_pembelajaran['penilaian'] as $index => $penilaian)
-                                                        <li>
-                                                            {{ chr(97 + $index) }}. {{ $penilaian['jenis'] }}
-                                                            ({{ $penilaian['bobot'] }}%)
-                                                        </li>
-                                                    @endforeach
-                                                </ul>
-                                            </li>
                                         </ul>
                                     </li>
                                 </div>
@@ -216,14 +206,18 @@
                 @endforeach
             </div>
         @endif
+    @else
+        <script>
+            window.location.href = "{{ route('generateModulAjar') }}";
+        </script>
+    @endif
 
-        @if (isset($generateId) && !empty($generateId))
-            <div class="mb-3 px-6 py-4 flex flex-row gap-3">
-                <x-export-word generateId="{{ $generateId }}" export="{{ route('export-word') }}" />
-                <x-export-excel generateId="{{ $generateId }}" export="{{ route('export-modul-excel') }}" />
-            </div>
-        @endif
-    @endisset
+    @if (isset($generateId) && !empty($generateId))
+        <div class="mb-3 px-6 py-4 flex flex-row gap-3">
+            <x-export-word generateId="{{ $generateId }}" export="{{ route('export-word') }}" />
+            <x-export-excel generateId="{{ $generateId }}" export="{{ route('export-modul-excel') }}" />
+        </div>
+    @endif
 
     <script>
         document.getElementById('output').style.display = 'none';

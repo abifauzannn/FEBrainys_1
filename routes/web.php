@@ -9,6 +9,7 @@ use App\Http\Controllers\GamifikasiController;
 use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\KisiKisiController;
 use App\Http\Controllers\ModulAjarController;
+use App\Http\Controllers\RubrikController;
 use App\Http\Controllers\SyllabusController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -67,11 +68,14 @@ Route::get('/login/google-forwarder', [AuthenticationController::class, 'handleG
 // Route untuk menampilkan halaman dashboard
 Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
 
-Route::get('/generate-modul-ajar', [ModulAjarController::class, 'modulAjar'])->name('modulAjar');
-Route::post('/generate-modul-ajar', [ModulAjarController::class, 'generateModulAjar'])->name('modulAjarPost');
+Route::match(['get', 'post'], '/generate-modul-ajar', [ModulAjarController::class, 'generateModulAjar'])->name('generateModulAjar');
+
+// Route to display the results page
+Route::get('/output-modul-ajar', function () {
+    return view('outputGenerates.outputModulAjar');
+})->name('outputModulAjar');
 Route::post('/export-word', [ModulAjarController::class, 'exportToWord'])->name('export-word');
 Route::post('/export-excel', [ModulAjarController::class, 'exportToExcel'])->name('export-modul-excel');
-Route::get('/generate-modul-ajar/generate-output', [ModulAjarController::class, 'modulAjar'])->name('outputModulAjar');
 
 
 Route::get('/generate-bahan-ajar', [BahanAjarController::class, 'bahanAjar'])->name('bahanAjar');
@@ -90,6 +94,7 @@ Route::post('/generate-kisi-kisi', [KisiKisiController::class, 'generateKisi'])-
 Route::post('/export-kisi-kisi-word', [KisiKisiController::class, 'exportToWord'])->name('export-kisi-kisi-word');
 Route::post('/export-kisi-kisi-excel', [KisiKisiController::class, 'exportToExcel'])->name('export-kisi-kisi-excel');
 
+Route::get('/langganan', [RubrikController::class, 'rubrikNilai'])->name('rubrik-nilai');
 
 
 Route::get('/generate-atp', [AtpController::class, 'atp'])->name('atp');

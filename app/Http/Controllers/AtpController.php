@@ -24,63 +24,63 @@ class AtpController extends Controller
         }
     }
 
-    public function generateAtp(Request $request)
-{
-    // Check if the user is authenticated
-    if (!session()->has('access_token') || !session()->has('user')) {
-        return redirect('/login')->with('error', 'Please log in to generate syllabus.');
-    }
+    public function generateAtp(Request $request){
 
-    $generateId = null; // Initialize $generateId variable
-    $responseMessage = null;
-
-    if ($request->isMethod('post')) {
-        // Form submission
-        $token = session()->get('access_token');
-
-        $response = Http::withToken($token)
-            ->timeout(60) // timeout in seconds (example: 60 seconds)
-            ->post(env('APP_API').'/atp/generate', [
-                'name' => $request->input('name'),
-                'phase' => $request->input('fase'),
-                'subject' => $request->input('mata-pelajaran'),
-                'element' => $request->input('element'),
-                'weeks' => $request->input('pekan'),
-                'notes' => $request->input('notes')
-            ]);
-
-        $statusCode = $response->status();
-        $responseData = $response->json();
-
-        if ($response->successful()) {
-            if (isset($responseData['data'])) {
-                $data = $responseData['data'];
-                $generateId = $responseData['data']['id'];
-                $responseMessage = 'ATP generated successfully!';
-                session()->flash('success', $responseMessage);
-                session()->flash('data', $data);
-                session()->flash('generateId', $generateId);
-            } else {
-                session()->flash('error', 'Invalid API response format');
-            }
-        } else {
-            if (isset($responseData['status']) && $responseData['status'] === 'failed' && isset($responseData['message'])) {
-                session()->flash('error', $responseData['message']);
-            } else {
-                session()->flash('error', 'Failed to generate ATP. Status code: ' . $statusCode);
-            }
+        // Check if the user is authenticated
+        if (!session()->has('access_token') || !session()->has('user')) {
+            // If not authenticated, redirect to login page
+            return redirect('/login')->with('error', 'Please log in to generate syllabus.');
         }
 
-        return redirect('/generate-atp');
-    } else {
-        // Initial form display
-        $data = null;
+
+        $generateId = null; // Initialize $generateId variable
+
+        if ($request->isMethod('post')) {
+            // Form submission
+
+            // Use the authentication token for API request
+            $token = session()->get('access_token');
+
+            $response = Http::withToken($token)
+                ->timeout(60) // timeout dalam detik (contoh: 60 detik)
+                ->post(env('APP_API').'/atp/generate', [
+                 'name' => $request->input('name'),
+                 'phase' => $request->input('fase'),
+                 'subject' => $request->input('mata-pelajaran'),
+                 'element' => $request->input('element'),
+                 'weeks' => $request->input('pekan'),
+                 'notes' => $request->input('notes')
+
+                ]);
+
+            $statusCode = $response->status();
+            $responseData = $response->json();
+
+            if ($response->successful()) {
+                // Process the API response body
+                if (isset($responseData['data'])) {
+                    $data = $responseData['data'];
+                    $generateId = $responseData['data']['id'];
+                } else {
+                    // Handle the case where the expected structure is not present in the API response
+                    return redirect('/generate-atp')->with('error', 'Invalid API response format');
+                }
+            } else {
+                 // Handle error if needed
+            if(isset($responseData['status']) && $responseData['status'] === 'failed' && isset($responseData['message'])) {
+                return redirect('/generate-atp')->with('error', $responseData['message']);
+            } else {
+                return redirect('/dashboard')->with('error', 'Failed to generate syllabus. Status code: ' . $statusCode);
+            }
+            }
+        } else {
+            // Initial form display
+            $data = null;
+        }
+
+        // Pass the $data and $generateId variables to the view
+        return view('outputGenerates.outputAtp', compact('data', 'generateId'));
     }
-
-    // Pass the $data and $generateId variables to the view
-    return view('outputGenerates.outputAtp', compact('data', 'generateId'));
-}
-
 
     public function getUserLimit()
 {

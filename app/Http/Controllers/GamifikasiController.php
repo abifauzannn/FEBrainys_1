@@ -24,25 +24,27 @@ class GamifikasiController extends Controller
         }
     }
 
-    public function generateGamifikasi(Request $request)
-    {
+    public function generateGamifikasi(Request $request){
+
         // Check if the user is authenticated
         if (!session()->has('access_token') || !session()->has('user')) {
-            return redirect('/login')->with('error', 'Please log in to generate gamification.');
+            // If not authenticated, redirect to login page
+            return redirect('/login')->with('error', 'Please log in to generate syllabus.');
         }
 
-        // Call method getUserLimit() to get user limit data
+        // Panggil method getUserLimit() untuk mendapatkan data batas penggunaan
         $userLimit = $this->getUserLimit();
 
         $generateId = null; // Initialize $generateId variable
-        $responseMessage = null;
 
         if ($request->isMethod('post')) {
             // Form submission
+
+            // Use the authentication token for API request
             $token = session()->get('access_token');
 
             $response = Http::withToken($token)
-                ->timeout(60) // timeout in seconds (example: 60 seconds)
+                ->timeout(60) // timeout dalam detik (contoh: 60 detik)
                 ->post(env('APP_API').'/gamification/generate', [
                     'name' => $request->input('name'),
                     'game_scheme' => $request->input('skema'),
@@ -50,31 +52,29 @@ class GamifikasiController extends Controller
                     'subject' => $request->input('subject'),
                     'material' => $request->input('material'),
                     'notes' => $request->input('notes')
+
                 ]);
 
             $statusCode = $response->status();
             $responseData = $response->json();
 
             if ($response->successful()) {
+                // Process the API response body
                 if (isset($responseData['data'])) {
                     $data = $responseData['data'];
                     $generateId = $responseData['data']['id'];
-                    $responseMessage = 'Gamification generated successfully!';
-                    session()->flash('success', $responseMessage);
-                    session()->flash('data', $data);
-                    session()->flash('generateId', $generateId);
                 } else {
-                    session()->flash('error', 'Invalid API response format');
+                    // Handle the case where the expected structure is not present in the API response
+                    return redirect('/generate-gamifikasi')->with('error', 'Invalid API response format');
                 }
             } else {
-                if (isset($responseData['status']) && $responseData['status'] === 'failed' && isset($responseData['message'])) {
-                    session()->flash('error', $responseData['message']);
-                } else {
-                    session()->flash('error', 'Failed to generate gamification. Status code: ' . $statusCode);
-                }
+                 // Handle error if needed
+            if(isset($responseData['status']) && $responseData['status'] === 'failed' && isset($responseData['message'])) {
+                return redirect('/generate-gamifikasi')->with('error', $responseData['message']);
+            } else {
+                return redirect('/dashboard')->with('error', 'Failed to generate syllabus. Status code: ' . $statusCode);
             }
-
-            return redirect('/generate-gamifikasi');
+            }
         } else {
             // Initial form display
             $data = null;
@@ -83,7 +83,6 @@ class GamifikasiController extends Controller
         // Pass the $data and $generateId variables to the view
         return view('outputGenerates.outputGamifikasi', compact('data', 'generateId', 'userLimit'));
     }
-
 
 
 public function exportToWord(Request $request)

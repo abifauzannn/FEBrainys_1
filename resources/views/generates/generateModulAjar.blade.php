@@ -25,7 +25,7 @@
 
     <div class="flex container mx-auto px-3 sm:px-10 flex-col lg:flex-row">
         <div class="w-full lg:w-[500px] flex-col justify-start items-start sm:gap-6 inline-flex h-auto">
-            <form action="{{ route('modulAjarPost') }}" method="post" class="w-full" id="modulAjarForm">
+            <form action="{{ route('generateModulAjar') }}" method="post" class="w-full" id="modulAjarForm">
                 <!-- Input untuk Nama Silabus -->
                 @csrf
 
@@ -148,7 +148,10 @@
                 <x-generate-image />
 
 
-                @yield('output')
+                <div id="outputContent">
+                    @yield('output')
+                </div>
+
             </div>
         </div>
 
@@ -298,16 +301,17 @@
 
             const submitButton = document.getElementById('submitButton');
             const loadingButton = document.getElementById('loadingButton');
-            const imageGenerate = document.getElementById('output')
-            const imageGenerate2 = document.getElementById('output2')
+            const outputContent = document.getElementById('outputContent'); // Tambahkan baris ini
+            const imageGenerate = document.getElementById('output');
+            const imageGenerate2 = document.getElementById('output2');
             const loadingSpinner = document.getElementById('loadingSpinner');
 
             submitButton.style.display = 'none';
             loadingButton.style.display = 'inline-flex';
+            outputContent.style.display = 'none'; // Tambahkan baris ini
             imageGenerate.style.display = 'none';
             imageGenerate2.style.display = 'inline-flex';
             loadingSpinner.style.display = 'inline-flex';
-
 
             this.submit();
         });

@@ -20,65 +20,75 @@ class EssayController extends Controller
         }
     }
 
-    public function generateEssay(Request $request){
-        // Pastikan user sudah terautentikasi
-        if (!session()->has('access_token') || !session()->has('user')) {
-            return redirect('/login')->with('error', 'Please log in to generate syllabus.');
+    public function generateEssay(Request $request)
+{
+    // Pastikan user sudah terautentikasi
+    if (!session()->has('access_token') || !session()->has('user')) {
+        return redirect('/login')->with('error', 'Please log in to generate exercise.');
+    }
+
+    $generateId = null;
+    $responseMessage = null;
+
+    if ($request->isMethod('post')) {
+        // Pengecekan apakah yang dipilih pengguna adalah 'essay' atau 'multiple choice'
+        $exerciseType = $request->input('exerciseType');
+        $apiEndpoint = '';
+
+        if ($exerciseType === 'essay') {
+            $apiEndpoint = env('APP_API').'/exercise-v2/generate-essay';
+        } elseif ($exerciseType === 'multiple_choice') {
+            $apiEndpoint = env('APP_API').'/exercise-v2/generate-choice';
+        } else {
+            // Handle error jika pilihan subjek tidak valid
+            session()->flash('error', 'Invalid exercise type choice');
+            return redirect('/generate-essay');
         }
 
-        $generateId = null;
+        $token = session()->get('access_token');
 
-        if ($request->isMethod('post')) {
-            // Pengecekan apakah yang dipilih pengguna adalah 'essay' atau 'multiple choice'
-            $exerciseType = $request->input('exerciseType');
-            $apiEndpoint = '';
+        $response = Http::withToken($token)
+            ->timeout(60)
+            ->post($apiEndpoint, [
+                'name' => $request->input('name'),
+                'phase' => $request->input('fase'),
+                'element' => $request->input('element'),
+                'subject' => $request->input('mata-pelajaran'),
+                'number_of_questions' => $request->input('numberOfQuestion'),
+                'notes' => $request->input('notes')
+            ]);
 
-            if ($exerciseType === 'essay') {
-                $apiEndpoint = env('APP_API').'/exercise-v2/generate-essay';
-            } elseif ($exerciseType === 'multiple_choice') {
-                $apiEndpoint = env('APP_API').'/exercise-v2/generate-choice';
+        $statusCode = $response->status();
+        $responseData = $response->json();
+
+        if ($response->successful()) {
+            if (isset($responseData['data'])) {
+                $data = $responseData['data'];
+                $generateId = $responseData['data']['id'];
+                $responseMessage = 'Exercise generated successfully!';
+                session()->flash('success', $responseMessage);
+                session()->flash('data', $data);
+                session()->flash('generateId', $generateId);
             } else {
-                // Handle error jika pilihan subjek tidak valid
-                return redirect('/generate-essay')->with('error', 'Invalid exercise type choice');
-            }
-
-            $token = session()->get('access_token');
-
-            $response = Http::withToken($token)
-                ->timeout(60)
-                ->post($apiEndpoint, [
-                    'name' => $request->input('name'),
-                    'phase' => $request->input('fase'),
-                    'element' => $request->input('element'),
-                    'subject' => $request->input('mata-pelajaran'),
-                    'number_of_questions' => $request->input('numberOfQuestion'),
-                    'notes' => $request->input('notes')
-                ]);
-
-            $statusCode = $response->status();
-            $responseData = $response->json();
-
-            if ($response->successful()) {
-                if (isset($responseData['data'])) {
-                    $data = $responseData['data'];
-                    $generateId = $responseData['data']['id'];
-
-                } else {
-                    return redirect('/generate-essay')->with('error', 'Invalid API response format');
-                }
-            } else {
-                if(isset($responseData['status']) && $responseData['status'] === 'failed' && isset($responseData['message'])) {
-                    return redirect('/generate-essay')->with('error', $responseData['message']);
-                } else {
-                    return redirect('/dashboard')->with('error', 'Failed to generate syllabus. Status code: ' . $statusCode);
-                }
+                session()->flash('error', 'Invalid API response format');
             }
         } else {
-            $data = null;
+            if (isset($responseData['status']) && $responseData['status'] === 'failed' && isset($responseData['message'])) {
+                session()->flash('error', $responseData['message']);
+            } else {
+                session()->flash('error', 'Failed to generate exercise. Status code: ' . $statusCode);
+            }
         }
 
-        return view('outputGenerates.outputExercise', compact('data', 'generateId'))->with('success', $responseData['message']);
+        return redirect('/generate-essay');
+    } else {
+        $data = null;
     }
+
+    // Menampilkan view dengan flash message jika ada
+    return view('outputGenerates.outputExercise', compact('data', 'generateId'));
+}
+
 
 
 public function exportToWord(Request $request)

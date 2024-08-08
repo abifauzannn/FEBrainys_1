@@ -29,7 +29,7 @@
 
     <div class="flex container mx-auto px-3 sm:px-10 flex-col lg:flex-row">
         <div class="w-full lg:w-[500px] flex-col justify-start items-start sm:gap-6 inline-flex h-auto">
-            <form action="{{ route('essayPost') }}" method="post" class="w-full" id="modulAjarForm">
+            <form action="{{ route('generateEssay') }}" method="post" class="w-full" id="modulAjarForm">
                 @csrf
 
                 <x-generate-field type="text" id="name" name="name" label="Nama Latihan Soal"
@@ -155,7 +155,9 @@
 
                 <x-generate-image />
 
-                @yield('output')
+                <div id="outputContent">
+                    @yield('output')
+                </div>
             </div>
         </div>
     </div>
@@ -275,7 +277,9 @@
                 const imageGenerate = $('#output');
                 const imageGenerate2 = $('#output2');
                 const loadingSpinner = $('#loadingSpinner');
+                const outputContent = $('#outputContent');
 
+                outputContent.hide();
                 submitButton.hide();
                 loadingButton.show();
                 imageGenerate.hide();

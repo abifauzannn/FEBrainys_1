@@ -69,8 +69,6 @@ Route::get('/login/google-forwarder', [AuthenticationController::class, 'handleG
 Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
 
 Route::match(['get', 'post'], '/generate-modul-ajar', [ModulAjarController::class, 'generateModulAjar'])->name('generateModulAjar');
-
-// Route to display the results page
 Route::get('/output-modul-ajar', function () {
     return view('outputGenerates.outputModulAjar');
 })->name('outputModulAjar');
@@ -103,14 +101,17 @@ Route::post('/export-atp-word', [AtpController::class, 'exportToWord'])->name('e
 Route::post('/export-atp-excel', [AtpController::class, 'exportToExcel'])->name('export-atp-excel');
 
 
-Route::get('/generate-essay', [EssayController::class, 'Essay'])->name('essay');
-Route::post('/generate-essay', [EssayController::class, 'generateEssay'])->name('essayPost');
+Route::match(['get', 'post'], '/generate-essay', [EssayController::class, 'generateEssay'])->name('generateEssay');
+Route::get('/output-essay', function () {
+    return view('outputGenerates.outputExercise');
+})->name('outputEssay');
 Route::post('/export-essay', [EssayController::class, 'exportToWord'])->name('export-essay');
 
 
-
-Route::get('/generate-syllabus', [SyllabusController::class, 'syllabus'])->name('syllabus');
-Route::post('/generate-syllabus', [SyllabusController::class, 'generateSyllabus'])->name('syllabusPost');
+Route::match(['get', 'post'], '/generate-syllabus', [SyllabusController::class, 'generateSyllabus'])->name('generateSyllabus');
+Route::get('/output-syllabus', function () {
+    return view('outputGenerates.outputSyllabus');
+})->name('outputSyllabus');
 Route::post('/export-word-syllabus', [SyllabusController::class, 'exportToWord'])->name('export-word-syllabus');
 
 

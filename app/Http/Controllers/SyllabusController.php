@@ -37,27 +37,23 @@ class SyllabusController extends Controller
     }
 }
 
-public function generateSyllabus(Request $request){
-
+public function generateSyllabus(Request $request)
+{
     // Check if the user is authenticated
     if (!session()->has('access_token') || !session()->has('user')) {
         // If not authenticated, redirect to login page
         return redirect('/login')->with('error', 'Please log in to generate syllabus.');
     }
 
-    // Panggil method getUserLimit() untuk mendapatkan data batas penggunaan
-    $userLimit = $this->getUserLimit();
-
-    $generateId = null; // Initialize $generateId variable
+    $generateId = null;
+    $responseMessage = null;
 
     if ($request->isMethod('post')) {
-        // Form submission
-
         // Use the authentication token for API request
         $token = session()->get('access_token');
 
         $response = Http::withToken($token)
-            ->timeout(60) // timeout dalam detik (contoh: 60 detik)
+            ->timeout(60) // timeout in seconds (example: 60 seconds)
             ->post(env('APP_API').'/syllabus/generate', [
                 'subject' => $request->input('subject'),
                 'grade' => $request->input('grade'),
@@ -73,26 +69,33 @@ public function generateSyllabus(Request $request){
             if (isset($responseData['data'])) {
                 $data = $responseData['data'];
                 $generateId = $responseData['data']['id'];
+                $responseMessage = 'Syllabus generated successfully!';
+                session()->flash('success', $responseMessage);
+                session()->flash('data', $data);
+                session()->flash('generateId', $generateId);
             } else {
                 // Handle the case where the expected structure is not present in the API response
-                return redirect('/generate-syllabus')->with('error', 'Invalid API response format');
+                session()->flash('error', 'Invalid API response format');
+                return redirect('/generate-syllabus');
             }
         } else {
-             // Handle error if needed
-        if(isset($responseData['status']) && $responseData['status'] === 'failed' && isset($responseData['message'])) {
-            return redirect('/generate-syllabus')->with('error', $responseData['message']);
-        } else {
-            return redirect('/dashboard')->with('error', 'Failed to generate syllabus. Status code: ' . $statusCode);
+            // Handle error if needed
+            if (isset($responseData['status']) && $responseData['status'] === 'failed' && isset($responseData['message'])) {
+                session()->flash('error', $responseData['message']);
+            } else {
+                session()->flash('error', 'Failed to generate syllabus. Status code: ' . $statusCode);
+            }
         }
-        }
+
+        return redirect('/generate-syllabus');
     } else {
-        // Initial form display
         $data = null;
     }
 
     // Pass the $data and $generateId variables to the view
-    return view('generates.generateSyllabus', compact('data', 'generateId', 'userLimit'));
+    return view('outputgenerates.outputSyllabus', compact('data', 'generateId'));
 }
+
 
 public function exportToWord(Request $request)
 {

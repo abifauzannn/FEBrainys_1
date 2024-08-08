@@ -8,8 +8,13 @@
 
 @section('output')
 
-    @isset($data)
+    @php
+        $data = session('data');
+        $generateId = session('generateId');
+        $userLimit = session('userLimit');
+    @endphp
 
+    @isset($data)
         @if (isset($data['informasi_umum']) && !empty($data['informasi_umum']))
             <div class="overflow-x-auto">
                 <table class="w-full">
@@ -52,7 +57,6 @@
             </div>
         @endif
 
-
         @if (isset($data['soal_essay']) && !empty($data['soal_essay']))
             <div class="overflow-x-auto my-4">
                 <table class="w-full">
@@ -94,7 +98,6 @@
             </div>
         @endif
 
-
         <div class="mb-3 px-6 py-4">
             <x-export-word generateId="{{ $generateId }}" export="{{ route('export-essay') }}" />
         </div>
@@ -103,7 +106,6 @@
             document.getElementById('output').style.display = 'none';
             document.getElementById('imageBox').classList.remove('my-8');
         </script>
-
-
     @endisset
+
 @endsection

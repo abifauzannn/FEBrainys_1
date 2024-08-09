@@ -76,27 +76,22 @@ Route::post('/export-word', [ModulAjarController::class, 'exportToWord'])->name(
 Route::post('/export-excel', [ModulAjarController::class, 'exportToExcel'])->name('export-modul-excel');
 
 
-Route::get('/generate-bahan-ajar', [BahanAjarController::class, 'bahanAjar'])->name('bahanAjar');
-Route::post('/generate-bahan-ajar', [BahanAjarController::class, 'generateBahanAjar'])->name('bahanAjarPost');
+Route::match(['get', 'post'], '/generate-bahan-ajar', [BahanAjarController::class, 'generateBahanAjar'])->name('generateBahanAjar');
 Route::post('/export-bahan-ajar', [BahanAjarController::class, 'exportToWord'])->name('export-bahan-ajar');
 Route::post('/export-bahan-ajar-ppt', [BahanAjarController::class, 'exportToPpt'])->name('export-bahanAjar-ppt');
 
-Route::get('/generate-gamifikasi', [GamifikasiController::class, 'gamifikasi'])->name('gamifikasi');
-Route::get('/generate-gamifikasi', [GamifikasiController::class, 'gamifikasi'])->name('gamifikasi');
+Route::match(['get', 'post'], '/generate-gamifikasi', [GamifikasiController::class, 'generateGamifikasi'])->name('generateGamifikasi');
 Route::post('/export-gamifikasi-word', [GamifikasiController::class, 'exportToWord'])->name('export-gamifikasi-word');
 Route::post('/export-gamifikasi-ppt', [GamifikasiController::class, 'exportToPpt'])->name('export-gamifikasi-ppt');
-Route::post('/generate-gamifikasi', [GamifikasiController::class, 'generateGamifikasi'])->name('gamifikasiPost');
 
-Route::get('/generate-kisi-kisi', [KisiKisiController::class, 'kisi'])->name('kisi');
-Route::post('/generate-kisi-kisi', [KisiKisiController::class, 'generateKisi'])->name('kisiPost');
+Route::match(['get', 'post'], '/generate-kisi-kisi', [KisiKisiController::class, 'generateKisi'])->name('generateKisi');
 Route::post('/export-kisi-kisi-word', [KisiKisiController::class, 'exportToWord'])->name('export-kisi-kisi-word');
 Route::post('/export-kisi-kisi-excel', [KisiKisiController::class, 'exportToExcel'])->name('export-kisi-kisi-excel');
 
 Route::get('/langganan', [RubrikController::class, 'rubrikNilai'])->name('rubrik-nilai');
 
 
-Route::get('/generate-atp', [AtpController::class, 'atp'])->name('atp');
-Route::post('/generate-atp', [AtpController::class, 'generateAtp'])->name('atpPost');
+Route::match(['get', 'post'], '/generate-atp', [AtpController::class, 'generateAtp'])->name('generateAtp');
 Route::post('/export-atp-word', [AtpController::class, 'exportToWord'])->name('export-atp-word');
 Route::post('/export-atp-excel', [AtpController::class, 'exportToExcel'])->name('export-atp-excel');
 

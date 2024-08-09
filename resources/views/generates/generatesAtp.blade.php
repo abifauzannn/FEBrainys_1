@@ -55,7 +55,7 @@
 
     <div class="flex container mx-auto px-3 sm:px-10 flex-col lg:flex-row">
         <div class="w-full lg:w-[500px] flex-col justify-start items-start sm:gap-6 inline-flex h-auto">
-            <form action="{{ route('atpPost') }}" method="post" class="w-full" id="kisiKisiForm">
+            <form action="{{ route('generateAtp') }}" method="post" class="w-full" id="kisiKisiForm">
                 <!-- Input untuk Nama Silabus -->
                 @csrf
 
@@ -180,7 +180,9 @@
 
                 <x-generate-image />
 
-                @yield('output')
+                <div id="outputContent">
+                    @yield('output')
+                </div>
             </div>
         </div>
     </div>
@@ -393,12 +395,14 @@
             const imageGenerate = document.getElementById('output')
             const imageGenerate2 = document.getElementById('output2')
             const loadingSpinner = document.getElementById('loadingSpinner');
+            const outputContent = document.getElementById('outputContent'); // Tambahkan baris ini
 
             submitButton.style.display = 'none';
             loadingButton.style.display = 'inline-flex';
             imageGenerate.style.display = 'none';
             imageGenerate2.style.display = 'inline-flex';
             loadingSpinner.style.display = 'inline-flex';
+            outputContent.style.display = 'none'; // Tambahkan baris ini
 
             this.submit();
         });

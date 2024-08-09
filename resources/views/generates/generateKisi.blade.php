@@ -55,7 +55,7 @@
 
     <div class="flex container mx-auto px-3 sm:px-10 flex-col lg:flex-row">
         <div class="w-full lg:w-[500px] flex-col justify-start items-start sm:gap-6 inline-flex h-auto">
-            <form action="{{ route('kisiPost') }}" method="post" class="w-full" id="kisiKisiForm">
+            <form action="{{ route('generateKisi') }}" method="post" class="w-full" id="kisiKisiForm">
                 <!-- Input untuk Nama Silabus -->
                 @csrf
 
@@ -186,7 +186,9 @@
 
                 <x-generate-image />
 
-                @yield('output')
+                <div id="outputContent">
+                    @yield('output')
+                </div>
             </div>
         </div>
     </div>
@@ -314,6 +316,67 @@
         document.addEventListener("DOMContentLoaded", function() {
             // Memfokuskan ke input email
             document.getElementById("name").focus();
+            const numberInput = document.getElementById('jumlah_soal');
+            const numberError = document.getElementById('numberError');
+            const submitButton = document.getElementById('submitButton');
+
+            function validateNumber() {
+                const value = numberInput.value;
+                const number = parseInt(value, 10);
+
+                // Check if the value is valid and within range
+                if (isNaN(number) || number < 1 || number > 15 || value.length > 2) {
+
+                    submitButton.disabled = true;
+                } else {
+
+                    submitButton.disabled = false;
+                }
+            }
+
+            function enforceDigitLimit() {
+                let value = numberInput.value;
+
+                // If the input is empty, do nothing
+                if (value === '') return;
+
+                // Ensure the value has at most 2 digits
+                if (value.length > 2) {
+                    value = value.slice(0, 2);
+                    numberInput.value = value;
+                }
+
+                // Apply digit-based restrictions
+                const firstDigit = parseInt(value.charAt(0), 10);
+                const secondDigit = parseInt(value.charAt(1), 10);
+
+                // Check if the first digit is zero
+                if (firstDigit === 0) {
+                    value = '';
+                    numberInput.value = value;
+                    submitButton.disabled = true;
+                    return;
+                }
+
+                // If the first digit is 1, the second digit must not be greater than 5
+                if (firstDigit === 1 && secondDigit >= 0) {
+                    value = value.charAt(0) + '0';
+                    numberInput.value = value;
+                }
+
+                // If the first digit is greater than 1, ensure only one digit is allowed
+                else if (firstDigit > 1 && value.length > 1) {
+                    value = value.charAt(0);
+                    numberInput.value = value;
+                }
+
+                validateNumber();
+            }
+
+            numberInput.addEventListener('input', enforceDigitLimit);
+
+            // Initial validation
+            validateNumber();
         });
 
         function clearInputs() {
@@ -339,12 +402,14 @@
             const imageGenerate = document.getElementById('output')
             const imageGenerate2 = document.getElementById('output2')
             const loadingSpinner = document.getElementById('loadingSpinner');
+            const outputContent = document.getElementById('outputContent'); // Tambahkan baris ini
 
             submitButton.style.display = 'none';
             loadingButton.style.display = 'inline-flex';
             imageGenerate.style.display = 'none';
             imageGenerate2.style.display = 'inline-flex';
             loadingSpinner.style.display = 'inline-flex';
+            outputContent.style.display = 'none';
 
             this.submit();
         });

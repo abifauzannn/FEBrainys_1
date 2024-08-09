@@ -67,58 +67,58 @@ class KisiKisiController extends Controller
         }
     }
 
-    public function generateKisi(Request $request){
-
+    public function generateKisi(Request $request)
+    {
         // Check if the user is authenticated
         if (!session()->has('access_token') || !session()->has('user')) {
-            // If not authenticated, redirect to login page
             return redirect('/login')->with('error', 'Please log in to generate syllabus.');
         }
 
-        // Panggil method getUserLimit() untuk mendapatkan data batas penggunaan
+        // Call method getUserLimit() to get user limit data
         $userLimit = $this->getUserLimit();
 
         $generateId = null; // Initialize $generateId variable
+        $responseMessage = null;
 
         if ($request->isMethod('post')) {
             // Form submission
-
-            // Use the authentication token for API request
             $token = session()->get('access_token');
 
             $response = Http::withToken($token)
-                ->timeout(60) // timeout dalam detik (contoh: 60 detik)
+                ->timeout(60) // timeout in seconds (example: 60 seconds)
                 ->post(env('APP_API').'/hint/generate', [
-                 'name' => $request->input('name'),
-                 'pokok_materi' => $request->input('pokok_materi'),
-                 'grade' => $request->input('fase'),
-                 'subject' => $request->input('mata-pelajaran'),
-                 'elemen_capaian' => $request->input('element'),
-                 'jumlah_soal' => $request->input('jumlah_soal'),
-                 'notes' => $request->input('notes')
-
+                    'name' => $request->input('name'),
+                    'pokok_materi' => $request->input('pokok_materi'),
+                    'grade' => $request->input('fase'),
+                    'subject' => $request->input('mata-pelajaran'),
+                    'elemen_capaian' => $request->input('element'),
+                    'jumlah_soal' => $request->input('jumlah_soal'),
+                    'notes' => $request->input('notes')
                 ]);
 
             $statusCode = $response->status();
             $responseData = $response->json();
 
             if ($response->successful()) {
-                // Process the API response body
                 if (isset($responseData['data'])) {
                     $data = $responseData['data'];
                     $generateId = $responseData['data']['id'];
+                    $responseMessage = 'Kisi-kisi generated successfully!';
+                    session()->flash('success', $responseMessage);
+                    session()->flash('data', $data);
+                    session()->flash('generateId', $generateId);
                 } else {
-                    // Handle the case where the expected structure is not present in the API response
-                    return redirect('/generate-kisi-kisi')->with('error', 'Invalid API response format');
+                    session()->flash('error', 'Invalid API response format');
                 }
             } else {
-                 // Handle error if needed
-            if(isset($responseData['status']) && $responseData['status'] === 'failed' && isset($responseData['message'])) {
-                return redirect('/generate-kisi-kisi')->with('error', $responseData['message']);
-            } else {
-                return redirect('/dashboard')->with('error', 'Failed to generate syllabus. Status code: ' . $statusCode);
+                if (isset($responseData['status']) && $responseData['status'] === 'failed' && isset($responseData['message'])) {
+                    session()->flash('error', $responseData['message']);
+                } else {
+                    session()->flash('error', 'Failed to generate kisi-kisi. Status code: ' . $statusCode);
+                }
             }
-            }
+
+            return redirect('/generate-kisi-kisi');
         } else {
             // Initial form display
             $data = null;
@@ -127,6 +127,7 @@ class KisiKisiController extends Controller
         // Pass the $data and $generateId variables to the view
         return view('outputGenerates.outputKisi', compact('data', 'generateId', 'userLimit'));
     }
+
 
     public function getUserLimit()
 {

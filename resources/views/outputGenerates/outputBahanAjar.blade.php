@@ -7,6 +7,14 @@
 @endsection
 
 @section('output')
+
+    @php
+        $data = session('data');
+        $generateId = session('generateId');
+        $userLimit = session('userLimit');
+    @endphp
+
+
     @isset($data)
         @if (!empty($data['informasi_umum']))
             <div class="overflow-x-auto">
@@ -187,8 +195,10 @@
         </div>
     @endisset
 
-    <script>
-        document.getElementById('output').style.display = 'none';
-        document.getElementById('imageBox').classList.remove('my-8');
-    </script>
+    @if (isset($data))
+        <script>
+            document.getElementById('output').style.display = 'none';
+            document.getElementById('imageBox').classList.remove('my-8');
+        </script>
+    @endif
 @endsection

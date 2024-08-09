@@ -37,12 +37,16 @@
             </div>
             <div class="flex items-center space-x-4">
                 @if (isset($userLimit))
+                    @php
+                        $remainingLimit = $userLimit['all']['limit'] - $userLimit['all']['used'];
+                    @endphp
                     <div
                         class="flex justify-center gap-1 items-center mt-1 text-gray-500 text-xs border border-zinc-200 rounded-[5px] py-1 px-1 bg-white font-bold">
                         <img src="{{ URL('images/sparkles.png') }}" alt="" class="w-5 h-5" loading="lazy">
-                        {{ $userLimit['all']['used'] }} / {{ $userLimit['all']['limit'] }}
+                        Sisa credit {{ $remainingLimit }}
                     </div>
                 @endif
+
                 <div class="hidden md:block mt-1">
                     <div class="relative">
                         <!-- Tombol untuk menampilkan dropdown -->
@@ -141,6 +145,16 @@
                                 <a href="{{ route('history') }}"
                                     class="block px-[10px] py-2 text-sm text-slate-500">Riwayat</a>
                             </li>
+                            {{-- <li class="flex items-center  hover:bg-gray-100 hover:rounded-lg px-1">
+                                <img src="{{ URL('images/credit-card.png') }}" alt="" class="w-[18px] h-[20px]"
+                                    loading="lazy">
+                                <a href="#" class="block px-[10px] py-2 text-sm text-slate-500">Langganan</a>
+                            </li>
+                            <li class="flex items-center  hover:bg-gray-100 hover:rounded-lg px-1">
+                                <img src="{{ URL('images/tag.png') }}" alt="" class="w-[18px] h-[20px]"
+                                    loading="lazy">
+                                <a href="#" class="block px-[10px] py-2 text-sm text-slate-500">Referral</a>
+                            </li> --}}
                             <li class="flex items-center  hover:bg-gray-100 hover:rounded-lg px-1">
                                 <img src="{{ URL('images/sign-out.svg') }}" alt="" class="w-[20px] h-[20px]"
                                     loading="lazy">

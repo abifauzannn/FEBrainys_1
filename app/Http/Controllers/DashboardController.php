@@ -23,26 +23,19 @@ class DashboardController extends Controller
     }
 
     public function getUserLimit()
-{
-    return Cache::remember('user_limit', 10, function () {
-        $response = Http::withToken(session()->get('access_token'))
-                        ->get(env('APP_API').'/user-status');
+    {
+        // Gunakan cache dengan waktu kadaluarsa 10 menit (misalnya)
+        return Cache::remember('user_limit', 1, function () {
+            $response = Http::withToken(session()->get('access_token'))
+                            ->get(env('APP_API').'/user-status');
 
-        if ($response->successful()) {
-            $data = $response->json()['data'];
-
-            // Ambil hanya data 'limit' dan 'used' dari 'all'
-            return [
-                'limit' => $data['all']['limit'] ?? null,
-                'used' => $data['all']['used'] ?? null,
-            ];
-        } else {
-            return null;
-        }
-    });
-}
-
-
+            if ($response->successful()) {
+                return $response->json()['data'];
+            } else {
+                return null;
+            }
+        });
+    }
 
 
 

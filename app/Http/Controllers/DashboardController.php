@@ -33,8 +33,8 @@ class DashboardController extends Controller
 
             // Ambil hanya data 'limit' dan 'used' dari 'all'
             return [
-                'limit' => $data['generate']['limit'] ?? null,
-                'used' => $data['generate']['used'] ?? null,
+                'limit' => $data['all']['limit'] ?? null,
+                'used' => $data['all']['used'] ?? null,
             ];
         } else {
             return null;

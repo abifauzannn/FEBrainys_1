@@ -139,6 +139,10 @@
                                 {{ $materi_pembelajaran['materi'] }}
                                 <ul class="pl-10 list-disc mt-3">
                                     <li class="text-sm text-gray-800 mb-2">
+                                        <span class="font-bold">Tujuan Pemebelajaran Materi :</span>
+                                        {{ $materi_pembelajaran['tujuan_pembelajaran_materi'] }}
+                                    </li>
+                                    <li class="text-sm text-gray-800 mb-2">
                                         <span class="font-bold">
                                             Indikator :
                                         </span>
@@ -178,6 +182,21 @@
                 </div>
             </div>
         @endforeach
+
+        <div class="text-gray-900 text-lg font-bold mt-2 bg-gray-100 px-2 py-2">Glosarium</div>
+            <ol class="list-decimal pl-8">
+                @foreach ($materialHistory['output_data']['lampiran']['glosarium_materi'] as $index => $glosarium)
+                    <li class="text-sm text-gray-800 mb-2">{{ $glosarium }}</li>
+                @endforeach
+            </ol>
+
+        <div class="text-gray-900 text-lg font-bold mt-5 bg-gray-100 px-2 py-2">Daftar Pustaka</div>
+            <ol class="list-decimal pl-8">
+                @foreach ($materialHistory['output_data']['lampiran']['daftar_pustaka'] as $index => $pustaka)
+                    <li class="text-sm text-gray-800 mb-2">{{ $pustaka }}</li>
+                @endforeach
+            </ol>
+        </div>
 
         <!-- Button untuk download file -->
         <div class=" mb-7 px-4 sm:px-10 container mx-auto flex flex-row gap-3">

@@ -101,11 +101,11 @@
                             </td>
                             <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">
                                 @if (is_array($value))
-                                    <ul class="list-disc pl-5">
+                                    <ol>
                                         @foreach ($value as $item)
                                             <li>{{ $loop->iteration }}. {{ $item }}</li>
                                         @endforeach
-                                    </ul>
+                                    </ol>
                                 @else
                                     {{ $value }}
                                 @endif
@@ -174,9 +174,9 @@
                         Kegiatan Pembelajaran
                     </div>
                     <ol class="list-decimal pl-6">
-                        <li class="pt-3 text-sm font-bold text-gray-800 uppercase">
+                        <div class="pt-3 text-sm font-bold text-gray-800 uppercase">
                             {{ $loop->iteration }}. {{ $kompetensi['nama_kompetensi_dasar'] }}
-                        </li>
+                        </div>
                     </ol>
 
                     <div class="divide-y divide-gray-200">
@@ -185,6 +185,10 @@
                                 <li class="text-sm text-gray-800">
                                     <span class="font-bold">Materi :</span> {{ $materi_pembelajaran['materi'] }}
                                     <ul class="pl-10 mt-3">
+                                        <li class="text-sm text-gray-800 mb-2">
+                                            <span class="font-bold">Tujuan Pemebelajaran Materi :</span>
+                                            {{ $materi_pembelajaran['tujuan_pembelajaran_materi'] }}
+                                        </li>
                                         <li class="text-sm text-gray-800 mb-2">
                                             <span class="font-bold">Indikator :</span>
                                             {{ $materi_pembelajaran['indikator'] }}
@@ -197,6 +201,20 @@
                                             <span class="font-bold">Kegiatan Pembelajaran :</span>
                                             {{ $materi_pembelajaran['kegiatan_pembelajaran'] }}
                                         </li>
+                                        <li class="text-sm text-gray-800 mb-2">
+                                            <span class="font-bold">Alokasi Waktu :</span>
+                                            {{ $materi_pembelajaran['alokasi_waktu'] }}
+                                        </li>
+                                        @if (isset($materi_pembelajaran['penilaian']) && !empty($materi_pembelajaran['penilaian']))
+                                            <li class="text-sm text-gray-800 mb-2">
+                                                <span class="font-bold">Penilaian:</span>
+                                                <ul class="pl-5">
+                                                    @foreach ($materi_pembelajaran['penilaian'] as $penilaian)
+                                                        <li>{{ $penilaian['jenis'] }}: {{ $penilaian['bobot'] }}%</li>
+                                                    @endforeach
+                                                </ul>
+                                            </li>
+                                        @endif
                                     </ul>
                                 </li>
                             </div>
@@ -204,6 +222,25 @@
                     </div>
                 </div>
             @endforeach
+        </div>
+    @endif
+
+    @if (isset($data['lampiran']) && (!empty($data['lampiran'])))
+        <div class="mt-5">
+            <div class="pt-3 text-sm font-bold text-gray-800 uppercase mb-2">Glosarium</div>
+                <ol class="list-decimal pl-6">
+                    @foreach ($data['lampiran']['glosarium_materi'] as $index => $glosarium)
+                        <li class="text-sm text-gray-800 mb-2">{{ $glosarium }}</li>
+                    @endforeach
+                </ol>
+        </div>
+        <div class="mt-5">
+            <div class="pt-3 text-sm font-bold text-gray-800 uppercase mb-2">Daftar Pustaka</div>
+                <ol class="list-decimal pl-6">
+                    @foreach ($data['lampiran']['daftar_pustaka'] as $index => $pustaka)
+                        <li class="text-sm text-gray-800 mb-2">{{ $pustaka }}</li>
+                    @endforeach
+                </ol>
         </div>
     @endif
 

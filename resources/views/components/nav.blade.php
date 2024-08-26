@@ -145,12 +145,12 @@
                                 <a href="{{ route('history') }}"
                                     class="block px-[10px] py-2 text-sm text-slate-500">Riwayat</a>
                             </li>
-                            {{-- <li class="flex items-center  hover:bg-gray-100 hover:rounded-lg px-1">
+                            <li class="flex items-center  hover:bg-gray-100 hover:rounded-lg px-1">
                                 <img src="{{ URL('images/credit-card.png') }}" alt="" class="w-[18px] h-[20px]"
                                     loading="lazy">
                                 <a href="{{ route('langganan.tagihan') }}"
                                     class="block px-[10px] py-2 text-sm text-slate-500">Langganan</a>
-                            </li> --}}
+                            </li>
                             {{-- <li class="flex items-center  hover:bg-gray-100 hover:rounded-lg px-1">
                                 <img src="{{ URL('images/tag.png') }}" alt="" class="w-[18px] h-[20px]"
                                     loading="lazy">

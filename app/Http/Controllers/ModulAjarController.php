@@ -31,8 +31,7 @@ class ModulAjarController extends Controller
             return redirect('/login')->with('error', 'Please log in to generate syllabus.');
         }
 
-        // Example method to get user limit
-        $userLimit = $this->getUserLimit();
+
 
         if ($request->isMethod('post')) {
             // Form submission
@@ -79,7 +78,7 @@ class ModulAjarController extends Controller
             $generateId = null;
         }
 
-        return view('outputGenerates.outputModulAjar', compact('data', 'generateId', 'userLimit'));
+        return view('outputGenerates.outputModulAjar', compact('data', 'generateId'));
     }
 
 
@@ -133,22 +132,6 @@ public function exportToExcel(Request $request)
     }
 }
 
-public function getUserLimit()
-{
-    // Lakukan HTTP request untuk mendapatkan data status pengguna
-    $response = Http::withToken(session()->get('access_token'))
-                    ->get(env('APP_API').'/user-status');
-
-    // Periksa apakah permintaan HTTP sukses
-    if ($response->successful()) {
-        // Mengembalikan data status pengguna
-        return $response->json()['data'];
-    } else {
-        // Tangani kasus jika permintaan HTTP gagal
-        return null;
-    }
-}
-
 public function getDetailModulAjar($idModul){
     // Check if the user is authenticated
     if (!session()->has('access_token') || !session()->has('user')) {
@@ -157,7 +140,6 @@ public function getDetailModulAjar($idModul){
     }
 
     // Panggil method getUserLimit() untuk mendapatkan data batas penggunaan
-    $userLimit = $this->getUserLimit();
 
     // Use the authentication token for API request
     $token = session()->get('access_token');
@@ -174,7 +156,7 @@ public function getDetailModulAjar($idModul){
         if (isset($responseData['data']['output_data'])) {
             $materialHistory = $responseData['data'];
             // Load view to display material history details
-            return view('detailHistory.modulAjar', compact('materialHistory', 'userLimit'));
+            return view('detailHistory.modulAjar', compact('materialHistory'));
         } else {
             // Handle the case where the expected structure is not present in the API response
             return redirect('/history')->with('error', $responseData['message']);

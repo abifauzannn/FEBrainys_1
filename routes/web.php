@@ -8,8 +8,10 @@ use App\Http\Controllers\EssayController;
 use App\Http\Controllers\GamifikasiController;
 use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\KisiKisiController;
+use App\Http\Controllers\LanggananController;
 use App\Http\Controllers\ModulAjarController;
 use App\Http\Controllers\RubrikController;
+use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\SyllabusController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -117,6 +119,16 @@ Route::post('/profile', [AuthenticationController::class, 'completeProfile'])->n
 
 Route::get('/email-verify-change', [AuthenticationController::class, 'showEmailVerify'])->name('emailVerifyChange');
 
+Route::get('/langganan/tagihan', [SubscriptionController::class, 'showTagihan'])->name('langganan.tagihan');
+Route::get('/langganan/daftar-paket', [SubscriptionController::class, 'showPaket'])->name('langganan.pilih-paket');
+Route::get('/langganan/extra-credit', [SubscriptionController::class, 'showCredit'])->name('langganan.beli-credit');
+Route::get('/langganan/checkout/info', [SubscriptionController::class, 'showCheckoutInfo'])->name('checkout.info');
+Route::post('/langganan/metode-pembayaran', [SubscriptionController::class, 'getInfo'])->name('metode.pembayaran');
+Route::post('/langganan/metode-pembayaran/proses-pembayaran', [SubscriptionController::class, 'getOrder'])->name('proses.pembayaran');
+
+
+Route::get('/langganan/checkout/payment', [SubscriptionController::class, 'showPaymentProcess'])->name('checkout.info');
+
 Route::get('/email-forget-verify', [AuthenticationController::class, 'showEmailForget'])->name('emailForget');
 Route::post('/email-forget-verify', [AuthenticationController::class, 'emailVerify'])->name('emailVerify');
 Route::get('/forget-password', [AuthenticationController::class, 'showForgetPassword'])->name('forgetPassword');
@@ -145,12 +157,14 @@ Route::get('/history/atp/{id}', [AtpController::class, 'getDetailAtp'])->name('d
 
 
 
+
 Route::post('/reedem-code', [AuthenticationController::class, 'verifyInvitationCode'])->name('reedemCode');
 
 Route::get('/api/fases', [KisiKisiController::class, 'getFases']);
 Route::get('/api/subjects/{fase}', [KisiKisiController::class, 'getSubjects']);
 Route::get('/api/elements', [KisiKisiController::class, 'getElements']);
 Route::get('/api/final', [KisiKisiController::class, 'getFinal']);
+
 
 
 

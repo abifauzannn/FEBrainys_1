@@ -38,18 +38,18 @@
                         </div>
 
                         <div class="py-5 flex flex-col gap-2 px-4">
-                            <p class="text-black font-['Inter'] text-[13px]">Transfer Virtual Account Bank</p>
-
-
-
-                            @foreach ($data['payment_method']['virtual_account'] as $method)
-                                <div id="payment-method-{{ $method['id'] }}"
-                                    class="payment-method flex justify-center items-center w-full bg-white shadow-md py-4 rounded-md cursor-pointer"
-                                    onclick="selectPaymentMethod('{{ $method['id'] }}')">
-                                    <img src="{{ $method['thumbnail'] }}" alt="{{ $method['name'] }}"
-                                        class="w-[80px] h-[40px]">
-                                </div>
-                            @endforeach
+                            @if ($data['payment_method']['virtual_account'] == [])
+                                <p></p>
+                            @else
+                                @foreach ($data['payment_method']['virtual_account'] as $method)
+                                    <div id="payment-method-{{ $method['id'] }}"
+                                        class="payment-method flex justify-center items-center w-full bg-white shadow-md py-4 rounded-md cursor-pointer"
+                                        onclick="selectPaymentMethod('{{ $method['id'] }}')">
+                                        <img src="{{ $method['thumbnail'] }}" alt="{{ $method['name'] }}"
+                                            class="w-[80px] h-[40px]">
+                                    </div>
+                                @endforeach
+                            @endif
 
                             <p class="text-black font-['Inter'] text-[13px] mt-3">Metode Pembayaran Lainnya</p>
 
@@ -62,19 +62,26 @@
                                 </div>
                             @endforeach
 
-                            <form action="{{ route('proses.pembayaran') }}" method="POST">
+                            <form id="paymentForm" action="{{ route('proses.pembayaran') }}" method="POST">
                                 @csrf
-                                <input type="text" id="paymentMethodCode" name="paymentMethodCode" value=""
-                                    oninput="toggleButtonState()" class="">
-
-                                <input type="text" id="item_type" name="item_type" value="{{ $item_type }}"
-                                    class="">
-
-                                <input type="text" id="item_id" name="item_id" value="{{ $item_id }}"
-                                    class="">
+                                <input type="hidden" id="paymentMethodCode" name="paymentMethodCode" value="">
+                                <input type="hidden" id="item_type" name="item_type" value="{{ $item_type }}">
+                                <input type="hidden" id="item_id" name="item_id" value="{{ $item_id }}">
                                 <button id="paymentButton" type="submit"
-                                    class="w-full py-4 rounded-md mt-5 font-['Inter'] bg-gray-400 text-white cursor-not-allowed"
-                                    disabled>Lanjut Pembayaran</button>
+                                    class="w-full py-4 rounded-md mt-5 font-['Inter'] bg-gray-400 text-white cursor-not-allowed flex justify-center items-center"
+                                    disabled>
+                                    <span id="submitButtonText">Lanjut Pembayaran</span>
+                                    <div id="loadingSpinner" class="hidden ml-2">
+                                        <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg"
+                                            fill="none" viewBox="0 0 24 24">
+                                            <circle class="opacity-25" cx="12" cy="12" r="10"
+                                                stroke="currentColor" stroke-width="4"></circle>
+                                            <path class="opacity-75" fill="currentColor"
+                                                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                                            </path>
+                                        </svg>
+                                    </div>
+                                </button>
                             </form>
                         </div>
                     </div>
@@ -94,22 +101,17 @@
 
         <script>
             function selectPaymentMethod(id) {
-                // Remove the 'selected' class from any previously selected method
                 const previouslySelected = document.querySelector('.payment-method.selected');
                 if (previouslySelected) {
                     previouslySelected.classList.remove('selected');
                 }
 
-                // Set the payment method code in the hidden input field
                 document.getElementById('paymentMethodCode').value = id;
-
-                // Add the 'selected' class to the clicked method
                 const selectedMethod = document.getElementById('payment-method-' + id);
                 if (selectedMethod) {
                     selectedMethod.classList.add('selected');
                 }
 
-                // Enable the payment button
                 toggleButtonState();
             }
 
@@ -128,6 +130,11 @@
                     button.classList.add('bg-blue-500', 'cursor-pointer');
                 }
             }
+
+            document.getElementById('paymentForm').addEventListener('submit', function() {
+                document.getElementById('submitButtonText').classList.add('hidden');
+                document.getElementById('loadingSpinner').classList.remove('hidden');
+            });
         </script>
 
         <style>

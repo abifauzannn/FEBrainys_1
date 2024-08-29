@@ -119,15 +119,17 @@ Route::post('/profile', [AuthenticationController::class, 'completeProfile'])->n
 
 Route::get('/email-verify-change', [AuthenticationController::class, 'showEmailVerify'])->name('emailVerifyChange');
 
-Route::get('/langganan/tagihan', [SubscriptionController::class, 'showTagihan'])->name('langganan.tagihan');
+Route::get('/langganan/tagihan', [SubscriptionController::class, 'showHistory'])->name('langganan.tagihan');
 Route::get('/langganan/daftar-paket', [SubscriptionController::class, 'showPaket'])->name('langganan.pilih-paket');
 Route::get('/langganan/extra-credit', [SubscriptionController::class, 'showCredit'])->name('langganan.beli-credit');
 Route::get('/langganan/checkout/info', [SubscriptionController::class, 'showCheckoutInfo'])->name('checkout.info');
 Route::post('/langganan/metode-pembayaran', [SubscriptionController::class, 'getInfo'])->name('metode.pembayaran');
+Route::get('/langganan/metode-pembayaran', [SubscriptionController::class, 'showPaymentMethod'])->name('metode.pembayaran');
 Route::post('/langganan/metode-pembayaran/proses-pembayaran', [SubscriptionController::class, 'getOrder'])->name('proses.pembayaran');
+Route::get('/langganan/metode-pembayaran/proses-pembayaran', [SubscriptionController::class, 'showPaymentProcess'])->name('proses.pembayaran');
 
 
-Route::get('/langganan/checkout/payment', [SubscriptionController::class, 'showPaymentProcess'])->name('checkout.info');
+// Route::get('/langganan/checkout/payment', [SubscriptionController::class, 'showPaymentProcess'])->name('checkout.info');
 
 Route::get('/email-forget-verify', [AuthenticationController::class, 'showEmailForget'])->name('emailForget');
 Route::post('/email-forget-verify', [AuthenticationController::class, 'emailVerify'])->name('emailVerify');
@@ -164,6 +166,8 @@ Route::get('/api/fases', [KisiKisiController::class, 'getFases']);
 Route::get('/api/subjects/{fase}', [KisiKisiController::class, 'getSubjects']);
 Route::get('/api/elements', [KisiKisiController::class, 'getElements']);
 Route::get('/api/final', [KisiKisiController::class, 'getFinal']);
+
+Route::get('/sukses', [SubscriptionController::class, 'success'])->name('success');
 
 
 

@@ -9,7 +9,10 @@ use Illuminate\Support\Facades\Http;
 class SubscriptionController extends Controller
 {
 
-public function showCheckoutInfo(){
+    public function success(){
+        return view('payments.callback.success');
+    }
+public function showPaymentMethod(){
     if (session()->has('user')) {
         // Ambil data pengguna dari sesi
         $userData = session('user');
@@ -20,6 +23,7 @@ public function showCheckoutInfo(){
         return redirect('/login');
     }
 }
+
 
     public function showTagihan(){
         if (session()->has('user')) {
@@ -73,14 +77,14 @@ public function showCheckoutInfo(){
         $response = Http::withToken(session()->get('access_token'))
         ->get('https://testing.brainys.oasys.id/api/subscription/extra-credit');
 
-// Periksa apakah permintaan HTTP sukses
-if ($response->successful()) {
-// Mengembalikan data status pengguna
-return $response->json()['data'];
-} else {
-// Tangani kasus jika permintaan HTTP gagal
-return redirect()->back()->with('error', 'Failed to retrieve packages.');
-}
+        // Periksa apakah permintaan HTTP sukses
+        if ($response->successful()) {
+        // Mengembalikan data status pengguna
+        return $response->json()['data'];
+        } else {
+        // Tangani kasus jika permintaan HTTP gagal
+        return redirect()->back()->with('error', 'Failed to retrieve packages.');
+        }
 
     }
 
@@ -152,6 +156,56 @@ public function getOrder(Request $request)
             return back()->with('error', 'Failed to retrieve packages.'); // Return empty array if there's an error
         }
     }
+
+
+    public function fetchHistoryData($page)
+    {
+        $token = session()->get('access_token');
+
+        $response = Http::withHeaders([
+            'Authorization' => 'Bearer ' . $token,
+        ])->get(env('APP_API') . '/subscription/history', ['page' => $page]);
+
+        if ($response->successful()) {
+            return $response->json();
+        } else {
+            // Handle the error
+            return null;
+        }
+    }
+
+    public function showHistory(Request $request)
+    {
+
+        $userData = session('user');
+        $page = $request->get('page', 1);
+
+        // Fetch data without 'type' if it's 'all'
+        $response = $this->fetchHistoryData($page);
+
+        if ($response) {
+            $historyData = $response['data'];
+            $pagination = $response['pagination'];
+            $totalPages = $pagination['last_page'];
+            $hasMorePages = $pagination['current_page'] < $totalPages;
+        } else {
+            $historyData = [];
+            $pagination = null;
+            $totalPages = 0;
+            $hasMorePages = false;
+        }
+
+        // Define the pagination range
+        $paginationRange = 4; // Number of pages per group
+        $currentGroupStart = floor(($page - 1) / $paginationRange) * $paginationRange + 1;
+        $currentGroupEnd = min($currentGroupStart + $paginationRange - 1, $totalPages);
+
+        return view('langganan.tagihan.index', compact('userData', 'historyData', 'page', 'hasMorePages', 'totalPages',  'currentGroupStart', 'currentGroupEnd'));
+    }
+
+
+
+
 
 
 

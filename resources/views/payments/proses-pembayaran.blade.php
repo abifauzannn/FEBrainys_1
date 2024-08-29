@@ -9,12 +9,12 @@
 @section('content')
     @if (!isset($data))
         <script>
-            window.location.href = "{{ route('langganan.tagihan') }}";
+            window.location.href = "{{ route('dashboard') }}";
         </script>
     @else
         <x-nav></x-nav>
         <div class="container mx-auto px-4 py-6 sm:px-10 sm:py-9 relative">
-            <x-back-button url="{{ route('dashboard') }}" />
+            <x-back-button url="{{ route('langganan.tagihan') }}" />
 
             <div class="flex flex-col items-center justify-center">
                 <img src="{{ URL('images/Steps3.png') }}" alt="" class="w-[309px] h-[84px]">

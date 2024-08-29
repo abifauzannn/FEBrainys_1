@@ -57,7 +57,7 @@ class ViewServiceProvider extends ServiceProvider
             $view->with('annuallyPackages', $annuallyPackages);
         });
 
-        View::composer('langganan.tagihan.paket-aktif', function ($view) {
+        View::composer('langganan.tagihan.index', function ($view) {
             $subscriptionController = app(SubscriptionController::class);
             $response = $subscriptionController->getInfoPackages();
 

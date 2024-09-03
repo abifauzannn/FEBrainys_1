@@ -3,7 +3,7 @@
         <section class="w-[95%] h-full rounded-md bg-white shadow-md flex flex-col justify-between border mb-2">
             <main>
                 <article class="w-full px-7 py-7">
-                    <div class="flex flex-row gap-4 items-center">
+                    <div class="flex flex-col md:flex-row gap-4 items-center">
                         <img src="{{ URL('images/credit.png') }}" alt="Paket Image" class="w-12 h-12" loading="lazy">
 
                         <div class="flex flex-col flex-grow">

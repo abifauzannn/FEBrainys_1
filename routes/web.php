@@ -127,6 +127,7 @@ Route::post('/langganan/metode-pembayaran', [SubscriptionController::class, 'get
 Route::get('/langganan/metode-pembayaran', [SubscriptionController::class, 'showPaymentMethod'])->name('metode.pembayaran');
 Route::post('/langganan/metode-pembayaran/proses-pembayaran', [SubscriptionController::class, 'getOrder'])->name('proses.pembayaran');
 Route::get('/langganan/metode-pembayaran/proses-pembayaran', [SubscriptionController::class, 'showPaymentProcess'])->name('proses.pembayaran');
+Route::post('/langganan/tagihan/export-history', [SubscriptionController::class, 'exportInvoice'])->name('export.invoice');
 
 
 // Route::get('/langganan/checkout/payment', [SubscriptionController::class, 'showPaymentProcess'])->name('checkout.info');

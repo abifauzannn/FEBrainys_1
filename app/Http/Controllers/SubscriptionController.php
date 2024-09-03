@@ -205,6 +205,32 @@ public function getOrder(Request $request)
 
 
 
+public function exportInvoice(Request $request)
+{
+    // Ambil generate_id dari permintaan
+    $generateId = $request->input('generateId');
+
+    // Buat permintaan HTTP ke API untuk mengunduh dokumen Word
+    $response = Http::withToken(session()->get('access_token'))
+                    ->post(env('APP_API').'/subscription/invoice', [
+                        'id' => $generateId
+                    ]);
+
+    // Periksa apakah permintaan berhasil
+    if ($response->successful()) {
+        // Ambil URL unduhan dari respons
+        $downloadUrl = $response->json()['data']['download_url'];
+
+        // Arahkan pengguna ke URL unduhan
+        return redirect($downloadUrl);
+    } else {
+
+        return null;
+    }
+}
+
+
+
 
 
 

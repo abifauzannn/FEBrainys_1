@@ -7,7 +7,7 @@
 
 
     <div class="flex flex-col md:flex-row justify-between gap-5">
-        <section class="w-1/2 h-[547px] rounded-md bg-white shadow-lg flex flex-col justify-between border">
+        <section class="w-full md:w-1/2 h-[547px] rounded-md bg-white shadow-lg flex flex-col justify-between border">
             <header>
                 <div class="rounded-md bg-[#F9F9F9] py-4 px-7">
                     <h3 class="text-[16px] font-['Inter']">Paket Aktif</h3>
@@ -75,10 +75,10 @@
                                     Rp {{ number_format($history['amount_total'], 0, ',', '.') }}
                                 </td>
                                 <td class="px-[10px] py-4">
-                                    @if ($history['status'] == 'pending')
+                                    @if ($history['status'] == 'success')
                                         <div
-                                            class="font-['Inter'] text-sm text-center py-1 px-1 font-bold bg-red-100 text-red-600 rounded-full">
-                                            Menunggu Pembayaran</div>
+                                            class="font-['Inter'] text-center py-1 px-1 font-bold bg-green-100 text-green-600 rounded-full">
+                                            Dibayar</div>
                                     @else
                                         <div
                                             class="font-['Inter'] text-center py-1 px-1 font-bold bg-green-100 text-green-600 rounded-full">
@@ -87,17 +87,23 @@
 
                                 </td>
                                 <td class="px-6 py-4">
-                                    <div
-                                        class="font-['Inter'] text-center py-2 px-4 font-bold bg-white border rounded-full flex items-center justify-center gap-2">
-                                        <svg class="w-4 h-4 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                            fill="currentColor" viewBox="0 0 20 20">
-                                            <path
-                                                d="M14.707 7.793a1 1 0 0 0-1.414 0L11 10.086V1.5a1 1 0 0 0-2 0v8.586L6.707 7.793a1 1 0 1 0-1.414 1.414l4 4a1 1 0 0 0 1.416 0l4-4a1 1 0 0 0-.002-1.414Z" />
-                                            <path
-                                                d="M18 12h-2.55l-2.975 2.975a3.5 3.5 0 0 1-4.95 0L4.55 12H2a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2Zm-3 5a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z" />
-                                        </svg>
-                                        Invoice
-                                    </div>
+                                    <form method="POST" action="{{ route('export.invoice') }}" target="_blank">
+                                        @csrf
+                                        <input type="hidden" name="generateId" value="{{ $history['id'] }}">
+                                        <button type="submit"
+                                            class="font-['Inter'] text-center py-2 px-4 font-bold bg-white border rounded-full flex items-center justify-center gap-2">
+                                            <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                                fill="currentColor" viewBox="0 0 20 20">
+                                                <path
+                                                    d="M14.707 7.793a1 1 0 0 0-1.414 0L11 10.086V1.5a1 1 0 0 0-2 0v8.586L6.707 7.793a1 1 0 1 0-1.414 1.414l4 4a1 1 0 0 0 1.416 0l4-4a1 1 0 0 0-.002-1.414Z" />
+                                                <path
+                                                    d="M18 12h-2.55l-2.975 2.975a3.5 3.5 0 0 1-4.95 0L4.55 12H2a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2Zm-3 5a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z" />
+                                            </svg>
+                                            Invoice
+                                        </button>
+                                    </form>
+
+
                                 </td>
                             </tr>
                         @endforeach
@@ -106,7 +112,7 @@
                     </tbody>
                 </table>
             </div>
-            <div class="flex justify-end pr-7 mt-10 gap-2">
+            <div class="flex justify-end pr-7 md:mt-10 py-10 gap-2">
                 @if ($currentGroupStart > 1)
                     <a href="{{ route('langganan.tagihan', ['page' => $currentGroupStart - 1]) }}"
                         class="px-3 py-1 bg-blue-500 text-white rounded">Sebelumnya</a>

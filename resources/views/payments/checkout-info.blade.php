@@ -19,8 +19,8 @@
             <div class="flex flex-col items-center justify-center">
                 <img src="{{ URL('images/Steps2.png') }}" alt="" class="w-[309px] h-[84px]">
 
-                <div class="bg-[#F9F9F9] w-5/6 mt-6 px-5 py-10 flex flex-row justify-around rounded-md">
-                    <div class="w-1/3 px-4 py-4">
+                <div class="bg-[#F9F9F9] w-5/6 mt-6 px-5 py-10 flex flex-col md:flex-row justify-around rounded-md">
+                    <div class="md:w-1/3 w-full px-4 py-4">
                         <p class="mb-5 text-black font-bold font-['Inter'] text-[16px]">Informasi Pembelian</p>
                         <div class="flex flex-row items-center bg-white p-4 gap-3 rounded-md border border-gray-200">
                             <img src="{{ URL('images/info.png') }}" alt="" class="w-[50px] h-[50px]">
@@ -32,7 +32,7 @@
                         </div>
                     </div>
 
-                    <div class="w-1/3 bg-white gap-3 rounded-md border border-gray-200">
+                    <div class="md:w-1/3 w-full bg-white gap-3 rounded-md border border-gray-200">
                         <div class="w-full bg-[#F9F9F9] px-4 py-4 rounded-md">
                             <p class="text-black font-bold font-['Inter'] text-[16px]">Pilih Metode Pembayaran</p>
                         </div>

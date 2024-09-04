@@ -47,7 +47,7 @@
                                     </div>
 
                                     <!-- QR Code -->
-                                    @if ($data['transaction_payment']['service_name'] === 'QRIS Custom')
+                                    @if ($data['transaction_payment']['service_name'] === 'QRIS Merchant PayDisini')
                                         <div class="mb-3 items-center flex flex-col gap-3">
                                             <p>Silahkan scan QR CODE di bawah ini</p>
                                             <img src="{{ $data['transaction_payment']['qrcode_url'] }}" alt="QR Code"

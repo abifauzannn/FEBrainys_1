@@ -127,6 +127,7 @@ public function getOrder(Request $request)
     $item_type = $request->input('item_type');
     $paymentMethodCode = $request->input('paymentMethodCode');
 
+    // Send POST request to place an order
     $response = Http::withToken(session()->get('access_token'))
                     ->post(env('APP_API').'/checkout/place-order', [
                         'item_id' => $item_id,
@@ -134,11 +135,37 @@ public function getOrder(Request $request)
                         'payment_method_id' => $paymentMethodCode
                     ]);
 
+    // Check if the request was successful
     if ($response->successful()) {
-       $data = $response->json()['data'];
-       return view('payments.proses-pembayaran', compact('data'));
+        $data = $response->json()['data'];
+        $transactionCode = $data['transaction']['transaction_code'];
+
+        // Redirect to internal route with the transaction code
+        return redirect()->route('order.detail', ['transaction_code' => $transactionCode]);
     } else {
         return back()->with('error', 'Failed to retrieve item info.');
+    }
+}
+
+
+
+
+// app/Http/Controllers/HistoryController.php
+
+public function showDetailOrder($transaction_code)
+{
+    $historyUrl = "https://testing.brainys.oasys.id/api/subscription/history/{$transaction_code}";
+
+    // Fetch data from the detail history endpoint
+    $response = Http::withToken(session()->get('access_token'))->get($historyUrl);
+
+    if ($response->successful()) {
+        $data = $response->json()['data'];
+
+        // Pass the data to the view
+        return view('payments.proses-pembayaran', compact('data'));
+    } else {
+        return redirect()->route('checkout.place-order')->with('error', 'Failed to retrieve history data.');
     }
 }
 

@@ -129,6 +129,12 @@ Route::post('/langganan/metode-pembayaran/proses-pembayaran', [SubscriptionContr
 Route::get('/langganan/metode-pembayaran/proses-pembayaran', [SubscriptionController::class, 'showPaymentProcess'])->name('proses.pembayaran');
 Route::post('/langganan/tagihan/export-history', [SubscriptionController::class, 'exportInvoice'])->name('export.invoice');
 Route::get('/order/detail/{transaction_code}', [SubscriptionController::class, 'showDetailOrder'])->name('order.detail');
+// routes/web.
+Route::get('/api/check-status/{transaction_code}', [SubscriptionController::class, 'checkStatus'])->name('api.check-status');
+
+// YourController.php
+
+
 
 
 // Route::get('/langganan/checkout/payment', [SubscriptionController::class, 'showPaymentProcess'])->name('checkout.info');

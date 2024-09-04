@@ -169,6 +169,20 @@ public function showDetailOrder($transaction_code)
     }
 }
 
+// public function checkStatus($transaction_code)
+// {
+//     $historyUrl = "https://testing.brainys.oasys.id/api/subscription/history/{$transaction_code}";
+
+//     $response = Http::withToken(session()->get('access_token'))->get($historyUrl);
+
+//     if ($response->successful()) {
+//         $data = $response->json()['data'];
+//         return response()->json(['status' => $data['transaction']['status']]);
+//     } else {
+//         return response()->json(['status' => 'error'], 500);
+//     }
+// }
+
 
 
     public function getInfoPackages()

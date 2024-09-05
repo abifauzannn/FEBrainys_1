@@ -132,6 +132,9 @@ Route::get('/order/detail/{transaction_code}', [SubscriptionController::class, '
 // routes/web.
 Route::get('/api/check-status/{transaction_code}', [SubscriptionController::class, 'checkStatus'])->name('api.check-status');
 
+// routes/web.php
+Route::get('/events', [SubscriptionController::class, 'stream']);
+
 // YourController.php
 
 

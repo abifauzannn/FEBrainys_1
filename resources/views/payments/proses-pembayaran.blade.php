@@ -206,6 +206,14 @@
                                             </p>
                                         </div>
 
+                                        <div id="order-details">
+                                            <p class="hidden">Transaction Code:
+                                                {{ $data['transaction']['transaction_code'] }}</p>
+                                            <p class="hidden">Status: <span
+                                                    id="order-status">{{ $data['transaction']['status'] }}</span>
+                                            </p>
+                                        </div>
+
                                     </div>
                                     <!-- You can add more details here if necessary -->
 
@@ -214,6 +222,21 @@
                         </div>
                     </div>
                 </div>
+                <script>
+                    // Buat koneksi SSE ke endpoint
+                    const eventSource = new EventSource(`/events?transaction_code={{ $data['transaction']['transaction_code'] }}`);
+
+                    eventSource.onmessage = function(event) {
+                        const data = JSON.parse(event.data);
+                        const statusElement = document.getElementById('order-status');
+                        statusElement.textContent = data.status;
+
+                        // Jika status tidak pending, tutup koneksi
+                        if (data.status !== 'pending') {
+                            eventSource.close();
+                        }
+                    };
+                </script>
             @endif
         </div>
     @endif

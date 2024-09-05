@@ -75,14 +75,14 @@
                                     Rp {{ number_format($history['amount_total'], 0, ',', '.') }}
                                 </td>
                                 <td class="px-[10px] py-4">
-                                    @if ($history['status'] == 'success')
+                                    @if ($history['status'] == 'completed')
                                         <div
                                             class="font-['Inter'] text-center py-1 px-1 font-bold bg-green-100 text-green-600 rounded-full">
                                             Dibayar</div>
-                                    @else
+                                    @elseif ($history['status'] == 'canceled')
                                         <div
-                                            class="font-['Inter'] text-center py-1 px-1 font-bold bg-green-100 text-green-600 rounded-full">
-                                            {{ $history['status'] }}</div>
+                                            class="font-['Inter'] text-center py-1 px-1 font-bold bg-red-100 text-red-600 rounded-full">
+                                            Gagal</div>
                                     @endif
 
                                 </td>

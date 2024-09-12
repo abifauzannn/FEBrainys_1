@@ -59,6 +59,47 @@
                     </div>
 
                 </div>
+            @elseif ($data['transaction']['status'] == 'canceled')
+                <div class="flex flex-col items-center justify-center  font-['Inter']"
+                    style="min-height: calc(100vh - 66px);">
+                    <div class="bg-white flex flex-col justify-center items-center rounded-md w-full md:w-3/6 shadow-lg">
+                        <div class="w-full bg-[#F9F9F9] px-4 rounded-t-md py-3">
+                            <p class="text-black font-bold font-['Inter'] text-[16px]">Pembayaran Dibatalkan!</p>
+                        </div>
+                        <div class="w-full rounded-md flex flex-col items-center justify-center py-10 ">
+                            <img src="{{ URL('images/payment-failed.png') }}" alt="" class="w-[150px] h-[100px]">
+                            <p class="text-black font-bold font-['Inter'] text-center mb-3 text-[20px]">Pembayaran anda
+                                dibatalkan oleh sistem</p>
+                            <p class="text-black font-bold font-['Inter'] text-[14px] text-center mb-2">Pembayaran dengan
+                                No. Transaksi
+                                {{ $data['transaction']['transaction_code'] }}
+                                <br class="mt-1">
+                                dibatalkan
+                            </p>
+                            <button type="submit"
+                                class="w-[70%]  md:w-[50%] px-2 h-[34px] flex justify-center items-center mt-10 bg-white rounded-lg shadow border border-blue-500 mb-14 text-blue-500 hover:bg-gray-100 duration-300 ease-in-out transition group">
+                                <p class="text-blue-500 text-[14px] text-center font-medium font-['Inter']">
+                                    Kembali ke halaman awal
+                                </p>
+
+                            </button>
+                            <p class="text-black font-bold font-['Inter'] text-[14px] mb-1 text-center">Jika anda mengalami
+                                kendala
+                                silakan klik
+                                bantuan di bawah ini</p>
+                            <button class="group w-[30%] h-[34px] px-2  flex justify-center items-center text-blue-500 "
+                                type="button">
+                                <img src="{{ URL('images/whatsapp.png') }}" alt="WhatsApp Logo"
+                                    class="w-5 h-5 object-cover mr-2">
+                                <a href="https://wa.link/z2edgq" target="_blank"
+                                    class="text-center text-base font-medium leading-normal flex flex-col group-hover:font-bold transition duration-300 ease-in-out">
+                                    Bantuan
+                                </a>
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
             @else
                 <div class="flex flex-col items-center justify-center">
                     <img src="{{ URL('images/Steps3.png') }}" alt="Steps Image" class="w-[200px] sm:w-[309px] h-auto">
@@ -93,7 +134,9 @@
                                         </div>
 
                                         <!-- QR Code -->
-                                        @if ($data['transaction_payment']['service_name'] === 'QRIS Merchant PayDisini')
+                                        @if (
+                                            $data['transaction_payment']['service_name'] === 'QRIS Custom' ??
+                                                $data['transaction_payment']['service_name'] === 'QRIS Merchant PayDisini')
                                             <div class="mb-3 items-center flex flex-col gap-3">
                                                 <p>Silahkan scan QR CODE di bawah ini</p>
                                                 <img src="{{ $data['transaction_payment']['qrcode_url'] }}" alt="QR Code"
@@ -147,6 +190,7 @@
                                                     <span id="copy-text-amount">Salin</span>
                                                 </div>
                                             </div>
+
 
                                             <div class="bg-gray-100 p-3 rounded-md">
                                                 <div class="w-full h-[34px] inline-flex items-center justify-between">
@@ -236,6 +280,31 @@
                             eventSource.close();
                         }
                     };
+
+                    function copyToClipboard(elementId, copyTextId) {
+                        // Ambil teks dari elemen yang ingin disalin
+                        const copyText = document.getElementById(elementId).textContent;
+
+                        // Ekstrak hanya angka dari teks menggunakan regex
+                        const onlyNumbers = copyText.match(/\d+/g)?.join('') || '';
+
+                        // Buat elemen input sementara untuk menyalin teks
+                        const tempInput = document.createElement('input');
+                        tempInput.value = onlyNumbers; // Setel input dengan angka saja
+                        document.body.appendChild(tempInput);
+
+                        // Salin teks ke clipboard
+                        tempInput.select();
+                        document.execCommand('copy');
+                        document.body.removeChild(tempInput);
+
+                        // Ubah teks tombol sementara untuk memberikan feedback
+                        const copyButton = document.getElementById(copyTextId);
+                        copyButton.textContent = 'Tersalin';
+                        setTimeout(() => {
+                            copyButton.textContent = 'Salin';
+                        }, 2000);
+                    }
                 </script>
             @endif
         </div>

@@ -63,8 +63,8 @@
                     </thead>
                     <tbody>
                         @foreach ($historyData as $history)
-                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-
+                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 cursor-pointer hover:bg-gray-50"
+                                onclick="window.location='{{ url('/order/detail/' . $history['transaction_code'] . '/') }}'">
                                 <td class="px-6 py-4">
                                     {{ $history['transaction_date'] }}
                                 </td>
@@ -78,16 +78,23 @@
                                     @if ($history['status'] == 'completed')
                                         <div
                                             class="font-['Inter'] text-center py-1 px-1 font-bold bg-green-100 text-green-600 rounded-full">
-                                            Dibayar</div>
+                                            Dibayar
+                                        </div>
                                     @elseif ($history['status'] == 'canceled')
                                         <div
                                             class="font-['Inter'] text-center py-1 px-1 font-bold bg-red-100 text-red-600 rounded-full">
-                                            Gagal</div>
+                                            Gagal dibayar
+                                        </div>
+                                    @elseif ($history['status'] == 'pending')
+                                        <div
+                                            class="font-['Inter'] text-center py-1 px-1 font-bold bg-yellow-100 text-yellow-600 rounded-full">
+                                            Menunggu Pembayaran
+                                        </div>
                                     @endif
-
                                 </td>
                                 <td class="px-6 py-4">
-                                    <form method="POST" action="{{ route('export.invoice') }}" target="_blank">
+                                    <form method="POST" action="{{ route('export.invoice') }}" target="_blank"
+                                        onclick="event.stopPropagation();">
                                         @csrf
                                         <input type="hidden" name="generateId" value="{{ $history['id'] }}">
                                         <button type="submit"
@@ -102,8 +109,6 @@
                                             Invoice
                                         </button>
                                     </form>
-
-
                                 </td>
                             </tr>
                         @endforeach
@@ -112,7 +117,7 @@
                     </tbody>
                 </table>
             </div>
-            <div class="flex justify-end pr-7 md:mt-10 py-10 gap-2">
+            <div class="flex justify-end pr-7 md:py-10 py-10 gap-2">
                 @if ($currentGroupStart > 1)
                     <a href="{{ route('langganan.tagihan', ['page' => $currentGroupStart - 1]) }}"
                         class="px-3 py-1 bg-blue-500 text-white rounded">Sebelumnya</a>

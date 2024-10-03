@@ -6,6 +6,7 @@ use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Session;
 
 class AuthenticationController extends Controller
@@ -401,75 +402,118 @@ class AuthenticationController extends Controller
         }
     }
 
-
-    public function login(Request $request)
+    public function getUserLimit()
 {
-    // Buat permintaan login ke API
-    $response = Http::post(env('APP_API').'/login', [
-        'email' => $request->input('email'),
-        'password' => $request->input('password'),
-    ]);
+    return Cache::remember('limit_user', 10, function () {
+        $response = Http::withToken(session()->get('access_token'))
+                        ->get(env('APP_API').'/user-status');
 
-    $responseData = $response->json();
+        if ($response->successful()) {
+            $data = $response->json()['data'];
 
-    // Periksa keberhasilan login
-    if ($response->successful() && $responseData['status'] === 'success') {
-        // Ambil token dari respons API
-        $accessToken = $responseData['data']['token'];
-
-        // Buat objek pengguna untuk menyimpan dalam sesi (tanpa database)
-        $user = $responseData['data']['user'];
-
-        // Tambahkan is_active ke user jika belum ada
-        $user['is_active'] = $user['is_active'] ?? 0;
-
-        // Simpan token dan objek pengguna di sesi Laravel
-        session(['access_token' => $accessToken, 'user' => $user]);
-
-        // Redirect ke halaman dashboard atau halaman setelah login
-        return redirect()->route('dashboard');
-    }
-    $responseData = $response->json() ?? [];
-    $message = $responseData['message'] ?? null;
-
-    if ($message === 'Lengkapi profile Anda sebelum melakukan log-in.') {
-        // Simpan token di sesi sebelum redirect ke halaman lengkapi profil
-        $accessToken = $responseData['data']['token'] ?? null;
-        if ($accessToken) {
-            session(['access_token' => $accessToken]);
+            // Ambil hanya data 'limit' dan 'used' dari 'all'
+            return [
+                'limit' => $data['all']['limit'] ?? null,
+                'used' => $data['all']['used'] ?? null,
+                'credit' => $data['all']['credit'] ?? null
+            ];
+        } else {
+            return null;
         }
-
-        return redirect()->route('profileForm');
-    }
-
-    if ($message === 'Akun belum melakukan verifikasi OTP, silakan melakukan verifikasi OTP.') {
-        $accessToken = $responseData['data']['token'] ?? null;
-        $email = $request->input('email');
-        if ($accessToken) {
-            session(['access_token' => $accessToken]);
-        }
-
-        if ($email) {
-            $this->otpOtomatis($email);
-        }
-
-        return redirect()->route('verify.otp', compact('email'));
-    }
-
-    $errorMessage = $message ?? 'Akun anda sudah terhubung dengan Google. Silahkan login menggunakan Google. ';
-
-    return back()->withErrors(['email' => $errorMessage]);
+    });
 }
 
 
+    public function login(Request $request)
+    {
+        // Buat permintaan login ke API
+        $response = Http::post(env('APP_API').'/login', [
+            'email' => $request->input('email'),
+            'password' => $request->input('password'),
+        ]);
+
+        $responseData = $response->json();
+
+        // Periksa keberhasilan login
+        if ($response->successful() && $responseData['status'] === 'success') {
+            // Ambil token dari respons API
+            $accessToken = $responseData['data']['token'];
+
+            // Buat objek pengguna untuk menyimpan dalam sesi (tanpa database)
+            $user = $responseData['data']['user'];
+
+            // Tambahkan is_active ke user jika belum ada
+            $user['is_active'] = $user['is_active'] ?? 0;
+
+            // Simpan token dan objek pengguna di sesi Laravel
+            session(['access_token' => $accessToken, 'user' => $user]);
+
+            // Panggil metode getInfoPackages untuk mendapatkan data paket
+            $profileResponse = $this->getInfoPackages();
+
+            if (isset($profileResponse['data']['package'])) {
+                // Simpan data package ke dalam session
+                session(['package' => $profileResponse['data']['package']]);
+            }
+
+            if (isset($userStatusResponse['credit'])) {
+                // Simpan data credit ke dalam session
+            }
+
+            // Redirect ke halaman dashboard atau halaman setelah login
+            return redirect()->route('dashboard');
+        }
+
+        $responseData = $response->json() ?? [];
+        $message = $responseData['message'] ?? null;
+
+        if ($message === 'Lengkapi profile Anda sebelum melakukan log-in.') {
+            // Simpan token di sesi sebelum redirect ke halaman lengkapi profil
+            $accessToken = $responseData['data']['token'] ?? null;
+            if ($accessToken) {
+                session(['access_token' => $accessToken]);
+            }
+
+            return redirect()->route('profileForm');
+        }
+
+        if ($message === 'Akun belum melakukan verifikasi OTP, silakan melakukan verifikasi OTP.') {
+            $accessToken = $responseData['data']['token'] ?? null;
+            $email = $request->input('email');
+            if ($accessToken) {
+                session(['access_token' => $accessToken]);
+            }
+
+            if ($email) {
+                $this->otpOtomatis($email);
+            }
+
+            return redirect()->route('verify.otp', compact('email'));
+        }
+
+        $errorMessage = $message ?? 'Akun anda sudah terhubung dengan Google. Silahkan login menggunakan Google. ';
+
+        return back()->withErrors(['email' => $errorMessage]);
+    }
 
 
+public function getInfoPackages()
+{
+    $response = Http::withToken(session()->get('access_token'))
+        ->get('https://testing.brainys.oasys.id/api/user-profile');
 
+    if ($response->successful()) {
+        return $response->json(); // Return the entire JSON response
+    } else {
+        // Handle error
+        return back()->with('error', 'Failed to retrieve packages.'); // Return empty array if there's an error
+    }
+}
 
     public function logout()
     {
         // Hapus data sesi
-        Session::forget(['access_token', 'user']);
+        Session::forget(['access_token', 'user', 'package']);
 
         // Redirect ke halaman login
         return redirect('/login');

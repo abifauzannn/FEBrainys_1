@@ -98,7 +98,8 @@
             </div>
         @endif
 
-        <div class="mb-3 px-6 py-4">
+        <div class="mb-3 px-6 py-4 flex flex-col">
+            <x-output-banner />
             <x-export-word generateId="{{ $generateId }}" export="{{ route('export-essay') }}" />
         </div>
 

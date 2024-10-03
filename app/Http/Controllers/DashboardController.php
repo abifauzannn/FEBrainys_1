@@ -35,6 +35,7 @@ class DashboardController extends Controller
             return [
                 'limit' => $data['all']['limit'] ?? null,
                 'used' => $data['all']['used'] ?? null,
+                'credit' => $data['all']['credit'] ?? null
             ];
         } else {
             return null;

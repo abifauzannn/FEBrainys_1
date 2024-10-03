@@ -188,10 +188,13 @@
             </div>
         @endif
 
-        <div class="flex flex-row gap-3 mb-3 px-6 py-4">
-            <x-export-word generateId="{{ $generateId }}" export="{{ route('export-bahan-ajar') }}" />
-            <x-export-ppt generateId="{{ $generateId }}" export="{{ route('export-bahanAjar-ppt') }}" />
+        <div class="flex flex-col mb-3 px-6 py-4">
+            <x-output-banner />
 
+            <div class="flex flex-row gap-3">
+                <x-export-word generateId="{{ $generateId }}" export="{{ route('export-bahan-ajar') }}" />
+                <x-export-ppt generateId="{{ $generateId }}" export="{{ route('export-bahanAjar-ppt') }}" />
+            </div>
         </div>
     @endisset
 

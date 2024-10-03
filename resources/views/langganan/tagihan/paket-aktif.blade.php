@@ -27,6 +27,10 @@
         @endforelse
     </main>
 
+    @if ()
+
+    @endif
+
     <footer class="mb-5 flex justify-end px-7 pt-3">
         <div class="rounded-full bg-blue-600 py-3 px-7">
             <h3 class="text-[16px] font-['Inter'] text-white">Upgrade Paket</h3>

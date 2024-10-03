@@ -145,6 +145,7 @@
                     </div>
                 @endif
 
+
                 <x-generate-image />
 
 

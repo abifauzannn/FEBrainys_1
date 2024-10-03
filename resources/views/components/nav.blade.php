@@ -43,7 +43,7 @@
                     <div
                         class="flex justify-center gap-1 items-center mt-1 text-gray-500 text-xs border border-zinc-200 rounded-[5px] py-1 px-1 bg-white font-bold">
                         <img src="{{ URL('images/sparkles.png') }}" alt="" class="w-5 h-5" loading="lazy">
-                        Sisa credit {{ $remainingLimit }}
+                        Sisa credit {{ $userLimit['credit'] }}
                     </div>
                 @endif
 

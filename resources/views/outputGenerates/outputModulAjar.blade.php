@@ -225,29 +225,32 @@
         </div>
     @endif
 
-    @if (isset($data['lampiran']) && (!empty($data['lampiran'])))
+    @if (isset($data['lampiran']) && !empty($data['lampiran']))
         <div class="mt-5">
             <div class="pt-3 text-sm font-bold text-gray-800 uppercase mb-2">Glosarium</div>
-                <ol class="list-decimal pl-6">
-                    @foreach ($data['lampiran']['glosarium_materi'] as $index => $glosarium)
-                        <li class="text-sm text-gray-800 mb-2">{{ $glosarium }}</li>
-                    @endforeach
-                </ol>
+            <ol class="list-decimal pl-6">
+                @foreach ($data['lampiran']['glosarium_materi'] as $index => $glosarium)
+                    <li class="text-sm text-gray-800 mb-2">{{ $glosarium }}</li>
+                @endforeach
+            </ol>
         </div>
         <div class="mt-5">
             <div class="pt-3 text-sm font-bold text-gray-800 uppercase mb-2">Daftar Pustaka</div>
-                <ol class="list-decimal pl-6">
-                    @foreach ($data['lampiran']['daftar_pustaka'] as $index => $pustaka)
-                        <li class="text-sm text-gray-800 mb-2">{{ $pustaka }}</li>
-                    @endforeach
-                </ol>
+            <ol class="list-decimal pl-6">
+                @foreach ($data['lampiran']['daftar_pustaka'] as $index => $pustaka)
+                    <li class="text-sm text-gray-800 mb-2">{{ $pustaka }}</li>
+                @endforeach
+            </ol>
         </div>
     @endif
 
     @if (isset($generateId) && !empty($generateId))
-        <div class="mb-3 px-6 py-4 flex flex-row gap-3">
-            <x-export-word generateId="{{ $generateId }}" export="{{ route('export-word') }}" />
-            <x-export-excel generateId="{{ $generateId }}" export="{{ route('export-modul-excel') }}" />
+        <div class="mb-3 px-6 py-4 flex flex-col">
+            <x-output-banner />
+            <div class="flex flex-row gap-3">
+                <x-export-word generateId="{{ $generateId }}" export="{{ route('export-word') }}" />
+                <x-export-excel generateId="{{ $generateId }}" export="{{ route('export-modul-excel') }}" />
+            </div>
         </div>
     @endif
 

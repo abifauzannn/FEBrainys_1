@@ -162,70 +162,32 @@ public function showDetailOrder($transaction_code)
     if ($response->successful()) {
         $data = $response->json()['data'];
 
-        // Check the status and determine if a refresh is needed
+        // Check the status of the transaction
         $status = $data['transaction']['status'];
 
-        // If the status is not complete, continue refreshing every second
-        if ($status === 'pending') {
-            // Set a delay before refreshing the page
-            header("Refresh: 1");
+        if ($status === 'completed') {
+            // If status is completed, get the latest package info
+            $packageResponse = $this->getInfoPackages();
+
+            if (isset($packageResponse['data']['package'])) {
+                // Replace the old package with the new one
+                $newPackage = $packageResponse['data']['package'];
+
+                // Save the new package to session
+                session()->put('package', $newPackage);
+            }
+        } elseif ($status === 'pending') {
+            // If the status is still pending, refresh the page after 5 seconds
+            header("Refresh: 5");
         }
 
         // Pass the data to the view
         return view('payments.proses-pembayaran', compact('data'));
+
     } else {
         return redirect()->route('checkout.place-order')->with('error', 'Failed to retrieve history data.');
     }
 }
-
-public function stream()
-    {
-        $transaction_code = request('transaction_code'); // Ambil kode transaksi dari query string
-        $historyUrl = "https://testing.brainys.oasys.id/api/subscription/history/{$transaction_code}";
-
-        // Set header untuk SSE
-        header('Content-Type: text/event-stream');
-        header('Cache-Control: no-cache');
-
-        while (true) {
-            $response = Http::withToken(session()->get('access_token'))->get($historyUrl);
-
-            if ($response->successful()) {
-                $data = $response->json()['data'];
-                $status = $data['transaction']['status'];
-
-                // Kirim data sebagai event
-                echo "data: " . json_encode(['status' => $status]) . "\n\n";
-                ob_flush();
-                flush();
-
-                // Jika status sudah lengkap, berhenti mengirim
-                if ($status !== 'pending') {
-                    break;
-                }
-            }
-
-            // Tunggu sebelum memeriksa lagi
-            sleep(3);
-        }
-    }
-
-
-// public function checkStatus($transaction_code)
-// {
-//     $historyUrl = "https://testing.brainys.oasys.id/api/subscription/history/{$transaction_code}";
-
-//     $response = Http::withToken(session()->get('access_token'))->get($historyUrl);
-
-//     if ($response->successful()) {
-//         $data = $response->json()['data'];
-//         return response()->json(['status' => $data['transaction']['status']]);
-//     } else {
-//         return response()->json(['status' => 'error'], 500);
-//     }
-// }
-
-
 
     public function getInfoPackages()
     {

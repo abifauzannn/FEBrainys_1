@@ -32,7 +32,8 @@
                         class="w-full border border-gray-300 rounded-md text-center placeholder:text-xs"
                         placeholder="masukkan 8 karakter kode undangan di sini" maxlength="8" required>
                     <p class="text-gray-600 text-xs leading-normal mt-2">
-                        Silakan periksa kode undangan di inbox email Anda!
+                        Silakan periksa kode undangan di inbox (Kotak Masuk) email Anda! Jika tidak ada, silahkan cek
+                        dibagian spam
                     </p>
                     <div class="flex justify-center w-full mt-4 gap-3">
                         <a href="{{ route('logout') }}"

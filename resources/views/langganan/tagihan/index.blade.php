@@ -21,8 +21,9 @@
                         @php
                             // Ambil tanggal kadaluarsa dalam bentuk Carbon
                             $expired_at = \Carbon\Carbon::parse($pkg['expired_at_formatted']);
-                            // Cek jika tanggal kadaluarsa adalah H-1 hari dari sekarang atau sama dengan hari ini
-                            $isExpiredSoon = $expired_at->isTomorrow() || $expired_at->isToday();
+                            // Cek jika tanggal kadaluarsa dalam 7 hari ke depan atau sama dengan hari ini
+                            $isExpiredSoon =
+                                $expired_at->diffInDays(now()) <= 7 && $expired_at->greaterThanOrEqualTo(now());
                         @endphp
                         <article class="w-full border-b border-gray-200 px-7 py-7">
                             <div class="flex flex-row gap-4 items-center">

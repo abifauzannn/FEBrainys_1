@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Http\Controllers\AuthenticationController;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use App\Http\Controllers\DashboardController;
@@ -23,6 +24,13 @@ class ViewServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+
+        View::composer('*', function($view){
+            $infoPackage = new AuthenticationController();
+            $namaPaket = $infoPackage->getInfoPackages();
+            $view->with('infoPackage', $namaPaket);
+        });
+
         View::composer('*', function ($view) {
             $userController = new DashboardController();
             $userLimit = $userController->getUserLimit();

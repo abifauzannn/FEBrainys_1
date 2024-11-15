@@ -35,13 +35,13 @@
                                 <br class="mt-1">
                                 telah kami terima dan paket anda telah aktif!
                             </p>
-                            <button type="submit"
-                                class="w-[70%]  md:w-[50%] px-2 h-[34px] flex justify-center items-center mt-10 bg-white rounded-lg shadow border border-blue-500 mb-14 text-blue-500 hover:bg-gray-100 duration-300 ease-in-out transition group">
+                            <a href="{{ route('dashboard') }}"
+                                class="w-[70%] md:w-[50%] px-2 h-[34px] flex justify-center items-center mt-10 bg-white rounded-lg shadow border border-blue-500 mb-14 text-blue-500 hover:bg-gray-100 duration-300 ease-in-out transition group">
                                 <p class="text-blue-500 text-[14px] text-center font-medium font-['Inter']">
                                     Kembali ke halaman awal
                                 </p>
+                            </a>
 
-                            </button>
                             <p class="text-black font-bold font-['Inter'] text-[14px] mb-1 text-center">Jika anda mengalami
                                 kendala
                                 silakan klik
@@ -76,13 +76,12 @@
                                 <br class="mt-1">
                                 dibatalkan
                             </p>
-                            <button type="submit"
-                                class="w-[70%]  md:w-[50%] px-2 h-[34px] flex justify-center items-center mt-10 bg-white rounded-lg shadow border border-blue-500 mb-14 text-blue-500 hover:bg-gray-100 duration-300 ease-in-out transition group">
+                            <a href="{{ route('dashboard') }}"
+                                class="w-[70%] md:w-[50%] px-2 h-[34px] flex justify-center items-center mt-10 bg-white rounded-lg shadow border border-blue-500 mb-14 text-blue-500 hover:bg-gray-100 duration-300 ease-in-out transition group">
                                 <p class="text-blue-500 text-[14px] text-center font-medium font-['Inter']">
                                     Kembali ke halaman awal
                                 </p>
-
-                            </button>
+                            </a>
                             <p class="text-black font-bold font-['Inter'] text-[14px] mb-1 text-center">Jika anda mengalami
                                 kendala
                                 silakan klik

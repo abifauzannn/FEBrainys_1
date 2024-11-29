@@ -14,6 +14,7 @@ class AuthenticationController extends Controller
 
     public function showLoginForm()
     {
+        ini_set('max_execution_time', 300);
         if (session()->has('user')) {
             // Ambil data pengguna dari sesi
 
@@ -534,7 +535,7 @@ public function getInfoPackages()
         $client = new Client();
 
         // Tentukan URL callback dengan menyertakan semua parameter
-        $callbackUrl = env('APP_API').'/login/google/callback?' . http_build_query($allParameters);
+        $callbackUrl = env('APP_API') . '/login/google/callback?' . http_build_query($allParameters);
 
         // Lakukan permintaan GET ke endpoint callback
         $response = $client->get($callbackUrl);
@@ -543,19 +544,27 @@ public function getInfoPackages()
         $result = json_decode($response->getBody(), true);
 
         // Buat permintaan profile
-        $profile = Http::withToken($result['token'])->get(env('APP_API').'/user-profile');
-        // $profile = $profile->json();
+        $profile = Http::withToken($result['token'])->get(env('APP_API') . '/user-profile');
         $profileData = json_decode($profile->getBody(), true);
-
-        // dd($result);
-        // dd($profileData['data']);
 
         if ($result['token']) {
             // Simpan token dan objek pengguna di sesi Laravel
             session(['access_token' => $result['token'], 'user' => $profileData['data']]);
 
+            // Panggil metode getInfoPackages untuk mendapatkan data paket
+            $profileResponse = $this->getInfoPackages();
+
+            if (isset($profileResponse['data']['package'])) {
+                // Simpan data package ke dalam sesi
+                session(['package' => $profileResponse['data']['package']]);
+            }
+
             // Redirect ke halaman dashboard atau halaman setelah login
-            if ($profileData['data']['name'] == null || $profileData['data']['profession'] == null || $profileData['data']['school_name'] == null) {
+            if (
+                $profileData['data']['name'] === null ||
+                $profileData['data']['profession'] === null ||
+                $profileData['data']['school_name'] === null
+            ) {
                 return redirect()->route('profileForm');
             } else {
                 return redirect()->route('dashboard');

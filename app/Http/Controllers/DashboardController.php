@@ -11,6 +11,7 @@ class DashboardController extends Controller
     public function dashboard()
     {
         // Periksa apakah kunci 'user' ada dalam sesi
+        ini_set('max_execution_time', 300);
         if (session()->has('user')) {
             // Ambil data pengguna dari sesi
             $userData = session('user');

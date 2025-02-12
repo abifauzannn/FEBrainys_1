@@ -16,7 +16,7 @@
         <div class="tooltip-arrow" data-popper-arrow></div>
     </div>
     <textarea id="{{ $id }}" name="{{ $name }}"
-        class="shdaow-sm w-full p-2 border border-gray-300 rounded-md mt-[10px] placeholder:text-gray-400 text-base font-normal font-['Inter'] leading-normal"
+        class="shdaow-sm w-full p-3 border border-gray-300 rounded-md mt-[10px] placeholder:text-gray-400 text-[16px] font-normal font-['Inter'] leading-normal"
         placeholder="{{ $placeholder }}" maxlength="250" oninput="updateCharacterCount(this)" required></textarea>
 
 </div>

@@ -15,6 +15,7 @@ use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\SyllabusController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
+use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 /*
 |--------------------------------------------------------------------------
@@ -120,6 +121,7 @@ Route::post('/profile', [AuthenticationController::class, 'completeProfile'])->n
 Route::get('/email-verify-change', [AuthenticationController::class, 'showEmailVerify'])->name('emailVerifyChange');
 
 Route::get('/langganan/tagihan', [SubscriptionController::class, 'showHistory'])->name('langganan.tagihan');
+Route::get('/history/fetch', [SubscriptionController::class, 'fetchHistoryDataAjax']);
 Route::get('/langganan/daftar-paket', [SubscriptionController::class, 'showPaket'])->name('langganan.pilih-paket');
 Route::get('/langganan/extra-credit', [SubscriptionController::class, 'showCredit'])->name('langganan.beli-credit');
 Route::get('/langganan/checkout/info', [SubscriptionController::class, 'showCheckoutInfo'])->name('checkout.info');
@@ -134,8 +136,9 @@ Route::get('/payment/stream/{transaction_code}', [SubscriptionController::class,
 // routes/web.
 Route::get('/api/check-status/{transaction_code}', [SubscriptionController::class, 'checkStatus'])->name('api.check-status');
 
-// routes/web.php
-Route::get('/events', [SubscriptionController::class, 'stream']);
+
+Route::get('/user-limit', [DashboardController::class, 'showUserLimit'])->name('user.limit');
+
 
 // YourController.php
 
@@ -181,6 +184,17 @@ Route::get('/api/elements', [KisiKisiController::class, 'getElements']);
 Route::get('/api/final', [KisiKisiController::class, 'getFinal']);
 
 Route::get('/sukses', [SubscriptionController::class, 'success'])->name('success');
+
+
+Route::get('/user-limit', [DashboardController::class, 'getLimit']);
+
+Route::get('/subscription-packages/annually', [SubscriptionController::class, 'getAnnualPackages']);
+Route::get('/subscription-packages/monthly', [SubscriptionController::class, 'getMonthlyPackages']);
+Route::get('/getpackages', [SubscriptionController::class, 'getPackages']);
+
+
+
+
 
 
 

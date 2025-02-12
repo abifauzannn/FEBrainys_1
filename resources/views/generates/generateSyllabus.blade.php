@@ -93,7 +93,7 @@
                     </div>
 
                     <input type="text" id="nip" name="nip"
-                        class="w-full p-2 border-gray-300 rounded-md mt-[10px] placeholder:text-gray-400 text-base font-normal font-['Inter'] leading-normal"
+                        class="w-full p-3 border border-gray-300 rounded-md mt-[10px] placeholder:text-gray-400 text-[16px] font-normal font-['Inter'] leading-normal"
                         placeholder="masukan nip" minlength="21" maxlength="25" required>
                 </div>
 

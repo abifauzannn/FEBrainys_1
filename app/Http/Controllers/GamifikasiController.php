@@ -31,8 +31,7 @@ class GamifikasiController extends Controller
             return redirect('/login')->with('error', 'Please log in to generate gamification.');
         }
 
-        // Call method getUserLimit() to get user limit data
-        $userLimit = $this->getUserLimit();
+     
 
         $generateId = null; // Initialize $generateId variable
         $responseMessage = null;
@@ -81,7 +80,7 @@ class GamifikasiController extends Controller
         }
 
         // Pass the $data and $generateId variables to the view
-        return view('outputGenerates.outputGamifikasi', compact('data', 'generateId', 'userLimit'));
+        return view('outputGenerates.outputGamifikasi', compact('data', 'generateId'));
     }
 
 
@@ -134,21 +133,6 @@ public function exportToPpt(Request $request)
     }
 }
 
-public function getUserLimit()
-{
-    // Lakukan HTTP request untuk mendapatkan data status pengguna
-    $response = Http::withToken(session()->get('access_token'))
-                    ->get(env('APP_API').'/user-status');
-
-    // Periksa apakah permintaan HTTP sukses
-    if ($response->successful()) {
-        // Mengembalikan data status pengguna
-        return $response->json()['data'];
-    } else {
-        // Tangani kasus jika permintaan HTTP gagal
-        return null;
-    }
-}
 
 public function getDetailGamifikasi($idGamifikasi){
     // Check if the user is authenticated

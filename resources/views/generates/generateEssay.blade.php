@@ -42,7 +42,7 @@
                     <label for="fase" class="text-gray-900 text-base font-semibold mb-2 leading-normal">Fase
                         (Kelas)</label>
                     <select id="fase" name="fase" required
-                        class="bg-white mt-2 font-['Inter'] shadow appearance-none border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        class="bg-white mt-2 font-['Inter'] shadow appearance-none border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                         <option value="">Select Fase</option>
                     </select>
                 </div>
@@ -51,7 +51,7 @@
                     <label for="mata-pelajaran" class="text-gray-900 text-base font-semibold mb-2 leading-normal">Mata
                         Pelajaran</label>
                     <select id="mata-pelajaran" name="mata-pelajaran"
-                        class="bg-white font-['Inter'] mt-2 shadow appearance-none border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        class="bg-white font-['Inter'] mt-2 shadow appearance-none border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         required disabled>
                         <option value="">Select Mata Pelajaran</option>
                     </select>
@@ -61,7 +61,7 @@
                     <label for="element" class="text-gray-900 text-base font-semibold mb-2 leading-normal">Elemen
                         Capaian</label>
                     <select id="element" name="element"
-                        class="bg-white font-['Inter'] mt-2 shadow appearance-none border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        class="bg-white font-['Inter'] mt-2 shadow appearance-none border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         required disabled>
                         <option value="">Select Element</option>
                     </select>
@@ -72,7 +72,7 @@
                         Soal</label>
                     <input type="number" id="numberOfQuestion" name="numberOfQuestion" min="1" max="15"
                         required placeholder="Masukkan jumlah soal"
-                        class="bg-white mt-2 font-['Inter'] shadow appearance-none border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        class="bg-white mt-2 font-['Inter'] shadow appearance-none border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                     <small id="numberError" class="text-gray-500 mt-2 font-['Inter']">Maksimal 15 Soal</small>
                 </div>
 

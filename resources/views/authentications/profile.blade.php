@@ -33,7 +33,7 @@
                         class="text-gray-900 text-base font-semibold font-['Inter'] leading-normal mb-[30px]">Nama
                         Lengkap</label>
                     <input type="text" id="name" name="name"
-                        class="w-full p-2 border rounded-md mt-[10px] placeholder:text-gray-400 text-base font-normal font-['Inter'] leading-normal"
+                        class="w-full p-3 border rounded-md mt-[10px] placeholder:text-gray-400 text-[16px] font-normal font-['Inter'] leading-normal"
                         placeholder="Contoh: Budiman" required>
                 </div>
 
@@ -41,7 +41,7 @@
                     <label for="school_level"
                         class="text-gray-900 text-base font-semibold font-['Inter'] leading-normal mb-[30px]">Jenjang</label>
                     <select id="school_level" name="school_level"
-                        class="w-full p-2 border rounded-md mt-[10px] placeholder:text-gray-400 text-base font-normal font-['Inter'] leading-normal"
+                        class="w-full p-3 border rounded-md mt-[10px] placeholder:text-gray-400 text-[16px] font-normal font-['Inter'] leading-normal"
                         required>
                         <option value="" disabled selected>Pilih Jenjang</option>
                         @foreach ($jenjang as $item)
@@ -54,7 +54,7 @@
                     <label for="school_name"
                         class="text-gray-900 text-base font-semibold font-['Inter'] leading-normal mb-[30px]">Sekolah</label>
                     <input type="text" id="school_name" name="school_name"
-                        class="w-full p-2 border rounded-md mt-[10px] placeholder:text-gray-400 text-base font-normal font-['Inter'] leading-normal"
+                        class="w-full p-3 border rounded-md mt-[10px] placeholder:text-gray-400 text-[16px] font-normal font-['Inter'] leading-normal"
                         placeholder="Contoh: SMP 1 Bandung" required>
                 </div>
 

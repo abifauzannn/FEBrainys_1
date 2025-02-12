@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\SubscriptionController;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Http;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 class ViewServiceProvider extends ServiceProvider
@@ -25,17 +27,6 @@ class ViewServiceProvider extends ServiceProvider
     public function boot(): void
     {
 
-        View::composer('*', function($view){
-            $infoPackage = new AuthenticationController();
-            $namaPaket = $infoPackage->getInfoPackages();
-            $view->with('infoPackage', $namaPaket);
-        });
-
-        View::composer('*', function ($view) {
-            $userController = new DashboardController();
-            $userLimit = $userController->getUserLimit();
-            $view->with('userLimit', $userLimit);
-        });
 
         View::composer('langganan.extraCredit.extra-credit', function ($view) {
             $subscriptionController = new SubscriptionController();
@@ -43,37 +34,52 @@ class ViewServiceProvider extends ServiceProvider
             $view->with('credits', $credits);
         });
 
+
         View::composer('langganan.paket.bulanan', function ($view) {
-            $subscriptionController = app(SubscriptionController::class);
-            $response = $subscriptionController->getPackages();
+            $response = Http::withToken(session()->get('access_token'))
+                ->get('https://testing.brainys.oasys.id/api/subscription/package');
 
-            // Extract the 'monthly' data from the response
-            $monthlyPackages = $response['data']['monthly'] ?? [];
+            $packages = [];
+            if ($response->successful()) {
+                $data = $response->json();
+                $packages = $data['data']['monthly'] ?? [];
+            }
 
-            // Share the 'monthlyPackages' with the view
-            $view->with('monthlyPackages', $monthlyPackages);
+            $view->with('packages', $packages);
         });
 
         View::composer('langganan.paket.tahunan', function ($view) {
-            $subscriptionController = app(SubscriptionController::class);
-            $response = $subscriptionController->getPackages();
+            $response = Http::withToken(session()->get('access_token'))
+                ->get('https://testing.brainys.oasys.id/api/subscription/package');
 
-            // Extract the 'monthly' data from the response
-            $annuallyPackages = $response['data']['annually'] ?? [];
+            $packages = [];
+            if ($response->successful()) {
+                $data = $response->json();
+                $packages = $data['data']['annually'] ?? [];
+            }
 
-            // Share the 'annualyPackages' with the view
-            $view->with('annuallyPackages', $annuallyPackages);
-        });
-
-        View::composer('langganan.tagihan.index', function ($view) {
-            $subscriptionController = app(SubscriptionController::class);
-            $response = $subscriptionController->getInfoPackages();
-
-            // Extract the 'monthly' data from the response
-            $packages = $response['data']['package'] ?? [];
-
-            // Share the 'annualyPackages' with the view
             $view->with('packages', $packages);
+        });
+        
+        // Share the user limit data with the 'components.nav' view
+        view()->composer('components.nav', function ($view) {
+            $response = Http::withToken(session()->get('access_token'))
+                ->get(env('APP_API') . '/user-status');
+
+            if ($response->successful()) {
+                $data = $response->json()['data'];
+
+                $userLimit = [
+                    'limit' => $data['all']['limit'] ?? null,
+                    'used' => $data['all']['used'] ?? null,
+                    'credit' => $data['all']['credit'] ?? null,
+                ];
+            } else {
+                $userLimit = null;
+            }
+
+            // Share the user limit data with the 'components.nav' view
+            $view->with('userLimit', $userLimit);
         });
     }
 

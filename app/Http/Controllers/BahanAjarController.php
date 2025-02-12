@@ -31,7 +31,7 @@ class BahanAjarController extends Controller
     }
 
     // Call method getUserLimit() to get user limit data
-    $userLimit = $this->getUserLimit();
+  
 
     $generateId = null; // Initialize $generateId variable
     $responseMessage = null;
@@ -78,7 +78,7 @@ class BahanAjarController extends Controller
     }
 
 
-    return view('outputGenerates.outputBahanAjar', compact('data', 'generateId', 'userLimit'));
+    return view('outputGenerates.outputBahanAjar', compact('data', 'generateId'));
 }
 
 
@@ -129,21 +129,7 @@ public function exportToPpt(Request $request)
     }
 }
 
-public function getUserLimit()
-{
-    // Lakukan HTTP request untuk mendapatkan data status pengguna
-    $response = Http::withToken(session()->get('access_token'))
-                    ->get(env('APP_API').'/user-status');
 
-    // Periksa apakah permintaan HTTP sukses
-    if ($response->successful()) {
-        // Mengembalikan data status pengguna
-        return $response->json()['data'];
-    } else {
-        // Tangani kasus jika permintaan HTTP gagal
-        return null;
-    }
-}
 
 public function getDetailBahanAjar($idBahan){
     // Check if the user is authenticated

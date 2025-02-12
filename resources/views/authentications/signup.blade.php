@@ -53,7 +53,7 @@
                     <label for="email"
                         class="text-gray-900 text-base font-semibold font-['Inter'] leading-normal mb-[30px]">Email</label>
                     <input type="email" id="email" name="email"
-                        class="w-full p-2 border rounded-md mt-[10px] placeholder:text-gray-400 text-base font-normal font-['Inter'] leading-normal"
+                        class="focus:border-blue-600 focus:border-2 focus:outline-none w-full p-3 border rounded-md mt-[10px] placeholder:text-gray-400 text-[16px] font-normal font-['Inter'] leading-normal"
                         placeholder="email@contoh.com" required>
                     <small class="font-['Inter'] mt-2 text-gray-500">Direkomendasikan menggunakan email <b
                             class="text-black">belajar.id</b>
@@ -63,7 +63,7 @@
                     <label for="password"
                         class="text-gray-900 text-base font-semibold font-['Inter'] leading-normal mb-[30px]">Password</label>
                     <input type="password" id="password" name="password"
-                        class="w-full p-2 border rounded-md mt-[10px] placeholder:text-gray-400 text-base font-normal font-['Inter'] leading-normal"
+                        class="focus:border-blue-600 focus:border-2 focus:outline-none w-full p-3 border rounded-md mt-[10px] placeholder:text-gray-400 text-[16px] font-normal font-['Inter'] leading-normal"
                         placeholder="Masukan Password Anda">
                     <div class="flex items-center gap-2 justify-items-center">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" id="trueCheck"
@@ -104,7 +104,7 @@
                         class="text-gray-900 text-base font-semibold font-['Inter'] leading-normal mb-[30px]">Konfirmasi
                         Password</label>
                     <input type="password" id="password_confirmation" name="password_confirmation"
-                        class="w-full p-2 border rounded-md mt-[10px] placeholder:text-gray-400 text-base font-normal font-['Inter'] leading-normal"
+                        class="focus:border-blue-600 focus:border-2 focus:outline-none w-full p-3 border rounded-md mt-[10px] placeholder:text-gray-400 text-[16px] font-normal font-['Inter'] leading-normal"
                         placeholder="Masukan Konfirmasi Password Anda">
                     {{-- <button id="seePassword" type="button"
                         class="absolute right-0 top-[48px] flex items-center mr-3 focus:outline-none">

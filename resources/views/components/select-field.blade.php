@@ -4,7 +4,7 @@
     <label for="{{ $id }}"
         class="text-gray-900 text-base font-['Inter'] mb-[30px] leading-normal font-semibold">{{ $label }}</label>
     <select id="{{ $id }}" name="{{ $name }}"
-        class="mt-[10px] shadow appearance-none border-gray-300 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        class="mt-[10px] shadow appearance-none border border-gray-300 rounded w-full py-3 px-3 text-gray-700 text-[16px] leading-tight focus:outline-none focus:shadow-outline"
         required>
         <option value="" disabled hidden {{ !old($name) && !(session('user')[$name] ?? '') ? 'selected' : '' }}>
             {{ $defaultOption }}</option>

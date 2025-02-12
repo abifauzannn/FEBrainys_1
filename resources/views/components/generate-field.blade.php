@@ -21,7 +21,7 @@
     </div>
 
     <input type="{{ $type }}" name="{{ $name }}" id="{{ $id ?? '' }}"
-        class="w-full p-2 border rounded-md mt-[10px] placeholder:text-gray-400 text-base font-normal font-['Inter'] leading-normal border-gray-300 shadow-sm"
+        class="w-full p-3 border rounded-md mt-[10px] placeholder:text-gray-400 text-[16px] font-normal font-['Inter'] leading-normal border-gray-300 shadow-sm"
         placeholder="{{ $placeholder }}" {{ $attributes->merge(['required' => 'true']) }}
         @if ($type === 'number') min="{{ $minlength ?? '' }}" max="{{ $maxlength ?? '' }}"
         @else

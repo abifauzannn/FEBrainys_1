@@ -24,27 +24,44 @@ class DashboardController extends Controller
     }
 
     public function getUserLimit()
-{
-    return Cache::remember('limit_user', 10, function () {
-        $response = Http::withToken(session()->get('access_token'))
-                        ->get(env('APP_API').'/user-status');
+    {
+        return Cache::remember('limit_user', 10, function () {
+            $response = Http::withToken(session()->get('access_token'))
+                ->get(env('APP_API') . '/user-status');
 
-        if ($response->successful()) {
-            $data = $response->json()['data'];
+            if ($response->successful()) {
+                $data = $response->json()['data'];
 
-            // Ambil hanya data 'limit' dan 'used' dari 'all'
-            return [
-                'limit' => $data['all']['limit'] ?? null,
-                'used' => $data['all']['used'] ?? null,
-                'credit' => $data['all']['credit'] ?? null
-            ];
-        } else {
-            return null;
-        }
-    });
-}
-
-
+                // Ambil hanya data 'limit' dan 'used' dari 'all'
+                return [
+                    'limit' => $data['all']['limit'] ?? null,
+                    'used' => $data['all']['used'] ?? null,
+                    'credit' => $data['all']['credit'] ?? null
+                ];
+            } else {
+                return null;
+            }
+        });
+    }
 
 
+    public function getLimit()
+    {
+        return Cache::remember('limit_user', 10, function () {
+            $response = Http::withToken(session()->get('access_token'))
+                ->get(env('APP_API') . '/user-status');
+
+            if ($response->successful()) {
+                $data = $response->json()['data'];
+
+                return response()->json([
+                    'limit' => $data['all']['limit'] ?? 0,
+                    'used' => $data['all']['used'] ?? 0,
+                    'credit' => $data['all']['credit'] ?? 0
+                ]);
+            } else {
+                return response()->json(['error' => 'Failed to fetch data'], 500);
+            }
+        });
+    }
 }

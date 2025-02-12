@@ -403,26 +403,7 @@ class AuthenticationController extends Controller
         }
     }
 
-    public function getUserLimit()
-{
-    return Cache::remember('limit_user', 10, function () {
-        $response = Http::withToken(session()->get('access_token'))
-                        ->get(env('APP_API').'/user-status');
-
-        if ($response->successful()) {
-            $data = $response->json()['data'];
-
-            // Ambil hanya data 'limit' dan 'used' dari 'all'
-            return [
-                'limit' => $data['all']['limit'] ?? null,
-                'used' => $data['all']['used'] ?? null,
-                'credit' => $data['all']['credit'] ?? null
-            ];
-        } else {
-            return null;
-        }
-    });
-}
+    
 
 
     public function login(Request $request)
@@ -448,18 +429,6 @@ class AuthenticationController extends Controller
 
             // Simpan token dan objek pengguna di sesi Laravel
             session(['access_token' => $accessToken, 'user' => $user]);
-
-            // Panggil metode getInfoPackages untuk mendapatkan data paket
-            $profileResponse = $this->getInfoPackages();
-
-            if (isset($profileResponse['data']['package'])) {
-                // Simpan data package ke dalam session
-                session(['package' => $profileResponse['data']['package']]);
-            }
-
-            if (isset($userStatusResponse['credit'])) {
-                // Simpan data credit ke dalam session
-            }
 
             // Redirect ke halaman dashboard atau halaman setelah login
             return redirect()->route('dashboard');
@@ -498,18 +467,6 @@ class AuthenticationController extends Controller
     }
 
 
-public function getInfoPackages()
-{
-    $response = Http::withToken(session()->get('access_token'))
-        ->get('https://testing.brainys.oasys.id/api/user-profile');
-
-    if ($response->successful()) {
-        return $response->json(); // Return the entire JSON response
-    } else {
-        // Handle error
-        return back()->with('error', 'Failed to retrieve packages.'); // Return empty array if there's an error
-    }
-}
 
     public function logout()
     {

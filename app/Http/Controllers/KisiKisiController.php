@@ -74,8 +74,6 @@ class KisiKisiController extends Controller
             return redirect('/login')->with('error', 'Please log in to generate syllabus.');
         }
 
-        // Call method getUserLimit() to get user limit data
-        $userLimit = $this->getUserLimit();
 
         $generateId = null; // Initialize $generateId variable
         $responseMessage = null;
@@ -125,25 +123,9 @@ class KisiKisiController extends Controller
         }
 
         // Pass the $data and $generateId variables to the view
-        return view('outputGenerates.outputKisi', compact('data', 'generateId', 'userLimit'));
+        return view('outputGenerates.outputKisi', compact('data', 'generateId'));
     }
 
-
-    public function getUserLimit()
-{
-    // Lakukan HTTP request untuk mendapatkan data status pengguna
-    $response = Http::withToken(session()->get('access_token'))
-                    ->get(env('APP_API').'/user-status');
-
-    // Periksa apakah permintaan HTTP sukses
-    if ($response->successful()) {
-        // Mengembalikan data status pengguna
-        return $response->json()['data'];
-    } else {
-        // Tangani kasus jika permintaan HTTP gagal
-        return null;
-    }
-}
 
 public function exportToWord(Request $request)
 {

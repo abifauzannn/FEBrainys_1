@@ -14,7 +14,7 @@
         {{ $label }}
     </label>
     <input type="{{ $type }}" id="{{ $id }}" name="{{ $name }}"
-        class="w-full p-2 border-gray-300 shadow-sm text-gray-600 rounded-md mt-[10px] placeholder:text-gray-400 text-base font-normal font-['Inter'] leading-normal"
+        class="w-full p-3  border border-gray-300  shadow-sm text-gray-600 rounded-md mt-[10px] placeholder:text-gray-400 text-[16px] font-['Inter'] leading-normal focus:border-blue-600 focus:border-2 focus:outline-none"
         placeholder="{{ $placeholder }}" value="{{ $value ?? '' }}" {{ $required ? 'required' : '' }}
         {{ $disabled ? 'disabled' : '' }}>
 

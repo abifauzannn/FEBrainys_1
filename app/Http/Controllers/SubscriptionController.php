@@ -234,6 +234,21 @@ class SubscriptionController extends Controller
         }
     }
 
+    public function getCancelPackages()
+    {
+        $response = Http::withToken(session()->get('access_token'))
+            ->get('https://testing.brainys.oasys.id/api/subscription/package/cancel');
+
+        if ($response->successful()) {
+            
+            return back();
+        } else {
+            dd($response);
+        }
+    }
+
+    
+
     public function fetchHistoryDataAjax(Request $request)
     {
         $page = $request->get('page', 1);

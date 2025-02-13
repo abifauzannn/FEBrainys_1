@@ -29,7 +29,10 @@
                 Jika Anda melanjutkan pembatalan, paket Anda akan otomatis berubah ke versi gratis setelah masa aktif saat ini berakhir.
             </p>
             <div class="flex justify-center mt-4 space-x-2 w-full">
-                <button class="bg-white-200 border border-gray-200 px-4 py-2 rounded-md font-['Inter'] w-full">Ya, Batalkan</button>
+                <form action="{{ route('cancel.packages') }}" method="GET">
+                    <button class="bg-white-200 border border-gray-200 px-4 py-2 rounded-md font-['Inter'] w-full">Ya, Batalkan</button>
+                </form>
+
                 <button onclick="closeModal()" class="bg-purple-600 text-white px-4 py-2 rounded-md font-['Inter'] w-full">Tidak</button>
             </div>
         </div>
@@ -107,10 +110,15 @@
             let hasPaidPackage = false;
             let isH3BeforeExpiration = false;
             let isFreePackage = false;
+            let isRenewable = true;
 
             packages.forEach((pkg) => {
                 if (pkg.package_name === 'Paket Free') {
                     isFreePackage = true;
+                }
+
+                if (pkg.is_renewable === 0) {
+                    isRenewable = false;
                 }
 
                 const expirationDate = new Date(pkg.expired_at);
@@ -161,28 +169,52 @@
                 `;
             });
 
-            footer.innerHTML = isFreePackage || !hasPaidPackage ? `
-            
-               <div class="flex justify-end">
+            if (isFreePackage) {
+                footer.innerHTML = `
+        <div class="flex justify-end">
             <a href="{{ route('langganan.pilih-paket') }}" class="rounded-full bg-blue-600 py-3 px-7 w-auto text-[13px] font-['Inter'] text-white">
-               Upgrade Paket
+                Upgrade Paket
             </a>
         </div>
-            ` : isH3BeforeExpiration ? `
-                <div class="text-blue-500 flex flex-row justify-between items-center gap-4">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                        stroke="currentColor" class="w-20 h-20">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z" />
-                    </svg>
-                    <h3 class="text-[13px] font-[\'Inter\'] text-gray-500">Paket Langganan Anda akan kembali ke versi FREE
-                        jika pembayaran tidak diselesaikan sebelum batas waktu yang ditentukan.</h3>
-                </div>
-            ` : `
-                <a href="javascript:void(0);" class="rounded-full text-[#637381] underline text-[13px] font-[\'Inter\']" onclick="openModal()">
-                    Batalkan Pesanan
-                </a>
-            `;
+    `;
+            } else if (!isRenewable) {
+                footer.innerHTML = `
+        <div class="text-blue-500 flex flex-row justify-between items-center gap-3">
+            <img src="{{ URL('images/Vector.svg') }}" alt="" class="w-8 h-8" loading="lazy">
+            <h3 class="text-[13px] font-['Inter'] text-gray-500">
+                Anda telah membatalkan paket. Paket ini masih bisa digunakan hingga masa aktifnya berakhir.
+            </h3>
+        </div>
+    `;
+            } else if (!hasPaidPackage) {
+                footer.innerHTML = `
+        <div class="flex justify-end">
+            <a href="{{ route('langganan.pilih-paket') }}" class="rounded-full bg-blue-600 py-3 px-7 w-auto text-[13px] font-['Inter'] text-white">
+                Upgrade Paket
+            </a>
+        </div>
+    `;
+            } else if (isH3BeforeExpiration) {
+                footer.innerHTML = `
+        <div class="text-blue-500 flex flex-row justify-between items-center gap-4">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                stroke="currentColor" class="w-20 h-20">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                    d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z" />
+            </svg>
+            <h3 class="text-[13px] font-['Inter'] text-gray-500">
+                Paket Langganan Anda akan kembali ke versi FREE jika pembayaran tidak diselesaikan sebelum batas waktu yang ditentukan.
+            </h3>
+        </div>
+    `;
+            } else {
+                footer.innerHTML = `
+        <a href="javascript:void(0);" class="rounded-full text-[#637381] underline text-[13px] font-['Inter']" onclick="openModal()">
+            Batalkan Pesanan
+        </a>
+    `;
+            }
+
         }
 
         fetchPackages();

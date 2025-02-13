@@ -191,6 +191,7 @@ Route::get('/user-limit', [DashboardController::class, 'getLimit']);
 Route::get('/subscription-packages/annually', [SubscriptionController::class, 'getAnnualPackages']);
 Route::get('/subscription-packages/monthly', [SubscriptionController::class, 'getMonthlyPackages']);
 Route::get('/getpackages', [SubscriptionController::class, 'getPackages']);
+Route::get('/getCancelPackages', [SubscriptionController::class, 'getCancelPackages'])->name('cancel.packages');
 
 
 

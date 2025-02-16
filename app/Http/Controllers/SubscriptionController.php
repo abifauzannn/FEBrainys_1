@@ -237,7 +237,7 @@ class SubscriptionController extends Controller
             session()->save();  // Pastikan sesi disimpan
         }
 
-        dd(session()->all());  // Menampilkan semua data session
+        return $response;// Menampilkan semua data session
     } else {
         dd($response->body());  // Menampilkan respons error dari API
     }

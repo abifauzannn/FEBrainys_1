@@ -44,7 +44,10 @@
                     class="md:flex flex-row gap-2 items-center border border-zinc-200 rounded-md py-1 px-3 w-auto hidden">
                     <img src="{{ URL('images/sparkles.png') }}" alt="" class="w-5 h-5" loading="lazy">
                     <div class="flex flex-col text-left"> <!-- Mengubah alignment text -->
-                        <p class="text-xs  text-gray-500 font-semibold">Paket Free</p> <!-- Tambahkan styling opsional -->
+                        <p class="text-xs text-gray-500 font-semibold">
+                            {{ \Illuminate\Support\Str::words($userLimit['package_name'] ?? 'Tidak ada paket aktif', 2, '') }}
+                        </p>
+                       
                         <span class="text-xs text-gray-500 font-semibold">Sisa credit {{ $userLimit['credit'] }}</span> <!-- Gunakan span agar lebih rapih -->
                     </div>
                 </div>

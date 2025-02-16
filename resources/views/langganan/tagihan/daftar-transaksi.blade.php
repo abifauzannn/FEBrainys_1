@@ -21,7 +21,7 @@
         <!-- Pagination -->
         <div class="flex justify-end pr-7 py-10">
             <button id="prev-page" class="px-3 py-1 text-[#637381] border border-gray-200  text- rounded" disabled>
-                << /button>
+                 < </button>
 
                     <div id="page-buttons" class="flex gap-1"></div> <!-- Tempat tombol halaman -->
 
@@ -98,6 +98,41 @@
                 }
             });
         }
+
+        function updatePagination() {
+            let pageButtonsContainer = $("#page-buttons");
+            pageButtonsContainer.empty();
+
+            let startPage = Math.max(1, currentPage - 2);
+            let endPage = Math.min(totalPages, startPage + 4);
+
+            for (let i = startPage; i <= endPage; i++) {
+                let button = $(`<button class="px-3 py-1 border ${i === currentPage ? 'bg-blue-600 text-white font-bold' : 'bg-white'} rounded">${i}</button>`);
+                button.on("click", function() {
+                    currentPage = i;
+                    fetchHistory(currentPage);
+                });
+                pageButtonsContainer.append(button);
+            }
+
+            $("#prev-page").prop("disabled", currentPage === 1);
+            $("#next-page").prop("disabled", currentPage === totalPages);
+
+            $("#prev-page").off("click").on("click", function() {
+                if (currentPage > 1) {
+                    currentPage--;
+                    fetchHistory(currentPage);
+                }
+            });
+
+            $("#next-page").off("click").on("click", function() {
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    fetchHistory(currentPage);
+                }
+            });
+        }
+
 
         fetchHistory(currentPage);
     });

@@ -15,110 +15,83 @@
 </div>
 
 <!-- Konten -->
-<div class="flex flex-row justify-between hidden" id="main-content">
+<div class="flex flex-col md:flex-row justify-between hidden gap-3" id="main-content">
     @include('langganan.tagihan.paket-aktif')
     @include('langganan.tagihan.daftar-transaksi')
 </div>
 
 <script defer>
-    document.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener('DOMContentLoaded', async () => {
         const loadingIndicator = document.getElementById('loading-indicator');
         const mainContent = document.getElementById('main-content');
-        const apiEndpoint =
-            'https://testing.brainys.oasys.id/api/user-profile';
+        const apiEndpoint = 'https://testing.brainys.oasys.id/api/user-profile';
+        const transactionEndpoint = '/history/fetch'; // Sesuaikan endpoint
         const token = '{{ session()->get("access_token") }}';
-        let paketAktifLoaded = false;
-        let daftarTransaksiLoaded = false;
 
-        // Tampilkan loading indicator dan sembunyikan konten
-        const showLoading = () => {
-            loadingIndicator.style.display = 'flex';
-            mainContent.style.display = 'none';
+        // Fungsi untuk menampilkan & menyembunyikan loading
+        const toggleLoading = (isLoading) => {
+            loadingIndicator.style.display = isLoading ? 'flex' : 'none';
+            mainContent.style.display = isLoading ? 'none' : 'flex';
         };
 
-        // Sembunyikan loading indicator dan tampilkan konten
-        const hideLoading = () => {
-            loadingIndicator.style.display = 'none';
-            mainContent.style.display = 'flex';
-        };
-
-        // Fungsi untuk memuat data paket aktif
-        const loadPaketAktif = async () => {
+        // Fungsi untuk memuat paket aktif
+        const fetchPaketAktif = async () => {
             try {
                 const response = await fetch(apiEndpoint, {
                     method: 'GET',
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
+                    headers: { Authorization: `Bearer ${token}` },
                 });
-
                 if (!response.ok) throw new Error('Gagal memuat paket aktif');
 
                 const data = await response.json();
-                console.log("Data Paket Aktif:", data);
-
-                // Ambil package_name dari API
                 const packages = data.data.package;
 
                 if (packages.length > 0) {
-                    const packageName = packages[0].package_name;
-
-                    // Simpan package_name di sessionStorage
-                    sessionStorage.setItem("package_name", packageName);
+                    sessionStorage.setItem("package_name", packages[0].package_name);
                 } else {
-                    sessionStorage.removeItem("package_name"); // Hapus jika tidak ada paket aktif
+                    sessionStorage.removeItem("package_name");
                 }
-
-                // Panggil fungsi untuk memperbarui tampilan setelah data diubah
                 updatePackageDisplay();
-
-                paketAktifLoaded = true;
-                checkIfAllLoaded();
             } catch (error) {
-                console.error('Gagal memuat paket aktif:', error);
+                console.error('Error paket aktif:', error);
             }
         };
 
         // Fungsi untuk memperbarui tampilan berdasarkan sessionStorage
         const updatePackageDisplay = () => {
-            const packageName = sessionStorage.getItem("package_name");
-            document.getElementById("packageDisplay").textContent = packageName ?
-                `Paket Aktif: ${packageName}` :
-                "Tidak ada paket aktif.";
+            const packageName = sessionStorage.getItem("package_name") || "Tidak ada paket aktif.";
+            document.getElementById("packageDisplay").textContent = `Paket Aktif: ${packageName}`;
         };
 
-        // Jalankan fungsi saat loadPaketAktif selesai
-        loadPaketAktif();
-
-
-
-        // Fungsi untuk memuat data daftar transaksi
-        const loadDaftarTransaksi = async () => {
+        // Fungsi untuk memuat daftar transaksi
+        const fetchDaftarTransaksi = async () => {
             try {
-                const response = await fetch('/history/fetch'); // Sesuaikan endpoint
+                const response = await fetch(transactionEndpoint);
                 if (!response.ok) throw new Error('Gagal memuat daftar transaksi');
-                daftarTransaksiLoaded = true;
-                checkIfAllLoaded();
+                console.log("Daftar transaksi dimuat!");
             } catch (error) {
-                console.error('Gagal memuat daftar transaksi:', error);
+                console.error('Error daftar transaksi:', error);
             }
         };
 
-        // Periksa apakah semua data sudah dimuat
-        const checkIfAllLoaded = () => {
-            if (paketAktifLoaded && daftarTransaksiLoaded) {
-                // Tambahkan delay 3 detik sebelum menyembunyikan loading indicator
-                setTimeout(() => {
-                    hideLoading();
-                }, 3000);
-            }
-        };
+        // Tampilkan loading indicator
+        toggleLoading(true);
 
-        // Panggil fungsi untuk memuat data
-        showLoading(); // Tampilkan spinner
-        loadPaketAktif();
-        loadDaftarTransaksi();
+        try {
+            // Jalankan kedua request secara bersamaan
+            await Promise.all([fetchPaketAktif(), fetchDaftarTransaksi()]);
+            
+            // Setelah request sukses, tambahkan delay 3 detik sebelum menampilkan halaman
+            setTimeout(() => {
+                toggleLoading(false);
+            }, 3000);
+            
+        } catch (error) {
+            console.error("Terjadi kesalahan dalam pemuatan data:", error);
+            toggleLoading(false); // Sembunyikan loading meskipun ada error
+        }
     });
 </script>
+
 
 @endsection

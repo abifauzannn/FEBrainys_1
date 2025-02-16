@@ -60,27 +60,27 @@ class ViewServiceProvider extends ServiceProvider
 
             $view->with('packages', $packages);
         });
-        
+
         // Share the user limit data with the 'components.nav' view
         view()->composer('components.nav', function ($view) {
             $response = Http::withToken(session()->get('access_token'))
-                ->get(env('APP_API') . '/user-status');
+                ->get(env('APP_API') . '/user-profile');
 
             if ($response->successful()) {
                 $data = $response->json()['data'];
 
                 $userLimit = [
-                    'limit' => $data['all']['limit'] ?? null,
-                    'used' => $data['all']['used'] ?? null,
-                    'credit' => $data['all']['credit'] ?? null,
+                    'limit' => $data['credits']['limit'] ?? null,
+                    'used' => $data['credits']['used'] ?? null,
+                    'credit' => $data['credits']['credit'] ?? null,
+                    'package_name' => $data['package'][0]['package_name'] ?? 'Tidak ada paket aktif', // Ambil package pertama
                 ];
             } else {
                 $userLimit = null;
             }
 
-            // Share the user limit data with the 'components.nav' view
+            // Share data dengan view
             $view->with('userLimit', $userLimit);
         });
     }
-
 }

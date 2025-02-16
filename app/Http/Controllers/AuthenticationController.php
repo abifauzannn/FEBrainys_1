@@ -363,8 +363,8 @@ class AuthenticationController extends Controller
             return redirect()->route('verify.otp', compact('email', 'otp'));
         } else {
             if (isset($responseData['data']['email'][0])) {
-                // Jika email sudah digunakan, tampilkan pesan kesalahan pada halaman registrasi
-                return back()->withErrors(['email' => $responseData['data']['email'][0]]);
+                // Tampilkan pesan kesalahan yang lebih umum
+                return back()->withErrors(['email' => 'Email sudah digunakan.']);
             }
 
             if (isset($responseData['data']['password'][0])) {
@@ -372,7 +372,7 @@ class AuthenticationController extends Controller
                 return back()->withErrors(['password' => $responseData['data']['password'][0]]);
             }
 
-            return back()->with('error', $responseData['message']);
+            dd($responseData);
         }
     }
 

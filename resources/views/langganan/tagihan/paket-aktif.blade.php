@@ -5,7 +5,7 @@
         <div class="rounded-md bg-[#F9F9F9] py-4 px-7">
             <h3 class="text-[16px] font-['Inter']">Paket Aktif</h3>
             <!-- Di dalam Blade view -->
-            <p id="packageDisplay" class="text-lg font-semibold text-blue-600"></p>
+            <p id="packageDisplay" class="hidden text-lg font-semibold text-blue-600"></p>
 
         </div>
     </header>

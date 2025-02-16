@@ -4,6 +4,9 @@
     <header>
         <div class="rounded-md bg-[#F9F9F9] py-4 px-7">
             <h3 class="text-[16px] font-['Inter']">Paket Aktif</h3>
+            <!-- Di dalam Blade view -->
+            <p id="packageDisplay" class="text-lg font-semibold text-blue-600"></p>
+
         </div>
     </header>
 
@@ -75,6 +78,17 @@
         const footer = document.getElementById('footer');
         const loadingElement = document.getElementById('loading');
 
+        // Ambil package_name dari sessionStorage
+        const packageName = sessionStorage.getItem("package_name");
+
+        // Cek apakah ada data di sessionStorage
+        if (packageName) {
+            document.getElementById("packageDisplay").textContent = `Paket Aktif: ${packageName}`;
+        } else {
+            document.getElementById("packageDisplay").textContent = "Tidak ada paket aktif.";
+        }
+
+
         async function fetchPackages() {
             try {
                 const response = await fetch(apiEndpoint, {
@@ -93,6 +107,18 @@
                 const packages = data.data.package;
 
                 if (packages.length > 0) {
+                    // Ambil package_name dari paket pertama (atau sesuaikan sesuai kebutuhan)
+                    console.log("Paket pertama:", packages[0]); // Cek apakah paket ada
+                    const packageName = packages[0].package_name;
+                    const packageId = packages[0].id || packages[0].package_id; // Cek variasi nama
+
+                    console.log("Package Name:", packageName);
+                    console.log("Package ID:", packageId);
+
+                    sessionStorage.setItem("package_name", packageName);
+                    sessionStorage.setItem("package_id", packageId);
+
+                    // Render paket
                     renderPackages(packages);
                 } else {
                     packageContainer.innerHTML = '<p class="text-center text-gray-600 mt-10">Tidak ada paket aktif.</p>';
@@ -104,6 +130,7 @@
                 loadingElement.style.display = 'none';
             }
         }
+
 
         function renderPackages(packages) {
             packageContainer.innerHTML = '';

@@ -13,11 +13,9 @@
                 <div class="flex flex-col border-b border-gray-300">
                     <div class="text-[42px] font-['Inter'] font-bold">
                         Rp {{ number_format($package['price'], 0, ',', '.') }}
-                        <small class="text-sm font-['Inter'] text-gray-600">/ tahun</small>
+                        <small class="text-sm font-['Inter'] text-gray-600">/ bulan</small>
                     </div>
-                    <div class="text-sm font-['Inter'] text-gray-600">
-                        Setara Rp <span class="text-black font-bold">{{ number_format($package['price'] / 12, 0, ',', '.') }}</span> / bulan
-                    </div>
+
                     <small class="text-sm font-['Inter'] text-gray-600 mb-5">{{ $package['description'] }}</small>
                 </div>
                 <div class="flex flex-col mt-5 gap-3">
@@ -54,6 +52,34 @@
 </div>
 
 <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Ambil package_id dari sessionStorage (bisa lebih dari satu, jadi split jadi array)
+        const storedPackageIds = sessionStorage.getItem("package_id");
+
+        if (storedPackageIds) {
+            const packageIdsArray = storedPackageIds.split(','); // Pisahkan jika ada lebih dari satu
+
+            document.querySelectorAll('.select-btn').forEach(button => {
+                const packageId = button.getAttribute("data-id");
+
+                if (packageIdsArray.includes(packageId)) {
+                    if (packageId !== "1") {
+                        // Jika package_id bukan 1, sembunyikan "Pilih Paket" dan tampilkan "Terpilih"
+                        button.classList.add('hidden');
+                        document.getElementById(`selectedButton-${packageId}`).classList.remove('hidden');
+                    }
+                } else {
+                    if (!packageIdsArray.includes("1")) {
+                        // Jika package_id 1 tidak ada dalam session, disable tombol lainnya
+                        button.setAttribute('disabled', true);
+                        button.classList.add('opacity-50', 'cursor-not-allowed');
+                    }
+                }
+            });
+        }
+    });
+
+
     function selectPackage(event, packageId) {
         event.preventDefault(); // Mencegah submit form saat tombol diklik
 

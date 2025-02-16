@@ -220,19 +220,29 @@ class SubscriptionController extends Controller
     }
 
     public function getPackages()
-    {
-        $response = Http::withToken(session()->get('access_token'))
-            ->get('https://testing.brainys.oasys.id/api/user-profile');
+{
+    $response = Http::withToken(session()->get('access_token'))
+        ->get('https://testing.brainys.oasys.id/api/user-profile');
 
+    if ($response->successful()) {
+        $responseData = $response->json();
 
-        if ($response->successful()) {
-            $responseData = $response->json();
-            
-            return $responseData;
-        } else {
-            dd($response);
+        // Pastikan ada data 'package' dan ambil 'package_name'
+        if (isset($responseData['data']['package'][0]['package_name'])) {
+            $packageName = $responseData['data']['package'][0]['package_name'];
+        
+
+            // Update session dengan package_name yang baru
+            session()->put('package_name', $packageName);
+            session()->save();  // Pastikan sesi disimpan
         }
+
+        dd(session()->all());  // Menampilkan semua data session
+    } else {
+        dd($response->body());  // Menampilkan respons error dari API
     }
+}
+
 
     public function getCancelPackages()
     {

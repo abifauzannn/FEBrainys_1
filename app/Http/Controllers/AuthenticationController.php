@@ -509,13 +509,7 @@ class AuthenticationController extends Controller
             session(['access_token' => $result['token'], 'user' => $profileData['data']]);
 
             // Panggil metode getInfoPackages untuk mendapatkan data paket
-            $profileResponse = $this->getInfoPackages();
-
-            if (isset($profileResponse['data']['package'])) {
-                // Simpan data package ke dalam sesi
-                session(['package' => $profileResponse['data']['package']]);
-            }
-
+       
             // Redirect ke halaman dashboard atau halaman setelah login
             if (
                 $profileData['data']['name'] === null ||

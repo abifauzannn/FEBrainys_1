@@ -128,7 +128,7 @@ class SubscriptionController extends Controller
         return view('langganan.paket.bulanan')->with('monthlyPackages', []);
     }
 
-    
+
 
 
 
@@ -152,28 +152,39 @@ class SubscriptionController extends Controller
     }
 
     public function getOrder(Request $request)
-    {
-        $item_id = $request->input('item_id');
-        $item_type = $request->input('item_type');
-        $paymentMethodCode = $request->input('paymentMethodCode');
+{
+    $item_id = $request->input('item_id');
+    $item_type = $request->input('item_type');
+    $paymentMethodCode = $request->input('paymentMethodCode');
 
-        // Send POST request to place an order
-        $response = Http::withToken(session()->get('access_token'))
-            ->post(env('APP_API') . '/checkout/place-order-v2', [
-                'item_id' => $item_id,
-                'item_type' => $item_type,
-            ]);
+    // Send POST request to place an order
+    $response = Http::withToken(session()->get('access_token'))
+        ->post(env('APP_API') . '/checkout/place-order-v2', [
+            'item_id' => $item_id,
+            'item_type' => $item_type,
+        ]);
 
-        // Check if the request was successful
-        if ($response->successful()) {
-            $data = $response->json()['data'];
-            $linkPayment = $data['transaction_payment']['checkout_url'];
+    // Decode response JSON
+    $responseData = $response->json();
 
-            return redirect()->away($linkPayment);
-        } else {
-            return back()->with('error', 'Failed to retrieve item info.');
+    // Check if the request was successful
+    if ($response->successful()) {
+        $data = $responseData['data'];
+        $linkPayment = $data['transaction_payment']['checkout_url'];
+
+        return redirect()->away($linkPayment);
+    } else {
+        // Jika error, ambil transaction_code dari data response
+        if (isset($responseData['data']['transaction_code'])) {
+            $transactionCode = $responseData['data']['transaction_code'];
+            return redirect()->route('order.detail', ['transaction_code' => $transactionCode]);
         }
+
+        // Jika tidak ada transaction_code, tampilkan error
+        return back()->with('error', $responseData['message']);
     }
+}
+
 
 
 
@@ -204,9 +215,6 @@ class SubscriptionController extends Controller
                     // Save the new package to session
                     session()->put('package', $newPackage);
                 }
-            } elseif ($status === 'pending') {
-                // If the status is still pending, refresh the page after 5 seconds
-                header("Refresh: 5");
             }
 
             // Pass the data to the view
@@ -230,7 +238,7 @@ class SubscriptionController extends Controller
         // Pastikan ada data 'package' dan ambil 'package_name'
         if (isset($responseData['data']['package'][0]['package_name'])) {
             $packageName = $responseData['data']['package'][0]['package_name'];
-        
+
 
             // Update session dengan package_name yang baru
             session()->put('package_name', $packageName);
@@ -250,14 +258,14 @@ class SubscriptionController extends Controller
             ->get('https://testing.brainys.oasys.id/api/subscription/package/cancel');
 
         if ($response->successful()) {
-            
+
             return back();
         } else {
             dd($response);
         }
     }
 
-    
+
 
     public function fetchHistoryDataAjax(Request $request)
     {

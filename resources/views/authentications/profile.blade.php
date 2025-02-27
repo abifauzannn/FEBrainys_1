@@ -19,29 +19,29 @@
         ];
     @endphp
 
-    <div class="container mx-auto flex items-center justify-center flex-col mt-10">
+    <div class="container flex flex-col items-center justify-center mx-auto mt-10">
         <img src="{{ URL('images/Steps1.png') }}" alt="" class="w-[206px] h-[84px]">
         <div class="w-full p-3 h-[420px] flex items-center justify-center flex-col mt-24 sm:mt-[100px]">
             <img src="{{ URL('images/user.svg') }}" alt="">
             <div class="text-gray-900 text-4xl font-bold font-['Inter'] leading-[48px] mt-4 mb-4">Lengkapi Profile</div>
-            <div class="text-center text-gray-900 text-base font-medium font-['Inter'] leading-normal mb-12">Silakan
+            <div class="text-center text-gray-900 text-base font-medium font-['Inter'] leading-normal mb-8">Silakan
                 lengkapi profile anda terlebih dahulu</div>
             <form action="{{ route('complete.profile') }}" method="post" id="profileForm">
                 @csrf
-                <div class="mb-4">
+                <div class="mb-3">
                     <label for="name"
                         class="text-gray-900 text-base font-semibold font-['Inter'] leading-normal mb-[30px]">Nama
                         Lengkap</label>
                     <input type="text" id="name" name="name"
-                        class="w-full p-3 border rounded-md mt-[10px] placeholder:text-gray-400 text-[16px] font-normal font-['Inter'] leading-normal"
+                        class="w-full p-3 border rounded-md mt-[10px] placeholder:text-gray-400 text-[16px] font-normal font-['Inter'] leading-normal focus:border-blue-600 focus:border-2 focus:outline-none"
                         placeholder="Contoh: Budiman" required>
                 </div>
 
-                <div class="mb-4">
+                <div class="mb-3">
                     <label for="school_level"
                         class="text-gray-900 text-base font-semibold font-['Inter'] leading-normal mb-[30px]">Jenjang</label>
                     <select id="school_level" name="school_level"
-                        class="w-full p-3 border rounded-md mt-[10px] placeholder:text-gray-400 text-[16px] font-normal font-['Inter'] leading-normal"
+                        class="w-full p-3 border rounded-md mt-[10px] placeholder:text-gray-400 text-[16px] font-normal font-['Inter'] leading-normal focus:border-blue-600 focus:border-2 focus:outline-none"
                         required>
                         <option value="" disabled selected>Pilih Jenjang</option>
                         @foreach ($jenjang as $item)
@@ -50,19 +50,19 @@
                     </select>
                 </div>
 
-                <div class="mb-4">
+                <div class="mb-3">
                     <label for="school_name"
                         class="text-gray-900 text-base font-semibold font-['Inter'] leading-normal mb-[30px]">Sekolah</label>
                     <input type="text" id="school_name" name="school_name"
-                        class="w-full p-3 border rounded-md mt-[10px] placeholder:text-gray-400 text-[16px] font-normal font-['Inter'] leading-normal"
+                        class="w-full p-3 border rounded-md mt-[10px] placeholder:text-gray-400 text-[16px] font-normal font-['Inter'] leading-normal focus:border-blue-600 focus:border-2 focus:outline-none"
                         placeholder="Contoh: SMP 1 Bandung" required>
                 </div>
 
-                <div class="mb-4">
+                <div class="mb-3">
                     <label for="profession"
                         class="text-gray-900 text-base font-semibold font-['Inter'] leading-normal mb-[30px]">Profesi</label>
                     <input type="text" id="profession" name="profession"
-                        class="w-full p-2 border rounded-md mt-[10px] placeholder:text-gray-400 text-base font-normal font-['Inter'] leading-normal"
+                        class="w-full p-3 border rounded-md mt-[10px] placeholder:text-gray-400 text-[16px] font-normal font-['Inter'] leading-normal focus:border-blue-600 focus:border-2 focus:outline-none"
                         placeholder="Contoh: Guru Biologi" required>
                 </div>
 
@@ -75,7 +75,7 @@
 
                 <button id="loadingButton" disabled type="button"
                     class="h-12 px-6 my-5 bg-blue-600 rounded-[50px] justify-center items-center gap-2.5 inline-flex w-full hidden">
-                    <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none"
+                    <svg class="w-5 h-5 text-white animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none"
                         viewBox="0 0 24 24">
                         <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
                             stroke-width="4"></circle>

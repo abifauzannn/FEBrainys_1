@@ -223,7 +223,7 @@ class SubscriptionController extends Controller
 
             return view('payments.proses-pembayaran', compact('data', 'linkPayment'));
         } else {
-            return redirect()->route('checkout.place-order')->with('error', 'Failed to retrieve history data.');
+            return redirect()->route('langganan.tagihan')->with('error', 'Failed to retrieve history data.');
         }
     }
 

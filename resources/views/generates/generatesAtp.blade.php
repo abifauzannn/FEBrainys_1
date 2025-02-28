@@ -62,37 +62,7 @@
                 <x-generate-field type="text" id="name" name="name" label="Nama ATP"
                     placeholder="masukan nama atp" tooltipId="nameTooltip" tooltipText="Contoh : ATP Logika Matematika" />
 
-                <div class="mb-4 form-group">
-                    <label for="fase"
-                        class="text-gray-900 text-base font-['Inter'] mb-[30px] leading-normal font-semibold">Fase
-                        (Kelas)</label>
-                    <select id="fase" name="fase" required
-                        class="bg-white mt-[10px] font-['Inter'] shadow appearance-none border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                        <option value="" class="">Select Fase</option>
-                    </select>
-                </div>
-
-                <div class="mb-4 form-group">
-                    <label for="mata-pelajaran"
-                        class="text-gray-900 text-base font-['Inter'] mb-[30px] leading-normal font-semibold">Mata Pelajaran
-                    </label>
-                    <select id="mata-pelajaran"
-                        name="mata-pelajaran"class="bg-white font-['Inter'] mt-[10px] shadow appearance-none  border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        required disabled>
-                        <option value="" class="font">Select Mata Pelajaran</option>
-                    </select>
-                </div>
-
-                <div class="mb-4 form-group">
-                    <label for="element"
-                        class="text-gray-900 text-base font-['Inter'] mb-[30px] leading-normal font-semibold">Elemen Capaian
-                    </label>
-                    <select id="element"
-                        name="element"class="bg-white font-['Inter'] mt-[10px] shadow appearance-none  border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        required disabled>
-                        <option value="" class="font">Select Element Capaian</option>
-                    </select>
-                </div>
+                <x-chain-select />
 
                 <x-generate-field type="number" id="pekan" name="pekan" label="Pekan" placeholder="masukan pekan"
                     tooltipId="questuinTooltip" tooltipText=" Contoh : 5" required :min="1" />
@@ -158,10 +128,6 @@
                     </button>
                 </div>
 
-                @php
-                    $module = config('datamodul')[6];
-                @endphp
-
                 <div class="flex flex-row items-center bg-gray-300 my-5 px-2 rounded-md">
                     <svg xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 24 24">
                         <g fill="none">
@@ -172,7 +138,7 @@
                         </g>
                     </svg>
                     <p class="font-['Inter'] font-normal text-[13px] py-2 pl-1">Credit yang dibutuhkan untuk modul ini
-                        <b>{{ $module['credit_charged_generate'] }} Credit</b>
+                        <b><span id="creditValue">Loading...</span> Credit</b>
                     </p>
                 </div>
             </form>
@@ -184,8 +150,8 @@
                 @if (session('error'))
                     <div class="flex items-center p-4 mb-4 text-sm text-red-800 border border-red-300 rounded-lg bg-red-50"
                         role="alert">
-                        <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true"
-                            xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                        <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                            fill="currentColor" viewBox="0 0 20 20">
                             <path
                                 d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
                         </svg>
@@ -208,119 +174,20 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function() {
-            var API_URL = 'https://testing.brainys.oasys.id/api';
-            // var API_URL = 'http://127.0.0.1:8000/api';
-
-            // Fetch Fase
+            // Jalankan AJAX saat halaman dimuat
             $.ajax({
-                url: API_URL + "/capaian-pembelajaran/fase",
-                method: "POST",
+                url: "{{ route('get.credit.charges.atp') }}", // Gantilah dengan route yang benar
+                type: "GET",
                 success: function(response) {
-                    if (response.status === "success") {
-                        response.data.forEach(function(item) {
-                            $("#fase").append(new Option(item.fase, item.fase));
-                        });
+                    if (response.success) {
+                        // Menampilkan data di dalam elemen dengan id #creditValue
+                        $('#creditValue').text(response.credit_charged_generate);
+                    } else {
+                        $('#creditValue').text('Gagal mengambil data');
                     }
                 },
-            });
-
-            // Fetch Mata Pelajaran based on Fase
-            $("#fase").on("change", function() {
-                let fase = $(this).val();
-                $("#mata-pelajaran")
-                    .prop("disabled", true)
-                    .empty()
-                    .append(new Option("Select Mata Pelajaran", ""));
-
-                if (fase) {
-                    $.ajax({
-                        url: API_URL + "/capaian-pembelajaran/mata-pelajaran",
-                        method: "POST",
-                        contentType: "application/json",
-                        data: JSON.stringify({
-                            fase: fase
-                        }),
-                        success: function(response) {
-                            if (response.status === "success") {
-                                $("#mata-pelajaran").prop("disabled", false);
-                                response.data.forEach(function(item) {
-                                    $("#mata-pelajaran").append(
-                                        new Option(item.mata_pelajaran, item
-                                            .mata_pelajaran)
-                                    );
-                                });
-                            }
-                        },
-                    });
-                }
-            });
-
-            // Fetch Element based on Mata Pelajaran and Fase
-            $("#mata-pelajaran").on("change", function() {
-                let fase = $("#fase").val();
-                let mataPelajaran = $(this).val();
-                $("#element")
-                    .prop("disabled", true)
-                    .empty()
-                    .append(new Option("Select Element", ""));
-
-                if (fase && mataPelajaran) {
-                    $.ajax({
-                        url: API_URL + "/capaian-pembelajaran/element",
-                        method: "POST",
-                        contentType: "application/json",
-                        data: JSON.stringify({
-                            fase: fase,
-                            mata_pelajaran: mataPelajaran,
-                        }),
-                        success: function(response) {
-                            if (response.status === "success") {
-                                $("#element").prop("disabled", false);
-                                response.data.forEach(function(item) {
-                                    $("#element").append(
-                                        new Option(item.element, item.element)
-                                    );
-                                });
-                            }
-                        },
-                    });
-                }
-            });
-
-            // Fetch Capaian Pembelajaran and Capaian Pembelajaran Redaksi based on Element
-            $("#element").on("change", function() {
-                let fase = $("#fase").val();
-                let mataPelajaran = $("#mata-pelajaran").val();
-                let element = $(this).val();
-
-                if (fase && mataPelajaran && element) {
-                    $.ajax({
-                        url: API_URL + "/capaian-pembelajaran/final",
-                        method: "POST",
-                        contentType: "application/json",
-                        data: JSON.stringify({
-                            fase: fase,
-                            mata_pelajaran: mataPelajaran,
-                            element: element,
-                        }),
-                        success: function(response) {
-                            if (response.status === "success") {
-                                if (response.data) {
-                                    $("#capaian-pembelajaran").val(response.data
-                                        .capaian_pembelajaran || "No data available");
-                                    $("#capaian-pembelajaran-redaksi").val(response.data
-                                        .capaian_pembelajaran_redaksi || "No data available"
-                                    );
-                                } else {
-                                    $("#capaian-pembelajaran").val("No data available");
-                                    $("#capaian-pembelajaran-redaksi").val("No data available");
-                                }
-                            } else {
-                                $("#capaian-pembelajaran").val("Error retrieving data");
-                                $("#capaian-pembelajaran-redaksi").val("Error retrieving data");
-                            }
-                        },
-                    });
+                error: function() {
+                    $('#creditValue').text('Terjadi kesalahan saat mengambil data.');
                 }
             });
         });

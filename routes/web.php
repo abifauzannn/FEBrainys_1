@@ -194,6 +194,20 @@ Route::get('/getpackages', [SubscriptionController::class, 'getPackages']);
 Route::get('/getCancelPackages', [SubscriptionController::class, 'getCancelPackages'])->name('cancel.packages');
 
 
+Route::get('/modul-charges', [ModulAjarController::class, 'getCreditCharges']);
+Route::get('/get-credit-charges/modulAjar', [ModulAjarController::class, 'getCreditCharges'])->name('get.credit.charges.modulAjar');
+Route::get('/get-credit-charges/syllabus', [SyllabusController::class, 'getCreditCharges'])->name('get.credit.charges.syllabus');
+Route::get('/get-credit-charges/soal', [EssayController::class, 'getCreditCharges'])->name('get.credit.charges.soal');
+Route::get('/get-credit-charges/bahan-ajar', [BahanAjarController::class, 'getCreditCharges'])->name('get.credit.charges.bahanAjar');
+Route::get('/get-credit-charges/gamifikasi', [GamifikasiController::class, 'getCreditCharges'])->name('get.credit.charges.gamifikasi');
+Route::get('/get-credit-charges/kisi', [KisiKisiController::class, 'getCreditCharges'])->name('get.credit.charges.kisi');
+Route::get('/get-credit-charges/atp', [AtpController::class, 'getCreditCharges'])->name('get.credit.charges.atp');
+
+
+
+
+
+
 
 
 

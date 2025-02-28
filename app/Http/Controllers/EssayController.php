@@ -151,4 +151,24 @@ public function getDetailExercise($idExercise){
     }
 }
 
+public function getCreditCharges()
+{
+    $response = Http::withToken(session()->get('access_token'))
+                    ->get(env('APP_API').'/module-credit-charges/soal');
+
+    $responseData = $response->json();
+
+    if ($response->successful() && isset($responseData['data'])) {
+        return response()->json([
+            'success' => true,
+            'credit_charged_generate' => $responseData['data']['credit_charged_generate']
+        ]);
+    } else {
+        return response()->json([
+            'success' => false,
+            'message' => 'Gagal mengambil data credit charges'
+        ]);
+    }
+}
+
 }

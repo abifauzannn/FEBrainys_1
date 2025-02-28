@@ -31,7 +31,7 @@ class BahanAjarController extends Controller
     }
 
     // Call method getUserLimit() to get user limit data
-  
+
 
     $generateId = null; // Initialize $generateId variable
     $responseMessage = null;
@@ -101,7 +101,6 @@ public function exportToWord(Request $request)
         // Arahkan pengguna ke URL unduhan
         return redirect($downloadUrl);
     } else {
-        dd($response->json());
         return back()->with('error', 'Failed to export to Word.');
     }
 }
@@ -138,8 +137,7 @@ public function getDetailBahanAjar($idBahan){
         return redirect('/login')->with('error', 'Please log in to fetch material history.');
     }
 
-    // Panggil method getUserLimit() untuk mendapatkan data batas penggunaan
-    $userLimit = $this->getUserLimit();
+
 
     // Use the authentication token for API request
     $token = session()->get('access_token');
@@ -156,7 +154,7 @@ public function getDetailBahanAjar($idBahan){
         if (isset($responseData['data']['generate_output'])) {
             $bahanAjarHistory = $responseData['data'];
             // Load view to display material history details
-            return view('detailHistory.bahanAjar', compact('bahanAjarHistory', 'userLimit'));
+            return view('detailHistory.bahanAjar', compact('bahanAjarHistory'));
         } else {
             // Handle the case where the expected structure is not present in the API response
             return redirect('/history')->with('error', $responseData['message']);
@@ -168,6 +166,26 @@ public function getDetailBahanAjar($idBahan){
         } else {
             return redirect('/history')->with('error', 'Failed to fetch material history. Status code: ' . $statusCode);
         }
+    }
+}
+
+public function getCreditCharges()
+{
+    $response = Http::withToken(session()->get('access_token'))
+                    ->get(env('APP_API').'/module-credit-charges/bahan-ajar');
+
+    $responseData = $response->json();
+
+    if ($response->successful() && isset($responseData['data'])) {
+        return response()->json([
+            'success' => true,
+            'credit_charged_generate' => $responseData['data']['credit_charged_generate']
+        ]);
+    } else {
+        return response()->json([
+            'success' => false,
+            'message' => 'Gagal mengambil data credit charges'
+        ]);
     }
 }
 

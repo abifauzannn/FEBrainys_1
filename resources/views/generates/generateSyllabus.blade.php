@@ -140,10 +140,6 @@
                     </button>
                 </div>
 
-                @php
-                    $module = config('datamodul')[1];
-                @endphp
-
                 <div class="flex flex-row items-center bg-gray-300 my-5 px-2 rounded-md">
                     <svg xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 24 24">
                         <g fill="none">
@@ -154,9 +150,10 @@
                         </g>
                     </svg>
                     <p class="font-['Inter'] font-normal text-[13px] py-2 pl-1">Credit yang dibutuhkan untuk modul ini
-                        <b>{{ $module['credit_charged_generate'] }} Credit</b>
+                        <b><span id="creditValue">Loading...</span> Credit</b>
                     </p>
                 </div>
+
             </form>
         </div>
 
@@ -189,7 +186,27 @@
         </div>
     </div>
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
+        $(document).ready(function() {
+            // Jalankan AJAX saat halaman dimuat
+            $.ajax({
+                url: "{{ route('get.credit.charges.syllabus') }}", // Gantilah dengan route yang benar
+                type: "GET",
+                success: function(response) {
+                    if (response.success) {
+                        // Menampilkan data di dalam elemen dengan id #creditValue
+                        $('#creditValue').text(response.credit_charged_generate);
+                    } else {
+                        $('#creditValue').text('Gagal mengambil data');
+                    }
+                },
+                error: function() {
+                    $('#creditValue').text('Terjadi kesalahan saat mengambil data.');
+                }
+            });
+        });
+
         document.addEventListener("DOMContentLoaded", function() {
             document.getElementById('subject').focus();
         });

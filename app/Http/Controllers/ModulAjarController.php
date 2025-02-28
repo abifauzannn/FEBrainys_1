@@ -68,7 +68,7 @@ class ModulAjarController extends Controller
                 if (isset($responseData['status']) && $responseData['status'] === 'failed' && isset($responseData['message'])) {
                     session()->flash('error', $responseData['message']);
                 } else {
-                    session()->flash('error', 'Failed to generate syllabus. Status code: ' . $statusCode);
+                    dd($response);
                 }
             }
 
@@ -171,6 +171,28 @@ public function getDetailModulAjar($idModul){
         }
     }
 }
+
+public function getCreditCharges()
+{
+    $response = Http::withToken(session()->get('access_token'))
+                    ->get(env('APP_API').'/module-credit-charges/modul-ajar');
+
+    $responseData = $response->json();
+
+    if ($response->successful() && isset($responseData['data'])) {
+        return response()->json([
+            'success' => true,
+            'credit_charged_generate' => $responseData['data']['credit_charged_generate']
+        ]);
+    } else {
+        return response()->json([
+            'success' => false,
+            'message' => 'Gagal mengambil data credit charges'
+        ]);
+    }
+}
+
+
 
 
 

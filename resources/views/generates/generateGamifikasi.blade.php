@@ -180,7 +180,7 @@
         $(document).ready(function() {
             // Jalankan AJAX saat halaman dimuat
             $.ajax({
-                url: "{{ route('get.credit.charges.modulAjar') }}", // Gantilah dengan route yang benar
+                url: "{{ route('get.credit.charges.gamifikasi') }}", // Gantilah dengan route yang benar
                 type: "GET",
                 success: function(response) {
                     if (response.success) {

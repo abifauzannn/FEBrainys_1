@@ -165,7 +165,7 @@ public function getDetailSyllabus($idSyllabus){
 public function getCreditCharges()
 {
     $response = Http::withToken(session()->get('access_token'))
-                    ->get(env('APP_API').'/module-credit-charges/modul-ajar');
+                    ->get(env('APP_API').'/module-credit-charges/silabus');
 
     $responseData = $response->json();
 

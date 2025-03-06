@@ -15,6 +15,7 @@ use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\SyllabusController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
+
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 /*
@@ -48,7 +49,7 @@ Route::get('/email-verify', function () {
 });
 
 Route::get('/change-password', function () {
-    return view('profiles.changePassword');
+    return View('profiles.changePassword');
 });
 
 Route::get('/', [AuthenticationController::class, 'showLoginForm']);

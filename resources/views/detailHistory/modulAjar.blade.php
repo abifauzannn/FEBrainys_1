@@ -10,7 +10,6 @@
     <x-nav></x-nav>
 
     <div class="container mx-auto px-4 sm:px-10 py-9 font-['Inter']">
-
         <button onclick="window.location='{{ route('history') }}'" class="mb-6">
             <div class="flex items-center">
                 <img src="{{ URL('images/back.svg') }}" alt="" class="w-6 h-6">
@@ -27,47 +26,15 @@
             </div>
         </div>
 
-        <div class="mt-8">
-            <div class="text-gray-900 text-lg font-bold bg-gray-100 px-2 py-2">Informasi Umum</div>
+        @foreach (['informasi_umum', 'sarana_dan_prasarana', 'tujuan_kegiatan_pembelajaran', 'pemahaman_bermakna'] as $section)
+            <div class="text-gray-900 text-lg font-bold bg-gray-100 px-2 py-2 mt-5">
+                {{ ucwords(str_replace('_', ' ', $section)) }}</div>
             <div class="mt-2">
                 <table class="w-full">
                     <tbody>
-
-                        @foreach ($materialHistory['output_data']['informasi_umum'] as $key => $value)
+                        @foreach ($materialHistory['output_data'][$section] as $key => $value)
                             <tr>
                                 <td class="py-1 text-sm w-[200px]">{{ ucwords(str_replace('_', ' ', $key)) }}</td>
-                                <td class="py-1 text-sm">: {{ $value }}</td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
-
-            <div class="text-gray-900 text-lg font-bold bg-gray-100 px-2 py-2 mt-5">Sarana dan Prasarana</div>
-            <div class="mt-2">
-                <table class="w-full">
-                    <tbody>
-                        @foreach ($materialHistory['output_data']['sarana_dan_prasarana'] as $key => $value)
-                            <tr>
-                                <td class="py-1 text-sm w-[200px]">
-                                    {{ str_replace(' ', ' ', ucwords(str_replace('_', ' ', $key))) }}
-                                </td>
-                                <td class="py-1 text-sm">: {{ $value }}</td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
-
-            <div class="text-gray-900 text-lg font-bold bg-gray-100 px-2 py-2 mt-5">Tujuan Kegiatan Pembelajaran</div>
-            <div class="mt-2">
-                <table class="w-full">
-                    <tbody>
-                        @foreach ($materialHistory['output_data']['tujuan_kegiatan_pembelajaran'] as $key => $value)
-                            <tr>
-                                <td class="py-1 text-sm w-[200px]">
-                                    {{ str_replace('_', ' ', ucwords(str_replace('_', ' ', $key))) }}
-                                </td>
                                 <td class="py-1 text-sm">
                                     @if (is_array($value))
                                         <ul>
@@ -84,126 +51,78 @@
                     </tbody>
                 </table>
             </div>
+        @endforeach
 
-            <div class="text-gray-900 text-lg font-bold bg-gray-100 px-2 py-2 mt-5">Pemahaman Bermakna</div>
-            <div class="mt-2">
-                <table class="w-full">
-                    <tbody>
-                        @foreach ($materialHistory['output_data']['pemahaman_bermakna'] as $key => $value)
-                            <tr>
-                                <td class="py-1 text-sm w-[200px]">
-                                    {{ str_replace(' ', ' ', ucwords(str_replace('_', ' ', $key))) }}
-                                </td>
-                                <td class="py-1 text-sm">
-                                    : {{ $value }}
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
-
-            <div class="text-gray-900 text-lg font-bold bg-gray-100 px-2 py-2 mt-5">Pertanyaan Pemantik</div>
-            <div class="mt-2">
-                <table class="w-full">
-                    <tbody class="divide-y divide-gray-200">
-                        @foreach ($materialHistory['output_data']['pertanyaan_pemantik'] as $index => $pertanyaan)
-                            <tr>
-                                <td class="py-2 text-sm">{{ $index + 1 }}.
-                                    {{ $pertanyaan }}</td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
+        <div class="text-gray-900 text-lg font-bold bg-gray-100 px-2 py-2 mt-5">Pertanyaan Pemantik</div>
+        <div class="mt-2">
+            <table class="w-full">
+                <tbody class="divide-y divide-gray-200">
+                    @foreach ($materialHistory['output_data']['pertanyaan_pemantik'] as $index => $pertanyaan)
+                        <tr>
+                            <td class="py-2 text-sm">{{ $index + 1 }}. {{ $pertanyaan }}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
         </div>
 
-        <!-- Tabel Kegiatan Pembelajaran -->
         <div class="text-gray-900 text-lg font-bold mt-5 bg-gray-100 px-2 py-2">Kegiatan Pembelajaran</div>
         @foreach ($materialHistory['output_data']['kompetensi_dasar'] as $kompetensi)
             <div>
                 <ol class="border-t border-gray-200">
                     <li class="px-6 pt-3 text-left text-sm font-bold text-gray-800 uppercase">
-                        {{ $loop->iteration }}.
-                        {{ $kompetensi['nama_kompetensi_dasar'] }}
+                        {{ $loop->iteration }}. {{ $kompetensi['nama_kompetensi_dasar'] }}
                     </li>
                 </ol>
-
                 <div class="">
                     @foreach ($kompetensi['materi_pembelajaran'] as $materi_pembelajaran)
                         <div class="px-6 py-3">
-                            <li class="text-sm text-gray-800">
-                                <span class="font-bold">
-                                    Materi :
-                                </span>
-                                {{ $materi_pembelajaran['materi'] }}
-                                <ul class="pl-10 list-disc mt-3">
-                                    <li class="text-sm text-gray-800 mb-2">
-                                        <span class="font-bold">Tujuan Pemebelajaran Materi :</span>
-                                        {{ $materi_pembelajaran['tujuan_pembelajaran_materi'] }}
+                            <ul class="pl-5 list-disc">
+                                @foreach ($materi_pembelajaran as $key => $value)
+                                    <li class="text-sm text-gray-800">
+                                        <span class="font-bold">{{ ucwords(str_replace('_', ' ', $key)) }}:</span>
+                                        @if (is_array($value))
+                                            <ul class="pl-5 list-circle">
+                                                @foreach ($value as $subitem)
+                                                    <li>
+                                                        @if (is_array($subitem))
+                                                            <ul class="pl-5 list-disc">
+                                                                @foreach ($subitem as $subKey => $subValue)
+                                                                    <li><span
+                                                                            class="font-bold">{{ ucwords(str_replace('_', ' ', $subKey)) }}:</span>
+                                                                        {{ $subValue }}</li>
+                                                                @endforeach
+                                                            </ul>
+                                                        @else
+                                                            {{ $subitem }}
+                                                        @endif
+                                                    </li>
+                                                @endforeach
+                                            </ul>
+                                        @else
+                                            {{ $value }}
+                                        @endif
                                     </li>
-                                    <li class="text-sm text-gray-800 mb-2">
-                                        <span class="font-bold">
-                                            Indikator :
-                                        </span>
-                                        {{ $materi_pembelajaran['indikator'] }}
-                                    </li>
-                                    <li class="text-sm text-gray-800 mb-2">
-                                        <span class="font-bold">Nilai Karakter : </span>
-                                        {{ $materi_pembelajaran['nilai_karakter'] }}
-                                    </li>
-                                    <li class="text-sm text-gray-800 mb-2">
-                                        <span class="font-bold">Kegiatan Pembelajaran : </span>
-                                        {{ $materi_pembelajaran['kegiatan_pembelajaran'] }}
-                                    </li>
-                                    <li class="text-sm text-gray-800 mb-2">
-                                        <span class="font-bold">Alokasi Waktu : </span>
-                                        {{ $materi_pembelajaran['alokasi_waktu'] }}
-                                    </li>
-                                    <li class="text-sm text-gray-800 mb-2">
-                                        <span class="font-bold">
-                                            Penilaian :
-                                        </span>
-
-                                        <ul class="pl-5 list-circle">
-                                            @foreach ($materi_pembelajaran['penilaian'] as $index => $penilaian)
-                                                <li>
-                                                    {{ chr(97 + $index) }}. {{ $penilaian['jenis'] }}
-                                                    ({{ $penilaian['bobot'] }}%)
-                                                    <!-- Nested list items here -->
-                                                </li>
-                                            @endforeach
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </li>
+                                @endforeach
+                            </ul>
                         </div>
                     @endforeach
                 </div>
             </div>
         @endforeach
 
-        <div class="text-gray-900 text-lg font-bold mt-2 bg-gray-100 px-2 py-2">Glosarium</div>
+        @foreach (['glosarium_materi' => 'Glosarium', 'daftar_pustaka' => 'Daftar Pustaka'] as $key => $title)
+            <div class="text-gray-900 text-lg font-bold mt-5 bg-gray-100 px-2 py-2">{{ $title }}</div>
             <ol class="list-decimal pl-8">
-                @foreach ($materialHistory['output_data']['lampiran']['glosarium_materi'] as $index => $glosarium)
-                    <li class="text-sm text-gray-800 mb-2">{{ $glosarium }}</li>
+                @foreach ($materialHistory['output_data']['lampiran'][$key] as $item)
+                    <li class="text-sm text-gray-800 mb-2">{{ $item }}</li>
                 @endforeach
             </ol>
+        @endforeach
 
-        <div class="text-gray-900 text-lg font-bold mt-5 bg-gray-100 px-2 py-2">Daftar Pustaka</div>
-            <ol class="list-decimal pl-8">
-                @foreach ($materialHistory['output_data']['lampiran']['daftar_pustaka'] as $index => $pustaka)
-                    <li class="text-sm text-gray-800 mb-2">{{ $pustaka }}</li>
-                @endforeach
-            </ol>
-        </div>
-
-        <!-- Button untuk download file -->
-        <div class=" mb-7 px-4 sm:px-10 container mx-auto flex flex-row gap-3">
+        <div class="mb-7 px-4 sm:px-10 container mx-auto flex flex-row gap-3">
             <x-export-word generateId="{{ $materialHistory['id'] }}" export="{{ route('export-word') }}" />
             <x-export-excel generateId="{{ $materialHistory['id'] }}" export="{{ route('export-modul-excel') }}" />
         </div>
     </div>
-    </div>
-
 @endsection

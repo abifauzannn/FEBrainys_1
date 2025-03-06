@@ -1,6 +1,6 @@
 @extends('layouts.template')
 
-@section('title', 'Templat Modul Ajar - Brainys')
+@section('title', 'Templat Soal - Brainys')
 
 @section('meta')
     <meta name="robots" content="noindex, nofollow">
@@ -154,7 +154,7 @@
             var API_URL = 'https://testing.brainys.oasys.id/api';
 
             $.ajax({
-                url: "{{ route('get.credit.charges.modulAjar') }}", // Gantilah dengan route yang benar
+                url: "{{ route('get.credit.charges.soal') }}", // Gantilah dengan route yang benar
                 type: "GET",
                 success: function(response) {
                     if (response.success) {

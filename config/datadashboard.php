@@ -50,18 +50,18 @@ return [
         'description' => 'Gunakan templat ATP kurikulum merdeka mengajar',
         'status' => 'baru',
     ],
-    // [
-    //     'url' => '#',
-    //     'icon' => 'images/rubrik.png',
-    //     'title' => 'Templat Rubrik Nilai',
-    //     'description' => 'Gunakan templat rubrik penilaian siswa',
-    //     'status' => 'baru',
-    // ],
-    // [
-    //     'url' => '#',
-    //     'icon' => 'images/surat.png',
-    //     'title' => 'Templat Persuratan',
-    //     'description' => 'Gunakan templat persuratan sekolah dan administrasi',
-    //     'status' => 'baru',
-    // ],
+    [
+        'url' => '',
+        'icon' => 'images/rubrik.png',
+        'title' => 'Templat Rubrik Nilai',
+        'description' => 'Gunakan templat rubrik penilaian siswa',
+        'status' => 'baru',
+    ],
+    [
+        'url' => '',
+        'icon' => 'images/surat.png',
+        'title' => 'Templat Persuratan',
+        'description' => 'Gunakan templat persuratan sekolah dan administrasi',
+        'status' => 'baru',
+    ],
 ];

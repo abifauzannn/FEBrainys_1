@@ -68,7 +68,7 @@ class ModulAjarController extends Controller
                 if (isset($responseData['status']) && $responseData['status'] === 'failed' && isset($responseData['message'])) {
                     session()->flash('error', $responseData['message']);
                 } else {
-                    dd($response);
+                    session()->flash('error', $responseData['message']);
                 }
             }
 

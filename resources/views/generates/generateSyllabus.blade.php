@@ -44,7 +44,7 @@
         </script>
     @endif
 
-    <div class="container mx-auto px-4 py-6 sm:px-10 sm:py-9">
+    <div class="container px-4 py-6 mx-auto sm:px-10 sm:py-9">
         <x-back-button url="{{ route('dashboard') }}" />
         <x-banner-page-generate title="Templat Silabus" description="Gunakan template Silabus kurikulum merdeka" />
         @if (session('user')['school_level'] == '')
@@ -54,47 +54,36 @@
 
 
 
-    <div class="flex container mx-auto px-3 sm:px-10 flex-col lg:flex-row">
+    <div class="container flex flex-col px-3 mx-auto sm:px-10 lg:flex-row">
         <div class="w-full lg:w-[500px] flex-col justify-start items-start sm:gap-6 inline-flex">
             <form action="{{ route('generateSyllabus') }}" method="post" class="w-full" id="silabusForm">
                 <!-- Input untuk Nama Silabus -->
                 @csrf
 
-                <x-generate-field type="text" id="subject" name="subject" label="Subject"
-                    placeholder="masukan nama mata pelajaran" tooltipId="subjectTooltip" tooltipText="Contoh : Geografi"
-                    required />
+                <x-generate-field type="text" id="name" name="name" label="Nama Silabus"
+                    placeholder="masukan nama silabus" tooltipId="nameTooltip"
+                    tooltipText="Contoh : silabus biologi smp kelas 8" />
 
-                @if (session('user')['school_level'] == '')
-                    <x-disable-select id="grade" label="Kelas" :options="$options" defaultOption="Pilih Kelas" />
-                @elseif (session('user')['school_level'] != '')
-                    <x-select-field id="grade" label="Kelas" name="grade" :options="$options"
-                        defaultOption="Pilih Kelas" />
-                @endif
+                <div class="mb-4 form-group">
+                    <p id="schoolLevel" class="hidden">{{ session('user')['school_level'] }}</p>
+                    <label for="fase"
+                        class="text-gray-900 text-base font-['Inter'] mb-[30px] leading-normal font-semibold">Fase
+                        (Kelas)</label>
+                    <select id="fase" name="fase" required
+                        class="bg-white mt-[10px] font-['Inter'] shadow appearance-none border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <option value="" class="">Select Fase</option>
+                    </select>
+                </div>
 
-                <!-- Input untuk Mata Pelajaran -->
-
-                <div class="mb-4">
-                    <label for="nip"
-                        class="text-gray-900 text-base font-semibold font-['Inter'] leading-normal">NIP</label>
-                    <button data-tooltip-target="nipTooltip" data-tooltip-placement="right" data-tooltip-trigger="click"
-                        type="button"
-                        class="text-gray-600 transition-colors duration-200 focus:outline-none dark:text-gray-200 dark:hover:text-blue-400 hover:text-blue-500">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
-                            stroke="currentColor" class="w-4 h-4">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z" />
-                        </svg>
-                    </button>
-
-                    <div id="nipTooltip" role="tooltip"
-                        class="w-38 absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
-                        Contoh : 199703242016022001
-                        <div class="tooltip-arrow" data-popper-arrow></div>
-                    </div>
-
-                    <input type="text" id="nip" name="nip"
-                        class="w-full p-3 border border-gray-300 rounded-md mt-[10px] placeholder:text-gray-400 text-[16px] font-normal font-['Inter'] leading-normal"
-                        placeholder="masukan nip" minlength="21" maxlength="25" required>
+                <div class="mb-4 form-group">
+                    <label for="mata-pelajaran"
+                        class="text-gray-900 text-base font-['Inter'] mb-[30px] leading-normal font-semibold">Mata Pelajaran
+                    </label>
+                    <select id="mata-pelajaran"
+                        name="mata-pelajaran"class="bg-white font-['Inter'] mt-[10px] shadow appearance-none  border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        required disabled>
+                        <option value="" class="font">Select Mata Pelajaran</option>
+                    </select>
                 </div>
 
                 <x-textarea-field id="notes" name="notes" label="Deskripsi Silabus"
@@ -102,9 +91,9 @@
                     tooltipText=" Contoh : Buatkan silabus untuk mata pelajaran Geografi kelas 11" required />
 
                 <div class="flex justify-end -mt-2">
-                    <div class="self-stretch justify-start items-end gap-5 inline-flex">
+                    <div class="inline-flex items-end self-stretch justify-start gap-5">
                         <div id="characterCount"
-                            class="text-left text-gray-500 text-sm font-normal font-inter leading-snug">0/250</div>
+                            class="text-sm font-normal leading-snug text-left text-gray-500 font-inter">0/250</div>
                     </div>
                 </div>
                 <div class="flex justify-between py-6 border-b">
@@ -128,7 +117,7 @@
                     <button id="loadingButton" disabled type="button"
                         class="h-12 px-6 bg-blue-600 rounded-lg justify-center items-center gap-2.5 inline-flex"
                         style="display: none;">
-                        <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg"
+                        <svg class="w-5 h-5 mr-3 -ml-1 text-white animate-spin" xmlns="http://www.w3.org/2000/svg"
                             fill="none" viewBox="0 0 24 24">
                             <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
                                 stroke-width="4"></circle>
@@ -140,7 +129,7 @@
                     </button>
                 </div>
 
-                <div class="flex flex-row items-center bg-gray-300 my-5 px-2 rounded-md">
+                <div class="flex flex-row items-center px-2 my-5 bg-gray-300 rounded-md">
                     <svg xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 24 24">
                         <g fill="none">
                             <path
@@ -164,8 +153,8 @@
                 @if (session('error'))
                     <div class="flex items-center p-4 mb-4 text-sm text-red-800 border border-red-300 rounded-lg bg-red-50"
                         role="alert">
-                        <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true"
-                            xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                        <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                            fill="currentColor" viewBox="0 0 20 20">
                             <path
                                 d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
                         </svg>
@@ -242,6 +231,154 @@
             outputContent.style.display = 'none';
 
             this.submit();
+        });
+
+        $(document).ready(function() {
+            var API_URL = 'https://testing.brainys.oasys.id/api';
+            var sessionLevel = $("#schoolLevel").text().trim();
+            console.log("Session Level:", sessionLevel); // Ambil session dari HTML
+            // var API_URL = 'http://127.0.0.1:8000/api';
+
+            // Fetch Fase
+            $.ajax({
+                url: API_URL + "/capaian-pembelajaran/fase",
+                method: "POST",
+                success: function(response) {
+                    console.log("Fase Response:", response); // Debugging di Console
+
+                    if (response.status === "success") {
+                        let filteredData = response.data;
+
+                        // Filter hanya untuk SD (Fase A, B, C)
+                        if (sessionLevel === "sd" || sessionLevel === "paketa") {
+                            filteredData = response.data.filter(item =>
+                                item.fase.includes("Fase A") ||
+                                item.fase.includes("Fase B") ||
+                                item.fase.includes("Fase C")
+                            );
+                        }
+
+                        if (sessionLevel === "smp" || sessionLevel === "paketb") {
+                            filteredData = response.data.filter(item =>
+                                item.fase.includes("Fase D")
+                            );
+                        }
+
+                        if (sessionLevel === "sma" || sessionLevel === "smk" ||
+                            sessionLevel === "paketc") {
+                            filteredData = response.data.filter(item =>
+                                item.fase.includes("Fase E") || item.fase.includes("Fase F")
+                            );
+                        }
+
+
+                        // Tambahkan opsi ke dropdown
+                        filteredData.forEach(function(item) {
+                            $("#fase").append(new Option(item.fase, item.fase));
+                        });
+                    }
+                },
+            });
+
+            // Fetch Mata Pelajaran based on Fase
+            $("#fase").on("change", function() {
+                let fase = $(this).val();
+                $("#mata-pelajaran")
+                    .prop("disabled", true)
+                    .empty()
+                    .append(new Option("Select Mata Pelajaran", ""));
+
+                if (fase) {
+                    $.ajax({
+                        url: API_URL + "/capaian-pembelajaran/mata-pelajaran",
+                        method: "POST",
+                        contentType: "application/json",
+                        data: JSON.stringify({
+                            fase: fase
+                        }),
+                        success: function(response) {
+                            if (response.status === "success") {
+                                $("#mata-pelajaran").prop("disabled", false);
+                                response.data.forEach(function(item) {
+                                    $("#mata-pelajaran").append(
+                                        new Option(item.mata_pelajaran, item
+                                            .mata_pelajaran)
+                                    );
+                                });
+                            }
+                        },
+                    });
+                }
+            });
+
+            // Fetch Element based on Mata Pelajaran and Fase
+            $("#mata-pelajaran").on("change", function() {
+                let fase = $("#fase").val();
+                let mataPelajaran = $(this).val();
+                $("#element")
+                    .prop("disabled", true)
+                    .empty()
+                    .append(new Option("Select Element", ""));
+
+                if (fase && mataPelajaran) {
+                    $.ajax({
+                        url: API_URL + "/capaian-pembelajaran/element",
+                        method: "POST",
+                        contentType: "application/json",
+                        data: JSON.stringify({
+                            fase: fase,
+                            mata_pelajaran: mataPelajaran,
+                        }),
+                        success: function(response) {
+                            if (response.status === "success") {
+                                $("#element").prop("disabled", false);
+                                response.data.forEach(function(item) {
+                                    $("#element").append(
+                                        new Option(item.element, item.element)
+                                    );
+                                });
+                            }
+                        },
+                    });
+                }
+            });
+
+            // Fetch Capaian Pembelajaran and Capaian Pembelajaran Redaksi based on Element
+            $("#element").on("change", function() {
+                let fase = $("#fase").val();
+                let mataPelajaran = $("#mata-pelajaran").val();
+                let element = $(this).val();
+
+                if (fase && mataPelajaran && element) {
+                    $.ajax({
+                        url: API_URL + "/capaian-pembelajaran/final",
+                        method: "POST",
+                        contentType: "application/json",
+                        data: JSON.stringify({
+                            fase: fase,
+                            mata_pelajaran: mataPelajaran,
+                            element: element,
+                        }),
+                        success: function(response) {
+                            if (response.status === "success") {
+                                if (response.data) {
+                                    $("#capaian-pembelajaran").val(response.data
+                                        .capaian_pembelajaran || "No data available");
+                                    $("#capaian-pembelajaran-redaksi").val(response.data
+                                        .capaian_pembelajaran_redaksi || "No data available"
+                                    );
+                                } else {
+                                    $("#capaian-pembelajaran").val("No data available");
+                                    $("#capaian-pembelajaran-redaksi").val("No data available");
+                                }
+                            } else {
+                                $("#capaian-pembelajaran").val("Error retrieving data");
+                                $("#capaian-pembelajaran-redaksi").val("Error retrieving data");
+                            }
+                        },
+                    });
+                }
+            });
         });
     </script>
 @endsection

@@ -55,9 +55,9 @@ public function generateSyllabus(Request $request)
         $response = Http::withToken($token)
             ->timeout(60) // timeout in seconds (example: 60 seconds)
             ->post(env('APP_API').'/syllabus/generate', [
-                'subject' => $request->input('subject'),
-                'grade' => $request->input('grade'),
-                'nip' => $request->input('nip'),
+                'name' => $request->input('name'),
+                'grade' => $request->input('fase'),
+                'subject' => $request->input('mata-pelajaran'),
                 'notes' => $request->input('notes')
             ]);
 

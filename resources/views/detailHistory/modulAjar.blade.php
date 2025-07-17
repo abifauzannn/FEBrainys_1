@@ -13,21 +13,21 @@
         <button onclick="window.location='{{ route('history') }}'" class="mb-6">
             <div class="flex items-center">
                 <img src="{{ URL('images/back.svg') }}" alt="" class="w-6 h-6">
-                <div class="text-black text-base font-semibold ml-2">Kembali</div>
+                <div class="ml-2 text-base font-semibold text-black">Kembali</div>
             </div>
         </button>
 
         <div class="w-full">
-            <div class="text-gray-900 text-2xl font-semibold">{{ $materialHistory['name'] }}</div>
-            <div class="mt-2 text-gray-500 text-sm leading-snug">Detail hasil generate Modul Ajar</div>
-            <div class="text-slate-400 text-xs mt-2"> Dibuat pada <span
-                    class="text-gray-900 font-bold">{{ date('d F Y | H:i', strtotime($materialHistory['created_at'])) }}
+            <div class="text-2xl font-semibold text-gray-900">{{ $materialHistory['name'] }}</div>
+            <div class="mt-2 text-sm leading-snug text-gray-500">Detail hasil generate Modul Ajar</div>
+            <div class="mt-2 text-xs text-slate-400"> Dibuat pada <span
+                    class="font-bold text-gray-900">{{ date('d F Y | H:i', strtotime($materialHistory['created_at'])) }}
                 </span>
             </div>
         </div>
 
         @foreach (['informasi_umum', 'sarana_dan_prasarana', 'tujuan_kegiatan_pembelajaran', 'pemahaman_bermakna'] as $section)
-            <div class="text-gray-900 text-lg font-bold bg-gray-100 px-2 py-2 mt-5">
+            <div class="px-2 py-2 mt-5 text-lg font-bold text-gray-900 bg-gray-100">
                 {{ ucwords(str_replace('_', ' ', $section)) }}</div>
             <div class="mt-2">
                 <table class="w-full">
@@ -53,7 +53,7 @@
             </div>
         @endforeach
 
-        <div class="text-gray-900 text-lg font-bold bg-gray-100 px-2 py-2 mt-5">Pertanyaan Pemantik</div>
+        <div class="px-2 py-2 mt-5 text-lg font-bold text-gray-900 bg-gray-100">Pertanyaan Pemantik</div>
         <div class="mt-2">
             <table class="w-full">
                 <tbody class="divide-y divide-gray-200">
@@ -66,11 +66,11 @@
             </table>
         </div>
 
-        <div class="text-gray-900 text-lg font-bold mt-5 bg-gray-100 px-2 py-2">Kegiatan Pembelajaran</div>
+        <div class="px-2 py-2 mt-5 text-lg font-bold text-gray-900 bg-gray-100">Kegiatan Pembelajaran</div>
         @foreach ($materialHistory['output_data']['kompetensi_dasar'] as $kompetensi)
             <div>
                 <ol class="border-t border-gray-200">
-                    <li class="px-6 pt-3 text-left text-sm font-bold text-gray-800 uppercase">
+                    <li class="px-6 pt-3 text-sm font-bold text-left text-gray-800 uppercase">
                         {{ $loop->iteration }}. {{ $kompetensi['nama_kompetensi_dasar'] }}
                     </li>
                 </ol>
@@ -111,16 +111,33 @@
             </div>
         @endforeach
 
+        <div class="px-2 py-2 mt-5 text-lg font-bold text-gray-900 bg-gray-100">Langkah Pembelajaran</div>
+        <div class="mt-2 space-y-4">
+            @foreach ($materialHistory['output_data']['langkah_pembelajaran'] as $key => $items)
+                <div>
+                    <div class="mb-1 font-semibold text-gray-800">
+                        {{ ucwords(str_replace('_', ' ', $key)) }}
+                    </div>
+                    <ol class="pl-6 space-y-1 text-sm text-gray-700 list-decimal">
+                        @foreach ($items as $item)
+                            <li>{{ $item }}</li>
+                        @endforeach
+                    </ol>
+                </div>
+            @endforeach
+        </div>
+
+
         @foreach (['glosarium_materi' => 'Glosarium', 'daftar_pustaka' => 'Daftar Pustaka'] as $key => $title)
-            <div class="text-gray-900 text-lg font-bold mt-5 bg-gray-100 px-2 py-2">{{ $title }}</div>
-            <ol class="list-decimal pl-8">
+            <div class="px-2 py-2 mt-5 text-lg font-bold text-gray-900 bg-gray-100">{{ $title }}</div>
+            <ol class="pl-8 list-decimal">
                 @foreach ($materialHistory['output_data']['lampiran'][$key] as $item)
-                    <li class="text-sm text-gray-800 mb-2">{{ $item }}</li>
+                    <li class="mb-2 text-sm text-gray-800">{{ $item }}</li>
                 @endforeach
             </ol>
         @endforeach
 
-        <div class="mb-7 px-4 sm:px-10 container mx-auto flex flex-row gap-3">
+        <div class="container flex flex-row gap-3 px-4 mx-auto mb-7 sm:px-10">
             <x-export-word generateId="{{ $materialHistory['id'] }}" export="{{ route('export-word') }}" />
             <x-export-excel generateId="{{ $materialHistory['id'] }}" export="{{ route('export-modul-excel') }}" />
         </div>

@@ -85,7 +85,7 @@ class SubscriptionController extends Controller
     {
 
         $response = Http::withToken(session()->get('access_token'))
-            ->get('https://testing.brainys.oasys.id/api/subscription/extra-credit');
+            ->get(env('APP_API') . '/subscription/extra-credit');
 
         // Periksa apakah permintaan HTTP sukses
         if ($response->successful()) {
@@ -100,7 +100,7 @@ class SubscriptionController extends Controller
     public function getAnnualPackages()
 {
     $response = Http::withToken(session()->get('access_token'))
-        ->get('https://testing.brainys.oasys.id/api/subscription/package');
+        ->get(env('APP_API') . '/subscription/package');
 
     if ($response->successful()) {
         $data = $response->json();
@@ -116,7 +116,7 @@ class SubscriptionController extends Controller
     public function getMonthlyPackages()
     {
         $response = Http::withToken(session()->get('access_token'))
-            ->get('https://testing.brainys.oasys.id/api/subscription/package');
+            ->get(env('APP_API') . '/subscription/package');
 
         if ($response->successful()) {
             $data = $response->json();
@@ -193,7 +193,7 @@ class SubscriptionController extends Controller
 
     public function showDetailOrder($transaction_code)
     {
-        $historyUrl = "https://testing.brainys.oasys.id/api/subscription/history/{$transaction_code}";
+        $historyUrl = env('APP_API') . "/subscription/history/{$transaction_code}";
 
         // Fetch data from the detail history endpoint
         $response = Http::withToken(session()->get('access_token'))->get($historyUrl);
@@ -230,7 +230,7 @@ class SubscriptionController extends Controller
     public function getPackages()
 {
     $response = Http::withToken(session()->get('access_token'))
-        ->get('https://testing.brainys.oasys.id/api/user-profile');
+        ->get(env('APP_API') . '/user-profile');
 
     if ($response->successful()) {
         $responseData = $response->json();
@@ -255,7 +255,7 @@ class SubscriptionController extends Controller
     public function getCancelPackages()
     {
         $response = Http::withToken(session()->get('access_token'))
-            ->get('https://testing.brainys.oasys.id/api/subscription/package/cancel');
+            ->get(env('APP_API') . '/subscription/package/cancel');
 
         if ($response->successful()) {
 

@@ -37,7 +37,7 @@ class ViewServiceProvider extends ServiceProvider
 
         View::composer('langganan.paket.bulanan', function ($view) {
             $response = Http::withToken(session()->get('access_token'))
-                ->get('https://testing.brainys.oasys.id/api/subscription/package');
+                ->get(env('APP_API') . '/subscription/package');
 
             $packages = [];
             if ($response->successful()) {
@@ -50,7 +50,7 @@ class ViewServiceProvider extends ServiceProvider
 
         View::composer('langganan.paket.tahunan', function ($view) {
             $response = Http::withToken(session()->get('access_token'))
-                ->get('https://testing.brainys.oasys.id/api/subscription/package');
+                ->get(env('APP_API') . '/subscription/package');
 
             $packages = [];
             if ($response->successful()) {

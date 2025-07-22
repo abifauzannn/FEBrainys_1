@@ -1,5 +1,4 @@
-<section
-    id="package-container"
+<section id="package-container"
     class="w-full md:w-1/3 h-[547px] rounded-md bg-white shadow-lg flex flex-col justify-between border">
     <header>
         <div class="rounded-md bg-[#F9F9F9] py-4 px-7">
@@ -11,32 +10,36 @@
     </header>
 
     <main id="packages" class="flex-grow overflow-y-auto">
-        <p id="loading" class="text-center text-gray-600 mt-10">Memuat data...</p>
+        <p id="loading" class="mt-10 text-center text-gray-600">Memuat data...</p>
     </main>
 
-    <footer class="mb-5 px-7 pt-3" id="footer">
-        <div class="rounded-full bg-blue-600 py-3 px-7">
+    <footer class="pt-3 mb-5 px-7" id="footer">
+        <div class="py-3 bg-blue-600 rounded-full px-7">
             <h3 class="text-[13px] font-['Inter'] text-white">Upgrade Paket</h3>
         </div>
     </footer>
 
     <!-- Modal -->
-    <div id="modal" class="fixed inset-0 bg-gray-900 bg-opacity-50 backdrop-blur-sm flex items-center justify-center hidden z-10">
-        <div class="bg-white rounded-lg p-6 w-96 shadow-lg">
-            <div class="flex justify-between items-start">
+    <div id="modal"
+        class="fixed inset-0 z-10 flex items-center justify-center hidden bg-gray-900 bg-opacity-50 backdrop-blur-sm">
+        <div class="p-6 bg-white rounded-lg shadow-lg w-96">
+            <div class="flex items-start justify-between">
                 <img src="{{ URL('images/sad.png') }}" alt="" class="w-12 h-12" loading="lazy">
-                <button onclick="closeModal()" class="text-gray-500 hover:text-gray-700 text-3xl">&times;</button>
+                <button onclick="closeModal()" class="text-3xl text-gray-500 hover:text-gray-700">&times;</button>
             </div>
             <h2 class="text-[18px] font-semibold font-['Inter']">Apakah anda yakin membatalkan langganan ini?</h2>
             <p class="text-[14px] text-gray-600 mt-2 font-['Inter']">
-                Jika Anda melanjutkan pembatalan, paket Anda akan otomatis berubah ke versi gratis setelah masa aktif saat ini berakhir.
+                Jika Anda melanjutkan pembatalan, paket Anda akan otomatis berubah ke versi gratis setelah masa aktif
+                saat ini berakhir.
             </p>
-            <div class="flex justify-center mt-4 space-x-2 w-full">
+            <div class="flex justify-center w-full mt-4 space-x-2">
                 <form action="{{ route('cancel.packages') }}" method="GET">
-                    <button class="bg-white-200 border border-gray-200 px-4 py-2 rounded-md font-['Inter'] w-full">Ya, Batalkan</button>
+                    <button class="bg-white-200 border border-gray-200 px-4 py-2 rounded-md font-['Inter'] w-full">Ya,
+                        Batalkan</button>
                 </form>
 
-                <button onclick="closeModal()" class="bg-purple-600 text-white px-4 py-2 rounded-md font-['Inter'] w-full">Tidak</button>
+                <button onclick="closeModal()"
+                    class="bg-purple-600 text-white px-4 py-2 rounded-md font-['Inter'] w-full">Tidak</button>
             </div>
         </div>
     </div>
@@ -71,8 +74,8 @@
 
 <script defer>
     document.addEventListener('DOMContentLoaded', function() {
-        const apiEndpoint = `https://testing.brainys.oasys.id/api/user-profile?t=${new Date().getTime()}`;
-        const token = '{{ session()->get("access_token") }}';
+        const apiEndpoint = `{{ env('APP_API') }}/user-profile?t=${new Date().getTime()}`;
+        const token = '{{ session()->get('access_token') }}';
 
         const packageContainer = document.getElementById('packages');
         const footer = document.getElementById('footer');
@@ -121,11 +124,14 @@
                     // Render paket
                     renderPackages(packages);
                 } else {
-                    packageContainer.innerHTML = '<p class="text-center text-gray-600 mt-10">Tidak ada paket aktif.</p>';
-                    footer.innerHTML = '<div class="rounded-full bg-blue-600 py-3 px-7"><h3 class="text-[13px] font-[\'Inter\'] text-white">Upgrade Paket</h3></div>';
+                    packageContainer.innerHTML =
+                        '<p class="mt-10 text-center text-gray-600">Tidak ada paket aktif.</p>';
+                    footer.innerHTML =
+                        '<div class="py-3 bg-blue-600 rounded-full px-7"><h3 class="text-[13px] font-[\'Inter\'] text-white">Upgrade Paket</h3></div>';
                 }
             } catch (error) {
-                packageContainer.innerHTML = `<p class="text-center text-red-600 mt-10">Error: ${error.message}</p>`;
+                packageContainer.innerHTML =
+                    `<p class="mt-10 text-center text-red-600">Error: ${error.message}</p>`;
             } finally {
                 loadingElement.style.display = 'none';
             }
@@ -163,10 +169,10 @@
 
                 packageContainer.innerHTML += `
                 <article class="w-full border-b border-gray-200 px-7 py-7">
-                    <div class="flex flex-row gap-4 items-center">
+                    <div class="flex flex-row items-center gap-4">
                         <img src="/images/paket.png" alt="Paket Image" class="w-12 h-12" loading="lazy">
                         <div class="flex flex-col flex-grow">
-                            <div class="flex flex-row justify-between items-center">
+                            <div class="flex flex-row items-center justify-between">
                                 <h3 class="text-[13px] font-[\'Inter\'] font-semibold">${pkg.package_name}</h3>
                                 <p class="text-[13px] font-[\'Inter\'] text-gray-600">Rp ${new Intl.NumberFormat('id-ID').format(pkg.price)}</p>
                             </div>
@@ -175,7 +181,7 @@
                     </div>
                     ${pkg.package_name !== 'Paket Free' ? `
                     <div class="flex flex-col flex-grow pt-7">
-                        <div class="flex flex-row justify-between items-center">
+                        <div class="flex flex-row items-center justify-between">
                             <p class="text-[13px] font-[\'Inter\'] text-gray-500">
                                 Lakukan Pembayaran <br> sebelum Tgl. ${pkg.expired_at_formatted}
                             </p>
@@ -206,7 +212,7 @@
     `;
             } else if (!isRenewable) {
                 footer.innerHTML = `
-        <div class="text-blue-500 flex flex-row justify-between items-center gap-3">
+        <div class="flex flex-row items-center justify-between gap-3 text-blue-500">
             <img src="{{ URL('images/Vector.svg') }}" alt="" class="w-8 h-8" loading="lazy">
             <h3 class="text-[13px] font-['Inter'] text-gray-500">
                 Anda telah membatalkan paket. Paket ini masih bisa digunakan hingga masa aktifnya berakhir.
@@ -223,7 +229,7 @@
     `;
             } else if (isH3BeforeExpiration) {
                 footer.innerHTML = `
-        <div class="text-blue-500 flex flex-row justify-between items-center gap-4">
+        <div class="flex flex-row items-center justify-between gap-4 text-blue-500">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                 stroke="currentColor" class="w-20 h-20">
                 <path stroke-linecap="round" stroke-linejoin="round"

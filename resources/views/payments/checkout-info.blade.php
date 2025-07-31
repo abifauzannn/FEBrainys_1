@@ -38,16 +38,12 @@
                         </div>
 
                         <div class="flex flex-col gap-2 px-4 py-5">
-
                             <p class="text-black font-['Inter'] text-[13px] mt-3">Metode Pembayaran Lainnya</p>
-
-
-
                             <form id="paymentForm" action="{{ route('proses.pembayaran') }}" method="POST">
                                 @csrf
                                 <!-- <input type="hidden" id="paymentMethodCode" name="paymentMethodCode" value=""> -->
-                                <input type="" id="item_type" name="item_type" value="{{ $item_type }}">
-                                <input type="" id="item_id" name="item_id" value="{{ $item_id }}">
+                                <input type="hidden" id="item_type" name="item_type" value="{{ $item_type }}">
+                                <input type="hidden" id="item_id" name="item_id" value="{{ $item_id }}">
                                 <button id="paymentButton" type="submit"
                                     class="w-full py-4 rounded-md mt-5 font-['Inter'] bg-blue-500 text-white cursor-pointer flex justify-center items-center">
                                     <span id="submitButtonText">Lanjut Pembayaran</span>

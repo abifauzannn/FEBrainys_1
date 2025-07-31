@@ -55,13 +55,13 @@ return [
         'icon' => 'images/rubrik.png',
         'title' => 'Templat Rubrik Nilai',
         'description' => 'Gunakan templat rubrik penilaian siswa',
-        'status' => 'baru',
+        'status' => 'cs',
     ],
     [
         'url' => '',
         'icon' => 'images/surat.png',
         'title' => 'Templat Persuratan',
         'description' => 'Gunakan templat persuratan sekolah dan administrasi',
-        'status' => 'baru',
+        'status' => 'cs',
     ],
 ];

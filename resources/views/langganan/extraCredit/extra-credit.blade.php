@@ -3,8 +3,8 @@
         <section class="w-[95%] h-full rounded-md bg-white shadow-md flex flex-col justify-between border mb-2">
             <main>
                 <article class="w-full px-7 py-7">
-                <p id="packageDisplay" class="text-lg font-semibold text-blue-600 hidden"></p>
-                    <div class="flex flex-col md:flex-row gap-4 items-center">
+                    <p id="packageDisplay" class="hidden text-lg font-semibold text-blue-600"></p>
+                    <div class="flex flex-col items-center gap-4 md:flex-row">
                         <img src="{{ URL('images/credit.png') }}" alt="Paket Image" class="w-12 h-12" loading="lazy">
 
                         <div class="flex flex-col flex-grow">
@@ -24,10 +24,9 @@
                                 class="purchase-btn font-['Inter'] text-center py-2 px-4 bg-white border rounded-full flex items-center justify-center gap-2 w-40"
                                 data-credit-id="{{ $credit['id'] }}">
                                 <span id="submitButtonText-{{ $credit['id'] }}">Beli Sekarang</span>
-                                <div id="loadingSpinner-{{ $credit['id'] }}" class="ml-2 hidden">
-                                    <svg class="animate-spin h-5 w-5 text-gray-400"
-                                        xmlns="http://www.w3.org/2000/svg" fill="none"
-                                        viewBox="0 0 24 24">
+                                <div id="loadingSpinner-{{ $credit['id'] }}" class="hidden ml-2">
+                                    <svg class="w-5 h-5 text-gray-400 animate-spin" xmlns="http://www.w3.org/2000/svg"
+                                        fill="none" viewBox="0 0 24 24">
                                         <circle class="opacity-25" cx="12" cy="12" r="10"
                                             stroke="currentColor" stroke-width="4"></circle>
                                         <path class="opacity-75" fill="currentColor"

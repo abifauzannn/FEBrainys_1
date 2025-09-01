@@ -14,7 +14,7 @@
             <div class="text-lg text-white">Loading...</div>
         </div>
         <div id="welcomePopup"
-            class="fixed top-0 left-0 flex items-center justify-center hidden w-full h-full bg-black bg-opacity-50">
+            class="fixed top-0 left-0 z-10 flex items-center justify-center hidden w-full h-full bg-black bg-opacity-50">
             <div
                 class="bg-white w-[300px] sm:w-[500px] p-5 sm:p-8 rounded-lg shadow-md text-center flex flex-col items-center">
                 <img src="{{ URL('images/invitation.png') }}" alt="Invitation" class="w-[70%] h-full object-cover mb-4"
@@ -68,11 +68,14 @@
                     const otpModal = document.getElementById('otpModal');
 
                     welcomePopup.classList.remove('hidden');
+                    document.body.classList.add('overflow-hidden');
                     codeField.focus();
 
                     document.getElementById('closeWelcomePopup').addEventListener('click', () => {
                         welcomePopup.classList.add('hidden');
                     });
+
+                    document.body.classList.add('overflow-hidden');
 
                     document.getElementById("closeOtpModal").addEventListener('click', () => {
                         otpModal.classList.add("hidden");

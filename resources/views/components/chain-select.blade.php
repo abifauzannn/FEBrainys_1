@@ -35,7 +35,7 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function() {
-        var API_URL = 'https://testing.brainys.oasys.id/api';
+        var API_URL = 'https://be.brainys.oasys.id/api';
         var sessionLevel = $("#schoolLevel").text().trim();
         console.log("Session Level:", sessionLevel); // Ambil session dari HTML
         // var API_URL = 'http://127.0.0.1:8000/api';

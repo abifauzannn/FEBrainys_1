@@ -141,9 +141,6 @@ public function getDetailGamifikasi($idGamifikasi){
         return redirect('/login')->with('error', 'Please log in to fetch material history.');
     }
 
-    // Panggil method getUserLimit() untuk mendapatkan data batas penggunaan
-    $userLimit = $this->getUserLimit();
-
     // Use the authentication token for API request
     $token = session()->get('access_token');
 
@@ -159,7 +156,7 @@ public function getDetailGamifikasi($idGamifikasi){
         if (isset($responseData['data']['output_data'])) {
             $gamifikasiHistory = $responseData['data'];
             // Load view to display material history details
-            return view('detailHistory.gamification', compact('gamifikasiHistory', 'userLimit'));
+            return view('detailHistory.gamification', compact('gamifikasiHistory'));
         } else {
             // Handle the case where the expected structure is not present in the API response
             return redirect('/history')->with('error', $responseData['message']);

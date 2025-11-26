@@ -28,7 +28,7 @@
     @endif
 
     <div class="container w-full mx-auto px-4 py-3 justify-center bg-white border-b border-zinc-200 font-['Inter']">
-        <div class="flex justify-between h-45 items-center">
+        <div class="flex items-center justify-between h-45">
             <div>
                 <a href="/dashboard"><img src="{{ URL('images/newlogo.png') }}" alt=""
                         class="w-[120px] md:w-[140px] object-cover" loading="lazy"></a>
@@ -39,23 +39,23 @@
                         $remainingLimit = $userLimit['limit'] - $userLimit['used'];
                     @endphp
                     <div
-                        class="md:flex flex-row gap-2 items-center border border-zinc-200 rounded-md py-1 px-3 w-auto hidden">
+                        class="flex-row items-center hidden w-auto gap-2 px-3 py-1 border rounded-md md:flex border-zinc-200">
                         <img src="{{ URL('images/sparkles.png') }}" alt="" class="w-5 h-5" loading="lazy">
                         <div class="flex flex-col text-left">
-                            <p class="text-xs text-gray-500 font-semibold">
+                            <p class="text-xs font-semibold text-gray-500">
                                 {{ \Illuminate\Support\Str::words($userLimit['package_name'] ?? 'Tidak ada paket aktif', 2, '') }}
                             </p>
-                            <span class="text-xs text-gray-500 font-semibold">Sisa credit
-                                {{ $userLimit['credit'] }}</span>
+                            <span class="text-xs font-semibold text-gray-500">Sisa credit
+                                {{ $userLimit['credit'] ?? 0 }}</span>
                         </div>
                     </div>
                 @endif
 
                 <div class="flex-col items-start hidden md:block">
-                    <div class="text-gray-900 text-base font-medium font-inter leading-normal">
+                    <div class="text-base font-medium leading-normal text-gray-900 font-inter">
                         {{ session('user')['name'] }}
                     </div>
-                    <div class="text-gray-500 text-sm font-normal font-inter leading-snug">
+                    <div class="text-sm font-normal leading-snug text-gray-500 font-inter">
                         {{ session('user')['profession'] }}
                     </div>
                 </div>
@@ -89,37 +89,37 @@
                                 {{ session('user')['profession'] }}
                             </div>
                             <div
-                                class="md:hidden flex flex-row gap-1 items-center border border-zinc-200 rounded-md py-1 px-3 w-auto my-3">
+                                class="flex flex-row items-center w-auto gap-1 px-3 py-1 my-3 border rounded-md md:hidden border-zinc-200">
                                 <img src="{{ URL('images/sparkles.png') }}" alt="" class="w-5 h-5"
                                     loading="lazy">
                                 <div class="flex flex-col text-left">
-                                    <p class="text-xs  text-gray-500 font-semibold">Paket Free</p>
-                                    <span class="text-xs text-gray-500 font-semibold">Sisa credit
-                                        {{ $userLimit['credit'] }}</span>
+                                    <p class="text-xs font-semibold text-gray-500">Paket Free</p>
+                                    <span class="text-xs font-semibold text-gray-500">Sisa credit
+                                        {{ $userLimit['credit'] ?? 0 }}</span>
                                 </div>
                             </div>
                             <hr class="w-full">
                         </div>
                         <ul>
-                            <li class="flex items-center hover:bg-gray-100 hover:rounded-lg px-1">
+                            <li class="flex items-center px-1 hover:bg-gray-100 hover:rounded-lg">
                                 <img src="{{ URL('images/user-circle.png') }}" alt="" class="w-[20px] h-[20px]"
                                     loading="lazy">
                                 <a href="{{ route('userProfile') }}"
                                     class="block pl-3 py-2 text-[14px] text-slate-500">Profile Pengguna</a>
                             </li>
-                            <li class="flex items-center hover:bg-gray-100 hover:rounded-lg px-1">
+                            <li class="flex items-center px-1 hover:bg-gray-100 hover:rounded-lg">
                                 <img src="{{ URL('images/Union.png') }}" alt="" class="w-[18px] h-[20px]"
                                     loading="lazy">
                                 <a href="{{ route('history') }}"
                                     class="block pl-3.5 py-2 text-[14px] text-slate-500">Riwayat</a>
                             </li>
-                            <li class="flex items-center hover:bg-gray-100 hover:rounded-lg px-1">
+                            <li class="flex items-center px-1 hover:bg-gray-100 hover:rounded-lg">
                                 <img src="{{ URL('images/credit-card.png') }}" alt="" class="w-[18px] h-[20px]"
                                     loading="lazy">
                                 <a href="{{ route('langganan.tagihan') }}"
                                     class="block pl-3.5 py-2 text-[14px] text-slate-500">Langganan</a>
                             </li>
-                            <li class="flex items-center hover:bg-gray-100 hover:rounded-lg px-1">
+                            <li class="flex items-center px-1 hover:bg-gray-100 hover:rounded-lg">
                                 <img src="{{ URL('images/sign-out.svg') }}" alt="" class="w-[20px] h-[20px]"
                                     loading="lazy">
                                 <form action="{{ route('logout') }}" method="get" class="w-full">

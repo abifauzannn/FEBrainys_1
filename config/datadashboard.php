@@ -51,11 +51,11 @@ return [
         'status' => 'baru',
     ],
     [
-        'url' => '',
+        'url' => '/generate-rubrik-nilai',
         'icon' => 'images/rubrik.png',
         'title' => 'Templat Rubrik Nilai',
         'description' => 'Gunakan templat rubrik penilaian siswa',
-        'status' => 'cs',
+        'status' => 'baru',
     ],
     [
         'url' => '',

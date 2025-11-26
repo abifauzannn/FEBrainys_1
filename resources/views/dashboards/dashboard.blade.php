@@ -83,19 +83,7 @@
                 });
             </script>
         @endif
-
-        <div class="w-full h-auto mb-3 sm:mb-0 md:mb-3">
-            <img src="{{ URL('images/newbanner.png') }}" alt="Banner"
-                class="w-full h-[134px] object-cover hidden lg:block p-2" loading="lazy">
-            <div class="bg-gray-900 py-4 px-4 md:py-7 md:px-[51px] gap-3 rounded-2xl lg:hidden">
-                <div class="text-white text-2xl md:text-[32px] font-bold leading-[49.99px]">
-                    Selamat datang
-                </div>
-                <div class="text-sm font-normal leading-tight text-white sm:text-xs">
-                    Brainys merupakan aplikasi AI Text Generation untuk kebutuhan administrasi dan akademik
-                </div>
-            </div>
-        </div>
+        <x-dashboard-carousel />
 
         @php
             $cards = config('datadashboard');

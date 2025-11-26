@@ -45,21 +45,14 @@
         </script>
     @endif
 
-    <div class="container mx-auto px-4 py-6 sm:px-10 sm:py-9 relative">
-        <x-back-button url="{{ route('dashboard') }}" />
-        <x-banner-page-generate title="Templat Bahan Ajar" description="Gunakan template bahan materi pembelajaran" />
-        @if (session('user')['school_level'] == '')
-            <x-alert-jenjang />
-        @endif
+    <x-page-title url="{{ route('dashboard') }}" title="Templat Bahan Ajar"
+        description="Gunakan template bahan materi pembelajaran" />
 
-    </div>
-
-    <div class="flex container mx-auto px-3 sm:px-10 flex-col lg:flex-row">
+    <div class="container flex flex-col px-3 mx-auto sm:px-10 lg:flex-row">
         <div class="w-full lg:w-[500px] flex-col justify-start items-start sm:gap-6 inline-flex h-auto">
             <form action="{{ route('generateBahanAjar') }}" method="post" class="w-full" id="bahanAjarForm">
                 <!-- Input untuk Nama Silabus -->
                 @csrf
-
 
                 <x-generate-field type="text" id="name" name="name" label="Nama Bahan Ajar"
                     placeholder="masukan nama bahan ajar" tooltipId="nameTooltip"
@@ -80,11 +73,10 @@
                     tooltipText="Contoh : Untuk memperkenalkan ke siswa tentang bagaimana solusi mengatasi pemanasan global, penyebab
                pemanasan global dan langkah-langkah mengatasinya" />
 
-
                 <div class="flex justify-end -mt-2">
-                    <div class="self-stretch justify-start items-end gap-5 inline-flex">
+                    <div class="inline-flex items-end self-stretch justify-start gap-5">
                         <div id="characterCount"
-                            class="text-left text-gray-500 text-sm font-normal font-inter leading-snug">0/250</div>
+                            class="text-sm font-normal leading-snug text-left text-gray-500 font-inter">0/250</div>
                     </div>
                 </div>
 
@@ -113,11 +105,10 @@
                         </button>
                     @endif
 
-
                     <button id="loadingButton" disabled type="button"
                         class="h-12 px-6 bg-blue-600 rounded-lg justify-center items-center gap-2.5 inline-flex"
                         style="display: none;">
-                        <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg"
+                        <svg class="w-5 h-5 mr-3 -ml-1 text-white animate-spin" xmlns="http://www.w3.org/2000/svg"
                             fill="none" viewBox="0 0 24 24">
                             <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
                                 stroke-width="4"></circle>
@@ -129,7 +120,7 @@
                     </button>
                 </div>
 
-                <div class="flex flex-row items-center bg-gray-300 my-5 px-2 rounded-md">
+                <div class="flex flex-row items-center px-2 my-5 bg-gray-300 rounded-md">
                     <svg xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 24 24">
                         <g fill="none">
                             <path

@@ -1,8 +1,6 @@
 @extends('layouts.login')
 
-
-
-@section('title', 'Log In Page - Brainys')
+@section('title', 'Brainys – Permudah Administrasi Akademik Guru & Tingkatkan Kualitas Pembelajaran')
 
 @section('content')
     @if (session('user'))
@@ -10,12 +8,12 @@
         window.location.href = "{{ route('dashboard') }}";
         </script>
     @endif
-    <div class="container mx-auto flex items-center justify-around mt-10 sm:h-screen sm:mt-0">
+    <div class="container flex items-center justify-around mx-auto mt-10 sm:h-screen sm:mt-0">
         <div class="hidden lg:block">
             <img class="w-[500px] h-[515px] object-cover" src="{{ URL('images/newonboarding.png') }}" alt="onBoarding" />
         </div>
         <div class="w-full px-5 sm:w-[50%] lg:w-[28%] flex flex-col">
-            <div class="justify-center items-center gap-2 inline-flex mb-9">
+            <div class="inline-flex items-center justify-center gap-2 mb-9">
                 <img src="{{ URL('images/newlogo.png') }}" alt="logo" class="w-[180px] object-cover">
             </div>
             <div>
@@ -27,8 +25,7 @@
 
 
                     <div class="relative mb-4">
-                        <label for="password"
-                            class="text-gray-900 text-base font-semibold font-['Inter'] leading-normal mb-[30px]">Password</label>
+                        <label for="password">Password</label>
                         <input type="password" id="password" name="password"
                             class="w-full p-3 border rounded-md mt-[10px] border-gray-300 placeholder:text-gray-400 text-base font-normal font-['Inter'] leading-normal focus:border-blue-600 focus:border-2 focus:outline-none"
                             placeholder="masukan password anda">
@@ -90,7 +87,7 @@
                             <span id="submitButtonText"
                                 class="text-center text-white text-base font-['Inter'] leading-normal font-semibold">Login</span>
                             <div id="loadingSpinner" class="hidden ml-2">
-                                <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg"
+                                <svg class="w-5 h-5 text-white animate-spin" xmlns="http://www.w3.org/2000/svg"
                                     fill="none" viewBox="0 0 24 24">
                                     <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
                                         stroke-width="4"></circle>
@@ -108,7 +105,7 @@
                     </div>
                 </form>
             </div>
-            <div class="relative flex py-5 lg:py-4 items-center">
+            <div class="relative flex items-center py-5 lg:py-4">
                 <div class="flex-grow border-t border-gray-400"></div>
                 <span class="flex-shrink mx-2 text-gray-400">ATAU</span>
                 <div class="flex-grow border-t border-gray-400"></div>
@@ -123,7 +120,7 @@
             </button>
 
 
-            <div class="h-6 justify-center items-center gap-2 inline-flex">
+            <div class="inline-flex items-center justify-center h-6 gap-2">
                 <div class="text-center text-gray-900 text-base font-medium font-['Inter'] leading-normal">Belum punya
                     akun?</div>
                 <div
@@ -132,9 +129,9 @@
                 </div>
             </div>
 
-            <div class=" justify-center items-center inline-flex pt-4">
+            <div class="inline-flex items-center justify-center pt-4 ">
                 <div>
-                    <img src="{{ URL('images/whatsapp.png') }}" alt="logo" class="w-5 h-5 object-cover mr-2">
+                    <img src="{{ URL('images/whatsapp.png') }}" alt="logo" class="object-cover w-5 h-5 mr-2">
                 </div>
                 <div
                     class="text-center text-blue-600 text-base font-medium font-['Inter'] leading-normal hover:text-blue-700 hover:font-bold flex flex-col">

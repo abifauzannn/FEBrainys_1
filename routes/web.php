@@ -92,6 +92,10 @@ Route::match(['get', 'post'], '/generate-kisi-kisi', [KisiKisiController::class,
 Route::post('/export-kisi-kisi-word', [KisiKisiController::class, 'exportToWord'])->name('export-kisi-kisi-word');
 Route::post('/export-kisi-kisi-excel', [KisiKisiController::class, 'exportToExcel'])->name('export-kisi-kisi-excel');
 
+Route::match(['get', 'post'], '/generate-rubrik-nilai', [RubrikController::class, 'generateRubrik'])
+    ->name('generateRubrik');
+Route::get('/load-history-modul', [RubrikController::class, 'loadModulHistory'])->name('loadModul');
+
 Route::get('/langganan', [RubrikController::class, 'rubrikNilai'])->name('rubrik-nilai');
 
 
@@ -139,14 +143,6 @@ Route::get('/api/check-status/{transaction_code}', [SubscriptionController::clas
 
 
 Route::get('/user-limit', [DashboardController::class, 'showUserLimit'])->name('user.limit');
-
-
-// YourController.php
-
-
-
-
-// Route::get('/langganan/checkout/payment', [SubscriptionController::class, 'showPaymentProcess'])->name('checkout.info');
 
 Route::get('/email-forget-verify', [AuthenticationController::class, 'showEmailForget'])->name('emailForget');
 Route::post('/email-forget-verify', [AuthenticationController::class, 'emailVerify'])->name('emailVerify');

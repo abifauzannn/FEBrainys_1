@@ -62,38 +62,38 @@ class ViewServiceProvider extends ServiceProvider
         });
 
         // Share the user limit data with the 'components.nav' view
-        view()->composer('components.nav', function ($view) {
-    // Nilai default agar tidak pernah null
-    $userLimit = [
-        'limit' => 0,
-        'used' => 0,
-        'credit' => 0,
-        'package_name' => 'Tidak ada paket aktif',
-    ];
+//         view()->composer('components.nav', function ($view) {
+//     // Nilai default agar tidak pernah null
+//     $userLimit = [
+//         'limit' => 0,
+//         'used' => 0,
+//         'credit' => 0,
+//         'package_name' => 'Tidak ada paket aktif',
+//     ];
 
-    try {
-        $response = Http::withToken(session()->get('access_token'))
-            ->get(env('APP_API') . '/user-profile');
+//     try {
+//         $response = Http::withToken(session()->get('access_token'))
+//             ->get(env('APP_API') . '/user-profile');
 
-        if ($response->successful()) {
-            $data = $response->json('data') ?? [];
+//         if ($response->successful()) {
+//             $data = $response->json('data') ?? [];
 
-            $credits = $data['credits'] ?? [];
-            $package = $data['package'][0] ?? [];
+//             $credits = $data['credits'] ?? [];
+//             $package = $data['package'][0] ?? [];
 
-            $userLimit = [
-                'limit' => $credits['limit'] ?? 0,
-                'used' => $credits['used'] ?? 0,
-                'credit' => $credits['credit'] ?? 0,
-                'package_name' => $package['package_name'] ?? 'Tidak ada paket aktif',
-            ];
-        }
-    } catch (\Exception $e) {
-        // Biarkan kosong supaya tidak ganggu tampilan meskipun API gagal
-    }
+//             $userLimit = [
+//                 'limit' => $credits['limit'] ?? 0,
+//                 'used' => $credits['used'] ?? 0,
+//                 'credit' => $credits['credit'] ?? 0,
+//                 'package_name' => $package['package_name'] ?? 'Tidak ada paket aktif',
+//             ];
+//         }
+//     } catch (\Exception $e) {
+//         // Biarkan kosong supaya tidak ganggu tampilan meskipun API gagal
+//     }
 
-    // Kirim data ke view
-    $view->with('userLimit', $userLimit);
-});
+//     // Kirim data ke view
+//     $view->with('userLimit', $userLimit);
+// });
     }
 }

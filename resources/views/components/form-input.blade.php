@@ -10,7 +10,7 @@
 ])
 
 <div class="relative mb-4">
-    <label for="{{ $id }}" class="text-gray-900 text-base font-['Inter'] leading-normal font-semibold">
+    <label for="{{ $id }}">
         {{ $label }}
     </label>
     <input type="{{ $type }}" id="{{ $id }}" name="{{ $name }}"

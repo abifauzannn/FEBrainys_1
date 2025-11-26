@@ -1,6 +1,5 @@
 <div class="mb-4">
-    <label for={{ $id }}
-        class="text-gray-900 text-base font-semibold font-['Inter'] leading-normal mb-[10px]">{{ $label }}</label>
+    <label for={{ $id }}>{{ $label }}</label>
     <button data-tooltip-target="{{ $tooltipId }}" data-tooltip-placement="right" data-tooltip-trigger="click"
         type="button"
         class="text-gray-600 transition-colors duration-200 focus:outline-none dark:text-gray-200 dark:hover:text-blue-400 hover:text-blue-500">
@@ -11,7 +10,7 @@
         </svg>
     </button>
     <div id="{{ $tooltipId }}" role="tooltip"
-        class="w-36 absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
+        class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 w-36 tooltip dark:bg-gray-700">
         {{ $tooltipText }}
         <div class="tooltip-arrow" data-popper-arrow></div>
     </div>

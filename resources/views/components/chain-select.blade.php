@@ -1,184 +1,287 @@
-<p id="schoolLevel" class="hidden">{{ session('user')['school_level'] }}</p>
+<div>
+    <p id="schoolLevel" class="hidden">{{ session('user')['school_level'] }}</p>
 
-<div class="mb-4 form-group">
-    <label for="fase" class="text-gray-900 text-base font-['Inter'] mb-[30px] leading-normal font-semibold">Fase
-        (Kelas)</label>
-    <select id="fase" name="fase" required
-        class="bg-white mt-[10px] font-['Inter'] shadow appearance-none border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-        <option value="" class="">Select Fase</option>
-    </select>
-</div>
+    <!-- FASE DROPDOWN -->
+    <div class="mb-4 form-group">
+        <label for="fase">Fase (Kelas)</label>
+        <div class="relative w-full mt-3 custom-select-wrapper">
+            <button type="button" id="faseBtn" class="w-full custom-select-button">
+                <span id="faseBtnText" class="custom-select-text">Select Fase</span>
+                <svg class="custom-select-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+            </button>
+            <input type="hidden" id="fase" name="fase" required>
 
-<div class="mb-4 form-group">
-    <label for="mata-pelajaran"
-        class="text-gray-900 text-base font-['Inter'] mb-[30px] leading-normal font-semibold">Mata Pelajaran
-    </label>
-    <select id="mata-pelajaran"
-        name="mata-pelajaran"class="bg-white font-['Inter'] mt-[10px] shadow appearance-none  border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-        required disabled>
-        <option value="" class="font">Select Mata Pelajaran</option>
-    </select>
-</div>
+            <div id="faseDropdown" class="hidden custom-select-dropdown">
+                <div class="custom-select-search">
+                    <input type="text" id="faseSearch" class="custom-select-search-input" placeholder="Cari Fase...">
+                </div>
+                <ul id="faseList" class="custom-select-list">
+                    <li class="custom-select-empty">Loading...</li>
+                </ul>
+            </div>
+        </div>
+    </div>
 
-<div class="mb-4 form-group">
-    <label for="element" class="text-gray-900 text-base font-['Inter'] mb-[30px] leading-normal font-semibold">Elemen
-        Capaian
-    </label>
-    <select id="element"
-        name="element"class="bg-white font-['Inter'] mt-[10px] shadow appearance-none  border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-        required disabled>
-        <option value="" class="font">Select Element</option>
-    </select>
-</div>
+    <!-- MATA PELAJARAN DROPDOWN -->
+    <div class="mb-4 form-group lg:max-w-[500px]">
+        <label for="mata-pelajaran">Mata Pelajaran</label>
+        <div class="relative w-full mt-3 custom-select-wrapper">
+            <button type="button" id="mataBtn" class="w-full custom-select-button" disabled>
+                <span id="mataBtnText" class="custom-select-text">Select Mata Pelajaran</span>
+                <svg class="custom-select-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+            </button>
+            <input type="hidden" id="mata-pelajaran" name="mata-pelajaran" required>
 
+            <div id="mataDropdown" class="hidden custom-select-dropdown">
+                <div class="custom-select-search">
+                    <input type="text" id="mataSearch" class="custom-select-search-input"
+                        placeholder="Cari Mata Pelajaran...">
+                </div>
+                <ul id="mataList" class="custom-select-list">
+                    <li class="custom-select-empty">Select Fase terlebih dahulu</li>
+                </ul>
+            </div>
+        </div>
+    </div>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-    $(document).ready(function() {
-        var API_URL = 'https://be.brainys.oasys.id/api';
-        var sessionLevel = $("#schoolLevel").text().trim();
-        console.log("Session Level:", sessionLevel); // Ambil session dari HTML
-        // var API_URL = 'http://127.0.0.1:8000/api';
+    <!-- ELEMEN CAPAIAN DROPDOWN -->
+    <div class="mb-4 form-group">
+        <label for="element">Elemen Capaian</label>
+        <div class="relative w-full mt-3 custom-select-wrapper">
+            <button type="button" id="elementBtn" class="w-full custom-select-button" disabled>
+                <span id="elementBtnText" class="custom-select-text">Select Element</span>
+                <svg class="custom-select-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2">
+                    <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+            </button>
+            <input type="hidden" id="element" name="element" required>
 
-        // Fetch Fase
+            <div id="elementDropdown" class="hidden custom-select-dropdown">
+                <div class="custom-select-search">
+                    <input type="text" id="elementSearch" class="custom-select-search-input"
+                        placeholder="Cari Element...">
+                </div>
+                <ul id="elementList" class="custom-select-list">
+                    <li class="custom-select-empty">Select Mata Pelajaran terlebih dahulu</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        const API_URL = 'https://be.brainys.oasys.id/api';
+        const sessionLevel = $("#schoolLevel").text().trim();
+
+        // Data storage
+        let faseData = [];
+        let mataData = {};
+        let elementData = {};
+
+        // Helper: Format text untuk button
+        function truncateText(text, maxLength = 30) {
+            return text.length > maxLength ? text.substring(0, maxLength) + '...' : text;
+        }
+
+        // Initialize dropdowns
+        function initDropdown(triggerId, dropdownId, listId, searchId) {
+            const trigger = document.getElementById(triggerId);
+            const dropdown = document.getElementById(dropdownId);
+            const search = document.getElementById(searchId);
+            const list = document.getElementById(listId);
+
+            trigger.addEventListener('click', (e) => {
+                e.preventDefault();
+                const isOpen = !dropdown.classList.contains('hidden');
+                closeAllDropdowns();
+                if (!isOpen) {
+                    dropdown.classList.remove('hidden');
+                    trigger.classList.add('active');
+                    search.focus();
+                }
+            });
+
+            search.addEventListener('input', (e) => {
+                const query = e.target.value.toLowerCase();
+                const items = list.querySelectorAll('.custom-select-item');
+                items.forEach(item => {
+                    const text = item.textContent.toLowerCase();
+                    item.style.display = text.includes(query) ? 'block' : 'none';
+                });
+            });
+        }
+
+        function closeAllDropdowns() {
+            document.querySelectorAll('.custom-select-dropdown').forEach(el => {
+                el.classList.add('hidden');
+            });
+            document.querySelectorAll('.custom-select-button').forEach(el => {
+                el.classList.remove('active');
+            });
+        }
+
+        // Load Fase
         $.ajax({
             url: API_URL + "/capaian-pembelajaran/fase",
             method: "POST",
             success: function(response) {
-                console.log("Fase Response:", response); // Debugging di Console
-
                 if (response.status === "success") {
-                    let filteredData = response.data;
+                    faseData = response.data.filter(i => {
+                        if (sessionLevel === "sd" || sessionLevel === "paketa") {
+                            return i.fase.includes("Fase A") || i.fase.includes("Fase B") || i.fase
+                                .includes("Fase C");
+                        }
+                        if (sessionLevel === "smp" || sessionLevel === "paketb") {
+                            return i.fase.includes("Fase D");
+                        }
+                        if (sessionLevel === "sma" || sessionLevel === "smk" || sessionLevel ===
+                            "paketc") {
+                            return i.fase.includes("Fase E") || i.fase.includes("Fase F");
+                        }
+                        return true;
+                    });
 
-                    // Filter hanya untuk SD (Fase A, B, C)
-                    if (sessionLevel === "sd" || sessionLevel === "paketa") {
-                        filteredData = response.data.filter(item =>
-                            item.fase.includes("Fase A") ||
-                            item.fase.includes("Fase B") ||
-                            item.fase.includes("Fase C")
-                        );
-                    }
+                    const faseList = document.getElementById('faseList');
+                    faseList.innerHTML = faseData.map(item =>
+                        `<li class="custom-select-item" data-value="${item.fase}">${item.fase}</li>`
+                    ).join('');
 
-                    if (sessionLevel === "smp" || sessionLevel === "paketb") {
-                        filteredData = response.data.filter(item =>
-                            item.fase.includes("Fase D")
-                        );
-                    }
-
-                    if (sessionLevel === "sma" || sessionLevel === "smk" ||
-                        sessionLevel === "paketc") {
-                        filteredData = response.data.filter(item =>
-                            item.fase.includes("Fase E") || item.fase.includes("Fase F")
-                        );
-                    }
-
-
-                    // Tambahkan opsi ke dropdown
-                    filteredData.forEach(function(item) {
-                        $("#fase").append(new Option(item.fase, item.fase));
+                    // Attach event listeners
+                    document.querySelectorAll('#faseList .custom-select-item').forEach(item => {
+                        item.addEventListener('click', () => selectFase(item.dataset.value));
                     });
                 }
-            },
-        });
-
-        // Fetch Mata Pelajaran based on Fase
-        $("#fase").on("change", function() {
-            let fase = $(this).val();
-            $("#mata-pelajaran")
-                .prop("disabled", true)
-                .empty()
-                .append(new Option("Select Mata Pelajaran", ""));
-
-            if (fase) {
-                $.ajax({
-                    url: API_URL + "/capaian-pembelajaran/mata-pelajaran",
-                    method: "POST",
-                    contentType: "application/json",
-                    data: JSON.stringify({
-                        fase: fase
-                    }),
-                    success: function(response) {
-                        if (response.status === "success") {
-                            $("#mata-pelajaran").prop("disabled", false);
-                            response.data.forEach(function(item) {
-                                $("#mata-pelajaran").append(
-                                    new Option(item.mata_pelajaran, item
-                                        .mata_pelajaran)
-                                );
-                            });
-                        }
-                    },
-                });
             }
         });
 
-        // Fetch Element based on Mata Pelajaran and Fase
-        $("#mata-pelajaran").on("change", function() {
-            let fase = $("#fase").val();
-            let mataPelajaran = $(this).val();
-            $("#element")
-                .prop("disabled", true)
-                .empty()
-                .append(new Option("Select Element", ""));
+        function selectFase(value) {
+            document.getElementById('fase').value = value;
+            document.getElementById('faseBtnText').textContent = truncateText(value);
+            closeAllDropdowns();
+            document.getElementById('faseBtn').classList.remove('active');
 
-            if (fase && mataPelajaran) {
-                $.ajax({
-                    url: API_URL + "/capaian-pembelajaran/element",
-                    method: "POST",
-                    contentType: "application/json",
-                    data: JSON.stringify({
-                        fase: fase,
-                        mata_pelajaran: mataPelajaran,
-                    }),
-                    success: function(response) {
-                        if (response.status === "success") {
-                            $("#element").prop("disabled", false);
-                            response.data.forEach(function(item) {
-                                $("#element").append(
-                                    new Option(item.element, item.element)
-                                );
-                            });
-                        }
-                    },
-                });
+            // Load Mata Pelajaran
+            $.ajax({
+                url: API_URL + "/capaian-pembelajaran/mata-pelajaran",
+                method: "POST",
+                contentType: "application/json",
+                data: JSON.stringify({
+                    fase: value
+                }),
+                success: function(response) {
+                    if (response.status === "success") {
+                        mataData[value] = response.data;
+                        const mataList = document.getElementById('mataList');
+                        mataList.innerHTML = response.data.map(item =>
+                            `<li class="custom-select-item" data-value="${item.mata_pelajaran}">${item.mata_pelajaran}</li>`
+                        ).join('');
+
+                        document.getElementById('mataBtn').disabled = false;
+                        document.getElementById('mataBtn').classList.remove('active');
+                        document.getElementById('mataBtnText').textContent = 'Select Mata Pelajaran';
+                        document.getElementById('mata-pelajaran').value = '';
+
+                        document.querySelectorAll('#mataList .custom-select-item').forEach(item => {
+                            item.addEventListener('click', () => selectMata(item.dataset.value));
+                        });
+                    }
+                }
+            });
+        }
+
+        function selectMata(value) {
+            document.getElementById('mata-pelajaran').value = value;
+            document.getElementById('mataBtnText').textContent = truncateText(value);
+            closeAllDropdowns();
+            document.getElementById('mataBtn').classList.remove('active');
+
+            const fase = document.getElementById('fase').value;
+
+            // Load Element
+            $.ajax({
+                url: API_URL + "/capaian-pembelajaran/element",
+                method: "POST",
+                contentType: "application/json",
+                data: JSON.stringify({
+                    fase,
+                    mata_pelajaran: value
+                }),
+                success: function(response) {
+                    if (response.status === "success") {
+                        const elementList = document.getElementById('elementList');
+                        elementList.innerHTML = response.data.map(item =>
+                            `<li class="custom-select-item" data-value="${item.element}">${item.element}</li>`
+                        ).join('');
+
+                        document.getElementById('elementBtn').disabled = false;
+                        document.getElementById('elementBtn').classList.remove('active');
+                        document.getElementById('elementBtnText').textContent = 'Select Element';
+                        document.getElementById('element').value = '';
+
+                        document.querySelectorAll('#elementList .custom-select-item').forEach(item => {
+                            item.addEventListener('click', () => selectElement(item.dataset.value));
+                        });
+                    }
+                }
+            });
+        }
+
+        function selectElement(value) {
+            document.getElementById('element').value = value;
+            document.getElementById('elementBtnText').textContent = value;
+            closeAllDropdowns();
+            document.getElementById('elementBtn').classList.remove('active');
+        }
+
+        // Initialize
+        initDropdown('faseBtn', 'faseDropdown', 'faseList', 'faseSearch');
+        initDropdown('mataBtn', 'mataDropdown', 'mataList', 'mataSearch');
+        initDropdown('elementBtn', 'elementDropdown', 'elementList', 'elementSearch');
+
+        // Close dropdowns when clicking outside
+        document.addEventListener('click', (e) => {
+            const isClickInside = e.target.closest('.custom-select-wrapper');
+            if (!isClickInside) {
+                closeAllDropdowns();
             }
         });
 
-        // Fetch Capaian Pembelajaran and Capaian Pembelajaran Redaksi based on Element
-        $("#element").on("change", function() {
-            let fase = $("#fase").val();
-            let mataPelajaran = $("#mata-pelajaran").val();
-            let element = $(this).val();
+        const toggle = document.getElementById("disableToggle");
+        const group = document.getElementById("toggleHiddenGroup");
 
-            if (fase && mataPelajaran && element) {
-                $.ajax({
-                    url: API_URL + "/capaian-pembelajaran/final",
-                    method: "POST",
-                    contentType: "application/json",
-                    data: JSON.stringify({
-                        fase: fase,
-                        mata_pelajaran: mataPelajaran,
-                        element: element,
-                    }),
-                    success: function(response) {
-                        if (response.status === "success") {
-                            if (response.data) {
-                                $("#capaian-pembelajaran").val(response.data
-                                    .capaian_pembelajaran || "No data available");
-                                $("#capaian-pembelajaran-redaksi").val(response.data
-                                    .capaian_pembelajaran_redaksi || "No data available"
-                                );
-                            } else {
-                                $("#capaian-pembelajaran").val("No data available");
-                                $("#capaian-pembelajaran-redaksi").val("No data available");
-                            }
-                        } else {
-                            $("#capaian-pembelajaran").val("Error retrieving data");
-                            $("#capaian-pembelajaran-redaksi").val("Error retrieving data");
-                        }
-                    },
-                });
+        const fase = document.getElementById('fase');
+        const mapel = document.getElementById('mata-pelajaran');
+        const element = document.getElementById('element');
+        const topik = document.getElementById('topik_pembelajaran');
+
+        toggle.addEventListener("change", function() {
+            if (this.checked) {
+                group.style.display = "none";
+
+                if (fase) fase.value = "";
+                if (mapel) mapel.value = "";
+                if (element) element.value = "";
+                if (topik) topik.value = "";
+
+                // Reset text button-nya juga
+                const faseBtnText = document.getElementById("faseBtnText");
+                const mataBtnText = document.getElementById("mataBtnText");
+                const elementBtnText = document.getElementById("elementBtnText");
+
+                if (faseBtnText) faseBtnText.textContent = "Select Fase";
+                if (mataBtnText) mataBtnText.textContent = "Select Mata Pelajaran";
+                if (elementBtnText) elementBtnText.textContent = "Select Element";
+
+            } else {
+                group.style.display = "block";
             }
         });
-    });
-</script>
+    </script>
+</div>

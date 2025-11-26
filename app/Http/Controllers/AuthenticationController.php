@@ -153,13 +153,6 @@ class AuthenticationController extends Controller
         }
     }
 
-
-
-
-
-
-
-
     public function resendOTP(Request $request)
     {
         $response = Http::post(env('APP_API').'/resend-otp', [
@@ -403,7 +396,7 @@ class AuthenticationController extends Controller
         }
     }
 
-    
+
 
 
     public function login(Request $request)
@@ -509,7 +502,7 @@ class AuthenticationController extends Controller
             session(['access_token' => $result['token'], 'user' => $profileData['data']]);
 
             // Panggil metode getInfoPackages untuk mendapatkan data paket
-       
+
             // Redirect ke halaman dashboard atau halaman setelah login
             if (
                 $profileData['data']['name'] === null ||

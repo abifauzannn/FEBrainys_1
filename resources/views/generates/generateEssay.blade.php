@@ -19,15 +19,10 @@
         $skema = [['value' => 'essay', 'label' => 'Essay'], ['value' => 'multiple_choice', 'label' => 'Pilihan Ganda']];
     @endphp
 
-    <div class="container mx-auto px-4 py-6 sm:px-10 sm:py-9 relative">
-        <x-back-button url="{{ route('dashboard') }}" />
-        <x-banner-page-generate title="Templat Latihan Soal" description="Gunakan templat soal kurikulum merdeka" />
-        @if (session('user')['school_level'] == '')
-            <x-alert-jenjang />
-        @endif
-    </div>
+    <x-page-title url="{{ route('dashboard') }}" title="Templat Latihan Soal"
+        description="Gunakan templat soal kurikulum merdeka" />
 
-    <div class="flex container mx-auto px-3 sm:px-10 flex-col lg:flex-row">
+    <div class="container flex flex-col px-3 mx-auto sm:px-10 lg:flex-row">
         <div class="w-full lg:w-[500px] flex-col justify-start items-start sm:gap-6 inline-flex h-auto">
             <form action="{{ route('generateEssay') }}" method="post" class="w-full" id="modulAjarForm">
                 @csrf
@@ -41,7 +36,7 @@
                 <x-chain-select />
 
                 <div class="mb-4 form-group">
-                    <label for="numberOfQuestion" class="text-gray-900 text-base font-semibold mb-2 leading-normal">Jumlah
+                    <label for="numberOfQuestion" class="mb-2 text-base font-semibold leading-normal text-gray-900">Jumlah
                         Soal</label>
                     <input type="number" id="numberOfQuestion" name="numberOfQuestion" min="1" max="15"
                         required placeholder="Masukkan jumlah soal"
@@ -54,10 +49,10 @@
                     placeholder="Masukkan kisi-kisi atau deskripsi pada soal"
                     tooltipText="Contoh: Buatkan sesuai materi elemen" />
 
-                <div class="flex justify-between items-center -mt-2">
-                    <div class="self-stretch justify-start items-end gap-5 inline-flex">
+                <div class="flex items-center justify-between -mt-2">
+                    <div class="inline-flex items-end self-stretch justify-start gap-5">
                         <div id="characterCount"
-                            class="text-left text-gray-500 text-sm font-normal font-inter leading-snug">0/250</div>
+                            class="text-sm font-normal leading-snug text-left text-gray-500 font-inter">0/250</div>
                     </div>
                 </div>
 
@@ -65,7 +60,7 @@
                     <button type="button" onclick="clearInputs()"
                         class="group h-12 px-6 bg-white rounded-lg justify-center items-center gap-2.5 inline-flex border border-gray-900 hover:bg-gray-900 hover:border-white hover:text-white transition duration-300 ease-in-out">
                         <svg width="20" height="20" viewBox="0 0 20 20"
-                            class="group-hover:fill-white transition duration-300 ease-in-out"
+                            class="transition duration-300 ease-in-out group-hover:fill-white"
                             xmlns="http://www.w3.org/2000/svg">
                             <path fill-rule="evenodd" clip-rule="evenodd"
                                 d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM8.28033 7.21967C7.98744 6.92678 7.51256 6.92678 7.21967 7.21967C6.92678 7.51256 6.92678 7.98744 7.21967 8.28033L8.93934 10L7.21967 11.7197C6.92678 12.0126 6.92678 12.4874 7.21967 12.7803C7.51256 13.0732 7.98744 13.0732 8.28033 12.7803L10 11.0607L11.7197 12.7803C12.0126 13.0732 12.4874 13.0732 12.7803 12.7803C13.0732 12.4874 13.0732 12.0126 12.7803 11.7197L11.0607 10L12.7803 8.28033C13.0732 7.98744 13.0732 7.51256 12.7803 7.21967C12.4874 6.92678 12.0126 6.92678 11.7197 7.21967L10 8.93934L8.28033 7.21967Z" />
@@ -94,7 +89,7 @@
                     <button id="loadingButton" disabled type="button"
                         class="h-12 px-6 bg-blue-600 rounded-lg justify-center items-center gap-2.5 inline-flex"
                         style="display: none;">
-                        <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg"
+                        <svg class="w-5 h-5 mr-3 -ml-1 text-white animate-spin" xmlns="http://www.w3.org/2000/svg"
                             fill="none" viewBox="0 0 24 24">
                             <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
                                 stroke-width="4"></circle>
@@ -106,7 +101,7 @@
                     </button>
                 </div>
 
-                <div class="flex flex-row items-center bg-gray-300 my-5 px-2 rounded-md">
+                <div class="flex flex-row items-center px-2 my-5 bg-gray-300 rounded-md">
                     <svg xmlns="http://www.w3.org/2000/svg" width="15px" height="15px" viewBox="0 0 24 24">
                         <g fill="none">
                             <path

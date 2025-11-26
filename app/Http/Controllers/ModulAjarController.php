@@ -32,8 +32,6 @@ class ModulAjarController extends Controller
             return redirect('/login')->with('error', 'Please log in to generate syllabus.');
         }
 
-
-
         if ($request->isMethod('post')) {
             // Form submission
             $token = session()->get('access_token');

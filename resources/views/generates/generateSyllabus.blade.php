@@ -44,15 +44,8 @@
         </script>
     @endif
 
-    <div class="container px-4 py-6 mx-auto sm:px-10 sm:py-9">
-        <x-back-button url="{{ route('dashboard') }}" />
-        <x-banner-page-generate title="Templat Silabus" description="Gunakan template Silabus kurikulum merdeka" />
-        @if (session('user')['school_level'] == '')
-            <x-alert-jenjang />
-        @endif
-    </div>
-
-
+    <x-page-title url="{{ route('dashboard') }}" title="Templat Silabus"
+        description="Gunakan template Silabus kurikulum merdeka" />
 
     <div class="container flex flex-col px-3 mx-auto sm:px-10 lg:flex-row">
         <div class="w-full lg:w-[500px] flex-col justify-start items-start sm:gap-6 inline-flex">

@@ -16,7 +16,7 @@
     <!-- Display the session data in tables -->
     @if (isset($data['informasi_umum']) && !empty($data['informasi_umum']))
         <div class="mt-5 overflow-x-auto">
-            <table class="w-full bg-white ">
+            <table class="w-full bg-white border">
                 <thead class="bg-slate-50">
                     <tr>
                         <th class="px-6 py-3 text-sm font-bold text-left text-gray-800 uppercase" colspan="2">

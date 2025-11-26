@@ -1,7 +1,7 @@
 @props(['onclick', 'icon', 'title', 'description', 'status'])
 
 @php
-    $isDisabled = in_array($title, ['Templat Rubrik Nilai', 'Templat Persuratan']);
+    $isDisabled = in_array($title, ['Templat Persuratan']);
 @endphp
 
 @if ($status == 'baru' || $status == 'old')

@@ -9,39 +9,47 @@ use Illuminate\Support\Facades\Http;
 class DashboardController extends Controller
 {
     public function dashboard()
-    {
-        // Periksa apakah kunci 'user' ada dalam sesi
-        ini_set('max_execution_time', 300);
-        if (session()->has('user')) {
-            // Ambil data pengguna dari sesi
-            $userData = session('user');
+{
+    \Log::info('Dashboard start: ' . microtime(true));
 
-            return view('dashboards.dashboard', compact('userData'));
-        } else {
-            // Redirect ke halaman login jika kunci 'user' tidak ada dalam sesi
-            return redirect('/login');
-        }
+    ini_set('max_execution_time', 300);
+
+    if (session()->has('user')) {
+        \Log::info('Dashboard before view: ' . microtime(true));
+        $userData = session('user');
+        return view('dashboards.dashboard', compact('userData'));
     }
+
+    return redirect('/login');
+}
 
     public function getUserLimit()
     {
-        return Cache::remember('limit_user', 10, function () {
-            $response = Http::withToken(session()->get('access_token'))
-                ->get(env('APP_API') . '/user-status');
 
-            if ($response->successful()) {
-                $data = $response->json()['data'];
+        $response = Http::withToken(session('access_token'))
+            ->get(env('APP_API') . '/user-profile');
 
-                // Ambil hanya data 'limit' dan 'used' dari 'all'
-                return [
-                    'limit' => $data['all']['limit'] ?? null,
-                    'used' => $data['all']['used'] ?? null,
-                    'credit' => $data['all']['credit'] ?? null
-                ];
-            } else {
-                return null;
-            }
-        });
+        if ($response->successful()) {
+            $data = $response->json('data') ?? [];
+
+            $userLimit = [
+                'limit'        => $data['credits']['limit'] ?? 0,
+                'used'         => $data['credits']['used'] ?? 0,
+                'credit'       => $data['credits']['credit'] ?? 0,
+                'package_name' => $data['package'][0]['package_name'] ?? 'Tidak ada paket aktif',
+            ];
+
+            session(['user_limit_cache' => $userLimit]);
+
+            return response()->json($userLimit);
+        }
+
+        return response()->json(session('user_limit_cache', [
+            'limit'        => 0,
+            'used'         => 0,
+            'credit'       => 0,
+            'package_name' => 'Tidak ada paket aktif',
+        ]));
     }
 
 

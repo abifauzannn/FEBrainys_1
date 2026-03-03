@@ -34,24 +34,21 @@
                         class="w-[120px] md:w-[140px] object-cover" loading="lazy"></a>
             </div>
             <div class="flex items-center space-x-4">
-                @if (isset($userLimit))
-                    @php
-                        $remainingLimit = $userLimit['limit'] - $userLimit['used'];
-                    @endphp
-                    <div
-                        class="flex-row items-center hidden w-auto gap-2 px-3 py-1 border rounded-md md:flex border-zinc-200">
-                        <img src="{{ URL('images/sparkles.png') }}" alt="" class="w-5 h-5" loading="lazy">
-                        <div class="flex flex-col text-left">
-                            <p class="text-xs font-semibold text-gray-500">
-                                {{ \Illuminate\Support\Str::words($userLimit['package_name'] ?? 'Tidak ada paket aktif', 2, '') }}
-                            </p>
-                            <span class="text-xs font-semibold text-gray-500">Sisa credit
-                                {{ $userLimit['credit'] ?? 0 }}</span>
-                        </div>
-                    </div>
-                @endif
 
-                <div class="flex-col items-start hidden md:block">
+                <div
+                    class="flex-row items-center hidden w-auto gap-2 px-3 py-1 border rounded-md md:flex border-zinc-200">
+                    <img src="{{ URL('images/sparkles.png') }}" alt="" class="w-5 h-5" loading="lazy">
+                    <div class="flex flex-col text-left">
+                        <p id="nav-package-name" class="text-xs font-semibold text-gray-500">
+                            {{ session('user_limit_cache.package_name', 'Tidak ada paket aktif') }}
+                        </p>
+                        <span id="nav-credit" class="text-xs font-semibold text-gray-500">
+                            Sisa credit {{ session('user_limit_cache.credit', 0) }}
+                        </span>
+                    </div>
+                </div>
+
+                <div class="flex-col items-start hidden md:block fontb">
                     <div class="text-base font-medium leading-normal text-gray-900 font-inter">
                         {{ session('user')['name'] }}
                     </div>
@@ -152,6 +149,23 @@
                     }
                 });
             }
+        });
+
+        window.addEventListener('load', () => {
+            fetch('/user/limit', {
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                        'Accept': 'application/json',
+                    }
+                })
+                .then(res => res.json())
+                .then(data => {
+                    const packageEl = document.getElementById('nav-package-name');
+                    const creditEl = document.getElementById('nav-credit');
+
+                    if (packageEl) packageEl.textContent = data.package_name;
+                    if (creditEl) creditEl.textContent = `Sisa credit ${data.credit}`;
+                });
         });
     </script>
 

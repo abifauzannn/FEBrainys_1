@@ -8,14 +8,12 @@ use App\Http\Controllers\EssayController;
 use App\Http\Controllers\GamifikasiController;
 use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\KisiKisiController;
-use App\Http\Controllers\LanggananController;
 use App\Http\Controllers\ModulAjarController;
 use App\Http\Controllers\RubrikController;
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\SyllabusController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
-
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 /*
@@ -29,12 +27,9 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 |
 */
 
-
-
 Route::get('/signup', function () {
     return view('authentications.signup');
 });
-
 
 Route::get('/generate', function () {
     return view('syllabus.generate');
@@ -54,8 +49,6 @@ Route::get('/change-password', function () {
 
 Route::get('/', [AuthenticationController::class, 'showLoginForm']);
 Route::get('/login', [AuthenticationController::class, 'showLoginForm'])->name('login');
-
-
 
 Route::get('/verify-otp', [AuthenticationController::class, 'showVerificationForm'])->name('verify.otp');
 Route::post('/verify-otp', [AuthenticationController::class, 'verifyOTP'])->name('verify.otp.post');
@@ -79,7 +72,6 @@ Route::get('/output-modul-ajar', function () {
 Route::post('/export-word', [ModulAjarController::class, 'exportToWord'])->name('export-word');
 Route::post('/export-excel', [ModulAjarController::class, 'exportToExcel'])->name('export-modul-excel');
 
-
 Route::match(['get', 'post'], '/generate-bahan-ajar', [BahanAjarController::class, 'generateBahanAjar'])->name('generateBahanAjar');
 Route::post('/export-bahan-ajar', [BahanAjarController::class, 'exportToWord'])->name('export-bahan-ajar');
 Route::post('/export-bahan-ajar-ppt', [BahanAjarController::class, 'exportToPpt'])->name('export-bahanAjar-ppt');
@@ -95,21 +87,18 @@ Route::post('/export-kisi-kisi-excel', [KisiKisiController::class, 'exportToExce
 Route::match(['get', 'post'], '/generate-rubrik-nilai', [RubrikController::class, 'generateRubrik'])
     ->name('generateRubrik');
 Route::get('/load-history-modul', [RubrikController::class, 'loadModulHistory'])->name('loadModul');
-
-Route::get('/langganan', [RubrikController::class, 'rubrikNilai'])->name('rubrik-nilai');
-
+Route::post('/export-rubrik-nilai-word', [RubrikController::class, 'exportToWord'])->name('export-rubrik-nilai-word');
+Route::post('/export-rubrik-nilai-excel', [RubrikController::class, 'exportToExcel'])->name('export-rubrik-nilai-excel');
 
 Route::match(['get', 'post'], '/generate-atp', [AtpController::class, 'generateAtp'])->name('generateAtp');
 Route::post('/export-atp-word', [AtpController::class, 'exportToWord'])->name('export-atp-word');
 Route::post('/export-atp-excel', [AtpController::class, 'exportToExcel'])->name('export-atp-excel');
-
 
 Route::match(['get', 'post'], '/generate-essay', [EssayController::class, 'generateEssay'])->name('generateEssay');
 Route::get('/output-essay', function () {
     return view('outputGenerates.outputExercise');
 })->name('outputEssay');
 Route::post('/export-essay', [EssayController::class, 'exportToWord'])->name('export-essay');
-
 
 Route::match(['get', 'post'], '/generate-syllabus', [SyllabusController::class, 'generateSyllabus'])->name('generateSyllabus');
 Route::get('/output-syllabus', function () {
@@ -141,7 +130,6 @@ Route::get('/payment/stream/{transaction_code}', [SubscriptionController::class,
 // routes/web.
 Route::get('/api/check-status/{transaction_code}', [SubscriptionController::class, 'checkStatus'])->name('api.check-status');
 
-
 Route::get('/user-limit', [DashboardController::class, 'showUserLimit'])->name('user.limit');
 
 Route::get('/email-forget-verify', [AuthenticationController::class, 'showEmailForget'])->name('emailForget');
@@ -170,9 +158,6 @@ Route::get('/history/gamifikasi/{idGamifikasi}', [GamifikasiController::class, '
 Route::get('/history/kisi-kisi/{id}', [KisiKisiController::class, 'getDetailKisi'])->name('detailKisi');
 Route::get('/history/atp/{id}', [AtpController::class, 'getDetailAtp'])->name('detailAtp');
 
-
-
-
 Route::post('/reedem-code', [AuthenticationController::class, 'verifyInvitationCode'])->name('reedemCode');
 
 Route::get('/api/fases', [KisiKisiController::class, 'getFases']);
@@ -182,14 +167,12 @@ Route::get('/api/final', [KisiKisiController::class, 'getFinal']);
 
 Route::get('/sukses', [SubscriptionController::class, 'success'])->name('success');
 
-
 Route::get('/user-limit', [DashboardController::class, 'getLimit']);
 
 Route::get('/subscription-packages/annually', [SubscriptionController::class, 'getAnnualPackages']);
 Route::get('/subscription-packages/monthly', [SubscriptionController::class, 'getMonthlyPackages']);
 Route::get('/getpackages', [SubscriptionController::class, 'getPackages']);
 Route::get('/getCancelPackages', [SubscriptionController::class, 'getCancelPackages'])->name('cancel.packages');
-
 
 Route::get('/modul-charges', [ModulAjarController::class, 'getCreditCharges']);
 Route::get('/get-credit-charges/modulAjar', [ModulAjarController::class, 'getCreditCharges'])->name('get.credit.charges.modulAjar');
@@ -200,18 +183,5 @@ Route::get('/get-credit-charges/gamifikasi', [GamifikasiController::class, 'getC
 Route::get('/get-credit-charges/kisi', [KisiKisiController::class, 'getCreditCharges'])->name('get.credit.charges.kisi');
 Route::get('/get-credit-charges/atp', [AtpController::class, 'getCreditCharges'])->name('get.credit.charges.atp');
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// routes/web.php
+Route::get('/user/limit', [DashboardController::class, 'getUserLimit']);

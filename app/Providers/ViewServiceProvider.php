@@ -2,14 +2,10 @@
 
 namespace App\Providers;
 
-use App\Http\Controllers\AuthenticationController;
+use App\Http\Controllers\SubscriptionController;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\SubscriptionController;
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Http;
-use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 class ViewServiceProvider extends ServiceProvider
 {
@@ -27,17 +23,15 @@ class ViewServiceProvider extends ServiceProvider
     public function boot(): void
     {
 
-
         View::composer('langganan.extraCredit.extra-credit', function ($view) {
-            $subscriptionController = new SubscriptionController();
+            $subscriptionController = new SubscriptionController;
             $credits = $subscriptionController->getExtraCredit();
             $view->with('credits', $credits);
         });
 
-
         View::composer('langganan.paket.bulanan', function ($view) {
             $response = Http::withToken(session()->get('access_token'))
-                ->get(env('APP_API') . '/subscription/package');
+                ->get(env('APP_API').'/subscription/package');
 
             $packages = [];
             if ($response->successful()) {
@@ -50,7 +44,7 @@ class ViewServiceProvider extends ServiceProvider
 
         View::composer('langganan.paket.tahunan', function ($view) {
             $response = Http::withToken(session()->get('access_token'))
-                ->get(env('APP_API') . '/subscription/package');
+                ->get(env('APP_API').'/subscription/package');
 
             $packages = [];
             if ($response->successful()) {
@@ -61,39 +55,49 @@ class ViewServiceProvider extends ServiceProvider
             $view->with('packages', $packages);
         });
 
-        // Share the user limit data with the 'components.nav' view
-//         view()->composer('components.nav', function ($view) {
-//     // Nilai default agar tidak pernah null
-//     $userLimit = [
-//         'limit' => 0,
-//         'used' => 0,
-//         'credit' => 0,
-//         'package_name' => 'Tidak ada paket aktif',
-//     ];
+    //     //    Share the user limit data with the 'components.nav' view
+        // view()->composer('components.nav', function ($view) {
+        //     // Nilai default agar tidak pernah null
+        //     $userLimit = [
+        //         'limit' => 0,
+        //         'used' => 0,
+        //         'credit' => 0,
+        //         'package_name' => 'Tidak ada paket aktif',
+        //     ];
 
-//     try {
-//         $response = Http::withToken(session()->get('access_token'))
-//             ->get(env('APP_API') . '/user-profile');
+        //     try {
+        //         $response = Http::withToken(session()->get('access_token'))
+        //             ->get(env('APP_API').'/user-profile');
 
-//         if ($response->successful()) {
-//             $data = $response->json('data') ?? [];
+        //         if ($response->successful()) {
+        //             $data = $response->json('data') ?? [];
 
-//             $credits = $data['credits'] ?? [];
-//             $package = $data['package'][0] ?? [];
+        //             $credits = $data['credits'] ?? [];
+        //             $package = $data['package'][0] ?? [];
 
-//             $userLimit = [
-//                 'limit' => $credits['limit'] ?? 0,
-//                 'used' => $credits['used'] ?? 0,
-//                 'credit' => $credits['credit'] ?? 0,
-//                 'package_name' => $package['package_name'] ?? 'Tidak ada paket aktif',
-//             ];
-//         }
-//     } catch (\Exception $e) {
-//         // Biarkan kosong supaya tidak ganggu tampilan meskipun API gagal
-//     }
+        //             $userLimit = [
+        //                 'limit' => $credits['limit'] ?? 0,
+        //                 'used' => $credits['used'] ?? 0,
+        //                 'credit' => $credits['credit'] ?? 0,
+        //                 'package_name' => $package['package_name'] ?? 'Tidak ada paket aktif',
+        //             ];
+        //         }
+        //     } catch (\Exception $e) {
+        //         // Biarkan kosong supaya tidak ganggu tampilan meskipun API gagal
+        //     }
 
-//     // Kirim data ke view
-//     $view->with('userLimit', $userLimit);
-// });
+        //     // Kirim data ke view
+        //     $view->with('userLimit', $userLimit);
+        // });
+
+        // view()->composer('components.nav', function ($view) {
+        //     $view->with('userLimit', session('user_limit_cache', [
+        //         'limit'        => 0,
+        //         'used'         => 0,
+        //         'credit'       => 0,
+        //         'package_name' => 'Tidak ada paket aktif',
+        //     ]));
+        // });
     }
 }
+

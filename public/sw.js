@@ -1,4 +1,4 @@
-const CACHE_NAME = "febrainys-cache-v1";
+const CACHE_NAME = "staging-cache-v1";
 
 self.addEventListener("install", (event) => {
     self.skipWaiting();

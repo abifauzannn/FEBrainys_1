@@ -1,6 +1,6 @@
 {
-    "name": "Brainys",
-    "short_name": "Brainys",
+    "name": "Brainys Staging",
+    "short_name": "Brainys Staging",
     "description": "Brainys Application",
     "start_url": "/",
     "display": "standalone",

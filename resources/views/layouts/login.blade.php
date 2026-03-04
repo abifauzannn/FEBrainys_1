@@ -13,16 +13,12 @@
     <meta name="author" content="Oasys Edutech Indonesia">
     <link rel="canonical" href="https://brainys.oasys.id/login">
 
-    <meta name="theme-color" content="#4F46E5">
+    <meta name="theme-color" content="#1D4ED8">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <meta name="apple-mobile-web-app-title" content="Nama App">
-
-    <!-- Manifest -->
+    <meta name="apple-mobile-web-app-title" content="{{ env('APP_NAME') }}">
     <link rel="manifest" href="/manifest.json">
-
-    <!-- Apple Touch Icon -->
     <link rel="apple-touch-icon" href="/images/newicon.png">
 
     <title>@yield('title', 'Brainys – Permudah Administrasi Akademik Guru, Tingkatkan Kualitas Pembelajaran!')</title>

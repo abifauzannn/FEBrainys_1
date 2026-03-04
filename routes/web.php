@@ -185,3 +185,28 @@ Route::get('/get-credit-charges/atp', [AtpController::class, 'getCreditCharges']
 
 // routes/web.php
 Route::get('/user/limit', [DashboardController::class, 'getUserLimit']);
+
+Route::get('/manifest.json', function () {
+    return response()->json([
+        'name'              => env('APP_NAME'),  // Brainys Staging / Brainys
+        'short_name'        => env('APP_NAME'),  // Brainys Staging / Brainys
+        'description'      => 'Brainys Application',
+        'start_url'        => '/',
+        'display'          => 'standalone',
+        'background_color' => '#ffffff',
+        'theme_color'      => '#1D4ED8',
+        'orientation'      => 'portrait',
+        'icons'            => [
+            [
+                'src'   => '/images/newicon.png',
+                'sizes' => '192x192',
+                'type'  => 'image/png',
+            ],
+            [
+                'src'   => '/images/newicon.png',
+                'sizes' => '512x512',
+                'type'  => 'image/png',
+            ],
+        ],
+    ])->header('Content-Type', 'application/manifest+json');
+});

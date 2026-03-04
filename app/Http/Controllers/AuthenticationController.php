@@ -459,7 +459,12 @@ class AuthenticationController extends Controller
     public function logout()
     {
         // Hapus data sesi
-        Session::forget(['access_token', 'user', 'package']);
+        Session::forget([
+            'access_token',
+            'user',
+            'package',
+            'user_limit_cache'  // tambah ini
+        ]);
 
         // Redirect ke halaman login
         return redirect('/login');

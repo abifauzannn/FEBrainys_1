@@ -90,9 +90,10 @@
                                 <img src="{{ URL('images/sparkles.png') }}" alt="" class="w-5 h-5"
                                     loading="lazy">
                                 <div class="flex flex-col text-left">
-                                    <p class="text-xs font-semibold text-gray-500">Paket Free</p>
-                                    <span class="text-xs font-semibold text-gray-500">Sisa credit
-                                        {{ $userLimit['credit'] ?? 0 }}</span>
+                                    <p id="nav-package-name-2" class="text-xs font-semibold text-gray-500">
+                                        {{ session('user_limit_cache.package_name', 'Tidak ada paket aktif') }}</p>
+                                    <span id="nav-credit-2" class="text-xs font-semibold text-gray-500">Sisa credit
+                                        {{ session('user_limit_cache.credit', 0) }}</span>
                                 </div>
                             </div>
                             <hr class="w-full">
@@ -163,8 +164,13 @@
                     const packageEl = document.getElementById('nav-package-name');
                     const creditEl = document.getElementById('nav-credit');
 
+                    const packageEl2 = document.getElementById('nav-package-name-2');
+                    const creditEl2 = document.getElementById('nav-credit-2');
+
                     if (packageEl) packageEl.textContent = data.package_name;
                     if (creditEl) creditEl.textContent = `Sisa credit ${data.credit}`;
+                    if (packageEl2) packageEl2.textContent = data.package_name;
+                    if (creditEl2) creditEl2.textContent = `Sisa credit ${data.credit}`;
                 });
         });
     </script>

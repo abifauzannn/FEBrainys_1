@@ -44,10 +44,10 @@
 
                     @foreach ($informasiUmum as $key => $label)
                         <tr>
-                            <td class="px-6 py-4 text-sm font-semibold text-gray-800 dark:text-gray-200 bg-slate-50">
+                            <td class="px-6 py-4 text-sm font-semibold text-gray-800   bg-slate-50">
                                 {{ $label }}
                             </td>
-                            <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">
+                            <td class="px-6 py-4 text-sm text-gray-800  ">
                                 {{ is_array($data['informasi_umum'][$key]) ? json_encode($data['informasi_umum'][$key]) : htmlspecialchars($data['informasi_umum'][$key]) }}
                             </td>
                         </tr>
@@ -70,10 +70,10 @@
                 <tbody class="divide-y divide-gray-200">
                     @foreach ($data['sarana_dan_prasarana'] as $key => $value)
                         <tr>
-                            <td class="px-6 py-4 text-sm font-semibold text-gray-800 dark:text-gray-200 bg-slate-50">
+                            <td class="px-6 py-4 text-sm font-semibold text-gray-800   bg-slate-50">
                                 {{ str_replace(' ', ' ', ucwords(str_replace('_', ' ', $key))) }}
                             </td>
-                            <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">
+                            <td class="px-6 py-4 text-sm text-gray-800  ">
                                 {{ $value }}
                             </td>
                         </tr>
@@ -96,10 +96,10 @@
                 <tbody class="divide-y divide-gray-200">
                     @foreach ($data['tujuan_kegiatan_pembelajaran'] as $key => $value)
                         <tr>
-                            <td class="px-6 py-4 text-sm font-semibold text-gray-800 dark:text-gray-200 bg-slate-50">
+                            <td class="px-6 py-4 text-sm font-semibold text-gray-800   bg-slate-50">
                                 {{ str_replace('_', ' ', ucwords(str_replace('_', ' ', $key))) }}
                             </td>
-                            <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">
+                            <td class="px-6 py-4 text-sm text-gray-800  ">
                                 @if (is_array($value))
                                     <ol>
                                         @foreach ($value as $item)
@@ -130,10 +130,10 @@
                 <tbody class="divide-y divide-gray-200">
                     @foreach ($data['pemahaman_bermakna'] as $key => $value)
                         <tr>
-                            <td class="px-6 py-4 text-sm font-semibold text-gray-800 dark:text-gray-200 bg-slate-50">
+                            <td class="px-6 py-4 text-sm font-semibold text-gray-800   bg-slate-50">
                                 {{ str_replace(' ', ' ', ucwords(str_replace('_', ' ', $key))) }}
                             </td>
-                            <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">
+                            <td class="px-6 py-4 text-sm text-gray-800  ">
                                 {{ $value }}
                             </td>
                         </tr>
@@ -156,7 +156,7 @@
                 <tbody class="divide-y divide-gray-200">
                     @foreach ($data['pertanyaan_pemantik'] as $index => $pertanyaan)
                         <tr>
-                            <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">
+                            <td class="px-6 py-4 text-sm text-gray-800  ">
                                 {{ $index + 1 }}. {{ $pertanyaan }}
                             </td>
                         </tr>

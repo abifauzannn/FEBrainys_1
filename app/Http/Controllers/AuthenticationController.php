@@ -252,11 +252,6 @@ class AuthenticationController extends Controller
         }
     }
 
-
-
-
-
-
     public function showVerificationForm(Request $request)
     {
         $email = $request->query('email') ?? session('email');

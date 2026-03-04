@@ -40,7 +40,7 @@
                         Soal</label>
                     <input type="number" id="numberOfQuestion" name="numberOfQuestion" min="1" max="15"
                         required placeholder="Masukkan jumlah soal"
-                        class="bg-white mt-2 font-['Inter'] shadow appearance-none border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        class="bg-white mt-2 font-['Inter'] shadow appearance-none border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-3            ">
                     <small id="numberError" class="text-gray-500 mt-2 font-['Inter']">Maksimal 15 Soal</small>
                 </div>
 
@@ -145,15 +145,15 @@
     </div>
 
     <script>
-        $(document).ready(function() {
-            var API_URL = 'https://testing.brainys.oasys.id/api';
-
+        // ============================================
+        // WINDOW LOAD - Non-blocking requests
+        // ============================================
+        window.addEventListener('load', function() {
             $.ajax({
-                url: "{{ route('get.credit.charges.soal') }}", // Gantilah dengan route yang benar
+                url: "{{ route('get.credit.charges.soal') }}",
                 type: "GET",
                 success: function(response) {
                     if (response.success) {
-                        // Menampilkan data di dalam elemen dengan id #creditValue
                         $('#creditValue').text(response.credit_charged_generate);
                     } else {
                         $('#creditValue').text('Gagal mengambil data');
@@ -163,119 +163,87 @@
                     $('#creditValue').text('Terjadi kesalahan saat mengambil data.');
                 }
             });
-
-            $('#modulAjarForm').on('submit', function(event) {
-                event.preventDefault();
-
-                const submitButton = $('#submitButton');
-                const loadingButton = $('#loadingButton');
-                const imageGenerate = $('#output');
-                const imageGenerate2 = $('#output2');
-                const loadingSpinner = $('#loadingSpinner');
-                const outputContent = $('#outputContent');
-
-                outputContent.hide();
-                submitButton.hide();
-                loadingButton.show();
-                imageGenerate.hide();
-                imageGenerate2.css('display', 'inline-flex');
-                loadingSpinner.css('display', 'inline-flex');
-
-                this.submit();
-            });
-
         });
 
+        // ============================================
+        // DOM CONTENT LOADED
+        // ============================================
         document.addEventListener('DOMContentLoaded', function() {
+            // Focus input
+            document.getElementById("name").focus();
+
+            // Validasi number input
             const numberInput = document.getElementById('numberOfQuestion');
-            const numberError = document.getElementById('numberError');
             const submitButton = document.getElementById('submitButton');
 
             function validateNumber() {
                 const value = numberInput.value;
                 const number = parseInt(value, 10);
-
-                // Check if the value is valid and within range
-                if (isNaN(number) || number < 1 || number > 15 || value.length > 2) {
-
-                    submitButton.disabled = true;
-                } else {
-
-                    submitButton.disabled = false;
-                }
+                submitButton.disabled = isNaN(number) || number < 1 || number > 15 || value.length > 2;
             }
 
             function enforceDigitLimit() {
                 let value = numberInput.value;
-
-                // If the input is empty, do nothing
                 if (value === '') return;
 
-                // Ensure the value has at most 2 digits
                 if (value.length > 2) {
                     value = value.slice(0, 2);
                     numberInput.value = value;
                 }
 
-                // Apply digit-based restrictions
                 const firstDigit = parseInt(value.charAt(0), 10);
                 const secondDigit = parseInt(value.charAt(1), 10);
 
-                // Check if the first digit is zero
                 if (firstDigit === 0) {
-                    value = '';
-                    numberInput.value = value;
+                    numberInput.value = '';
                     submitButton.disabled = true;
                     return;
                 }
 
-                // If the first digit is 1, the second digit must not be greater than 5
                 if (firstDigit === 1 && secondDigit > 5) {
-                    value = value.charAt(0) + '5';
-                    numberInput.value = value;
-                }
-
-                // If the first digit is greater than 1, ensure only one digit is allowed
-                else if (firstDigit > 1 && value.length > 1) {
-                    value = value.charAt(0);
-                    numberInput.value = value;
+                    numberInput.value = value.charAt(0) + '5';
+                } else if (firstDigit > 1 && value.length > 1) {
+                    numberInput.value = value.charAt(0);
                 }
 
                 validateNumber();
             }
 
             numberInput.addEventListener('input', enforceDigitLimit);
-
-            // Initial validation
             validateNumber();
+
+            // Form submit handler
+            $('#modulAjarForm').on('submit', function(event) {
+                event.preventDefault();
+
+                $('#outputContent').hide();
+                $('#submitButton').hide();
+                $('#loadingButton').show();
+                $('#output').hide();
+                $('#output2').css('display', 'inline-flex');
+                $('#loadingSpinner').css('display', 'inline-flex');
+
+                this.submit();
+            });
         });
 
-
-
-
-
-        document.addEventListener("DOMContentLoaded", function() {
-            // Memfokuskan ke input nama
-            document.getElementById("name").focus();
-
-
-        });
-
+        // ============================================
+        // HELPER FUNCTIONS
+        // ============================================
         function clearInputs() {
-            document.getElementById('name').value = ''; // Menghapus nilai input nama
-            document.getElementById('fase').value = ''; // Menghapus nilai input fase
-            document.getElementById('mata-pelajaran').value = ''; // Menghapus nilai input mata pelajaran
-            document.getElementById('element').value = ''; // Menghapus nilai input element
-            document.getElementById('notes').value = ''; // Menghapus nilai input notes
-            document.getElementById('number').value = ''; // Menghapus nilai input number
-            $('#numberError').text(''); // Menghapus pesan error
-            $('#submitButton').prop('disabled', true); // Menonaktifkan tombol submit
+            document.getElementById('name').value = '';
+            document.getElementById('fase').value = '';
+            document.getElementById('mata-pelajaran').value = '';
+            document.getElementById('element').value = '';
+            document.getElementById('notes').value = '';
+            document.getElementById('number').value = '';
+            $('#numberError').text('');
+            $('#submitButton').prop('disabled', true);
         }
 
         function updateCharacterCount(textarea) {
-            var characterCountElement = document.getElementById('characterCount');
-            var currentCount = textarea.value.length;
-            characterCountElement.textContent = currentCount + '/250';
+            const currentCount = textarea.value.length;
+            document.getElementById('characterCount').textContent = currentCount + '/250';
         }
     </script>
 @endsection

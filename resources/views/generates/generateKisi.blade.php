@@ -173,14 +173,12 @@
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        $(document).ready(function() {
-            // Jalankan AJAX saat halaman dimuat
+        window.addEventListener('load', function() {
             $.ajax({
-                url: "{{ route('get.credit.charges.kisi') }}", // Gantilah dengan route yang benar
+                url: "{{ route('get.credit.charges.kisi') }}",
                 type: "GET",
                 success: function(response) {
                     if (response.success) {
-                        // Menampilkan data di dalam elemen dengan id #creditValue
                         $('#creditValue').text(response.credit_charged_generate);
                     } else {
                         $('#creditValue').text('Gagal mengambil data');

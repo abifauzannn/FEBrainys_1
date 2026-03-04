@@ -3,7 +3,7 @@
     <img src="{{ URL('images/generate.png') }}" class="w-[350px] h-[350px]  opacity-50 hidden" alt=""
         id="output2">
     <div id="loadingSpinner" class="ml-2 mt-8 w-[350px] h-[350px]  flex items-center justify-center absolute hidden ">
-        <svg class="animate-spin h-5 w-5 text-black" xmlns="http://www.w3.org/2000/svg" fill="none"
+        <svg class="w-5 h-5 text-black animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none"
             viewBox="0 0 24 24">
             <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4">
             </circle>

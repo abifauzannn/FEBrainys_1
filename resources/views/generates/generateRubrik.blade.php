@@ -199,7 +199,7 @@
                             <img src="{{ URL('images/glass.svg') }}" alt="" class="w-[20px] h-[20px]"
                                 loading="lazy">
                             <div class="text-center text-white text-base font-medium font-['Inter'] leading-normal">Buat
-                                Modul Ajar</div>
+                                Rubrik Nilai</div>
                         </button>
                     @elseif (session('user')['school_level'] != '')
                         <button id="submitButton" type="submit"
@@ -207,7 +207,7 @@
                             <img src="{{ URL('images/glass.svg') }}" alt="" class="w-[20px] h-[20px]"
                                 loading="lazy">
                             <div class="text-center text-white text-base font-medium font-['Inter'] leading-normal">Buat
-                                Modul Ajar</div>
+                                Rubrik Nilai</div>
                         </button>
                     @endif
 

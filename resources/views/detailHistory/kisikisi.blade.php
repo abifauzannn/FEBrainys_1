@@ -38,7 +38,7 @@
                         @foreach ($data['generate_output']['informasi_umum'] as $key => $value)
                             <tr>
                                 <td class="py-1 text-sm w-[200px]">{{ ucwords(str_replace('_', ' ', $key)) }}</td>
-                                <td class="px-1 py-1 text-sm text-gray-800 dark:text-gray-200">
+                                <td class="px-1 py-1 text-sm text-gray-800  ">
                                     @if (is_array($value))
                                         <ul class="list-disc pl-5">
                                             @foreach ($value as $item)
@@ -73,14 +73,13 @@
                     <tbody class="divide-y divide-gray-200">
                         @foreach ($data['generate_output']['kisi_kisi'] as $mission)
                             <tr>
-                                <td
-                                    class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200 font-semibold bg-gray-100 text-center">
+                                <td class="px-6 py-4 text-sm text-gray-800   font-semibold bg-gray-100 text-center">
                                     {{ $mission['nomor'] }}
                                 </td>
-                                <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">
+                                <td class="px-6 py-4 text-sm text-gray-800  ">
                                     {{ $mission['indikator_soal'] }}
                                 </td>
-                                <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200 text-center">
+                                <td class="px-6 py-4 text-sm text-gray-800   text-center">
                                     {{ $mission['no_soal'] }}
                                 </td>
                             </tr>

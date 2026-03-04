@@ -43,10 +43,10 @@
                         @foreach ($informasiUmumOrder as $key => $label)
                             @if (isset($data['informasi_umum'][$key]))
                                 <tr>
-                                    <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200 font-semibold bg-slate-50">
+                                    <td class="px-6 py-4 text-sm text-gray-800   font-semibold bg-slate-50">
                                         {{ $label }}
                                     </td>
-                                    <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">
+                                    <td class="px-6 py-4 text-sm text-gray-800  ">
                                         {{ is_array($data['informasi_umum'][$key]) ? json_encode($data['informasi_umum'][$key]) : htmlspecialchars($data['informasi_umum'][$key]) }}
                                     </td>
                                 </tr>
@@ -82,13 +82,13 @@
                     <tbody class="divide-y divide-gray-200">
                         @foreach ($data['kisi_kisi'] as $mission)
                             <tr>
-                                <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200 font-semibold bg-slate-50">
+                                <td class="px-6 py-4 text-sm text-gray-800   font-semibold bg-slate-50">
                                     {{ $mission['nomor'] }}
                                 </td>
-                                <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">
+                                <td class="px-6 py-4 text-sm text-gray-800  ">
                                     {{ $mission['indikator_soal'] }}
                                 </td>
-                                <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">
+                                <td class="px-6 py-4 text-sm text-gray-800  ">
                                     {{ $mission['no_soal'] }}
                                 </td>
                             </tr>

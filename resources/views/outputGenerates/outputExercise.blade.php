@@ -43,10 +43,10 @@
                         @foreach ($informasiUmum as $key => $label)
                             @if (isset($data['informasi_umum'][$key]))
                                 <tr>
-                                    <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200 font-semibold bg-slate-50">
+                                    <td class="px-6 py-4 text-sm text-gray-800   font-semibold bg-slate-50">
                                         {{ $label }}
                                     </td>
-                                    <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">
+                                    <td class="px-6 py-4 text-sm text-gray-800  ">
                                         {{ is_array($data['informasi_umum'][$key]) ? json_encode($data['informasi_umum'][$key]) : htmlspecialchars($data['informasi_umum'][$key]) }}
                                     </td>
                                 </tr>
@@ -70,9 +70,9 @@
                     <tbody class="divide-y divide-gray-200">
                         @foreach ($data['soal_essay'] as $index => $soal)
                             <tr>
-                                <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">{{ $index + 1 }}</td>
-                                <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">{{ $soal['question'] }}</td>
-                                <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">{{ $soal['instructions'] }}</td>
+                                <td class="px-6 py-4 text-sm text-gray-800  ">{{ $index + 1 }}</td>
+                                <td class="px-6 py-4 text-sm text-gray-800  ">{{ $soal['question'] }}</td>
+                                <td class="px-6 py-4 text-sm text-gray-800  ">{{ $soal['instructions'] }}</td>
                             </tr>
                         @endforeach
                     </tbody>
@@ -84,11 +84,11 @@
             <div class="w-full overflow-x-auto my-4">
                 @foreach ($data['soal_pilihan_ganda'] as $index => $question)
                     <div class="mt-4 px-6 py-4 bg-slate-50">
-                        <p class="text-gray-800 dark:text-gray-200"><strong>{{ $index + 1 }}.</strong>
+                        <p class="text-gray-800  "><strong>{{ $index + 1 }}.</strong>
                             {{ $question['question'] }}</p>
                         <ul>
                             @foreach ($question['options'] as $key => $option)
-                                <li class="text-gray-800 dark:text-gray-200 ml-4 py-1">
+                                <li class="text-gray-800   ml-4 py-1">
                                     {{ $key }} {{ $option }}
                                 </li>
                             @endforeach

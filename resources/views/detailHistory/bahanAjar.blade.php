@@ -37,7 +37,7 @@
                         @foreach ($bahanAjarHistory['generate_output']['informasi_umum'] as $key => $value)
                             <tr>
                                 <td class="py-1 text-sm w-[200px]">{{ ucwords(str_replace('_', ' ', $key)) }}</td>
-                                <td class="px-1 py-1 text-sm text-gray-800 dark:text-gray-200">
+                                <td class="px-1 py-1 text-sm text-gray-800  ">
                                     @if (is_array($value))
                                         <ul class="list-disc pl-5">
                                             @foreach ($value as $item)
@@ -63,7 +63,7 @@
                         @foreach ($bahanAjarHistory['generate_output']['pendahuluan'] as $key => $value)
                             <tr>
                                 <td class="py-1 text-sm w-[200px]">{{ ucwords(str_replace('_', ' ', $key)) }}</td>
-                                <td class="px-1 py-1 text-sm text-gray-800 dark:text-gray-200">
+                                <td class="px-1 py-1 text-sm text-gray-800  ">
                                     @if (is_array($value))
                                         <ul class="list-disc pl-5">
                                             @foreach ($value as $item)
@@ -87,7 +87,7 @@
                         @foreach ($bahanAjarHistory['generate_output']['konten'] as $konten)
                             <tr>
                                 <td class="py-1 text-sm w-[200px] font-semibold">{{ $konten['nama_konten'] }}</td>
-                                <td class="px-1 py-4 text-sm text-gray-800 dark:text-gray-200">
+                                <td class="px-1 py-4 text-sm text-gray-800  ">
                                     : {{ $konten['isi_konten'] }}
                                 </td>
                             </tr>
@@ -103,7 +103,7 @@
                         @foreach ($bahanAjarHistory['generate_output']['studi_kasus'] as $konten)
                             <tr>
                                 <td class="py-1 text-sm w-[200px] font-semibold">{{ $konten['nama_studi_kasus'] }}</td>
-                                <td class="px-1 py-4 text-sm text-gray-800 dark:text-gray-200">
+                                <td class="px-1 py-4 text-sm text-gray-800  ">
                                     : {{ $konten['isi_studi_kasus'] }}
                                 </td>
                             </tr>
@@ -119,7 +119,7 @@
                         @foreach ($bahanAjarHistory['generate_output']['quiz'] as $key => $value)
                             <tr>
                                 <td class="py-1 text-sm w-[200px]">{{ ucwords(str_replace('_', ' ', $key)) }}</td>
-                                <td class="px-1 py-1 text-sm text-gray-800 dark:text-gray-200">
+                                <td class="px-1 py-1 text-sm text-gray-800  ">
                                     @if (is_array($value))
                                         <ul class="list-disc pl-5">
                                             @foreach ($value as $item)
@@ -135,7 +135,7 @@
                         @foreach ($bahanAjarHistory['generate_output']['evaluasi'] as $key => $value)
                             <tr>
                                 <td class="py-1 text-sm w-[200px]">{{ ucwords(str_replace('_', ' ', $key)) }}</td>
-                                <td class="px-1 py-1 text-sm text-gray-800 dark:text-gray-200">
+                                <td class="px-1 py-1 text-sm text-gray-800  ">
                                     @if (is_array($value))
                                         <ul class="list-disc pl-5">
                                             @foreach ($value as $item)
@@ -159,7 +159,7 @@
                         @foreach ($bahanAjarHistory['generate_output']['lampiran'] as $key => $value)
                             <tr>
 
-                                <td class="px-1 py-1 text-sm text-gray-800 dark:text-gray-200">
+                                <td class="px-1 py-1 text-sm text-gray-800  ">
                                     @if (is_array($value))
                                         <ul class="list-disc pl-5">
                                             @foreach ($value as $item)

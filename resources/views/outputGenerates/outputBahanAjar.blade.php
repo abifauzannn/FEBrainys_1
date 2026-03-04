@@ -29,10 +29,10 @@
                     <tbody class="divide-y divide-gray-200">
                         @foreach ($data['informasi_umum'] as $key => $value)
                             <tr class="">
-                                <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200 font-semibold bg-slate-50">
+                                <td class="px-6 py-4 text-sm text-gray-800   font-semibold bg-slate-50">
                                     {{ str_replace(' ', ' ', ucwords(str_replace('_', ' ', $key))) }}
                                 </td>
-                                <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">
+                                <td class="px-6 py-4 text-sm text-gray-800  ">
                                     @if (is_array($value))
                                         <ul class="list-disc pl-5">
                                             @foreach ($value as $item)
@@ -64,10 +64,10 @@
                     <tbody class="divide-y divide-gray-200">
                         @foreach ($data['pendahuluan'] as $key => $value)
                             <tr>
-                                <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200 font-semibold bg-slate-50">
+                                <td class="px-6 py-4 text-sm text-gray-800   font-semibold bg-slate-50">
                                     {{ str_replace(' ', ' ', ucwords(str_replace('_', ' ', $key))) }}
                                 </td>
-                                <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">
+                                <td class="px-6 py-4 text-sm text-gray-800  ">
                                     {{ $value }}
                                 </td>
                             </tr>
@@ -90,10 +90,10 @@
                     <tbody class="divide-y divide-gray-200">
                         @foreach ($data['konten'] as $content)
                             <tr>
-                                <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200 font-semibold bg-slate-50">
+                                <td class="px-6 py-4 text-sm text-gray-800   font-semibold bg-slate-50">
                                     {{ $content['nama_konten'] }}
                                 </td>
-                                <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">
+                                <td class="px-6 py-4 text-sm text-gray-800  ">
                                     {{ $content['isi_konten'] }}
                                 </td>
                             </tr>
@@ -116,10 +116,10 @@
                     <tbody class="divide-y divide-gray-200">
                         @foreach ($data['studi_kasus'] as $case)
                             <tr>
-                                <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200 font-semibold bg-slate-50">
+                                <td class="px-6 py-4 text-sm text-gray-800   font-semibold bg-slate-50">
                                     {{ $case['nama_studi_kasus'] }}
                                 </td>
-                                <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">
+                                <td class="px-6 py-4 text-sm text-gray-800  ">
                                     {{ $case['isi_studi_kasus'] }}
                                 </td>
                             </tr>
@@ -142,20 +142,20 @@
                     <tbody class="divide-y divide-gray-200">
                         @if (!empty($data['quiz']))
                             <tr>
-                                <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200 font-semibold bg-slate-50">
+                                <td class="px-6 py-4 text-sm text-gray-800   font-semibold bg-slate-50">
                                     Soal Quiz
                                 </td>
-                                <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">
+                                <td class="px-6 py-4 text-sm text-gray-800  ">
                                     {{ $data['quiz']['soal_quiz'] }}
                                 </td>
                             </tr>
                         @endif
                         @if (!empty($data['evaluasi']))
                             <tr>
-                                <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200 font-semibold bg-slate-50">
+                                <td class="px-6 py-4 text-sm text-gray-800   font-semibold bg-slate-50">
                                     Evaluasi
                                 </td>
-                                <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">
+                                <td class="px-6 py-4 text-sm text-gray-800  ">
                                     {{ $data['evaluasi']['isi_evaluasi'] }}
                                 </td>
                             </tr>
@@ -178,7 +178,7 @@
                     <tbody class="divide-y divide-gray-200">
                         @foreach ($data['lampiran']['sumber_referensi'] as $referensi)
                             <tr>
-                                <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200 before:content-['•'] before:mr-2">
+                                <td class="px-6 py-4 text-sm text-gray-800   before:content-['•'] before:mr-2">
                                     {{ $referensi }}
                                 </td>
                             </tr>

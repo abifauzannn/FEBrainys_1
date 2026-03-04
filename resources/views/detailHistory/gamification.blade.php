@@ -38,7 +38,7 @@
                         @foreach ($gamifikasiHistory['output_data']['informasi_umum'] as $key => $value)
                             <tr>
                                 <td class="py-1 text-sm w-[200px]">{{ ucwords(str_replace('_', ' ', $key)) }}</td>
-                                <td class="px-1 py-1 text-sm text-gray-800 dark:text-gray-200">
+                                <td class="px-1 py-1 text-sm text-gray-800  ">
                                     @if (is_array($value))
                                         <ul class="list-disc pl-5">
                                             @foreach ($value as $item)
@@ -63,7 +63,7 @@
                             <td class="py-1 text-sm w-[200px]">
                                 Soal Quiz
                             </td>
-                            <td class="px-1 py-1 text-sm text-gray-800 dark:text-gray-200">
+                            <td class="px-1 py-1 text-sm text-gray-800  ">
                                 : {{ $gamifikasiHistory['output_data']['tema'] }}
                             </td>
                         </tr>
@@ -71,7 +71,7 @@
                             <td class="py-1 text-sm w-[200px]">
                                 Evaluasi
                             </td>
-                            <td class="px-1 py-1 text-sm text-gray-800 dark:text-gray-200">
+                            <td class="px-1 py-1 text-sm text-gray-800  ">
                                 : {{ $gamifikasiHistory['output_data']['konsep_utama'] }}
                             </td>
                         </tr>
@@ -79,7 +79,7 @@
                             <td class="py-1 text-sm w-[200px]">
                                 Skema Game
                             </td>
-                            <td class="px-1 py-1 text-sm text-gray-800 dark:text-gray-200">
+                            <td class="px-1 py-1 text-sm text-gray-800  ">
                                 : {{ $gamifikasiHistory['output_data']['skema_game'] }}
                             </td>
                         </tr>
@@ -96,7 +96,7 @@
                                 <td class="py-1 text-sm w-[200px]">
                                     {{ $element['judul'] }}
                                 </td>
-                                <td class="px-1 py-1 text-sm text-gray-800 dark:text-gray-200">
+                                <td class="px-1 py-1 text-sm text-gray-800  ">
                                     : {{ $element['deskripsi'] }}
                                 </td>
                             </tr>
@@ -111,23 +111,23 @@
                     <thead>
                         <tr>
 
-                            <th class="px-1 text-left text-sm font-semibold text-gray-800 dark:text-gray-200">Jenis
+                            <th class="px-1 text-left text-sm font-semibold text-gray-800  ">Jenis
                             </th>
-                            <th class="px-1 text-left text-sm font-semibold text-gray-800 dark:text-gray-200">Deskripsi
+                            <th class="px-1 text-left text-sm font-semibold text-gray-800  ">Deskripsi
                             </th>
-                            <th class="px-1 text-left text-sm font-semibold text-gray-800 dark:text-gray-200">Poin</th>
+                            <th class="px-1 text-left text-sm font-semibold text-gray-800  ">Poin</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($gamifikasiHistory['output_data']['misi_dan_tantangan'] as $mission)
                             <tr>
-                                <td class="px-1 py-1 text-sm text-gray-800 dark:text-gray-200">
+                                <td class="px-1 py-1 text-sm text-gray-800  ">
                                     {{ $mission['jenis'] }}
                                 </td>
-                                <td class="px-1 py-1 text-sm text-gray-800 dark:text-gray-200">
+                                <td class="px-1 py-1 text-sm text-gray-800  ">
                                     {{ $mission['deskripsi'] }}
                                 </td>
-                                <td class="px-1 py-1 text-sm text-gray-800 dark:text-gray-200">
+                                <td class="px-1 py-1 text-sm text-gray-800  ">
                                     {{ $mission['poin'] }} poin
                                 </td>
                             </tr>
@@ -142,13 +142,13 @@
                     <tbody class="divide-y divide-gray-200">
                         @foreach ($gamifikasiHistory['output_data']['langkah_implementasi'] as $step)
                             <tr>
-                                <td class="px-1 py-1 text-sm text-gray-800 dark:text-gray-200 font-semibold">
+                                <td class="px-1 py-1 text-sm text-gray-800   font-semibold">
                                     Langkah {{ $step['langkah'] }}
                                 </td>
-                                <td class="px-1 py-1 text-sm text-gray-800 dark:text-gray-200">
+                                <td class="px-1 py-1 text-sm text-gray-800  ">
                                     {{ $step['judul'] }}
                                 </td>
-                                <td class="px-1 py-1 text-sm text-gray-800 dark:text-gray-200 ">
+                                <td class="px-1 py-1 text-sm text-gray-800   ">
                                     <ul class="list-disc pl-5">
                                         @foreach ($step['deskripsi'] as $description)
                                             <li>{{ $description }}</li>

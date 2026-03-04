@@ -8,30 +8,30 @@
         </thead>
         <tbody class="divide-y divide-gray-200">
             <tr class="">
-                <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200 font-semibold bg-slate-50">
+                <td class="px-6 py-4 text-sm text-gray-800   font-semibold bg-slate-50">
                     Mata Pelajaran</td>
-                <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">
+                <td class="px-6 py-4 text-sm text-gray-800  ">
                     {{ $data['silabus_pembelajaran']['mata_pelajaran'] }}
                 </td>
             </tr>
             <tr class="">
-                <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200 font-semibold bg-slate-50">
+                <td class="px-6 py-4 text-sm text-gray-800   font-semibold bg-slate-50">
                     Tingkat Kelas</td>
-                <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">
+                <td class="px-6 py-4 text-sm text-gray-800  ">
                     {{ $data['silabus_pembelajaran']['tingkat_kelas'] }}
                 </td>
             </tr>
             <tr class="">
-                <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200 font-semibold bg-slate-50">
+                <td class="px-6 py-4 text-sm text-gray-800   font-semibold bg-slate-50">
                     Alokasi Waktu</td>
-                <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">
+                <td class="px-6 py-4 text-sm text-gray-800  ">
                     {{ $data['silabus_pembelajaran']['alokasi_waktu'] }}
                 </td>
             </tr>
             <tr class="">
-                <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200 font-semibold bg-slate-50">
+                <td class="px-6 py-4 text-sm text-gray-800   font-semibold bg-slate-50">
                     Kompetensi Inti</td>
-                <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">
+                <td class="px-6 py-4 text-sm text-gray-800  ">
                     <ul>
                         @foreach ($data['silabus_pembelajaran']['kompetensi_inti'] as $ki)
                             <li>{{ $ki }}</li>
@@ -40,9 +40,9 @@
                 </td>
             </tr>
             <tr class="">
-                <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200 font-semibold bg-slate-50">
+                <td class="px-6 py-4 text-sm text-gray-800   font-semibold bg-slate-50">
                     Definisi Kompetensi Inti</td>
-                <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">
+                <td class="px-6 py-4 text-sm text-gray-800  ">
                     {{ $data['silabus_pembelajaran']['definisi_kompetensi_inti'] }}
                 </td>
             </tr>
@@ -55,30 +55,30 @@
     <table class="w-full">
         <tbody class="divide-y divide-gray-200">
             <tr>
-                <td class="px-3 py-4 text-sm text-gray-800 dark:text-gray-200 font-semibold bg-slate-50">
+                <td class="px-3 py-4 text-sm text-gray-800   font-semibold bg-slate-50">
                     Kompetensi Dasar</td>
-                <td class="px-3 py-4 text-sm text-gray-800 dark:text-gray-200 font-semibold bg-slate-50">
+                <td class="px-3 py-4 text-sm text-gray-800   font-semibold bg-slate-50">
                     Materi Pembelajaran</td>
-                <td class="px-3 py-4 text-sm text-gray-800 dark:text-gray-200 font-semibold bg-slate-50">
+                <td class="px-3 py-4 text-sm text-gray-800   font-semibold bg-slate-50">
                     Kegiatan Pembelajaran</td>
             </tr>
             @foreach ($data['silabus_pembelajaran']['inti_silabus'] as $silabus)
                 <tr class="">
-                    <td class="px-3 py-4 text-sm text-gray-800 dark:text-gray-200">
+                    <td class="px-3 py-4 text-sm text-gray-800  ">
                         <ul>
                             @foreach ($silabus['kompetensi_dasar'] as $index => $kd)
                                 <li>{{ $index + 1 }}. {{ $kd }}</li>
                             @endforeach
                         </ul>
                     </td>
-                    <td class="px-3 py-4 text-sm text-gray-800 dark:text-gray-200">
+                    <td class="px-3 py-4 text-sm text-gray-800  ">
                         <ul>
                             @foreach ($silabus['materi_pembelajaran'] as $index => $materi)
                                 <li>{{ $index + 1 }}. {{ $materi }}</li>
                             @endforeach
                         </ul>
                     </td>
-                    <td class="px-3 py-4 text-sm text-gray-800 dark:text-gray-200">
+                    <td class="px-3 py-4 text-sm text-gray-800  ">
                         <ul>
                             @foreach ($silabus['kegiatan_pembelajaran'] as $index => $kegiatan)
                                 <li>{{ $index + 1 }}. {{ $kegiatan }}</li>

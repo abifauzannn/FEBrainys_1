@@ -13,9 +13,6 @@
         $generateId = session('generateId');
     @endphp
 
-    {{-- ====================================================== --}}
-    {{-- =============== BAGIAN INFORMASI UMUM ================ --}}
-    {{-- ====================================================== --}}
     @if (isset($data['informasi_umum']))
         <div class="mt-5 overflow-x-auto">
             <table class="w-full bg-white border">
@@ -39,7 +36,7 @@
             'jenis_rubrik' => 'Jenis Rubrik',
         ] as $key => $label)
                         <tr>
-                            <td class="px-6 py-4 text-sm font-semibold text-gray-800 dark:text-gray-200 bg-slate-50">
+                            <td class="px-6 py-4 text-sm font-semibold text-gray-800   bg-slate-50">
                                 {{ $label }}</td>
                             <td class="px-6 py-4 text-sm text-gray-800">{{ $data['informasi_umum'][$key] ?? '-' }}</td>
                         </tr>
@@ -49,9 +46,6 @@
         </div>
     @endif
 
-    {{-- ====================================================== --}}
-    {{-- ================ MODE SUMATIF ========================= --}}
-    {{-- ====================================================== --}}
     @if (isset($data['type']) && $data['type'] == 'sumatif')
 
         {{-- ==== DESKRIPSI ASESMEN SUMATIF ==== --}}
@@ -128,10 +122,6 @@
 
     @endif
 
-
-    {{-- ====================================================== --}}
-    {{-- ================ MODE ANALITIK ======================== --}}
-    {{-- ====================================================== --}}
     @if (isset($data['type']) && $data['type'] == 'analitik')
 
         {{-- ==== DESKRIPSI ASESMEN ANALITIK ==== --}}
@@ -227,8 +217,8 @@
         <div class="flex flex-col py-4 mb-3">
             <x-output-banner />
             <div class="flex flex-row gap-3">
-                <x-export-word generateId="{{ $generateId }}" export="{{ route('export-word') }}" />
-                <x-export-excel generateId="{{ $generateId }}" export="{{ route('export-modul-excel') }}" />
+                <x-export-word generateId="{{ $generateId }}" export="{{ route('export-rubrik-nilai-word') }}" />
+                <x-export-excel generateId="{{ $generateId }}" export="{{ route('export-rubrik-nilai-excel') }}" />
             </div>
         </div>
     @endif

@@ -63,7 +63,7 @@
                         class="text-gray-900 text-base font-['Inter'] mb-[30px] leading-normal font-semibold">Fase
                         (Kelas)</label>
                     <select id="fase" name="fase" required
-                        class="bg-white mt-[10px] font-['Inter'] shadow appearance-none border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        class="bg-white mt-[10px] font-['Inter'] shadow appearance-none border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-3            ">
                         <option value="" class="">Select Fase</option>
                     </select>
                 </div>
@@ -73,7 +73,7 @@
                         class="text-gray-900 text-base font-['Inter'] mb-[30px] leading-normal font-semibold">Mata Pelajaran
                     </label>
                     <select id="mata-pelajaran"
-                        name="mata-pelajaran"class="bg-white font-['Inter'] mt-[10px] shadow appearance-none  border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-3 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        name="mata-pelajaran"class="bg-white font-['Inter'] mt-[10px] shadow appearance-none  border border-gray-300 text-gray-900 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-3            "
                         required disabled>
                         <option value="" class="font">Select Mata Pelajaran</option>
                     </select>
@@ -170,14 +170,12 @@
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        $(document).ready(function() {
-            // Jalankan AJAX saat halaman dimuat
+        window.addEventListener('load', function() {
             $.ajax({
-                url: "{{ route('get.credit.charges.syllabus') }}", // Gantilah dengan route yang benar
+                url: "{{ route('get.credit.charges.syllabus') }}",
                 type: "GET",
                 success: function(response) {
                     if (response.success) {
-                        // Menampilkan data di dalam elemen dengan id #creditValue
                         $('#creditValue').text(response.credit_charged_generate);
                     } else {
                         $('#creditValue').text('Gagal mengambil data');

@@ -46,11 +46,11 @@
                 <div class="w-full overflow-x-auto my-4">
                     @foreach ($data['output_data']['soal_pilihan_ganda'] as $index => $question)
                         <div class="mt-4 px-6 py-4 bg-slate-50">
-                            <p class="text-gray-800 dark:text-gray-200 text-sm"><strong>{{ $index + 1 }}.</strong>
+                            <p class="text-gray-800   text-sm"><strong>{{ $index + 1 }}.</strong>
                                 {{ $question['question'] }}</p>
                             <ul>
                                 @foreach ($question['options'] as $key => $option)
-                                    <li class="text-gray-800 dark:text-gray-200 ml-4 py-1 text-sm">
+                                    <li class="text-gray-800   ml-4 py-1 text-sm">
                                         {{ $key }} {{ $option }}
                                     </li>
                                 @endforeach
@@ -77,13 +77,13 @@
                         <tbody class="divide-y divide-gray-200">
                             @foreach ($data['output_data']['soal_essay'] as $index => $soal)
                                 <tr>
-                                    <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">{{ $index + 1 }}</td>
-                                    <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">{{ $soal['question'] }}
+                                    <td class="px-6 py-4 text-sm text-gray-800  ">{{ $index + 1 }}</td>
+                                    <td class="px-6 py-4 text-sm text-gray-800  ">{{ $soal['question'] }}
                                     </td>
-                                    <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">
+                                    <td class="px-6 py-4 text-sm text-gray-800  ">
                                         {{ $soal['instructions'] }}</td>
                                     @if (isset($soal['kriteria_penilaian']))
-                                        <td class="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">
+                                        <td class="px-6 py-4 text-sm text-gray-800  ">
                                             <ul>
                                                 @foreach ($soal['kriteria_penilaian'] as $kriteria => $value)
                                                     <li>{{ $kriteria + 1 }}. {{ $value }}</li>

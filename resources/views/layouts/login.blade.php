@@ -13,8 +13,17 @@
     <meta name="author" content="Oasys Edutech Indonesia">
     <link rel="canonical" href="https://brainys.oasys.id/login">
 
+    <meta name="theme-color" content="#4F46E5">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Nama App">
 
+    <!-- Manifest -->
+    <link rel="manifest" href="/manifest.json">
 
+    <!-- Apple Touch Icon -->
+    <link rel="apple-touch-icon" href="/images/newicon.png">
 
     <title>@yield('title', 'Brainys – Permudah Administrasi Akademik Guru, Tingkatkan Kualitas Pembelajaran!')</title>
 
@@ -32,6 +41,16 @@
     <main>
         @yield('content')
     </main>
+
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(reg => console.log('SW registered'))
+                    .catch(err => console.log('SW failed:', err));
+            });
+        }
+    </script>
 </body>
 
 </html>

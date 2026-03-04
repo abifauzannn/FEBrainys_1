@@ -1,0 +1,22 @@
+{
+    "name": "Brainys",
+    "short_name": "Brainys",
+    "description": "Brainys Application",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#1D4ED8",
+    "orientation": "portrait",
+    "icons": [
+        {
+            "src": "/images/newicon.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/images/newicon.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}

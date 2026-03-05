@@ -522,7 +522,9 @@ class AuthenticationController extends Controller
 
             // Request profile dengan error handling
             \Log::info('Fetching user profile with token');
-            $profileResponse = Http::withToken($result['token'])
+            $profileResponse = Http::withHeaders([
+                'Accept' => 'application/json'
+            ])->withToken($result['token'])
                 ->timeout(30)
                 ->get(env('APP_API') . '/user-profile');
 

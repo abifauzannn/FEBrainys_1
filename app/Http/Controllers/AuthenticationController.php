@@ -521,39 +521,39 @@ class AuthenticationController extends Controller
             }
 
             // Request profile dengan error handling
-            \Log::info('Fetching user profile with token');
-            $profileResponse = Http::withToken($result['token'])
-                ->timeout(30)
-                ->get(env('APP_API') . '/user-profile');
+            // \Log::info('Fetching user profile with token');
+            // $profileResponse = Http::withToken($result['token'])
+            //     ->timeout(30)
+            //     ->get(env('APP_API') . '/user-profile');
 
-            if (!$profileResponse->successful()) {
-                $profileError = [
-                    'status' => $profileResponse->status(),
-                    'body' => $profileResponse->body()
-                ];
+            // if (!$profileResponse->successful()) {
+            //     $profileError = [
+            //         'status' => $profileResponse->status(),
+            //         'body' => $profileResponse->body()
+            //     ];
 
-                \Log::error('Failed to fetch profile:', $profileError);
+            //     \Log::error('Failed to fetch profile:', $profileError);
 
-                return response()->json([
-                    'error' => 'Gagal mengambil profil',
-                    'debug' => env('APP_DEBUG') ? $profileError : null
-                ], 500);
-            }
+            //     return response()->json([
+            //         'error' => 'Gagal mengambil profil',
+            //         'debug' => env('APP_DEBUG') ? $profileError : null
+            //     ], 500);
+            // }
 
-            $profileData = $profileResponse->json();
-            \Log::info('Profile data received:', $profileData);
+            // $profileData = $profileResponse->json();
+            // \Log::info('Profile data received:', $profileData);
 
             if ($result['token']) {
                 session(['access_token' => $result['token'], 'user' => $profileData['data'] ?? []]);
 
                 // Cek data profile
-                $user = $profileData['data'] ?? [];
-                if (empty($user['name']) || empty($user['profession']) || empty($user['school_name'])) {
-                    \Log::info('User profile incomplete, redirecting to profile form', ['user' => $user]);
-                    return redirect()->route('profileForm');
-                }
+                // $user = $profileData['data'] ?? [];
+                // if (empty($user['name']) || empty($user['profession']) || empty($user['school_name'])) {
+                //     \Log::info('User profile incomplete, redirecting to profile form', ['user' => $user]);
+                //     return redirect()->route('profileForm');
+                // }
 
-                \Log::info('User authenticated successfully', ['user_id' => $user['id'] ?? null]);
+                // \Log::info('User authenticated successfully', ['user_id' => $user['id'] ?? null]);
                 return redirect()->route('dashboard');
             }
 

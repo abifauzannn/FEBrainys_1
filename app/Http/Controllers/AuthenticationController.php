@@ -65,7 +65,7 @@ class AuthenticationController extends Controller
     public function emailVerify(Request $request)
     {
         // Buat permintaan login ke API
-        $response = Http::post(env('APP_API').'/forgot-password', [
+        $response = Http::post(env('APP_API') . '/forgot-password', [
             'email' => $request->input('email'),
         ]);
 
@@ -89,8 +89,8 @@ class AuthenticationController extends Controller
     {
         // dd($request);
         // Buat permintaan reset password ke endpoint API
-        $response = Http::post(env('APP_API').'/reset-password', [
-            'reset_token' =>  $request->input('reset_token'),
+        $response = Http::post(env('APP_API') . '/reset-password', [
+            'reset_token' => $request->input('reset_token'),
             'new_password' => $request->input('new_password'),
             'new_password_confirmation' => $request->input('new_password_confirmation')
         ]);
@@ -129,7 +129,7 @@ class AuthenticationController extends Controller
             return redirect()->route('login')->withErrors(['error' => 'Token not found. Please verify OTP again.']);
         }
 
-        $response = Http::withToken($accessToken)->post(env('APP_API').'/update-profile', [
+        $response = Http::withToken($accessToken)->post(env('APP_API') . '/update-profile', [
             'name' => $request->input('name'),
             'school_name' => $request->input('school_name'),
             'profession' => $request->input('profession'),
@@ -155,7 +155,7 @@ class AuthenticationController extends Controller
 
     public function resendOTP(Request $request)
     {
-        $response = Http::post(env('APP_API').'/resend-otp', [
+        $response = Http::post(env('APP_API') . '/resend-otp', [
             'email' => $request->input('email'),
         ]);
 
@@ -181,23 +181,23 @@ class AuthenticationController extends Controller
     }
 
     public function otpOtomatis($email)
-{
-    // Lakukan pemanggilan ke API dengan email yang diberikan
-    $response = Http::post(env('APP_API').'/resend-otp', [
-        'email' => $email,
-    ]);
+    {
+        // Lakukan pemanggilan ke API dengan email yang diberikan
+        $response = Http::post(env('APP_API') . '/resend-otp', [
+            'email' => $email,
+        ]);
 
-    $responseData = $response->json();
+        $responseData = $response->json();
 
-    if ($response->successful() && $responseData['status'] === 'success') {
-        // Verifikasi OTP berhasil, simpan token dalam sesi
-        $otp = $responseData['data']['otp'];
-        return redirect()->route('verify.otp', compact('email', 'otp'));
-    } else {
-        $errorMessage = isset($responseData['message']) ? $responseData['message'] : 'OTP verification failed. Please try again.';
-        return back()->withErrors(['error' => $errorMessage]);
+        if ($response->successful() && $responseData['status'] === 'success') {
+            // Verifikasi OTP berhasil, simpan token dalam sesi
+            $otp = $responseData['data']['otp'];
+            return redirect()->route('verify.otp', compact('email', 'otp'));
+        } else {
+            $errorMessage = isset($responseData['message']) ? $responseData['message'] : 'OTP verification failed. Please try again.';
+            return back()->withErrors(['error' => $errorMessage]);
+        }
     }
-}
 
 
     public function checkEmail(Request $request)
@@ -219,7 +219,7 @@ class AuthenticationController extends Controller
 
     public function changePassword(Request $request)
     {
-        $apiUrl = env('APP_API').'/change-password';
+        $apiUrl = env('APP_API') . '/change-password';
 
         // Ambil token dari sesi Laravel
         $accessToken = Session::get('access_token');
@@ -228,10 +228,10 @@ class AuthenticationController extends Controller
         $response = Http::withHeaders([
             'Authorization' => 'Bearer ' . $accessToken,
         ])->post($apiUrl, [
-            'current_password' => $request->input('current_password'),
-            'new_password' => $request->input('new_password'),
-            'new_password_confirmation' => $request->input('new_password_confirmation'),
-        ]);
+                    'current_password' => $request->input('current_password'),
+                    'new_password' => $request->input('new_password'),
+                    'new_password_confirmation' => $request->input('new_password_confirmation'),
+                ]);
 
         // Periksa keberhasilan permintaan
         if ($response->successful() && $response->json()['status'] === 'success') {
@@ -281,7 +281,7 @@ class AuthenticationController extends Controller
         }
 
         // Panggil API untuk melengkapi profil dengan menggunakan token
-        $response = Http::withToken($accessToken)->post(env('APP_API').'/profile', [
+        $response = Http::withToken($accessToken)->post(env('APP_API') . '/profile', [
             'name' => $request->input('name'),
             'school_name' => $request->input('school_name'),
             'profession' => $request->input('profession'),
@@ -308,7 +308,7 @@ class AuthenticationController extends Controller
 
     public function verifyOTP(Request $request)
     {
-        $response = Http::post(env('APP_API').'/verify-otp', [
+        $response = Http::post(env('APP_API') . '/verify-otp', [
             'email' => $request->input('email'),
             'otp' => $request->input('otp'),
         ]);
@@ -331,7 +331,7 @@ class AuthenticationController extends Controller
 
     public function register(Request $request)
     {
-        $response = Http::post(env('APP_API').'/register', [
+        $response = Http::post(env('APP_API') . '/register', [
             'email' => $request->input('email'),
             'password' => $request->input('password'),
             'password_confirmation' => $request->input('password_confirmation'),
@@ -364,8 +364,9 @@ class AuthenticationController extends Controller
         }
     }
 
-    public function verifyInvitationCode(Request $request) {
-        $apiUrl = env('APP_API').'/user-invitations/redeem';
+    public function verifyInvitationCode(Request $request)
+    {
+        $apiUrl = env('APP_API') . '/user-invitations/redeem';
 
         // Ambil token dari sesi Laravel
         $accessToken = Session::get('access_token');
@@ -374,8 +375,8 @@ class AuthenticationController extends Controller
         $response = Http::withHeaders([
             'Authorization' => 'Bearer ' . $accessToken,
         ])->post($apiUrl, [
-            'invite_code' => $request->input('invite_code'),
-        ]);
+                    'invite_code' => $request->input('invite_code'),
+                ]);
 
         $responseData = $response->json();
 
@@ -397,7 +398,7 @@ class AuthenticationController extends Controller
     public function login(Request $request)
     {
         // Buat permintaan login ke API
-        $response = Http::post(env('APP_API').'/login', [
+        $response = Http::post(env('APP_API') . '/login', [
             'email' => $request->input('email'),
             'password' => $request->input('password'),
         ]);
@@ -473,49 +474,61 @@ class AuthenticationController extends Controller
     public function redirectToGoogle()
     {
         // Mengarahkan pengguna langsung ke URL pilihan akun Google
-        return redirect(env('APP_API').'/login/google/');
+        return redirect(env('APP_API') . '/login/google/');
     }
 
     public function handleGoogleCallback(Request $request)
     {
-        // Dapatkan semua parameter dari URL
-        $allParameters = $request->all();
+        try {
+            $allParameters = $request->all();
+            $callbackUrl = env('APP_API') . '/login/google/callback?' . http_build_query($allParameters);
 
-        // Inisialisasi objek GuzzleHttp\Client
-        $client = new Client();
+            // OPSI 1: Pake Laravel HTTP Client (Rekomendasi)
+            $response = Http::timeout(30)->get($callbackUrl);
 
-        // Tentukan URL callback dengan menyertakan semua parameter
-        $callbackUrl = env('APP_API') . '/login/google/callback?' . http_build_query($allParameters);
+            if (!$response->successful()) {
+                \Log::error('Callback failed', [
+                    'status' => $response->status(),
+                    'body' => $response->body()
+                ]);
+                return redirect()->route('login')->withErrors(['error' => 'Gagal menghubungi server']);
+            }
 
-        // Lakukan permintaan GET ke endpoint callback
-        $response = $client->get($callbackUrl);
+            $result = $response->json();
 
-        // Ambil dan manipulasi data JSON dari respons
-        $result = json_decode($response->getBody(), true);
+            // Validasi response
+            if (!isset($result['token'])) {
+                return redirect()->route('login')->withErrors(['error' => 'Response tidak valid']);
+            }
 
-        // Buat permintaan profile
-        $profile = Http::withToken($result['token'])->get(env('APP_API') . '/user-profile');
-        $profileData = json_decode($profile->getBody(), true);
+            // Request profile dengan error handling
+            $profileResponse = Http::withToken($result['token'])
+                ->timeout(30)
+                ->get(env('APP_API') . '/user-profile');
 
-        if ($result['token']) {
-            // Simpan token dan objek pengguna di sesi Laravel
-            session(['access_token' => $result['token'], 'user' => $profileData['data']]);
+            if (!$profileResponse->successful()) {
+                return redirect()->route('login')->withErrors(['error' => 'Gagal mengambil profil']);
+            }
 
-            // Panggil metode getInfoPackages untuk mendapatkan data paket
+            $profileData = $profileResponse->json();
 
-            // Redirect ke halaman dashboard atau halaman setelah login
-            if (
-                $profileData['data']['name'] === null ||
-                $profileData['data']['profession'] === null ||
-                $profileData['data']['school_name'] === null
-            ) {
-                return redirect()->route('profileForm');
-            } else {
+            if ($result['token']) {
+                session(['access_token' => $result['token'], 'user' => $profileData['data'] ?? []]);
+
+                // Cek data profile
+                $user = $profileData['data'] ?? [];
+                if (empty($user['name']) || empty($user['profession']) || empty($user['school_name'])) {
+                    return redirect()->route('profileForm');
+                }
+
                 return redirect()->route('dashboard');
             }
-        } else {
-            // Menggunakan withErrors untuk menyimpan pesan kesalahan dalam sesi
-            return redirect()->route('login')->withErrors(['error' => $result['message']]);
+
+            return redirect()->route('login')->withErrors(['error' => $result['message'] ?? 'Token tidak valid']);
+
+        } catch (\Exception $e) {
+            \Log::error('Google Callback Error: ' . $e->getMessage());
+            return redirect()->route('login')->withErrors(['error' => 'Terjadi kesalahan: ' . $e->getMessage()]);
         }
     }
 }

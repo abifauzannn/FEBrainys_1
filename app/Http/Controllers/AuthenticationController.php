@@ -483,34 +483,65 @@ class AuthenticationController extends Controller
             $allParameters = $request->all();
             $callbackUrl = env('APP_API') . '/login/google/callback?' . http_build_query($allParameters);
 
+            // Log untuk debugging
+            \Log::info('Google Callback - Request Parameters:', $allParameters);
+            \Log::info('Google Callback - Callback URL:', ['url' => $callbackUrl]);
+
             // OPSI 1: Pake Laravel HTTP Client (Rekomendasi)
             $response = Http::timeout(30)->get($callbackUrl);
 
             if (!$response->successful()) {
-                \Log::error('Callback failed', [
+                $errorData = [
                     'status' => $response->status(),
-                    'body' => $response->body()
-                ]);
-                return redirect()->route('login')->withErrors(['error' => 'Gagal menghubungi server']);
+                    'body' => $response->body(),
+                    'headers' => $response->headers()
+                ];
+
+                \Log::error('Callback failed - Detail:', $errorData);
+
+                // Tampilkan error detail untuk debugging
+                return response()->json([
+                    'error' => 'Gagal menghubungi server',
+                    'debug' => env('APP_DEBUG') ? $errorData : null
+                ], 500);
             }
 
             $result = $response->json();
+            \Log::info('Google Callback - Response from API:', $result);
 
             // Validasi response
             if (!isset($result['token'])) {
-                return redirect()->route('login')->withErrors(['error' => 'Response tidak valid']);
+                $errorMsg = 'Response tidak valid: token tidak ditemukan';
+                \Log::error($errorMsg, ['response' => $result]);
+
+                return response()->json([
+                    'error' => $errorMsg,
+                    'debug' => env('APP_DEBUG') ? $result : null
+                ], 400);
             }
 
             // Request profile dengan error handling
+            \Log::info('Fetching user profile with token');
             $profileResponse = Http::withToken($result['token'])
                 ->timeout(30)
                 ->get(env('APP_API') . '/user-profile');
 
             if (!$profileResponse->successful()) {
-                return redirect()->route('login')->withErrors(['error' => 'Gagal mengambil profil']);
+                $profileError = [
+                    'status' => $profileResponse->status(),
+                    'body' => $profileResponse->body()
+                ];
+
+                \Log::error('Failed to fetch profile:', $profileError);
+
+                return response()->json([
+                    'error' => 'Gagal mengambil profil',
+                    'debug' => env('APP_DEBUG') ? $profileError : null
+                ], 500);
             }
 
             $profileData = $profileResponse->json();
+            \Log::info('Profile data received:', $profileData);
 
             if ($result['token']) {
                 session(['access_token' => $result['token'], 'user' => $profileData['data'] ?? []]);
@@ -518,17 +549,37 @@ class AuthenticationController extends Controller
                 // Cek data profile
                 $user = $profileData['data'] ?? [];
                 if (empty($user['name']) || empty($user['profession']) || empty($user['school_name'])) {
+                    \Log::info('User profile incomplete, redirecting to profile form', ['user' => $user]);
                     return redirect()->route('profileForm');
                 }
 
+                \Log::info('User authenticated successfully', ['user_id' => $user['id'] ?? null]);
                 return redirect()->route('dashboard');
             }
 
-            return redirect()->route('login')->withErrors(['error' => $result['message'] ?? 'Token tidak valid']);
+            $errorMsg = $result['message'] ?? 'Token tidak valid';
+            \Log::error('Authentication failed:', ['message' => $errorMsg]);
+
+            return response()->json([
+                'error' => $errorMsg,
+                'debug' => env('APP_DEBUG') ? $result : null
+            ], 400);
 
         } catch (\Exception $e) {
-            \Log::error('Google Callback Error: ' . $e->getMessage());
-            return redirect()->route('login')->withErrors(['error' => 'Terjadi kesalahan: ' . $e->getMessage()]);
+            $exceptionData = [
+                'message' => $e->getMessage(),
+                'file' => $e->getFile(),
+                'line' => $e->getLine(),
+                'trace' => $e->getTraceAsString()
+            ];
+
+            \Log::error('Google Callback Exception:', $exceptionData);
+
+            // Tampilkan error detail untuk debugging
+            return response()->json([
+                'error' => 'Terjadi kesalahan: ' . $e->getMessage(),
+                'debug' => env('APP_DEBUG') ? $exceptionData : null
+            ], 500);
         }
     }
 }

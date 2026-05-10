@@ -60,8 +60,8 @@
                             <div class="relative w-full mt-3 custom-select-wrapper">
                                 <button type="button" id="faseBtn" class="w-full custom-select-button">
                                     <span id="faseBtnText" class="custom-select-text">Select Fase</span>
-                                    <svg class="custom-select-arrow" viewBox="0 0 24 24" fill="none"
-                                        stroke="currentColor" stroke-width="2">
+                                    <svg class="custom-select-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2">
                                         <polyline points="6 9 12 15 18 9"></polyline>
                                     </svg>
                                 </button>
@@ -85,8 +85,8 @@
                             <div class="relative w-full mt-3 custom-select-wrapper">
                                 <button type="button" id="mataBtn" class="w-full custom-select-button" disabled>
                                     <span id="mataBtnText" class="custom-select-text">Select Mata Pelajaran</span>
-                                    <svg class="custom-select-arrow" viewBox="0 0 24 24" fill="none"
-                                        stroke="currentColor" stroke-width="2">
+                                    <svg class="custom-select-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2">
                                         <polyline points="6 9 12 15 18 9"></polyline>
                                     </svg>
                                 </button>
@@ -110,8 +110,8 @@
                             <div class="relative w-full mt-3 custom-select-wrapper">
                                 <button type="button" id="elementBtn" class="w-full custom-select-button" disabled>
                                     <span id="elementBtnText" class="custom-select-text">Select Element</span>
-                                    <svg class="custom-select-arrow" viewBox="0 0 24 24" fill="none"
-                                        stroke="currentColor" stroke-width="2">
+                                    <svg class="custom-select-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2">
                                         <polyline points="6 9 12 15 18 9"></polyline>
                                     </svg>
                                 </button>
@@ -143,8 +143,8 @@
                         <div class="relative w-full mt-3 custom-select-wrapper">
                             <button type="button" id="history-btn" class="w-full custom-select-button">
                                 <span id="history-btn-text" class="custom-select-text">Pilih Modul Ajar</span>
-                                <svg class="custom-select-arrow" viewBox="0 0 24 24" fill="none"
-                                    stroke="currentColor" stroke-width="2">
+                                <svg class="custom-select-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2">
                                     <polyline points="6 9 12 15 18 9"></polyline>
                                 </svg>
                             </button>
@@ -169,10 +169,9 @@
                 <x-select-field id="type" label="Jenis Rubrik" name="type" :options="$type"
                     defaultOption="Pilih Jenis Rubrik" />
 
-                <x-textarea-field id="notes" name="notes" label="Deskripsi rubrik nilai"
-                    tooltipId="descriptionTooltip" placeholder="masukan deskripsi rubrik nilai"
-                    tooltipText="Contoh :
-                 buatkan modul ajar untuk rangkaian listrik" />
+                <x-textarea-field id="notes" name="notes" label="Deskripsi rubrik nilai" tooltipId="descriptionTooltip"
+                    placeholder="masukan deskripsi rubrik nilai" tooltipText="Contoh :
+                     buatkan modul ajar untuk rangkaian listrik" />
 
                 <div class="flex items-center justify-between -mt-2">
                     <div class="inline-flex items-end self-stretch justify-start gap-5">
@@ -196,16 +195,14 @@
                     @if (session('user')['school_level'] == '')
                         <button id="submitButton" type="submit" disabled
                             class="h-12 px-3 bg-blue-600 rounded-lg justify-center items-center gap-2.5 inline-flex">
-                            <img src="{{ URL('images/glass.svg') }}" alt="" class="w-[20px] h-[20px]"
-                                loading="lazy">
+                            <img src="{{ URL('images/glass.svg') }}" alt="" class="w-[20px] h-[20px]" loading="lazy">
                             <div class="text-center text-white text-base font-medium font-['Inter'] leading-normal">Buat
                                 Rubrik Nilai</div>
                         </button>
                     @elseif (session('user')['school_level'] != '')
                         <button id="submitButton" type="submit"
                             class="h-12 px-3 bg-blue-600 rounded-lg justify-center items-center gap-2.5 inline-flex">
-                            <img src="{{ URL('images/glass.svg') }}" alt="" class="w-[20px] h-[20px]"
-                                loading="lazy">
+                            <img src="{{ URL('images/glass.svg') }}" alt="" class="w-[20px] h-[20px]" loading="lazy">
                             <div class="text-center text-white text-base font-medium font-['Inter'] leading-normal">Buat
                                 Rubrik Nilai</div>
                         </button>
@@ -216,8 +213,8 @@
                         style="display: none;">
                         <svg class="w-5 h-5 mr-3 -ml-1 text-white animate-spin" xmlns="http://www.w3.org/2000/svg"
                             fill="none" viewBox="0 0 24 24">
-                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
-                                stroke-width="4"></circle>
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4">
+                            </circle>
                             <path class="opacity-75" fill="currentColor"
                                 d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 4.418 3.582 8 8 8v-4zm10-1.874A6 6 0 1012 2.83v4.587a.944.944 0 00-.944.943h4.587A7.966 7.966 0 0114 12h4c0-3.313-2.54-6.036-5.786-6.371L14 5.415v-2.11l6.1 1.706">
                             </path>
@@ -249,8 +246,8 @@
                 @if (session('error'))
                     <div class="flex items-center p-4 mb-4 text-sm text-red-800 border border-red-300 rounded-lg bg-red-50"
                         role="alert">
-                        <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true"
-                            xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                        <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                            fill="currentColor" viewBox="0 0 20 20">
                             <path
                                 d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
                         </svg>
@@ -278,7 +275,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <script>
-        $(function() {
+        $(function () {
 
             /* =========================
              * CREDIT COUNTER AJAX
@@ -292,8 +289,8 @@
                 success(response) {
                     $('#creditValue').text(
                         response.success ?
-                        response.credit_charged_generate :
-                        "Gagal mengambil data"
+                            response.credit_charged_generate :
+                            "Gagal mengambil data"
                     );
                 },
                 error() {
@@ -325,7 +322,7 @@
             }
 
             // Make sure clicking outside closes everything
-            $(document).on('click', function(e) {
+            $(document).on('click', function (e) {
                 // if click not inside any custom select wrapper -> close all
                 if (!$(e.target).closest('.custom-select-wrapper').length) {
                     closeAllDropdowns();
@@ -335,16 +332,16 @@
             // small util for keyboard/search behavior (will be attached per-dropdown below)
             function attachSearchHandler($searchInput, $list) {
                 let sTimeout;
-                $searchInput.on('input', function() {
+                $searchInput.on('input', function () {
                     clearTimeout(sTimeout);
                     sTimeout = setTimeout(() => {
                         const q = (this.value || '').toLowerCase();
-                        $list.find('.custom-select-item').each(function() {
+                        $list.find('.custom-select-item').each(function () {
                             const text = $(this).text().toLowerCase();
                             $(this).toggle(text.includes(q));
                         });
                         // For history which uses class .history-item
-                        $list.find('.history-item').each(function() {
+                        $list.find('.history-item').each(function () {
                             const text = $(this).text().toLowerCase();
                             $(this).toggle(text.includes(q));
                         });
@@ -355,7 +352,7 @@
             /* ==================================================
              * CHAIN SELECT (merged logic)
              * ================================================== */
-            const API_URL = 'https://be.brainys.oasys.id/api';
+            const API_URL = 'https://back.brainys.oasys.id/api';
             const sessionLevel = $("#schoolLevel").text().trim();
 
             let faseData = [];
@@ -370,7 +367,7 @@
                 const $list = $dropdown.find('.custom-select-list');
 
                 // open/close
-                $trigger.on('click', function(e) {
+                $trigger.on('click', function (e) {
                     e.preventDefault();
                     e.stopPropagation();
                     const isOpen = !$dropdown.hasClass('hidden');
@@ -393,13 +390,13 @@
             $.ajax({
                 url: API_URL + "/capaian-pembelajaran/fase",
                 method: "POST",
-                success: function(response) {
+                success: function (response) {
                     if (response.status === "success") {
                         faseData = response.data.filter(i => {
                             if (sessionLevel === "sd" || sessionLevel === "paketa") {
                                 return i.fase.includes("Fase A") || i.fase.includes("Fase B") ||
                                     i.fase
-                                    .includes("Fase C");
+                                        .includes("Fase C");
                             }
                             if (sessionLevel === "smp" || sessionLevel === "paketb") {
                                 return i.fase.includes("Fase D");
@@ -420,13 +417,13 @@
                         );
 
                         // Attach event listeners
-                        $faseList.find('.custom-select-item').on('click', function(e) {
+                        $faseList.find('.custom-select-item').on('click', function (e) {
                             const value = $(this).data('value');
                             selectFase(value);
                         });
                     }
                 },
-                error: function() {
+                error: function () {
                     $('#faseList').html(`<li class="custom-select-empty">Gagal memuat fase</li>`);
                 }
             });
@@ -445,7 +442,7 @@
                     data: JSON.stringify({
                         fase: value
                     }),
-                    success: function(response) {
+                    success: function (response) {
                         if (response.status === "success") {
                             mataData[value] = response.data;
                             const mataHtml = response.data.map(item =>
@@ -457,12 +454,12 @@
                             $('#mataBtnText').text('Select Mata Pelajaran');
                             $('#mata-pelajaran').val('');
 
-                            $('#mataList').find('.custom-select-item').on('click', function() {
+                            $('#mataList').find('.custom-select-item').on('click', function () {
                                 selectMata($(this).data('value'));
                             });
                         }
                     },
-                    error: function() {
+                    error: function () {
                         $('#mataList').html(
                             `<li class="custom-select-empty">Gagal memuat mata pelajaran</li>`);
                     }
@@ -486,7 +483,7 @@
                         fase,
                         mata_pelajaran: value
                     }),
-                    success: function(response) {
+                    success: function (response) {
                         if (response.status === "success") {
                             const elementHtml = response.data.map(item =>
                                 `<li class="custom-select-item" data-value="${item.element}">${item.element}</li>`
@@ -497,12 +494,12 @@
                             $('#elementBtnText').text('Select Element');
                             $('#element').val('');
 
-                            $('#elementList').find('.custom-select-item').on('click', function() {
+                            $('#elementList').find('.custom-select-item').on('click', function () {
                                 selectElement($(this).data('value'));
                             });
                         }
                     },
-                    error: function() {
+                    error: function () {
                         $('#elementList').html(
                             `<li class="custom-select-empty">Gagal memuat elemen</li>`);
                     }
@@ -537,11 +534,11 @@
             // skeleton & error states
             const skeletonHtml = `<li class='custom-select-empty animate-pulse'>Sedang memuat modul...</li>`;
             const errorStateHtml = `
-                <li class="text-red-600 custom-select-empty">
-                    Gagal memuat.
-                    <button id="history-retry" class="ml-1 text-blue-600 underline">Retry</button>
-                </li>
-            `;
+                    <li class="text-red-600 custom-select-empty">
+                        Gagal memuat.
+                        <button id="history-retry" class="ml-1 text-blue-600 underline">Retry</button>
+                    </li>
+                `;
 
             function fetchHistory() {
                 if (loadingHistory || loadedHistory) return;
@@ -567,14 +564,14 @@
 
                         $historyList.html(
                             items.map(i => `
-                                <li class="history-item custom-select-item" data-id="${i.id}">
-                                    ${i.name} - ${i.subject}
-                                </li>
-                            `).join("")
+                                    <li class="history-item custom-select-item" data-id="${i.id}">
+                                        ${i.name} - ${i.subject}
+                                    </li>
+                                `).join("")
                         );
 
                         // attach click
-                        $historyList.find('.history-item').on('click', function() {
+                        $historyList.find('.history-item').on('click', function () {
                             selectHistory($(this).data('id'));
                         });
                     },
@@ -595,7 +592,7 @@
             }
 
             // open history dropdown
-            $historyBtn.on('click', function(e) {
+            $historyBtn.on('click', function (e) {
                 e.stopPropagation();
                 const open = !$historyDropdown.hasClass('hidden');
 
@@ -633,7 +630,7 @@
                 topikPembelajaranInput.removeAttribute('required'); // Remove requiredx
             }
 
-            toggle.addEventListener("change", function() {
+            toggle.addEventListener("change", function () {
                 if (this.checked) {
 
                     // HIDE chain select, SHOW load modul
@@ -678,7 +675,7 @@
             /* ==================================================
              * FORM SUBMIT LOADER (merged)
              * ================================================== */
-            document.getElementById('modulAjarForm').addEventListener('submit', function(event) {
+            document.getElementById('modulAjarForm').addEventListener('submit', function (event) {
                 // show loader UI
                 $("#submitButton").hide();
                 $("#loadingButton").show();
@@ -696,7 +693,7 @@
             attachSearchHandler($('#elementSearch'), $('#elementList'));
 
             // Clear inputs helper (used by tombol "Hapus")
-            window.clearInputs = function() {
+            window.clearInputs = function () {
                 // reset form fields
                 $('#modulAjarForm')[0].reset();
                 // reset custom selects

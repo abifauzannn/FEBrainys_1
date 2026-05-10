@@ -7,8 +7,7 @@
         <div class="relative w-full mt-3 custom-select-wrapper">
             <button type="button" id="faseBtn" class="w-full custom-select-button">
                 <span id="faseBtnText" class="custom-select-text">Select Fase</span>
-                <svg class="custom-select-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                    stroke-width="2">
+                <svg class="custom-select-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <polyline points="6 9 12 15 18 9"></polyline>
                 </svg>
             </button>
@@ -31,8 +30,7 @@
         <div class="relative w-full mt-3 custom-select-wrapper">
             <button type="button" id="mataBtn" class="w-full custom-select-button" disabled>
                 <span id="mataBtnText" class="custom-select-text">Select Mata Pelajaran</span>
-                <svg class="custom-select-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                    stroke-width="2">
+                <svg class="custom-select-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <polyline points="6 9 12 15 18 9"></polyline>
                 </svg>
             </button>
@@ -56,8 +54,7 @@
         <div class="relative w-full mt-3 custom-select-wrapper">
             <button type="button" id="elementBtn" class="w-full custom-select-button" disabled>
                 <span id="elementBtnText" class="custom-select-text">Select Element</span>
-                <svg class="custom-select-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                    stroke-width="2">
+                <svg class="custom-select-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <polyline points="6 9 12 15 18 9"></polyline>
                 </svg>
             </button>
@@ -77,7 +74,7 @@
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        const API_URL = 'https://be.brainys.oasys.id/api';
+        const API_URL = 'https://back.brainys.oasys.id/api';
         const sessionLevel = $("#schoolLevel").text().trim();
 
         // Data storage
@@ -131,7 +128,7 @@
         $.ajax({
             url: API_URL + "/capaian-pembelajaran/fase",
             method: "POST",
-            success: function(response) {
+            success: function (response) {
                 if (response.status === "success") {
                     faseData = response.data.filter(i => {
                         if (sessionLevel === "sd" || sessionLevel === "paketa") {
@@ -175,7 +172,7 @@
                 data: JSON.stringify({
                     fase: value
                 }),
-                success: function(response) {
+                success: function (response) {
                     if (response.status === "success") {
                         mataData[value] = response.data;
                         const mataList = document.getElementById('mataList');
@@ -213,7 +210,7 @@
                     fase,
                     mata_pelajaran: value
                 }),
-                success: function(response) {
+                success: function (response) {
                     if (response.status === "success") {
                         const elementList = document.getElementById('elementList');
                         elementList.innerHTML = response.data.map(item =>
@@ -261,7 +258,7 @@
         const element = document.getElementById('element');
         const topik = document.getElementById('topik_pembelajaran');
 
-        toggle.addEventListener("change", function() {
+        toggle.addEventListener("change", function () {
             if (this.checked) {
                 group.style.display = "none";
 

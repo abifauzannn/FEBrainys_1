@@ -49,7 +49,9 @@
                                                             ? 'Bahan Ajar'
                                                             : ($type == 'gamification'
                                                                 ? 'Materi Gamifikasi'
-                                                                : ''))))))) }}
+                                                                : ($type == 'simulation'
+                                                                    ? 'Materi Simulasi'
+                                                                    : '')))))))) }}
                             </span>
                         </button>
 
@@ -95,6 +97,12 @@
                                 data-filter="gamification">
                                 <span class="flex w-3 h-3 me-3 bg-[#D0EC27] rounded-full"></span>Materi Gamifikasi
                             </button>
+                            {{-- SIMULASI --}}
+                            <button
+                                class="filter-btn px-4 py-2 cursor-pointer hover:bg-gray-100 inline-flex justify-start items-center w-full"
+                                data-filter="simulation">
+                                <span class="flex w-3 h-3 me-3 bg-[#F97316] rounded-full"></span>Materi Simulasi
+                            </button>
                         </div>
 
                     </form>
@@ -127,20 +135,24 @@
                                     disabled>Soal</button>
                             @elseif ($history['type'] == 'bahan-ajar')
                                 <button
-                                    class="w-auto  bg-red-100 text-red-500 px-2 py-1 rounded-full mb-3 font-bold text-xs hover:cursor-default"
+                                    class="w-auto bg-red-100 text-red-500 px-2 py-1 rounded-full mb-3 font-bold text-xs hover:cursor-default"
                                     disabled>Bahan Ajar</button>
                             @elseif ($history['type'] == 'gamification')
                                 <button
-                                    class="w-auto  bg-lime-100 text-lime-500 px-2 py-1 rounded-full mb-3 font-bold text-xs hover:cursor-default"
+                                    class="w-auto bg-lime-100 text-lime-500 px-2 py-1 rounded-full mb-3 font-bold text-xs hover:cursor-default"
                                     disabled>Gamifikasi</button>
                             @elseif ($history['type'] == 'hint')
                                 <button
-                                    class="w-auto  bg-green-50 text-green-500 px-2 py-1 rounded-full mb-3 font-bold text-xs hover:cursor-default"
+                                    class="w-auto bg-green-50 text-green-500 px-2 py-1 rounded-full mb-3 font-bold text-xs hover:cursor-default"
                                     disabled>Kisi Kisi</button>
                             @elseif ($history['type'] == 'atp')
                                 <button
-                                    class="w-auto  bg-purple-50 text-purple-900 px-2 py-1 rounded-full mb-3 font-bold text-xs hover:cursor-default"
+                                    class="w-auto bg-purple-50 text-purple-900 px-2 py-1 rounded-full mb-3 font-bold text-xs hover:cursor-default"
                                     disabled>ATP</button>
+                            @elseif ($history['type'] == 'simulation')
+                                <button
+                                    class="w-auto bg-orange-100 text-orange-500 px-2 py-1 rounded-full mb-3 font-bold text-xs hover:cursor-default"
+                                    disabled>Simulasi</button>
                             @endif
                             <div class="text-gray-900 text-xl font-semibold font-inter capitalize">{{ $history['name'] }}
                             </div>
@@ -162,9 +174,10 @@
                                 @elseif($history['type'] == 'exercise') window.location = '{{ route('detailExercise', $history['id']) }}';
                                 @elseif($history['type'] == 'gamification') window.location = '{{ route('detailGamifikasi', $history['id']) }}';
                                 @elseif($history['type'] == 'hint') window.location = '{{ route('detailKisi', $history['id']) }}';
-                                @elseif($history['type'] == 'atp') window.location = '{{ route('detailAtp', $history['id']) }}'; @endif">
+                                @elseif($history['type'] == 'atp') window.location = '{{ route('detailAtp', $history['id']) }}';
+                                @elseif($history['type'] == 'simulation') window.location = '{{ route('detailSimulasi', $history['id']) }}'; @endif">
                                 <svg class="w-4 h-4 mb-[3px]" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                    fill="none" viewBox="0 0 20 20">
+                                    fill="none" viewBox="0 0 24 24">
                                     <path stroke="currentColor" stroke-width="2"
                                         d="M21 12c0 1.2-4 6-9 6s-9-4.8-9-6c0-1.2 4-6 9-6s9 4.8 9 6Z" />
                                     <path stroke="currentColor" stroke-width="2" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
@@ -176,7 +189,12 @@
                             <form
                                 action="@if ($history['type'] == 'material') {{ route('export-word') }}
                                 @elseif ($history['type'] == 'syllabus') {{ route('export-word-syllabus') }}
-                                @elseif ($history['type'] == 'exercise') {{ route('export-essay') }} @elseif ($history['type'] == 'gamification') {{ route('export-gamifikasi-word') }} @elseif ($history['type'] == 'bahan-ajar') {{ route('export-bahan-ajar') }} @elseif ($history['type'] == 'hint') {{ route('export-kisi-kisi-word') }} @elseif ($history['type'] == 'atp') {{ route('export-atp-word') }} @endif"
+                                @elseif ($history['type'] == 'exercise') {{ route('export-essay') }}
+                                @elseif ($history['type'] == 'gamification') {{ route('export-gamifikasi-word') }}
+                                @elseif ($history['type'] == 'bahan-ajar') {{ route('export-bahan-ajar') }}
+                                @elseif ($history['type'] == 'hint') {{ route('export-kisi-kisi-word') }}
+                                @elseif ($history['type'] == 'atp') {{ route('export-atp-word') }}
+                                @elseif ($history['type'] == 'simulation') {{ route('export-simulasi-word') }} @endif"
                                 method="post">
                                 @csrf
                                 <input type="hidden" name="generate_id" value="{{ $history['id'] }}">

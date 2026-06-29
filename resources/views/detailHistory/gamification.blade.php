@@ -165,6 +165,8 @@
                 <x-export-word generateId="{{ $gamifikasiHistory['id'] }}"
                     export="{{ route('export-gamifikasi-word') }}" />
                 <x-export-ppt generateId="{{ $gamifikasiHistory['id'] }}" export="{{ route('export-gamifikasi-ppt') }}" />
+                <x-export-excel generateId="{{ $gamifikasiHistory['id'] }}"
+                    export="{{ route('export-gamifikasi-excel') }}" />
             </div>
 
 

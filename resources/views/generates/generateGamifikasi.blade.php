@@ -95,7 +95,6 @@
                     </div>
                 </div>
 
-
                 <div class="flex justify-between py-6 border-b">
                     <x-delete-button />
                     @if (session('user')['school_level'] == '')
@@ -140,6 +139,17 @@
                     </svg>
                     <p class="font-['Inter'] font-normal text-[13px] py-2 pl-1">Credit yang dibutuhkan untuk modul ini
                         <b><span id="creditValue">Loading...</span> Credit</b>
+                    </p>
+                </div>
+
+                <div class="flex flex-row items-center px-2 my-5 bg-[#ECF4FF] rounded-md">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="me-2" width="30" height="30" fill="#2F80ED"
+                        class="bi bi-exclamation-circle-fill" viewBox="0 0 16 16">
+                        <path
+                            d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4m.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2" />
+                    </svg>
+                    <p class="font-['Inter'] font-normal text-[13px] py-2 pl-1">Templat modul gamifikasi ini dikembangkan
+                        oleh Najmiah dalam penelitiannya. <a href="" class="font-bold">Pelajari Lebih Lanjut</a>
                     </p>
                 </div>
             </form>

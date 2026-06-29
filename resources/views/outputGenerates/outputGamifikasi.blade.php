@@ -172,6 +172,7 @@
             <div class="flex flex-row gap-3">
                 <x-export-word generateId="{{ $generateId }}" export="{{ route('export-gamifikasi-word') }}" />
                 <x-export-ppt generateId="{{ $generateId }}" export="{{ route('export-gamifikasi-ppt') }}" />
+                <x-export-excel generateId="{{ $generateId }}" export="{{ route('export-gamifikasi-excel') }}" />
             </div>
         </div>
 

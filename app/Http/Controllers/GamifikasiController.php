@@ -8,7 +8,8 @@ use Illuminate\Support\Facades\Http;
 
 class GamifikasiController extends Controller
 {
-    public function gamifikasi(){
+    public function gamifikasi()
+    {
         if (session()->has('user')) {
             // Ambil data pengguna dari sesi
             $userData = session('user');
@@ -42,7 +43,7 @@ class GamifikasiController extends Controller
 
             $response = Http::withToken($token)
                 ->timeout(60) // timeout in seconds (example: 60 seconds)
-                ->post(env('APP_API').'/gamification/generate', [
+                ->post(env('APP_API') . '/gamification/generate', [
                     'name' => $request->input('name'),
                     'game_scheme' => $request->input('skema'),
                     'grade' => $request->input('grade'),
@@ -85,113 +86,137 @@ class GamifikasiController extends Controller
 
 
 
-public function exportToWord(Request $request)
-{
-    // Ambil generate_id dari permintaan
-    $generateId = $request->input('generate_id');
+    public function exportToWord(Request $request)
+    {
+        // Ambil generate_id dari permintaan
+        $generateId = $request->input('generate_id');
 
-    // Buat permintaan HTTP ke API untuk mengunduh dokumen Word
-    $response = Http::withToken(session()->get('access_token'))
-                    ->post(env('APP_API').'/gamification/export-word', [
-                        'id' => $generateId
-                    ]);
+        // Buat permintaan HTTP ke API untuk mengunduh dokumen Word
+        $response = Http::withToken(session()->get('access_token'))
+            ->post(env('APP_API') . '/gamification/export-word', [
+                'id' => $generateId
+            ]);
 
-    // Periksa apakah permintaan berhasil
-    if ($response->successful()) {
-        // Ambil URL unduhan dari respons
-        $downloadUrl = $response->json()['data']['download_url'];
+        // Periksa apakah permintaan berhasil
+        if ($response->successful()) {
+            // Ambil URL unduhan dari respons
+            $downloadUrl = $response->json()['data']['download_url'];
 
-        // Arahkan pengguna ke URL unduhan
-        return redirect($downloadUrl);
-    } else {
-
-        return back()->with('error', 'Failed to export to Word.');
-    }
-}
-
-public function exportToPpt(Request $request)
-{
-    // Ambil generate_id dari permintaan
-    $generateId = $request->input('generate_id');
-
-    // Buat permintaan HTTP ke API untuk mengunduh dokumen Word
-    $response = Http::withToken(session()->get('access_token'))
-                    ->post(env('APP_API').'/gamification/export-ppt', [
-                        'id' => $generateId
-                    ]);
-
-    // Periksa apakah permintaan berhasil
-    if ($response->successful()) {
-        // Ambil URL unduhan dari respons
-        $downloadUrl = $response->json()['data']['download_url'];
-
-        // Arahkan pengguna ke URL unduhan
-        return redirect($downloadUrl);
-    } else {
-
-        return back()->with('error', 'Failed to export to Word.');
-    }
-}
-
-
-public function getDetailGamifikasi($idGamifikasi){
-    // Check if the user is authenticated
-    if (!session()->has('access_token') || !session()->has('user')) {
-        // If not authenticated, redirect to login page
-        return redirect('/login')->with('error', 'Please log in to fetch material history.');
-    }
-
-    // Use the authentication token for API request
-    $token = session()->get('access_token');
-
-    $response = Http::withToken($token)
-        ->timeout(60) // timeout dalam detik (contoh: 60 detik)
-        ->get(env('APP_API').'/gamification/history/' . $idGamifikasi);
-
-    $statusCode = $response->status();
-    $responseData = $response->json();
-
-    if ($response->successful()) {
-        // Process the API response body
-        if (isset($responseData['data']['output_data'])) {
-            $gamifikasiHistory = $responseData['data'];
-            // Load view to display material history details
-            return view('detailHistory.gamification', compact('gamifikasiHistory'));
+            // Arahkan pengguna ke URL unduhan
+            return redirect($downloadUrl);
         } else {
-            // Handle the case where the expected structure is not present in the API response
-            return redirect('/history')->with('error', $responseData['message']);
-        }
-    } else {
-        // Handle error if needed
-        if (isset($responseData['status']) && $responseData['status'] === 'failed' && isset($responseData['message'])) {
-            return redirect('/history')->with('error', $responseData['message']);
-        } else {
-           return redirect('/history')->with('error', 'Failed to fetch material history.');
+
+            return back()->with('error', 'Failed to export to Word.');
         }
     }
-}
 
+    public function exportToPpt(Request $request)
+    {
+        // Ambil generate_id dari permintaan
+        $generateId = $request->input('generate_id');
 
-public function getCreditCharges()
-{
-    $response = Http::withToken(session()->get('access_token'))
-                    ->get(env('APP_API').'/module-credit-charges/gamifikasi');
+        // Buat permintaan HTTP ke API untuk mengunduh dokumen Word
+        $response = Http::withToken(session()->get('access_token'))
+            ->post(env('APP_API') . '/gamification/export-ppt', [
+                'id' => $generateId
+            ]);
 
-    $responseData = $response->json();
+        // Periksa apakah permintaan berhasil
+        if ($response->successful()) {
+            // Ambil URL unduhan dari respons
+            $downloadUrl = $response->json()['data']['download_url'];
 
-    if ($response->successful() && isset($responseData['data'])) {
-        return response()->json([
-            'success' => true,
-            'credit_charged_generate' => $responseData['data']['credit_charged_generate']
-        ]);
-    } else {
-        return response()->json([
-            'success' => false,
-            'message' => 'Gagal mengambil data credit charges'
-        ]);
+            // Arahkan pengguna ke URL unduhan
+            return redirect($downloadUrl);
+        } else {
+
+            return back()->with('error', 'Failed to export to Word.');
+        }
     }
-}
+
+    public function exportToExcel(Request $request)
+    {
+        // Ambil generate_id dari permintaan
+        $generateId = $request->input('generate_id');
+
+        // Buat permintaan HTTP ke API untuk mengunduh dokumen Word
+        $response = Http::withToken(session()->get('access_token'))
+            ->post(env('APP_API') . '/gamification/export-excel', [
+                'id' => $generateId
+            ]);
+
+        // Periksa apakah permintaan berhasil
+        if ($response->successful()) {
+            // Ambil URL unduhan dari respons
+            $downloadUrl = $response->json()['data']['download_url'];
+
+            // Arahkan pengguna ke URL unduhan
+            return redirect($downloadUrl);
+        } else {
+
+            return back()->with('error', 'Failed to export to Word.');
+        }
+    }
 
 
 
+
+    public function getDetailGamifikasi($idGamifikasi)
+    {
+        // Check if the user is authenticated
+        if (!session()->has('access_token') || !session()->has('user')) {
+            // If not authenticated, redirect to login page
+            return redirect('/login')->with('error', 'Please log in to fetch material history.');
+        }
+
+        // Use the authentication token for API request
+        $token = session()->get('access_token');
+
+        $response = Http::withToken($token)
+            ->timeout(60) // timeout dalam detik (contoh: 60 detik)
+            ->get(env('APP_API') . '/gamification/history/' . $idGamifikasi);
+
+        $statusCode = $response->status();
+        $responseData = $response->json();
+
+        if ($response->successful()) {
+            // Process the API response body
+            if (isset($responseData['data']['output_data'])) {
+                $gamifikasiHistory = $responseData['data'];
+                // Load view to display material history details
+                return view('detailHistory.gamification', compact('gamifikasiHistory'));
+            } else {
+                // Handle the case where the expected structure is not present in the API response
+                return redirect('/history')->with('error', $responseData['message']);
+            }
+        } else {
+            // Handle error if needed
+            if (isset($responseData['status']) && $responseData['status'] === 'failed' && isset($responseData['message'])) {
+                return redirect('/history')->with('error', $responseData['message']);
+            } else {
+                return redirect('/history')->with('error', 'Failed to fetch material history.');
+            }
+        }
+    }
+
+
+    public function getCreditCharges()
+    {
+        $response = Http::withToken(session()->get('access_token'))
+            ->get(env('APP_API') . '/module-credit-charges/gamifikasi');
+
+        $responseData = $response->json();
+
+        if ($response->successful() && isset($responseData['data'])) {
+            return response()->json([
+                'success' => true,
+                'credit_charged_generate' => $responseData['data']['credit_charged_generate']
+            ]);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'Gagal mengambil data credit charges'
+            ]);
+        }
+    }
 }

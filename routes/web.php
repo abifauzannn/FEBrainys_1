@@ -10,6 +10,7 @@ use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\KisiKisiController;
 use App\Http\Controllers\ModulAjarController;
 use App\Http\Controllers\RubrikController;
+use App\Http\Controllers\SimulasiController;
 use App\Http\Controllers\SubscriptionController;
 use App\Http\Controllers\SyllabusController;
 use App\Http\Controllers\UserController;
@@ -79,6 +80,7 @@ Route::post('/export-bahan-ajar-ppt', [BahanAjarController::class, 'exportToPpt'
 Route::match(['get', 'post'], '/generate-gamifikasi', [GamifikasiController::class, 'generateGamifikasi'])->name('generateGamifikasi');
 Route::post('/export-gamifikasi-word', [GamifikasiController::class, 'exportToWord'])->name('export-gamifikasi-word');
 Route::post('/export-gamifikasi-ppt', [GamifikasiController::class, 'exportToPpt'])->name('export-gamifikasi-ppt');
+Route::post('/export-gamifikasi-excel', [GamifikasiController::class, 'exportToExcel'])->name('export-gamifikasi-excel');
 
 Route::match(['get', 'post'], '/generate-kisi-kisi', [KisiKisiController::class, 'generateKisi'])->name('generateKisi');
 Route::post('/export-kisi-kisi-word', [KisiKisiController::class, 'exportToWord'])->name('export-kisi-kisi-word');
@@ -182,6 +184,13 @@ Route::get('/get-credit-charges/bahan-ajar', [BahanAjarController::class, 'getCr
 Route::get('/get-credit-charges/gamifikasi', [GamifikasiController::class, 'getCreditCharges'])->name('get.credit.charges.gamifikasi');
 Route::get('/get-credit-charges/kisi', [KisiKisiController::class, 'getCreditCharges'])->name('get.credit.charges.kisi');
 Route::get('/get-credit-charges/atp', [AtpController::class, 'getCreditCharges'])->name('get.credit.charges.atp');
+
+// Tambahkan ini menggantikan route simulasi yang lama
+Route::match(['get', 'post'], '/generate-simulasi', [SimulasiController::class, 'generateSimulasi'])->name('generateSimulasi');
+Route::post('/export-simulasi-word', [SimulasiController::class, 'exportToWord'])->name('export-simulasi-word');
+Route::post('/export-simulasi-ppt', [SimulasiController::class, 'exportToPpt'])->name('export-simulasi-ppt');
+Route::get('/history/simulasi/{idSimulasi}', [SimulasiController::class, 'getDetailSimulasi'])->name('detailSimulasi');
+Route::get('/get-credit-charges/simulasi', [SimulasiController::class, 'getCreditCharges'])->name('get.credit.charges.simulasi');
 
 // routes/web.php
 Route::get('/user/limit', [DashboardController::class, 'getUserLimit']);

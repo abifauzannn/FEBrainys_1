@@ -58,6 +58,13 @@ return [
         'status' => 'baru',
     ],
     [
+        'url' => '/generate-simulasi',
+        'icon' => 'images/simulasi.png',
+        'title' => 'Templat Simulasi',
+        'description' => 'Gunakan templat simulasi permainan pembelajaran',
+        'status' => 'baru',
+    ],
+    [
         'url' => '',
         'icon' => 'images/surat.png',
         'title' => 'Templat Persuratan',

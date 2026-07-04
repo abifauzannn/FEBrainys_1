@@ -4,7 +4,6 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="google-site-verification" content="84zQHhyDiKJvI4Vp1oomWGcNw48_FEtc0HalOxAWWZw" />
     <meta name="author" content="Oasys Edutech Indonesia">
     <meta name="description"
         value="Brainys is an application that can help teachers / teaching staff to obtain creative ideas within the scope of administration and academic activities">

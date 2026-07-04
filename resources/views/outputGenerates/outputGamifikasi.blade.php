@@ -174,6 +174,11 @@
                 <x-export-ppt generateId="{{ $generateId }}" export="{{ route('export-gamifikasi-ppt') }}" />
                 <x-export-excel generateId="{{ $generateId }}" export="{{ route('export-gamifikasi-excel') }}" />
             </div>
+            <div class="flex flex-row gap-3 pt-2">
+                <x-export-sheet generateId="{{ $generateId }}" export="{{ route('export-gamifikasi-sheet') }}" />
+                <x-export-leaderboard generateId="{{ $generateId }}"
+                    export="{{ route('export-gamifikasi-leaderboard') }}" />
+            </div>
         </div>
 
     @endisset

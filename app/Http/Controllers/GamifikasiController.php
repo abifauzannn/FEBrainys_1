@@ -14,10 +14,6 @@ class GamifikasiController extends Controller
             // Ambil data pengguna dari sesi
             $userData = session('user');
 
-            // Panggil method getUserLimit() untuk mendapatkan data batas penggunaan
-            // $userLimit = $this->getUserLimit();
-
-            // Teruskan data pengguna dan batas penggunaan ke view
             return view('generates.generateGamifikasi', compact('userData'));
         } else {
             // Redirect ke halaman login jika kunci 'user' tidak ada dalam sesi
@@ -31,8 +27,6 @@ class GamifikasiController extends Controller
         if (!session()->has('access_token') || !session()->has('user')) {
             return redirect('/login')->with('error', 'Please log in to generate gamification.');
         }
-
-
 
         $generateId = null; // Initialize $generateId variable
         $responseMessage = null;
@@ -153,13 +147,55 @@ class GamifikasiController extends Controller
             // Arahkan pengguna ke URL unduhan
             return redirect($downloadUrl);
         } else {
-
             return back()->with('error', 'Failed to export to Word.');
         }
     }
 
+    public function exportToSheet(Request $request)
+    {
+        // Ambil generate_id dari permintaan
+        $generateId = $request->input('generate_id');
 
+        // Buat permintaan HTTP ke API untuk mengunduh dokumen Word
+        $response = Http::withToken(session()->get('access_token'))
+            ->post(env('APP_API') . '/gamification/export-excel', [
+                'id' => $generateId
+            ]);
 
+        // Periksa apakah permintaan berhasil
+        if ($response->successful()) {
+            // Ambil URL unduhan dari respons
+            $driveUrl = $response->json()['data']['drive_url'];
+
+            // Arahkan pengguna ke URL unduhan
+            return redirect($driveUrl);
+        } else {
+            return back()->with('error', 'Failed to export to Word.');
+        }
+    }
+
+    public function exportLeaderboard(Request $request)
+    {
+        // Ambil generate_id dari permintaan
+        $generateId = $request->input('generate_id');
+
+        // Buat permintaan HTTP ke API untuk mengunduh dokumen Word
+        $response = Http::withToken(session()->get('access_token'))
+            ->post(env('APP_API') . '/gamification/export-excel', [
+                'id' => $generateId
+            ]);
+
+        // Periksa apakah permintaan berhasil
+        if ($response->successful()) {
+            // Ambil URL unduhan dari respons
+            $apps_url = $response->json()['data']['apps_url'];
+
+            // Arahkan pengguna ke URL unduhan
+            return redirect()->away($apps_url);
+        } else {
+            return back()->with('error', 'Failed to export to Word.');
+        }
+    }
 
     public function getDetailGamifikasi($idGamifikasi)
     {

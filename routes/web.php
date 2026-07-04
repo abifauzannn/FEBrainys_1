@@ -81,6 +81,8 @@ Route::match(['get', 'post'], '/generate-gamifikasi', [GamifikasiController::cla
 Route::post('/export-gamifikasi-word', [GamifikasiController::class, 'exportToWord'])->name('export-gamifikasi-word');
 Route::post('/export-gamifikasi-ppt', [GamifikasiController::class, 'exportToPpt'])->name('export-gamifikasi-ppt');
 Route::post('/export-gamifikasi-excel', [GamifikasiController::class, 'exportToExcel'])->name('export-gamifikasi-excel');
+Route::post('/export-gamifikasi-sheet', [GamifikasiController::class, 'exportToSheet'])->name('export-gamifikasi-sheet');
+Route::post('/export-gamifikasi-leaderboard', [GamifikasiController::class, 'exportLeaderboard'])->name('export-gamifikasi-leaderboard');
 
 Route::match(['get', 'post'], '/generate-kisi-kisi', [KisiKisiController::class, 'generateKisi'])->name('generateKisi');
 Route::post('/export-kisi-kisi-word', [KisiKisiController::class, 'exportToWord'])->name('export-kisi-kisi-word');

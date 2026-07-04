@@ -167,6 +167,10 @@
                 <x-export-ppt generateId="{{ $gamifikasiHistory['id'] }}" export="{{ route('export-gamifikasi-ppt') }}" />
                 <x-export-excel generateId="{{ $gamifikasiHistory['id'] }}"
                     export="{{ route('export-gamifikasi-excel') }}" />
+                <x-export-sheet generateId="{{ $gamifikasiHistory['id'] }}"
+                    export="{{ route('export-gamifikasi-sheet') }}" />
+                <x-export-leaderboard generateId="{{ $gamifikasiHistory['id'] }}"
+                    export="{{ route('export-gamifikasi-leaderboard') }}" />
             </div>
 
 

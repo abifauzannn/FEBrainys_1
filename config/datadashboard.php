@@ -27,7 +27,7 @@ return [
         'icon' => 'images/bahanajar.png',
         'title' => 'Templat Bahan Ajar',
         'description' => 'Gunakan templat bahan materi pembelajaran',
-        'status' => 'baru',
+        'status' => 'old',
     ],
     [
         'url' => '/generate-gamifikasi',
@@ -41,14 +41,14 @@ return [
         'icon' => 'images/kisikisi.png',
         'title' => 'Templat Kisi Kisi Soal',
         'description' => 'Gunakan templat kisi-kisi soal dari capaian pembelajaran',
-        'status' => 'baru',
+        'status' => 'old',
     ],
     [
         'url' => '/generate-atp',
         'icon' => 'images/atp.png',
         'title' => 'Templat Alur Tujuan Pembelajaran (ATP)',
         'description' => 'Gunakan templat ATP kurikulum merdeka mengajar',
-        'status' => 'baru',
+        'status' => 'old',
     ],
     [
         'url' => '/generate-rubrik-nilai',

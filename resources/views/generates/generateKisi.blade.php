@@ -45,7 +45,7 @@
     @endif
 
     <x-page-title url="{{ route('dashboard') }}" title="Templat Kisi Kisi Soal"
-        description="Gunakan template kisi kisi soal dari capaian belajar" />
+        description="Gunakan templat kisi-kisi soal dari tujuan pembelajaran" />
 
     <div class="container flex flex-col px-3 mx-auto sm:px-10 lg:flex-row">
         <div class="w-full lg:w-[500px] flex-col justify-start items-start sm:gap-6 inline-flex h-auto">

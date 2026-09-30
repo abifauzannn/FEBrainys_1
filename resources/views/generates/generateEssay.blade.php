@@ -20,7 +20,7 @@
     @endphp
 
     <x-page-title url="{{ route('dashboard') }}" title="Templat Latihan Soal"
-        description="Gunakan templat soal kurikulum merdeka" />
+        description="Gunakan templat soal dari kisi-kisi atau tujuan pembelajaran" />
 
     <div class="container flex flex-col px-3 mx-auto sm:px-10 lg:flex-row">
         <div class="w-full lg:w-[500px] flex-col justify-start items-start sm:gap-6 inline-flex h-auto">

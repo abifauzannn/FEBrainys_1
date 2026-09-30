@@ -45,7 +45,7 @@
     @endif
 
     <x-page-title url="{{ route('dashboard') }}" title="Templat Silabus"
-        description="Gunakan template Silabus kurikulum merdeka" />
+        description="Gunakan templat silabus sesuai pendekatan pembelajaran mendalam" />
 
     <div class="container flex flex-col px-3 mx-auto sm:px-10 lg:flex-row">
         <div class="w-full lg:w-[500px] flex-col justify-start items-start sm:gap-6 inline-flex">

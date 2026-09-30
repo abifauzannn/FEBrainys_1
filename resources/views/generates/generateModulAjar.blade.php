@@ -16,7 +16,7 @@
     @endif
 
     <x-page-title url="{{ route('dashboard') }}" title="Templat Modul Ajar"
-        description="Gunakan template modul ajar kurikulum merdeka" />
+        description="Gunakan templat modul ajar sesuai pendekatan pembelajaran mendalam" />
 
 
     <div class="container flex flex-col px-3 mx-auto sm:px-10 lg:flex-row">

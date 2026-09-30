@@ -45,7 +45,7 @@
     @endif
 
     <x-page-title url="{{ route('dashboard') }}" title="Templat Alur Tujuan Pembelajaran (ATP)"
-        description="Gunakan template ATP kurikulum merdeka mengajar" />
+        description="Gunakan templat ATP sesuai pendekatan pembelajaran mendalam" />
 
     <div class="container flex flex-col px-3 mx-auto sm:px-10 lg:flex-row">
         <div class="w-full lg:w-[500px] flex-col justify-start items-start sm:gap-6 inline-flex h-auto">
